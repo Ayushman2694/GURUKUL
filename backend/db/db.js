@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const connectDB = async () => {
     try {
         await mongoose.connect('mongodb+srv://monarchsaha:monarch@mediversal.vp1xoai.mongodb.net/?');
+        
         console.log("DB connected");
     } catch (error) {
         console.error("DB connection error:", error);
