@@ -1,10 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Toggle from 'react-toggle';
 import "react-toggle/style.css";
 import md from '../assests/med.webp';
 
 const Login = () => {
   const [isEmployee, setIsEmployee] = useState(true);
+  const[data,setData] = useState({
+    id:"",
+    password:""
+  })
+
+  const onChangeHandler =(event)=>{
+    const name = event.target.name;
+    const value = event.target.value;
+    setData(data => ({ ...data, [name]: value }));
+
+  }
+
+  useEffect(()=>{
+    console.log(data)
+
+  },[data])
 
   const handleToggle = () => {
     setIsEmployee(!isEmployee);
@@ -28,11 +44,20 @@ const Login = () => {
           <hr className="mb-4"/>
           <div className="p-4 flex flex-col justify-between h-full">
             <input
+            name='id'
+            onChange={onChangeHandler}
+            value={data.id}
               type="text"
-              placeholder="Employee ID"
+              placeholder=
+              {
+                !isEmployee ? "Admin Id":"Employee Id"
+              }
               className="w-full p-2 mb-4 border rounded"
             />
             <input
+            name='password'
+            onChange={onChangeHandler}
+          value={data.password}
               type="password"
               placeholder="Password"
               className="w-full p-2 mb-4 border rounded"
