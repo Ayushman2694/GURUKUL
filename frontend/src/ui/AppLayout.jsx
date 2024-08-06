@@ -1,14 +1,26 @@
 import { Outlet } from "react-router-dom";
 import SideBar from "./SideBar";
 
+import Navbar from "./Navbar";
+import { useState } from "react";
+
 export default function AppLayout() {
+  const [sideBar, setSideBar] = useState(false);
   return (
-    <div className="flex w-full h-screen items-center justify-center">
-      <div className="w-3/12">
-        <SideBar />
+    <>
+      <div className="w-full h-screen">
+        <Navbar setSideBar={setSideBar} />
+        <div className="flex">
+          {sideBar && (
+            <div className="w-full md:w-3/12">
+              <SideBar />
+            </div>
+          )}
+          <div className="w-full">
+            <Outlet />
+          </div>
+        </div>
       </div>
-      <div className="w-9/12"></div>
-      <Outlet />
-    </div>
+    </>
   );
 }
