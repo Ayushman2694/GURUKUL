@@ -1,6 +1,6 @@
 import { message } from 'antd';
 import axios from 'axios';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Toggle from 'react-toggle';
 import "react-toggle/style.css";
