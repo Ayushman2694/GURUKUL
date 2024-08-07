@@ -12,7 +12,7 @@ export default function AppLayout() {
         <div className="flex h-full">
           {sideBar && (
             <div className="w-full h-full md:w-3/12 overflow-y-auto">
-              <SideBar />
+              <SideBar setSideBar={setSideBar} />
             </div>
           )}
           <div

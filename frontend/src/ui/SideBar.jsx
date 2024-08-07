@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import { FaHome } from "react-icons/fa";
 
 import { FaBook } from "react-icons/fa";
@@ -7,15 +9,16 @@ import SideBarItem from "./SideBarItem";
 import { CgProfile } from "react-icons/cg";
 import { useState } from "react";
 
-export default function SideBar() {
+export default function SideBar({ setSideBar }) {
   const [itemSelected, setItemSelected] = useState("dashboard");
-  console.log(itemSelected);
+
   return (
     <div className="bg-blue-700 h-full w-full border-t-2 pt-1 flex justify-center">
       <div className="w-full">
         <div
           onClick={() => {
             setItemSelected("dashboard");
+            // setSideBar(false);
           }}
         >
           <SideBarItem
@@ -28,6 +31,7 @@ export default function SideBar() {
         <div
           onClick={() => {
             setItemSelected("profile");
+            // setSideBar(false);
           }}
         >
           <SideBarItem
@@ -40,6 +44,7 @@ export default function SideBar() {
         <div
           onClick={() => {
             setItemSelected("courses");
+            // setSideBar(false);
           }}
         >
           <SideBarItem
@@ -52,6 +57,7 @@ export default function SideBar() {
         <div
           onClick={() => {
             setItemSelected("settings");
+            // setSideBar(false);
           }}
         >
           <SideBarItem
