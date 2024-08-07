@@ -11,7 +11,7 @@ const Login = () => {
   const url = "http://localhost:6300";
   const [isEmployee, setIsEmployee] = useState(true);
   const [data, setData] = useState({
-      userName: "",
+      empId: "",
       password: ""
   });
 
@@ -62,9 +62,9 @@ const Login = () => {
                   <hr className="mb-4" />
                   <form onSubmit={onLogin} className="p-4 flex flex-col justify-between h-full">
                       <input
-                          name='userName'
+                          name='empId'
                           onChange={onChangeHandler}
-                          value={data.userName}
+                          value={data.empId}
                           type="text"
                           placeholder={!isEmployee ? "Admin Id" : "Employee Id"}
                           className="w-full p-2 mb-4 border rounded"
