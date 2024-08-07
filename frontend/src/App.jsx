@@ -6,32 +6,28 @@ import EmployeeInfo from "./pages/Employee_Info";
 import Courses from "./pages/Courses";
 import Settings from "./pages/Settings";
 import PrivateRoute from "./component/PrivateRoute";
-import Course from './pages/Course'
+import Course from "./pages/Course";
 
 export default function App() {
   return (
     <BrowserRouter>
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route
-        path="*"
-        element={
-          <PrivateRoute>
-            <AppLayout>
-              <Routes>
-                <Route path="/" element={<Navigate to="/dashboard" />} />
-                <Route path="dashboard" element={<Dashboard />} />
-                <Route path="profile" element={<EmployeeInfo />} />
-                <Route path="course" element={<Course/>}/>
-                <Route path="courses" element={<Courses />} />
-                <Route path="settings" element={<Settings />} />
-              </Routes>
-            </AppLayout>
-          </PrivateRoute>
-        }
-      />
-    </Routes>
-  </BrowserRouter>
-
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route
+          element={
+            <PrivateRoute>
+              <AppLayout />
+            </PrivateRoute>
+          }
+        >
+          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="profile" element={<EmployeeInfo />} />
+          <Route path="course" element={<Course />} />
+          <Route path="courses" element={<Courses />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }

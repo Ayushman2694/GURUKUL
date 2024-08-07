@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+
 import CourseThumbnail from "../ui/CourseThumbnail";
-import ProgressBar from "../ui/ProgressBar";
+
 import { useNavigate } from "react-router-dom";
 
 export default function Courses() {
