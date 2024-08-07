@@ -6,6 +6,7 @@ import EmployeeInfo from "./pages/Employee_Info";
 import Courses from "./pages/Courses";
 import Settings from "./pages/Settings";
 import PrivateRoute from "./component/PrivateRoute";
+import Course from './pages/Course'
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
                 <Route path="/" element={<Navigate to="/dashboard" />} />
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="profile" element={<EmployeeInfo />} />
+                <Route path="course" element={<Course/>}/>
                 <Route path="courses" element={<Courses />} />
                 <Route path="settings" element={<Settings />} />
               </Routes>
