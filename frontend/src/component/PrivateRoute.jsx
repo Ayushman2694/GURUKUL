@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -13,11 +14,14 @@ const PrivateRoute = ({ children }) => {
         if (!token) {
           setIsAuthenticated(false);
         } else {
-          const response = await axios.get("http://localhost:6300/api/auth/verifyToken", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+          const response = await axios.get(
+            "http://localhost:6300/api/auth/verifyToken",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
           setIsAuthenticated(response.data.success);
         }
       } catch (error) {
