@@ -1,19 +1,31 @@
 
 import User from "../models/user.model.js";
+import jwt from "jsonwebtoken";
 // import generateTokenandSetCookie from "../utils/generateToken.js";
+const createToken =(id)=>{
+    return jwt.sign({id},process.env.JWT_SECRET || 'default_secret',{expiresIn: '3d'})
+}
 
 export const login =async (req,res)=>{
     
     try {
-        const {userName,password} =req.body;
-        const user = await User.findOne({userName});
+        const {empId,password} =req.body;
+        const emp = await User.findOne({empId});
             
-        if(!user){
-            res.status(400).json({error:"user not found"})
+        if(!emp){
+            res.status(400).json({error:"employee not found"})
         }
         else{
-            if(password === user.password){
-                res.status(200).json({message:"logged in"})
+            if(password === emp.password){
+                res.status(200).json(
+                    {
+                    empId:emp.empId,
+                    empName:emp.employeeName,
+                    department:emp.department,
+                    designation:emp.designation,
+                    joiningDate:emp.createdAt
+                })
+                
             }
             else{
                 res.status(400).json({error:"invalid password"})
@@ -22,6 +34,8 @@ export const login =async (req,res)=>{
         }
 
         // generateTokenandSetCookie(user._id,res);
+        const token = createToken(user._id);
+        res.status(200).json({success:true,token})
        
     } catch (error) {
         console.log("Error in login controller",error.message);
