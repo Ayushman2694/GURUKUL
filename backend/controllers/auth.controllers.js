@@ -1,7 +1,10 @@
 
 import User from "../models/user.model.js";
-
+import jwt from "jsonwebtoken";
 // import generateTokenandSetCookie from "../utils/generateToken.js";
+const createToken =(id)=>{
+    return jwt.sign({id},process.env.JWT_SECRET || 'default_secret',{expiresIn: '3d'})
+}
 
 export const login =async (req,res)=>{
     
@@ -31,6 +34,8 @@ export const login =async (req,res)=>{
         }
 
         // generateTokenandSetCookie(user._id,res);
+        const token = createToken(user._id);
+        res.status(200).json({success:true,token})
        
     } catch (error) {
         console.log("Error in login controller",error.message);
