@@ -1,3 +1,7 @@
+import { employeInfo } from "../services/employe_info";
+
+employeInfo();
+
 export default function EmployeeInfo() {
   return (
     <div className="flex w-full h-screen">

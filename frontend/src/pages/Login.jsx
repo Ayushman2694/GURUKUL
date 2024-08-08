@@ -5,44 +5,37 @@ import { useNavigate } from "react-router-dom";
 import Toggle from "react-toggle";
 import "react-toggle/style.css";
 import md from "../assests/med.webp";
+import { url } from "../services/Url";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
   const navigate = useNavigate();
-  const url = "http://localhost:6300";
+  const { register, handleSubmit } = useForm();
   const [isEmployee, setIsEmployee] = useState(true);
-  const [data, setData] = useState({
-    empId: "MHPL0481",
-    password: "123",
-  });
-
-  const onChangeHandler = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const onLogin = async (event) => {
-    event.preventDefault();
-    let newUrl = isEmployee ? `${url}/api/auth/login` : `${url}/api/auth/admin`;
-
-    try {
-      const res = await axios.post(newUrl, data);
-      if (res.status === 200) {
-        message.success("Login Successfully");
-        localStorage.setItem("token", res.data.token); // Store token in localStorage
-        navigate("/dashboard");
-      } else {
-        message.error(res.data.error || "Login failed");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      message.error("An error occurred. Please try again.");
-    }
-  };
 
   const handleToggle = () => {
     setIsEmployee((prevState) => !prevState);
   };
+
+  function onSubmit(data) {
+    let newUrl = isEmployee ? `${url}/api/auth/login` : `${url}/api/auth/admin`;
+
+    axios
+      .post(newUrl, data)
+      .then((res) => {
+        if (res.status === 200) {
+          message.success("Login Successfully");
+          localStorage.setItem("token", res.data.token); // Store token in localStorage
+          navigate("/dashboard");
+        } else {
+          message.error(res.data.error || "Login failed");
+        }
+      })
+      .catch((error) => {
+        console.error("Login error:", error);
+        message.error("An error occurred. Please try again.");
+      });
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -77,24 +70,28 @@ const Login = () => {
           </div>
           <hr className="mb-4" />
           <form
-            onSubmit={onLogin}
+            onSubmit={handleSubmit(onSubmit)}
             className="p-4 flex flex-col justify-between h-full"
           >
             <input
               name="empId"
-              onChange={onChangeHandler}
-              value={data.empId}
+              id="empId"
               type="text"
               placeholder={!isEmployee ? "Admin Id" : "Employee Id"}
               className="w-full p-2 mb-4 border rounded"
+              {...register("empId", {
+                required: "This field is required",
+              })}
             />
             <input
               name="password"
-              onChange={onChangeHandler}
-              value={data.password}
+              id="password"
               type="password"
               placeholder="Password"
               className="w-full p-2 mb-4 border rounded"
+              {...register("password", {
+                required: "This field is required",
+              })}
             />
             <button
               type="submit"
