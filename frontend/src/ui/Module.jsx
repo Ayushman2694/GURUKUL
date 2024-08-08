@@ -11,8 +11,6 @@ const Module = ({ videos, moduleName }) => {
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
-  console.log(videos);
-
   return (
     <div className="w-full">
       <button onClick={toggleDropdown} className="w-full  border-b-2">

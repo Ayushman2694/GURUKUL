@@ -8,7 +8,7 @@ export default function SideBarItem({ icon, title, link, itemSelected }) {
   return (
     <Link to={link}>
       <div
-        className={`flex justify-center items-center text-xl font-bold py-2 mx-2 my-1 rounded-md ${
+        className={`flex justify-center items-center text-xl font-bold py-2 mx-2 my-1 rounded-md hover:scale-90 ${
           itemSelected
             ? "bg-stone-800 text-blue-300"
             : "bg-slate-50 text-blue-600"
