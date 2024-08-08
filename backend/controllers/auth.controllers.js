@@ -56,3 +56,32 @@ export const verifyToken = (req, res) => {
         return res.status(401).json({ success: false, message: "Invalid token" });
     }
 };
+
+
+export const getUserInfo = async (req, res) => {
+    try {
+        const empId = req.body.empId;
+        const employee = await Employee.findOne({ empId });
+
+        if (!employee) {
+            return res.status(404).json({ error: "Employee not found" });
+        }
+
+        // Return the employee information
+        return res.status(200).json({
+            success: true,
+            employee: {
+                empId: employee.empId,
+                employeeName: employee.employeeName,
+                department: employee.department,
+                designation: employee.designation,
+                joiningDate: employee.createdAt,
+                reportingManager: employee.reportingManager || "N/A",
+            }
+        });
+
+    } catch (error) {
+        console.log("Error fetching user info", error.message);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+};
