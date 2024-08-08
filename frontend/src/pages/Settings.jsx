@@ -13,13 +13,14 @@ export default function Settings() {
   } = useForm();
 
   function onSubmit(data) {
-    console.log(data);
+    
 
     if (data.newPassword != data.confirmPassword) {
       toast.error("Password does not match!");
     } else if (data.newPassword === data.confirmPassword) {
       toast.success("Password changed successfully");
     }
+    
   }
 
   return (
@@ -41,7 +42,7 @@ export default function Settings() {
               {...register("currentPassword", {
                 required: "This field is required",
                 minLength: {
-                  value: 3,
+                  value: 8,
                   message: "min 8 characters",
                 },
               })}
