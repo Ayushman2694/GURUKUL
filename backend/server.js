@@ -16,6 +16,7 @@ app.use(cors());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/auth/verifyToken',authRoutes)
+app.use('/api/auth/me',authRoutes)
 
 
 app.listen(port, () => {
