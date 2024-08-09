@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
-import { changePassword } from "../services/employe_info";
 import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
 import { Logout } from "../services/Login";
 import { useNavigate } from "react-router-dom";
 import { useChangePassword } from "../component/auth/useChangePassword";
+import SpinnerMini from "../ui/SpinnerMini";
 
 
 
@@ -34,19 +34,17 @@ export default function Settings() {
       ) {
         changePassword(
           {
-            empId: "MHPL0481",
+            empId: employe_info.empId,
             oldPassword: data.currentPassword,
             newPassword: data.newPassword,
           },
           {
             onSuccess: () => {
               navigate("/login");
+              Logout();
             },
           }
         );
-        toast.success("Password Changed Successfully");
-        Logout();
-        navigate("/login");
       } else {
         toast.error("Incorrect Current Password");
       }
@@ -70,11 +68,12 @@ export default function Settings() {
             <input
               type="password"
               id="currentPassword"
+              disabled={isLoading}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               {...register("currentPassword", {
                 required: "This field is required",
                 minLength: {
-                  value: 3,
+                  value: 8,
                   message: "min 8 characters",
                 },
               })}
@@ -95,6 +94,7 @@ export default function Settings() {
             <input
               type="password"
               id="newPassword"
+              disabled={isLoading}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               {...register("newPassword", {
                 required: "This field is required",
@@ -120,6 +120,7 @@ export default function Settings() {
             <input
               type="password"
               id="confirmPassword"
+              disabled={isLoading}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               {...register("confirmPassword", {
                 required: "This field is required",
@@ -139,8 +140,9 @@ export default function Settings() {
             <button
               type="submit"
               className="bg-blue-600 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              disabled={isLoading}
             >
-              Submit
+              {isLoading ? <SpinnerMini /> : "Change Password"}
             </button>
           </div>
         </form>

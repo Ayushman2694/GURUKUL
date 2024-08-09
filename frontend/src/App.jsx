@@ -1,7 +1,9 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import Quiz from "./pages/Quiz";
+import { ToastContainer } from "react-toastify";
+import { Toaster } from "react-hot-toast";
+
 import AppLayout from "./ui/AppLayout";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -10,8 +12,6 @@ import Courses from "./pages/Courses";
 import Settings from "./pages/Settings";
 import PrivateRoute from "./ui/PrivateRoute";
 import Course from "./pages/Course";
-import { ToastContainer } from "react-toastify";
-import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,8 +40,9 @@ export default function App() {
             <Route path="profile" element={<EmployeeInfo />} />
             <Route path="course" element={<Course />} />
             <Route path="courses" element={<Courses />} />
-            <Route path="quiz" element={<Quiz />} />
             <Route path="settings" element={<Settings />} />
+              
+              
           </Route>
         </Routes>
         <ToastContainer
@@ -54,16 +55,17 @@ export default function App() {
           pauseOnFocusLoss
           draggable
           pauseOnHover
+          closeButton={false}
           style={{
             fontSize: "16px",
-            maxWidth: "500px",
+            maxWidth: "1000px",
             margin: "0 50px",
             padding: "16px 24px",
             backgroundColor: "var(--color-grey-0)",
             color: "black",
           }}
           toastStyle={{
-            backgroundColor: "var(--color-grey-0)",
+            backgroundColor: "white",
             color: "black",
             padding: "16px 24px",
           }}
@@ -77,10 +79,10 @@ export default function App() {
             duration: 5000, // Matches autoClose duration
             style: {
               fontSize: "16px",
-              maxWidth: "500px",
+              maxWidth: "700px",
               margin: "0 50px",
               padding: "16px 24px",
-              backgroundColor: "var(--color-grey-0)",
+              backgroundColor: "white",
               color: "black",
             },
             success: {

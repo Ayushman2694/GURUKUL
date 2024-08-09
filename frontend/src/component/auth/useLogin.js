@@ -8,13 +8,9 @@ export function useLogin() {
     mutationFn: (data) => loginApi(data),
 
     onSuccess: (data) => {
-      console.log(data);
-
-      // Navigate to the dashboard
-      toast.success("Login Successfully");
+      toast.success("User Login Successfully");
     },
     onError: (err) => {
-      console.log("ERROR", err);
       toast.error("Provided employee ID or password are incorrect");
     },
   });
