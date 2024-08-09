@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 import { useForm } from "react-hook-form";
 
 
 
-export default function Settings() {
+export default function AdminSignup() {
   const {
     register,
     handleSubmit,
@@ -17,82 +16,75 @@ export default function Settings() {
   function onSubmit(data) {
     console.log(data);
 
-    if (data.newPassword != data.confirmPassword) {
-      toast.error("Password does not match!");
-    } else if (data.newPassword === data.confirmPassword) {
-      toast.success("Password changed successfully");
-    }
-
-    reset();
+    //  toast.success("Admin added successfully")
+     reset();
   }
 
   return (
     <div className="h-full w-full flex items-center justify-center bg-gray-200 pb-20">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-        <h2 className="text-2xl font-bold mb-6 text-center">Change Password</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Add new admin</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="currentPassword"
+              htmlFor="name"
             >
-              Current Password
+              Name
             </label>
             <input
-              type="password"
-              id="currentPassword"
+              type="text"
+              id="name"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              {...register("currentPassword", {
+              {...register("name", {
                 required: "This field is required",
-                minLength: {
-                  value: 8,
-                  message: "min 8 characters",
-                },
+                
               })}
             />
-            {errors.currentPassword && (
+            {errors.name && (
               <span className="text-red-500 text-sm">
-                {errors.currentPassword.message}
+                {errors.name.message}
               </span>
             )}
           </div>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="newPassword"
+              htmlFor="email"
             >
-              New Password
+              Email
             </label>
             <input
-              type="password"
-              id="newPassword"
+              type="email"
+              id="email"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              {...register("newPassword", {
+              {...register("email", {
                 required: "This field is required",
-                minLength: {
-                  value: 8,
-                  message: "min 8 characters",
-                },
+                pattern: {
+                    value: /@/,
+                    message: "Please enter a valid email address",
+                  },
+                
               })}
             />
-            {errors.newPassword && (
+            {errors.email && (
               <span className="text-red-500 text-sm">
-                {errors.newPassword.message}
+                {errors.email.message}
               </span>
             )}
           </div>
           <div className="mb-6">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="confirmPassword"
+              htmlFor="password"
             >
-              Confirm New Password
+              Password
             </label>
             <input
               type="password"
-              id="confirmPassword"
+              id="password"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              {...register("confirmPassword", {
+              {...register("password", {
                 required: "This field is required",
                 minLength: {
                   value: 8,
@@ -100,9 +92,9 @@ export default function Settings() {
                 },
               })}
             />
-            {errors.confirmPassword && (
+            {errors.password && (
               <span className="text-red-500 text-sm">
-                {errors.confirmPassword.message}
+                {errors.password.message}
               </span>
             )}
           </div>
@@ -115,7 +107,7 @@ export default function Settings() {
             </button>
           </div>
         </form>
-        <ToastContainer />
+        
       </div>
     </div>
   );

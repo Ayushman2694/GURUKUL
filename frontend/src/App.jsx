@@ -7,6 +7,12 @@ import Courses from "./pages/Courses";
 import Settings from "./pages/Settings";
 import PrivateRoute from "./component/PrivateRoute";
 import Course from "./pages/Course";
+import Quiz from "./pages/Quiz";
+import NotFound from "./pages/NotFound";
+import AdminSignup from "./pages/AdminSignup";
+import EmployeeSignup from "./pages/EmployeeSignup";
+
+
 
 export default function App() {
   return (
@@ -26,8 +32,13 @@ export default function App() {
           <Route path="course" element={<Course />} />
           <Route path="courses" element={<Courses />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="*" element={<NotFound />} />
+          <Route path="quiz" element={<Quiz />} />
+          <Route path="adminsignup" element={<AdminSignup />} />
+          <Route path="empsignup" element={<EmployeeSignup />} />
         </Route>
       </Routes>
+      
     </BrowserRouter>
   );
 }

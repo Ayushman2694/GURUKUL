@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const connectDB = async () => {
     try {
-        await mongoose.connect('mongodb+srv://monarchsaha:monarch@mediversal.vp1xoai.mongodb.net/GurukulDB');
+        await mongoose.connect('mongodb+srv://monarch:d6VqAd6xf9ON2GMi@mediversal.vp1xoai.mongodb.net/GurukulDB');
         
         console.log("DB connected");
     } catch (error) {
