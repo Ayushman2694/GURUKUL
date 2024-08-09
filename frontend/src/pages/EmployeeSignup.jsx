@@ -2,6 +2,7 @@
 import React from "react";
 
 import { useForm } from "react-hook-form";
+import FormError from "../ui/FormError";
 
 export default function EmployeeSignup() {
   const {
@@ -19,9 +20,11 @@ export default function EmployeeSignup() {
   }
 
   return (
-    <div className="h-full w-full flex items-center justify-center bg-gray-200 pb-20">
+    <div className="h-full w-full flex items-center justify-center bg-gray-200 pb-20 overflow-y-auto">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-        <h2 className="text-2xl font-bold mb-6 text-center">Add New Employee</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">
+          Add New Employee
+        </h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label
@@ -38,13 +41,9 @@ export default function EmployeeSignup() {
                 required: "This field is required",
               })}
             />
-            {errors.empid && (
-              <span className="text-red-500 text-sm">
-                {errors.empid.message}
-              </span>
-            )}
+            {errors.empid && <FormError error={errors.empid.message} />}
           </div>
-          
+
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -60,11 +59,7 @@ export default function EmployeeSignup() {
                 required: "This field is required",
               })}
             />
-            {errors.name && (
-              <span className="text-red-500 text-sm">
-                {errors.name.message}
-              </span>
-            )}
+            {errors.name && <FormError error={errors.name.message} />}
           </div>
 
           <div className="mb-4">
@@ -83,9 +78,7 @@ export default function EmployeeSignup() {
               })}
             />
             {errors.department && (
-              <span className="text-red-500 text-sm">
-                {errors.department.message}
-              </span>
+              <FormError error={errors.department.message} />
             )}
           </div>
 
@@ -105,9 +98,7 @@ export default function EmployeeSignup() {
               })}
             />
             {errors.designation && (
-              <span className="text-red-500 text-sm">
-                {errors.designation.message}
-              </span>
+              <FormError error={errors.designation.message} />
             )}
           </div>
 
@@ -127,9 +118,7 @@ export default function EmployeeSignup() {
               })}
             />
             {errors.joiningDate && (
-              <span className="text-red-500 text-sm">
-                {errors.joiningDate.message}
-              </span>
+              <FormError error={errors.joiningDate.message} />
             )}
           </div>
 
@@ -152,11 +141,7 @@ export default function EmployeeSignup() {
                 },
               })}
             />
-            {errors.password && (
-              <span className="text-red-500 text-sm">
-                {errors.password.message}
-              </span>
-            )}
+            {errors.password && <FormError error={errors.password.message} />}
           </div>
 
           <div className="flex items-center justify-center">
@@ -168,7 +153,6 @@ export default function EmployeeSignup() {
             </button>
           </div>
         </form>
-        
       </div>
     </div>
   );

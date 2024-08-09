@@ -12,6 +12,10 @@ import Courses from "./pages/Courses";
 import Settings from "./pages/Settings";
 import PrivateRoute from "./ui/PrivateRoute";
 import Course from "./pages/Course";
+import Quiz from "./pages/Quiz";
+import AdminSignup from "./pages/AdminSignup";
+import EmployeeSignup from "./pages/EmployeeSignup";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,6 +32,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
           <Route
             element={
               <PrivateRoute>
@@ -41,8 +46,9 @@ export default function App() {
             <Route path="course" element={<Course />} />
             <Route path="courses" element={<Courses />} />
             <Route path="settings" element={<Settings />} />
-              
-              
+            <Route path="quiz" element={<Quiz />} />
+            <Route path="adminSignUp" element={<AdminSignup />} />
+            <Route path="employeeSignUp" element={<EmployeeSignup />} />
           </Route>
         </Routes>
         <ToastContainer

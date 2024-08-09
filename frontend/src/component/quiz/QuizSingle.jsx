@@ -1,72 +1,8 @@
-// import React, { useState } from 'react';
-
-// export default function QuizSingle() {
-//   const [selectedOption, setSelectedOption] = useState('');
-
-//   const handleOptionChange = (event) => {
-//     const selectedValue = event.target.value;
-//     setSelectedOption(selectedValue);
-//     console.log(selectedValue)
-//     // Perform any other actions needed when an option is selected
-//   };
-
-//   return (
-//     <div className="w-full m-2 border bg-gray-200 rounded-md">
-//       <label className="block text-gray-700 text-sm font-bold mb-2">
-//         Question 1: What does the term "overfitting" refer to in machine learning?
-//       </label>
-
-//       <div className="mb-2">
-//         <label className="inline-flex items-center">
-//           <input
-//             type="radio"
-//             value="opt1"
-//             checked={selectedOption === 'opt1'}
-//             onChange={handleOptionChange}
-//             className="form-radio"
-//           />
-//           <span className="ml-2">A model that performs well on training data but poorly on new data</span>
-//         </label>
-//       </div>
-
-//       <div className="mb-2">
-//         <label className="inline-flex items-center">
-//           <input
-//             type="radio"
-//             value="opt2"
-//             checked={selectedOption === 'opt2'}
-//             onChange={handleOptionChange}
-//             className="form-radio"
-//           />
-//           <span className="ml-2">A model that performs poorly on both training and new data</span>
-//         </label>
-//       </div>
-
-//       <div className="mb-2">
-//         <label className="inline-flex items-center">
-//           <input
-//             type="radio"
-//             value="opt3"
-//             checked={selectedOption === 'opt3'}
-//             onChange={handleOptionChange}
-//             className="form-radio"
-//           />
-//           <span className="ml-2">A model that performs well on new data but poorly on training data</span>
-//         </label>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-import React, { useState } from 'react';
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 
 export default function QuizSingle({ questionId, onChange }) {
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState("");
 
   const handleOptionChange = (event) => {
     const selectedValue = event.target.value;
@@ -77,7 +13,8 @@ export default function QuizSingle({ questionId, onChange }) {
   return (
     <div className="w-full m-2 p-2 border bg-gray-200 rounded-md">
       <label className="block text-gray-700 text-sm font-bold mb-2">
-        Question {questionId}: What does the term "overfitting" refer to in machine learning?
+        Question {questionId}: What does the term overfitting refer to in
+        machine learning?
       </label>
 
       <div className="mb-2">
@@ -85,11 +22,13 @@ export default function QuizSingle({ questionId, onChange }) {
           <input
             type="radio"
             value="opt1"
-            checked={selectedOption === 'opt1'}
+            checked={selectedOption === "opt1"}
             onChange={handleOptionChange}
             className="form-radio"
           />
-          <span className="ml-2">A model that performs well on training data but poorly on new data</span>
+          <span className="ml-2">
+            A model that performs well on training data but poorly on new data
+          </span>
         </label>
       </div>
 
@@ -98,11 +37,13 @@ export default function QuizSingle({ questionId, onChange }) {
           <input
             type="radio"
             value="opt2"
-            checked={selectedOption === 'opt2'}
+            checked={selectedOption === "opt2"}
             onChange={handleOptionChange}
             className="form-radio"
           />
-          <span className="ml-2">A model that performs poorly on both training and new data</span>
+          <span className="ml-2">
+            A model that performs poorly on both training and new data
+          </span>
         </label>
       </div>
 
@@ -111,11 +52,13 @@ export default function QuizSingle({ questionId, onChange }) {
           <input
             type="radio"
             value="opt3"
-            checked={selectedOption === 'opt3'}
+            checked={selectedOption === "opt3"}
             onChange={handleOptionChange}
             className="form-radio"
           />
-          <span className="ml-2">A model that performs well on new data but poorly on training data</span>
+          <span className="ml-2">
+            A model that performs well on new data but poorly on training data
+          </span>
         </label>
       </div>
     </div>
