@@ -3,13 +3,20 @@
 import OnGoingCourseCard from "../ui/OnGoingCourseCard";
 import CourseThumbnail from "../ui/CourseThumbnail";
 import DashboardCard from "../ui/DashboardCard";
+import { useState } from "react";
+import Spinner from "../ui/Spinner";
+import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
 
 export default function Dashboard() {
+  const [token] = useState(localStorage.getItem("token"));
+  const { isLoading, employe_info } = useEmployeeInfo(token);
+  if (isLoading) return <Spinner />;
+
   return (
     <div className="p-8 bg-white min-h-screen">
       <div className="flex flex-row">
         <h1 className="text-4xl w-1/2 font-bold mb-4">Dashboard</h1>
-        <p className="text-xl  mb-4 pt-2 font-medium">Emp Id</p>
+        <p className="text-xl  mb-4 pt-2 font-medium"> {employe_info.empId}</p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mb-8">
         <DashboardCard

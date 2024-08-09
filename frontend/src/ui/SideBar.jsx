@@ -9,16 +9,11 @@ import SideBarItem from "./SideBarItem";
 import { CgProfile } from "react-icons/cg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Logout } from "../services/Login";
 
 export default function SideBar({ setSideBar }) {
   const [itemSelected, setItemSelected] = useState("dashboard");
-  const navigate = useNavigate()
-  const logOut=()=>{
-    localStorage.removeItem("token");
-  
-    navigate("/login")
-
-  }
+  const navigate = useNavigate();
 
   return (
     <div className="bg-blue-700 h-full w-full border-t-2 pt-1 flex justify-center">
@@ -75,11 +70,15 @@ export default function SideBar({ setSideBar }) {
             itemSelected={itemSelected === "settings"}
           />
         </div>
-       
-   <div onClick={logOut}>
 
-        <SideBarItem icon={<IoIosLogOut />} title="Logout" />
-       </div>
+        <div
+          onClick={() => {
+            Logout;
+            navigate("/login");
+          }}
+        >
+          <SideBarItem icon={<IoIosLogOut />} title="Logout" />
+        </div>
       </div>
     </div>
   );

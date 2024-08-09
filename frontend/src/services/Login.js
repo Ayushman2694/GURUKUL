@@ -1,25 +1,42 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { url } from "./Url";
 
-export async function employeInfo() {
-  const Url = `${url}/api/auth/login`; // Replace with your actual endpoint
+export async function login(data) {
+  let newUrl = `${url}/api/auth/login`;
 
-  try {
-    const response = await axios.get(Url);
-    confirm.log(response);
-    if (response.status === 200) {
-      console.log("Employee information fetched successfully:", response.data);
-      console.log(response.data);
-      return response.data; // You can return the data if needed
-    } else {
-      console.error(
-        "Failed to fetch employee information:",
-        response.data.error
-      );
-      return null; // Return null or handle the error as needed
-    }
-  } catch (error) {
-    console.error("Error fetching employee information:", error);
-    return null; // Return null or handle the error as needed
-  }
+  const info = await axios
+    .post(newUrl, data)
+    .then((res) => {
+      if (res.status === 200) {
+        localStorage.setItem("token", res.data.token); // Store token in localStorage
+        return data;
+      }
+    })
+    .catch((error) => {
+      console.error("Login error:", error);
+    });
+}
+
+export async function Adminlogin(data) {
+  let newUrl = `${url}/api/auth/admin`;
+
+  const info = await axios
+    .post(newUrl, data)
+    .then((res) => {
+      if (res.status === 200) {
+        localStorage.setItem("token", res.data.token); // Store token in localStorage
+        console.log(data);
+        return data;
+      }
+    })
+    .catch((error) => {
+      console.error("Login error:", error);
+    });
+}
+
+export async function Logout() {
+  const logOut = () => {
+    localStorage.removeItem("token");
+  };
 }

@@ -1,11 +1,20 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
+import { changePassword } from "../services/employe_info";
+import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
+import { Logout } from "../services/Login";
+import { useNavigate } from "react-router-dom";
+import { useChangePassword } from "../component/auth/useChangePassword";
 
 export default function Settings() {
+  const [token] = useState(localStorage.getItem("token"));
+  const { employe_info } = useEmployeeInfo(token);
+  const { changePassword, isLoading } = useChangePassword();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -13,12 +22,31 @@ export default function Settings() {
   } = useForm();
 
   function onSubmit(data) {
-    console.log(data);
-
     if (data.newPassword != data.confirmPassword) {
       toast.error("Password does not match!");
-    } else if (data.newPassword === data.confirmPassword) {
-      toast.success("Password changed successfully");
+    } else {
+      if (
+        data.newPassword === data.confirmPassword &&
+        employe_info.password === data.currentPassword
+      ) {
+        changePassword(
+          {
+            empId: "MHPL0481",
+            oldPassword: data.currentPassword,
+            newPassword: data.newPassword,
+          },
+          {
+            onSuccess: () => {
+              navigate("/login");
+            },
+          }
+        );
+        toast.success("Password Changed Successfully");
+        Logout();
+        navigate("/login");
+      } else {
+        toast.error("Incorrect Current Password");
+      }
     }
   }
 
@@ -111,7 +139,6 @@ export default function Settings() {
             </button>
           </div>
         </form>
-        <ToastContainer />
       </div>
     </div>
   );
