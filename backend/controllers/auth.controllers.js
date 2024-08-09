@@ -76,3 +76,19 @@ export const getUserInfo = async (req, res) => {
     return res.status(401).json({ success: false, message: "Unauthorized" });
   }
 };
+
+
+export const createEmploye = async (req,res)=>{ const {employeeName,empId,designation,department,password,joiningDate} =req.body 
+try{ console.log("Create Employe Body",req.body) 
+if(!employeeName || !empId || !designation || !department || !password || !joiningDate){ console.log("Field Missing",{employeeName,empId,designation,department,password,joiningDate}); 
+return res.status(400).json({ success: false, message: 'All fields are required' });
+ }
+ const exists = await Employee.findOne({ empId }); if (exists) { return res.status(400).json({ success: false, message: 'User already exists' }); } if (password.length < 8) { return res.status(400).json({ success: false, message: 'Please enter a strong password' }); } 
+ const newEmployee = new Employee({ employeeName, empId, designation, department, password, joiningDate }) 
+ await newEmployee.save() 
+ res.status(201).json({ success: true,message:"Employee Created successfully" }); 
+}
+catch (error)
+ { console.error(error); res.status(500).json({ success: false, message: error.message });
+ } 
+}
