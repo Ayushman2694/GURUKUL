@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { useChangePassword } from "../component/auth/useChangePassword";
 import SpinnerMini from "../ui/SpinnerMini";
 
+
+
 export default function Settings() {
   const [token] = useState(localStorage.getItem("token"));
   const { employe_info } = useEmployeeInfo(token);
@@ -19,6 +21,7 @@ export default function Settings() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   function onSubmit(data) {
@@ -46,6 +49,8 @@ export default function Settings() {
         toast.error("Incorrect Current Password");
       }
     }
+
+    reset();
   }
 
   return (

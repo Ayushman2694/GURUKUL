@@ -41,6 +41,8 @@ export default function App() {
             <Route path="course" element={<Course />} />
             <Route path="courses" element={<Courses />} />
             <Route path="settings" element={<Settings />} />
+              
+              
           </Route>
         </Routes>
         <ToastContainer
