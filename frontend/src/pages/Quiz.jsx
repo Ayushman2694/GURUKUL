@@ -1,39 +1,3 @@
-// import QuizSingle from "../component/quiz/QuizSingle";
-// import QuizWord from "../component/quiz/QuizWord";
-// import QuizCheck from "../component/quiz/QuizCheckbox";
-
-
-// export default function Quiz(){
-
-//     return (
-//         <div className="p-8 w-full bg-gray-100 min-h-screen">
-//           <h1 className="text-4xl font-bold mb-4">Data Science Quiz</h1>
-//           <p className="text-lg mb-8">Test your knowledge in data science with this comprehensive quiz. Answer the questions and submit to see your score.</p>
-
-//              <QuizSingle/>
-//              <QuizSingle/>
-//              <QuizCheck/>
-//              <QuizCheck/>
-//              <QuizWord/>
-//              <QuizWord/>
-
-
-//           <button
-//             className="w-100 bg-blue-600 text-white rounded-md p-3 font-bold mt-4"
-//           >
-//             Submit Answers
-//           </button>
-          
-          
-//         </div>
-//       );
-//     }
-
-
-
-
-
-
 
 
 import React, { useState } from 'react';
