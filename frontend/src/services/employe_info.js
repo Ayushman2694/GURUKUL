@@ -23,7 +23,7 @@ export async function employeInfo(token) {
     }
   } catch (error) {
     console.error("Error fetching employee information:", error);
-    return null;
+    throw error;
   }
 }
 
@@ -39,6 +39,7 @@ export async function changePassword(data) {
       return null; // Return null or handle the error as needed
     }
   } catch (error) {
+    console.log("error found", error.message);
     return null; // Return null or handle the error as needed
   }
 }

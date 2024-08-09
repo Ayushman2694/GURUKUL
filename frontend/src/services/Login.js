@@ -5,7 +5,7 @@ import { url } from "./Url";
 export async function login(data) {
   let newUrl = `${url}/api/auth/login`;
 
-  const info = await axios
+  await axios
     .post(newUrl, data)
     .then((res) => {
       if (res.status === 200) {
@@ -15,28 +15,27 @@ export async function login(data) {
     })
     .catch((error) => {
       console.error("Login error:", error);
+      throw error;
     });
 }
 
-export async function Adminlogin(data) {
-  let newUrl = `${url}/api/auth/admin`;
+export async function adminlogin(data) {
+  let newUrl = `${url}/api/auth/adminLogin`;
 
-  const info = await axios
+  await axios
     .post(newUrl, data)
     .then((res) => {
       if (res.status === 200) {
         localStorage.setItem("token", res.data.token); // Store token in localStorage
-        console.log(data);
         return data;
       }
     })
     .catch((error) => {
       console.error("Login error:", error);
+      throw error;
     });
 }
 
 export async function Logout() {
-  const logOut = () => {
-    localStorage.removeItem("token");
-  };
+  localStorage.removeItem("token");
 }
