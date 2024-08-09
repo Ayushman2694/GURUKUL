@@ -73,7 +73,7 @@ export default function SideBar({ setSideBar }) {
 
         <div
           onClick={() => {
-            Logout;
+            Logout();
             navigate("/login");
           }}
         >
