@@ -3,8 +3,6 @@ import React from "react";
 
 import { useForm } from "react-hook-form";
 
-
-
 export default function AdminSignup() {
   const {
     register,
@@ -17,7 +15,7 @@ export default function AdminSignup() {
     console.log(data);
 
     //  toast.success("Admin added successfully")
-     reset();
+    reset();
   }
 
   return (
@@ -38,7 +36,6 @@ export default function AdminSignup() {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               {...register("name", {
                 required: "This field is required",
-                
               })}
             />
             {errors.name && (
@@ -61,10 +58,9 @@ export default function AdminSignup() {
               {...register("email", {
                 required: "This field is required",
                 pattern: {
-                    value: /@/,
-                    message: "Please enter a valid email address",
-                  },
-                
+                  value: /@/,
+                  message: "Please enter a valid email address",
+                },
               })}
             />
             {errors.email && (
@@ -107,7 +103,6 @@ export default function AdminSignup() {
             </button>
           </div>
         </form>
-        
       </div>
     </div>
   );

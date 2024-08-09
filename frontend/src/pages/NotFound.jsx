@@ -1,6 +1,3 @@
-import React from 'react';
-
-
 export default function NotFound() {
   return (
     <div className="flex flex-col items-center w-full justify-center min-h-screen bg-gray-100">
@@ -12,11 +9,8 @@ export default function NotFound() {
         <p className="text-lg text-gray-600 mb-8">
           The page you’re looking for doesn’t exist.
         </p>
-       
       </div>
-      <div className="mt-12">
-        
-      </div>
+      <div className="mt-12"></div>
     </div>
   );
 }
