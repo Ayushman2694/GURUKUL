@@ -1,7 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Toaster } from "react-hot-toast";
 
 import AppLayout from "./ui/AppLayout";
 import Login from "./pages/Login";
@@ -11,6 +10,7 @@ import Courses from "./pages/Courses";
 import Settings from "./pages/Settings";
 import PrivateRoute from "./ui/PrivateRoute";
 import Course from "./pages/Course";
+import { ToastContainer } from "react-toastify";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,26 +42,15 @@ export default function App() {
             <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>
-        <Toaster
+        <ToastContainer
           position="top-center"
-          gutter={12}
-          containerStyle={{ margin: "8px" }}
-          toastOptions={{
-            success: {
-              duration: 3000,
-            },
-            error: {
-              duration: 5000,
-            },
-            style: {
-              fontSize: "16px",
-              maxWidth: "500px",
-              margin: "0 50px",
-              padding: "16px 24px",
-              backgroundColor: "var(--color-grey-0)",
-              color: "black",
-            },
-          }}
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
         />
       </BrowserRouter>
     </QueryClientProvider>
