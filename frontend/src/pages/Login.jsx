@@ -1,40 +1,29 @@
-import { message } from "antd";
-import axios from "axios";
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Toggle from "react-toggle";
 import "react-toggle/style.css";
 import md from "../assests/med.webp";
-import { url } from "../services/Url";
 import { useForm } from "react-hook-form";
+import { useLogin } from "../component/auth/useLogin";
+import SpinnerMini from "../ui/SpinnerMini";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [isEmployee, setIsEmployee] = useState(true);
+  const { login, isLoading } = useLogin();
+  const navigate = useNavigate();
 
   const handleToggle = () => {
     setIsEmployee((prevState) => !prevState);
   };
 
   function onSubmit(data) {
-    let newUrl = isEmployee ? `${url}/api/auth/login` : `${url}/api/auth/admin`;
-
-    axios
-      .post(newUrl, data)
-      .then((res) => {
-        if (res.status === 200) {
-          message.success("Login Successfully");
-          localStorage.setItem("token", res.data.token); // Store token in localStorage
-          navigate("/dashboard");
-        } else {
-          message.error(res.data.error || "Login failed");
-        }
-      })
-      .catch((error) => {
-        console.error("Login error:", error);
-        message.error("An error occurred. Please try again.");
-      });
+    login(data, {
+      onSuccess: () => {
+        navigate("/dashboard");
+      },
+    });
   }
 
   return (
@@ -79,6 +68,7 @@ const Login = () => {
               type="text"
               placeholder={!isEmployee ? "Admin Id" : "Employee Id"}
               className="w-full p-2 mb-4 border rounded"
+              disabled={isLoading}
               {...register("empId", {
                 required: "This field is required",
               })}
@@ -89,6 +79,7 @@ const Login = () => {
               type="password"
               placeholder="Password"
               className="w-full p-2 mb-4 border rounded"
+              disabled={isLoading}
               {...register("password", {
                 required: "This field is required",
               })}
@@ -96,8 +87,9 @@ const Login = () => {
             <button
               type="submit"
               className="bg-blue-500 text-white p-2 rounded w-full"
+              disabled={isLoading}
             >
-              Login
+              {isLoading ? <SpinnerMini /> : "Login"}
             </button>
           </form>
         </div>

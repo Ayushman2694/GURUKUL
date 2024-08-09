@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 // src/components/CourseCard.jsx
-import React from 'react';
 
 export default function CourseCard({ title, courses }) {
   return (
@@ -7,7 +7,9 @@ export default function CourseCard({ title, courses }) {
       <h3 className="text-xl font-bold mb-4">{title}</h3>
       <ul>
         {courses.map((course, index) => (
-          <li key={index} className="mb-2">{course}</li>
+          <li key={index} className="mb-2">
+            {course}
+          </li>
         ))}
       </ul>
     </div>

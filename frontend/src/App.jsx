@@ -9,7 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import EmployeeInfo from "./pages/Employee_Info";
 import Courses from "./pages/Courses";
 import Settings from "./pages/Settings";
-import PrivateRoute from "./component/PrivateRoute";
+import PrivateRoute from "./ui/PrivateRoute";
 import Course from "./pages/Course";
 
 const queryClient = new QueryClient({
@@ -43,7 +43,7 @@ export default function App() {
           </Route>
         </Routes>
         <Toaster
-          position="bottom-right"
+          position="top-center"
           gutter={12}
           containerStyle={{ margin: "8px" }}
           toastOptions={{

@@ -1,25 +1,44 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { url } from "./Url";
 
-export async function employeInfo() {
-  const Url = `${url}/api/auth/login`; // Replace with your actual endpoint
+export async function employeInfo(token) {
+  const apiUrl = `${url}/api/auth/getUserInfo`;
 
   try {
-    const response = await axios.get(Url);
-    confirm.log(response);
-    if (response.status === 200) {
-      console.log("Employee information fetched successfully:", response.data);
-      console.log(response.data);
-      return response.data; // You can return the data if needed
+    const response = await axios.post(apiUrl, null, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 200 && response.data.success) {
+      return response.data.user;
     } else {
       console.error(
         "Failed to fetch employee information:",
         response.data.error
       );
-      return null; // Return null or handle the error as needed
+      return null;
     }
   } catch (error) {
     console.error("Error fetching employee information:", error);
+    return null;
+  }
+}
+
+export async function changePassword(data) {
+  const endpointUrl = `${url}/api/auth/changePassword`; // Adjust the endpoint URL as needed
+
+  try {
+    const response = await axios.post(endpointUrl, data);
+
+    if (response.status === 200) {
+      return response.data; // Return the data if needed
+    } else {
+      return null; // Return null or handle the error as needed
+    }
+  } catch (error) {
     return null; // Return null or handle the error as needed
   }
 }
