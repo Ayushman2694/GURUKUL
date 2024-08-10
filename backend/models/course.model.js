@@ -12,7 +12,7 @@ const coursesSchema = mongoose.Schema({
         type:String,
         required:true,
     },
-    courseThumbnail:{
+    thumbnail:{
         type:String,
         required:true,
     }
