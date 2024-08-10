@@ -1,9 +1,5 @@
 import Admin from "../models/admin.model.js";
-import jwt from "jsonwebtoken";
-const createToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET || 'default_secret', { expiresIn: '3d' });
-}
-
+import { createToken } from "../utils/generateToken.js";
 export const adminSignup = async(req, res) => {
 try {
   const{adminName,adminEmail,adminPassword,adminConfirmPassword}=req.body;
