@@ -3,6 +3,7 @@ import React from "react";
 
 import { useForm } from "react-hook-form";
 import FormError from "../../Common/Ui/FormError";
+import { useEmployeeSignup } from "../components/settings/useEmployeeSignup";
 
 export default function EmployeeSignup() {
   const {
@@ -12,11 +13,27 @@ export default function EmployeeSignup() {
     reset,
   } = useForm();
 
-  function onSubmit(data) {
-    console.log(data);
+  const { employeeSignup, isLoading } = useEmployeeSignup();
 
-    // toast.success("Employee added successfully");
-    reset();
+  function onSubmit(data) {
+    employeeSignup(
+      {
+        empId: data.empid,
+        employeeName: data.name,
+        department: data.department,
+        designation: data.designation,
+        password: data.password,
+        joiningDate: data.joiningDate,
+      },
+      {
+        onSuccess: () => {
+          reset();
+        },
+        onError: () => {
+          reset();
+        },
+      }
+    );
   }
 
   return (

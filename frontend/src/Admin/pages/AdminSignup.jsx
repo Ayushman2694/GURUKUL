@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 import FormError from "../../Common/Ui/FormError";
 import { useAdminSignup } from "../components/settings/useAdminSignup";
+import SpinnerMini from "../../Common/Ui/SpinnerMini";
 
 export default function AdminSignup() {
   const {
@@ -18,22 +19,26 @@ export default function AdminSignup() {
   const { adminSignup, isLoading } = useAdminSignup();
 
   function onSubmit(data) {
-    console.log({
-      adminName: data.name,
-      adminEmail: data.email,
-      adminPassword: data.password,
-      adminConfirmPassword: data.confirmPassword,
-    });
     if (data.password !== data.confirmPassword) {
       toast.error("Password Does Not Match");
       reset();
     } else {
-      adminSignup({
-        adminName: data.name,
-        adminEmail: data.email,
-        adminPassword: data.password,
-        adminConfirmPassword: data.confirmPassword,
-      });
+      adminSignup(
+        {
+          adminName: data.name,
+          adminEmail: data.email,
+          adminPassword: data.password,
+          adminConfirmPassword: data.confirmPassword,
+        },
+        {
+          onSuccess: () => {
+            reset();
+          },
+          onError: () => {
+            reset();
+          },
+        }
+      );
     }
   }
 
@@ -52,6 +57,7 @@ export default function AdminSignup() {
             <input
               type="text"
               id="name"
+              disabled={isLoading}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               {...register("name", {
                 required: "This field is required",
@@ -69,6 +75,7 @@ export default function AdminSignup() {
             <input
               type="text"
               id="email"
+              disabled={isLoading}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               {...register("email", {
                 required: "This field is required",
@@ -90,6 +97,7 @@ export default function AdminSignup() {
             <input
               type="password"
               id="password"
+              disabled={isLoading}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               {...register("password", {
                 required: "This field is required",
@@ -111,6 +119,7 @@ export default function AdminSignup() {
             <input
               type="password"
               id="confirmPassword"
+              disabled={isLoading}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               {...register("confirmPassword", {
                 required: "This field is required",
@@ -127,7 +136,7 @@ export default function AdminSignup() {
               type="submit"
               className="bg-blue-600 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
-              Submit
+              {isLoading ? <SpinnerMini /> : "Submit"}
             </button>
           </div>
         </form>
