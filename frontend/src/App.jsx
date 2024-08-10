@@ -4,18 +4,25 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ToastContainer } from "react-toastify";
 import { Toaster } from "react-hot-toast";
 
-import AppLayout from "./ui/AppLayout";
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
-import EmployeeInfo from "./pages/Employee_Info";
-import Courses from "./pages/Courses";
-import Settings from "./pages/Settings";
-import PrivateRoute from "./ui/PrivateRoute";
-import Course from "./pages/Course";
-import Quiz from "./pages/Quiz";
-import AdminSignup from "./pages/AdminSignup";
-import EmployeeSignup from "./pages/EmployeeSignup";
-import NotFound from "./pages/NotFound";
+import EmployeeAppLayout from "./Employee/Ui/EmployeeAppLayout";
+import Login from "./Employee/pages/Login";
+import EmployeeInfo from "./Employee/pages/Employee_Info";
+import PrivateRoute from "./Employee/Ui/PrivateRoute";
+import Course from "./Employee/pages/Course";
+import Quiz from "./Employee/pages/Quiz";
+import AdminSignup from "./Admin/pages/AdminSignup";
+import EmployeeSignup from "./Admin/pages/EmployeeSignup";
+import PageNotFound from "./Common/Ui/PageNotFound";
+import AdminAppLayout from "./Admin/ui/AdminAppLayout";
+import Tracking from "./Admin/pages/Tracking";
+import EmployeeCourses from "./Employee/pages/EmployeeCourses";
+import AdminCourses from "./Admin/pages/AdminCourses";
+import Quizzes from "./Admin/pages/Quizzes";
+import Users from "./Admin/pages/Users";
+import EmployeeSettings from "./Employee/pages/EmployeeSettings";
+import AdminSettings from "./Admin/pages/AdminSettings";
+import AdminDashboard from "./Admin/pages/AdminDashboard";
+import EmployeeDashboard from "./Employee/pages/EmployeeDashboard";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,23 +39,40 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<PageNotFound />} />
+          {/* ------------------------------- Employee  Routes ------------------------------- */}
           <Route
             element={
               <PrivateRoute>
-                <AppLayout />
+                <EmployeeAppLayout />
               </PrivateRoute>
             }
           >
-            <Route path="/" element={<Navigate to="/dashboard" />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="profile" element={<EmployeeInfo />} />
-            <Route path="course" element={<Course />} />
-            <Route path="courses" element={<Courses />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="quiz" element={<Quiz />} />
-            <Route path="adminSignUp" element={<AdminSignup />} />
-            <Route path="employeeSignUp" element={<EmployeeSignup />} />
+            <Route path="employee/" element={<Navigate to="dashboard" />} />
+            <Route path="employee/dashboard" element={<EmployeeDashboard />} />
+            <Route path="employee/profile" element={<EmployeeInfo />} />
+            <Route path="employee/course" element={<Course />} />
+            <Route path="employee/courses" element={<EmployeeCourses />} />
+            <Route path="employee/settings" element={<EmployeeSettings />} />
+            <Route path="employee/quiz" element={<Quiz />} />
+          </Route>
+          {/* ------------------------------- Admin  Routes ------------------------------- */}
+          <Route
+            element={
+              <PrivateRoute>
+                <AdminAppLayout />
+              </PrivateRoute>
+            }
+          >
+            <Route path="admin/" element={<Navigate to="dashboard" />} />
+            <Route path="admin/dashboard" element={<AdminDashboard />} />
+            <Route path="admin/tracking" element={<Tracking />} />
+            <Route path="admin/courses" element={<AdminCourses />} />
+            <Route path="admin/quizzes" element={<Quizzes />} />
+            <Route path="admin/users" element={<Users />} />
+            <Route path="admin/settings" element={<AdminSettings />} />
+            <Route path="admin/SignUp" element={<AdminSignup />} />
+            <Route path="admin/employeeSignUp" element={<EmployeeSignup />} />
           </Route>
         </Routes>
         <ToastContainer
