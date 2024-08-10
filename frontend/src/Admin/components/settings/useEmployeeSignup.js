@@ -1,10 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { adminSignup as adminSignupApi } from "../../service/auth";
+import { employeeSignup as employeeSignupApi } from "../../service/auth";
 
-export function useAdminSignup() {
+export function useEmployeeSignup() {
   const mutation = useMutation({
-    mutationFn: (data) => adminSignupApi(data),
+    mutationFn: (data) => employeeSignupApi(data),
 
     onSuccess: () => {
       toast.success("Admin Created Successfully");
@@ -14,8 +14,8 @@ export function useAdminSignup() {
     },
   });
 
-  const { mutate: adminSignup, status } = mutation;
+  const { mutate: employeeSignup, status } = mutation;
   const isLoading = status === "pending";
 
-  return { adminSignup, isLoading };
+  return { employeeSignup, isLoading };
 }

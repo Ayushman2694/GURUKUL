@@ -36,12 +36,19 @@ const Login = () => {
         { empId: data.empId, password: data.password },
         {
           onSuccess: () => {
-            navigate("/employee/dashboard");
+            navigate("/employee");
           },
         }
       );
     } else {
-      adminLogin({ adminEmail: data.email, password: data.password });
+      adminLogin(
+        { adminEmail: data.email, password: data.password },
+        {
+          onSuccess: () => {
+            navigate("/admin");
+          },
+        }
+      );
     }
   }
 
