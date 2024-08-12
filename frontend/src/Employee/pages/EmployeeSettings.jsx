@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
 import { Logout } from "../../Common/service/auth";
 import { useChangePassword } from "../component/auth/useChangePassword";
+import FormError from "../../Common/Ui/FormError";
 
 export default function EmployeeSettings() {
   const [token] = useState(localStorage.getItem("token"));
@@ -79,9 +80,7 @@ export default function EmployeeSettings() {
               })}
             />
             {errors.currentPassword && (
-              <span className="text-red-500 text-sm">
-                {errors.currentPassword.message}
-              </span>
+              <FormError error={errors.currentPassword.message} />
             )}
           </div>
           <div className="mb-4">
@@ -105,9 +104,7 @@ export default function EmployeeSettings() {
               })}
             />
             {errors.newPassword && (
-              <span className="text-red-500 text-sm">
-                {errors.newPassword.message}
-              </span>
+              <FormError error={errors.newPassword.message} />
             )}
           </div>
           <div className="mb-6">
@@ -131,9 +128,7 @@ export default function EmployeeSettings() {
               })}
             />
             {errors.confirmPassword && (
-              <span className="text-red-500 text-sm">
-                {errors.confirmPassword.message}
-              </span>
+              <FormError error={errors.confirmPassword.message} />
             )}
           </div>
           <div className="flex items-center justify-center">
