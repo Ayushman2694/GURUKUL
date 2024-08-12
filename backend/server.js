@@ -6,6 +6,7 @@ import authRoutes from "./routes/authRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import employeeRoutes from "./routes/employeeRoutes.js"
 import courseRouter from "./routes/courseRoutes.js";
+import departmentRoutes from "./routes/departmentRoutes.js"
 const app = express();
 const port = 6300;
 dotenv.config();
@@ -21,6 +22,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/course",courseRouter);
 app.use("/api/admin",adminRoutes);
 app.use("/api/employee",employeeRoutes);
+app.use("/api/department",departmentRoutes)
 
 app.listen(port, () => {
   console.log(`Server started on http://localhost:${port}`);
