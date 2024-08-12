@@ -12,6 +12,12 @@ const coursesSchema = mongoose.Schema({
         type:String,
         required:true,
     },
+    courseDepartment :{
+        type:String,
+        required:true,
+    },
+       
+    
     thumbnail:{
         type:String,
         required:true,
