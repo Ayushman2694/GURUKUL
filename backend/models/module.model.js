@@ -10,11 +10,13 @@ const modulesSchema = mongoose.Schema({
         ref:"Course",
         required:true
     },
-    videoId:{
+    videoId:[
+        {
         type:mongoose.Schema.type.ObjectId,
         ref:"Video",
         required:true
-    }
+        }
+    ]
 })
 
 const Module =new mongoose.model("Module",modulesSchema);

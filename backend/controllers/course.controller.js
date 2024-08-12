@@ -11,7 +11,7 @@ export const addCourse = async (req, res) => {
         }
 
         // Generate the URL for the uploaded thumbnail
-        const thumbnail_url = `${req.protocol}://${req.get('host')}/thumbnail/${req.file.filename}`;
+        const thumbnail_url = ${req.protocol}://${req.get('host')}/thumbnail/${req.file.filename};
 
         const course = new Course({
             courseTitle: req.body.courseTitle,
@@ -59,7 +59,7 @@ export const addVideo = async (req, res) => {
         }
 
       
-        const video_url = `${req.protocol}://${req.get('host')}/videos/${req.file.filename}`;
+        const video_url = ${req.protocol}://${req.get('host')}/videos/${req.file.filename};
 
         const video = new Video({
             videoTitle: req.body.videoTitle,
@@ -95,7 +95,3 @@ export const allVideo =async (req,res)=>{
     }
     
 }
-
-
-
-
