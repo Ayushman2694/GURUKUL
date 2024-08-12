@@ -41,7 +41,11 @@ export default function EmployeeSignup() {
   return (
     <>
       <BackButton />
-      <div className="h-full w-full flex items-center justify-center bg-gray-200 pb-20 overflow-y-auto">
+      <div
+        className={`h-full w-full flex items-center justify-center bg-gray-200 pb-20 overflow-y-auto ${
+          !errors.empid ? "pt-20" : "pt-60"
+        }`}
+      >
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
           <h2 className="text-2xl font-bold mb-6 text-center">
             Add New Employee
@@ -169,6 +173,31 @@ export default function EmployeeSignup() {
                 })}
               />
               {errors.password && <FormError error={errors.password.message} />}
+            </div>
+
+            <div className="mb-6">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="password"
+              >
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                id="confirmPassword"
+                disabled={isLoading}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                {...register("confirmPassword", {
+                  required: "This field is required",
+                  minLength: {
+                    value: 8,
+                    message: "Minimum 8 characters",
+                  },
+                })}
+              />
+              {errors.confirmPassword && (
+                <FormError error={errors.confirmPassword.message} />
+              )}
             </div>
 
             <div className="flex items-center justify-center">

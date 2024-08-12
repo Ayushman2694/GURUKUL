@@ -1,10 +1,7 @@
 import Container from "../components/settings/Container";
 import { useNavigate } from "react-router-dom";
-import ConfirmDelete from "../ui/ConfirmDelete";
-import { useState } from "react";
 
 export default function AddUserAdmin() {
-  const [confirmDelete, setConfirmDelete] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -15,8 +12,10 @@ export default function AddUserAdmin() {
       <div className="w-full pt-6 min-h-screen">
         <Container
           title="Department"
-          addButtonClickHandler={() => navigate("/admin/addDetertment")}
-          showMoreButtonClickHandler
+          addButtonClickHandler={() => navigate("/admin/addDepartment")}
+          showMoreButtonClickHandler={() =>
+            navigate("/admin/showAllDepartment")
+          }
         />
         <Container
           title="Admin"
@@ -27,11 +26,9 @@ export default function AddUserAdmin() {
         <Container
           title="Employee"
           addButtonClickHandler={() => navigate("/admin/employeeSignUp")}
-          showMoreButtonClickHandler
+          showMoreButtonClickHandler={() => navigate("/admin/showAllEmployee")}
         />
       </div>
-
-      {confirmDelete && <ConfirmDelete close={setConfirmDelete} />}
     </div>
   );
 }

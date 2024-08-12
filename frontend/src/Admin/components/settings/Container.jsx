@@ -8,7 +8,7 @@ export default function Container({
 }) {
   return (
     <div className="mb-2 rounded shadow-md">
-      <div className="flex justify-between items-center w-full rounded py-4 px-6 bg-gray-200 h-13">
+      <div className="flex justify-between items-center w-full rounded py-4 px-6 bg-gray-100 h-13">
         <h2 className="text-xl font-bold">{title}</h2>
         <div className="flex items-center space-x-4">
           <button
@@ -24,7 +24,7 @@ export default function Container({
             onClick={showMoreButtonClickHandler}
             className="bg-yellow-500 text-white px-4 py-1 h-10 text-sm font-bold rounded-full hover:bg-yellow-400 "
           >
-            Show more
+            Show All
           </button>
         </div>
       </div>

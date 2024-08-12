@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { adminSignup as adminSignupApi } from "../../service/auth";
+import { adminSignup as adminSignupApi } from "../../service/admin";
 
 export function useAdminSignup() {
   const mutation = useMutation({
