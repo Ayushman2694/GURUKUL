@@ -8,7 +8,7 @@ export default function Course() {
       <div className="w-9/12 overflow-y-auto pb-20">
         <img
           className="w-full rounded-lg"
-          src="./default_image.png"
+          src="/default_image.png"
           alt="thumbnail"
         />
 

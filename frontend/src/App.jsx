@@ -23,6 +23,10 @@ import EmployeeSettings from "./Employee/pages/EmployeeSettings";
 import AdminSettings from "./Admin/pages/AdminSettings";
 import AdminDashboard from "./Admin/pages/AdminDashboard";
 import EmployeeDashboard from "./Employee/pages/EmployeeDashboard";
+import AddDetertment from "./Admin/pages/AddDetertment";
+import ShowAllAdmin from "./Admin/pages/ShowAllAdmin";
+import ShowAllEmployee from "./Admin/pages/ShowAllEmployee";
+import ShowAllDepartment from "./Admin/pages/ShowAllDepartment";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -73,6 +77,16 @@ export default function App() {
             <Route path="admin/settings" element={<AdminSettings />} />
             <Route path="admin/SignUp" element={<AdminSignup />} />
             <Route path="admin/employeeSignUp" element={<EmployeeSignup />} />
+            <Route path="admin/addDepartment" element={<AddDetertment />} />
+            <Route path="admin/showAllAdmin" element={<ShowAllAdmin />} />
+            <Route
+              path="admin/showAllEmployee"
+              element={<ShowAllEmployee title="Employee List" />}
+            />
+            <Route
+              path="admin/showAllDepartment"
+              element={<ShowAllDepartment />}
+            />
           </Route>
         </Routes>
         <ToastContainer
