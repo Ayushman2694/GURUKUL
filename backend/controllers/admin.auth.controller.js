@@ -56,7 +56,7 @@ export const adminLogin = async (req, res) => {
           token,
           message: "Logged in Succesfully",
           name:admin.adminName,
-          password: password,
+          password: password, 
           email: adminEmail,
         });
       } else {

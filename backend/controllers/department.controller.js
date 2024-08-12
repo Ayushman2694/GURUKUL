@@ -8,7 +8,7 @@ export const addDepartment = async(req,res)=>{
             return res.status(400).json({error:"department already exist"});
         }
         const newDepartment = new Department({
-            departmentName:departmentName,
+            departmentName:departmentName, 
         })
         if(newDepartment){
             await newDepartment.save();
