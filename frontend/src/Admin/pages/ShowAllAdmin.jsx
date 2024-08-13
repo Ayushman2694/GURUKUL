@@ -63,7 +63,7 @@ export default function ShowAllAdmin() {
                         className={`flex items-center gap-2 ${
                           adminEmail === admin.adminEmail
                             ? "bg-red-200 hover:cursor-not-allowed"
-                            : "bg-red-600 hover:bg-red-700"
+                            : "bg-red-600 hover:bg-red-700 hover:scale-110"
                         } text-white px-4 py-2 rounded-full `}
                       >
                         <span className="text-xl">

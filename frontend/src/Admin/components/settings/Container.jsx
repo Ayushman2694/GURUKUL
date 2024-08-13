@@ -13,7 +13,7 @@ export default function Container({
         <div className="flex items-center space-x-4">
           <button
             onClick={addButtonClickHandler}
-            className="bg-blue-600 text-white px-4 py-1 h-10 text-sm font-bold rounded-full hover:bg-blue-700"
+            className="bg-blue-600 text-white px-4 py-1 h-10 text-sm font-bold rounded-full hover:bg-blue-700 hover:scale-110"
           >
             <div className=" flex justify-center items-center">
               <MdAdd />
@@ -22,7 +22,7 @@ export default function Container({
           </button>
           <button
             onClick={showMoreButtonClickHandler}
-            className="bg-yellow-500 text-white px-4 py-1 h-10 text-sm font-bold rounded-full hover:bg-yellow-400 "
+            className="bg-yellow-500 text-white px-4 py-1 h-10 text-sm font-bold rounded-full hover:bg-yellow-600  hover:scale-110"
           >
             Show All
           </button>
