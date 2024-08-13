@@ -21,7 +21,7 @@ export const addCourse = async (req, res) => {
         });
 
         await course.save();
-        res.json({ success: true, message: "Course added", course });
+        res.json({ success: true, message: "Course added",course });
 
     } catch (error) {
         console.log(error);

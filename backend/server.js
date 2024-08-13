@@ -19,17 +19,13 @@ connectDB();
 
 app.use(express.json());
 app.use(cors());
-app.use("/thumbnail",express.static('uploads'))
 
 // Serve static files from the uploads directory
 app.use("/thumbnail", express.static('uploads'));
 app.use("/video",express.static("videos"))
 
 app.use("/api/auth", authRoutes);
-
-app.use("/api/course", courseRouter);
 app.use("/api/video",videoRouter)
-
 app.use("/api/course",courseRouter);
 app.use("/api/admin",adminRoutes);
 app.use("/api/employee",employeeRoutes);

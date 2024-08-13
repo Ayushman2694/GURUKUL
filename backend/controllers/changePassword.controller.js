@@ -1,3 +1,4 @@
+import Admin from "../models/admin.model.js";
 import Employee from "../models/user.model.js";
 
 export const changePassword = async (req, res) => {
@@ -26,12 +27,12 @@ export const adminChangePassword = async (req, res) => {
   const { adminEmail, oldPassword, newPassword } = req.body;
 
   try {
-    const admin = await Employee.findOne({ adminEmail });
+    const admin = await Admin.findOne({ adminEmail });
     if (!admin) {
       return res.status(404).json({ message: "Admin not found" });
     } else {
-      if (oldPassword === emp.password) {
-        admin.password = newPassword;
+      if (oldPassword === admin.adminPassword) {
+        admin.adminPassword = newPassword;
         await admin.save();
 
         res.json({ message: "Password changed successfully" });
