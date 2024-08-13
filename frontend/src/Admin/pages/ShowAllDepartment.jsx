@@ -56,7 +56,7 @@ export default function ShowAllDepartment() {
                           });
                         }}
                         disabled={deletingDepartment}
-                        className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700"
+                        className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 hover:scale-110"
                       >
                         <span className="text-xl">
                           <RiDeleteBin6Fill />
