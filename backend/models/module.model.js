@@ -6,13 +6,13 @@ const modulesSchema = mongoose.Schema({
         required:true
     },
     courseId:{
-        type:mongoose.Schema.type.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:"Course",
         required:true
     },
     videoId:[
         {
-        type:mongoose.Schema.type.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:"Video",
         required:true
         }
