@@ -2,6 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { addCourse as addCourseApi } from "../../service/courses";
 
+let CourseData = [];
+
 export function useAddCourse() {
   const queryClient = useQueryClient();
   const mutation = useMutation({
@@ -10,6 +12,7 @@ export function useAddCourse() {
     onSuccess: (data) => {
       console.log(data.course);
       queryClient.setQueryData(["course", data.course._id], data.course);
+      CourseData = data.course;
       toast.success("Course Created Successfully");
     },
     onError: (err) => {
@@ -21,5 +24,5 @@ export function useAddCourse() {
   const { mutate: addCourse, status } = mutation;
   const isLoading = status === "pending";
 
-  return { addCourse, isLoading };
+  return { addCourse, isLoading, CourseData };
 }

@@ -1,13 +1,15 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 
 import { useForm } from "react-hook-form";
 import FormError from "../../Common/Ui/FormError";
 import { useEmployeeSignup } from "../components/settings/useEmployeeSignup";
 import SpinnerMini from "../../Common/Ui/SpinnerMini";
 import BackButton from "../../Common/Ui/BackButton";
+import Dropdown from "../ui/DropDown";
 
 export default function EmployeeSignup() {
+  const [selectedDepartment, setSelectedDepartment] = useState("");
   const {
     register,
     handleSubmit,
@@ -18,11 +20,12 @@ export default function EmployeeSignup() {
   const { employeeSignup, isLoading } = useEmployeeSignup();
 
   function onSubmit(data) {
+    if (!selectedDepartment) return null;
     employeeSignup(
       {
         empId: data.empid,
         employeeName: data.name,
-        department: data.department,
+        department: selectedDepartment,
         designation: data.designation,
         password: data.password,
         joiningDate: data.joiningDate,
@@ -96,18 +99,10 @@ export default function EmployeeSignup() {
               >
                 Department
               </label>
-              <input
-                type="text"
-                id="department"
-                disabled={isLoading}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                {...register("department", {
-                  required: "This field is required",
-                })}
+              <Dropdown
+                selectedOption={selectedDepartment}
+                setSelectedOption={setSelectedDepartment}
               />
-              {errors.department && (
-                <FormError error={errors.department.message} />
-              )}
             </div>
 
             <div className="mb-4">
