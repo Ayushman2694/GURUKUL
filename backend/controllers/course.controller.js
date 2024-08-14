@@ -1,4 +1,6 @@
+
 import Course from "../models/course.model.js";
+import Module from "../models/module.model.js";
 import Video from "../models/video.model.js";
 
 export const addCourse = async (req, res) => {
@@ -21,7 +23,7 @@ export const addCourse = async (req, res) => {
         });
 
         await course.save();
-        res.json({ success: true, message: "Course added", course });
+        res.json({ success: true, message: "Course added",course });
 
     } catch (error) {
         console.log(error);
@@ -39,7 +41,7 @@ export const getallCourse = async(req,res)=>{
    if (!allCourse || allCourse.length === 0) {
         return res.status(404).json({ success: false, message: "No courses found" });
     }
-    res.status(200).json({ success: true, allCourse })
+    res.status(200).json(allCourse)
 }catch(error){
     console.log(error)
 }
@@ -116,3 +118,38 @@ export const allVideo =async (req,res)=>{
     }
     
 }
+
+
+
+
+export const addModule = async (req ,res) => {
+    try {
+        
+        const { moduleName, courseId, videoId } = req.body;
+
+
+        if (!moduleName || !courseId || !Array.isArray(videoId)) {
+            return res.status(400).json({ message: 'Invalid input data' });
+        }
+
+
+        const newModule = new Module({
+            moduleName,
+            course:courseId,
+            video:videoId
+        });
+
+
+        await newModule.save();
+
+        res.status(200).json({
+            message:"module added successfully",
+            moduleName:newModule.moduleName,
+            courseId:newModule.course,
+            videoId:newModule.video
+        });
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({ error: "error in addModule Controller" });
+    }
+};

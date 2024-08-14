@@ -5,18 +5,22 @@ const modulesSchema = mongoose.Schema({
         type:String,
         required:true
     },
-    courseId:{
-        type:mongoose.Schema.type.ObjectId,
+    course:{
+        type:mongoose.Schema.Types.ObjectId,
         ref:"Course",
         required:true
     },
-    videoId:[
+    video:[
         {
-        type:mongoose.Schema.type.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:"Video",
         required:true
         }
-    ]
+    ],
+    moduleNo:{
+        type:Number,
+        required:true
+    }
 })
 
 const Module =new mongoose.model("Module",modulesSchema);
