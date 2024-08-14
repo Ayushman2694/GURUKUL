@@ -27,6 +27,7 @@ import AddDetertment from "./Admin/pages/AddDetertment";
 import ShowAllAdmin from "./Admin/pages/ShowAllAdmin";
 import ShowAllEmployee from "./Admin/pages/ShowAllEmployee";
 import ShowAllDepartment from "./Admin/pages/ShowAllDepartment";
+import AddCourse from "./Admin/pages/AddCourse";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -87,6 +88,7 @@ export default function App() {
               path="admin/showAllDepartment"
               element={<ShowAllDepartment />}
             />
+            <Route path="admin/addCourse" element={<AddCourse />} />
           </Route>
         </Routes>
         <ToastContainer

@@ -9,7 +9,6 @@ export function useAdminLogin() {
     mutationFn: (data) => AdminloginApi(data),
 
     onSuccess: (data) => {
-      console.log(data);
       queryClient.setQueryData("adminEmail", data);
       localStorage.setItem("adminEmail", data);
       toast.success("Admin Login Successfully");
