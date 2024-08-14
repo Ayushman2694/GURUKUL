@@ -1,5 +1,6 @@
 
 import Course from "../models/course.model.js";
+import Module from "../models/module.model.js";
 import Video from "../models/video.model.js";
 
 export const addCourse = async (req, res) => {
@@ -113,17 +114,18 @@ export const addModule = async (req ,res) => {
 
         const newModule = new Module({
             moduleName,
-            courseId,
-            videoId
+            course:courseId,
+            video:videoId
         });
 
 
         await newModule.save();
+
         res.status(200).json({
             message:"module added successfully",
             moduleName:newModule.moduleName,
-            courseId:newModule.courseId,
-            videoId:newModule.videoId
+            courseId:newModule.course,
+            videoId:newModule.video
         });
     } catch (error) {
         console.log(error.message);
