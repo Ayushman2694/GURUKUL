@@ -1,40 +1,17 @@
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdEdit } from "react-icons/md";
+import Spinner from "../../Common/Ui/Spinner";
 import { FaPlayCircle } from "react-icons/fa";
 import AddButton from "../ui/AddButton";
 import { useNavigate } from "react-router-dom";
+import { useAllCourse } from "../components/settings/useAllCourse";
 
 export default function AdminCourses() {
   const navigate = useNavigate();
-  const courseData = [
-    {
-      id: 1,
-      img: "https://www.questpond.com/img/2.png",
-      title: "Title One",
-      category: "Technology",
-      module: "Module 1",
-      description:
-        "The description should be large to check it is working or not",
-    },
-    {
-      id: 2,
-      img: "https://www.questpond.com/img/2.png",
-      title: "Title two",
-      category: "programming",
-      module: "module 2",
-      description:
-        "The description should be larsge to check it is working or not",
-    },
-    {
-      id: 3,
-      img: "https://www.questpond.com/img/2.png",
-      title: "Title three",
-      category: "maarketing",
-      module: "module 3",
-      description:
-        "The description should be large to check it is working or not",
-    },
-  ];
+ const {isLoading,allCourse}=useAllCourse();
+ console.log(allCourse)
+ if (isLoading) return < Spinner/>;
+ 
 
   return (
     <div className="min-h-screen w-full bg-white p-4">
@@ -59,7 +36,7 @@ export default function AdminCourses() {
                 Course Title
               </th>
               <th className="px-5 py-3 w-1/6 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                Category
+                Department
               </th>
               <th className="px-5 py-3 w-1/6 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 Module
@@ -73,31 +50,31 @@ export default function AdminCourses() {
             </tr>
           </thead>
           <tbody>
-            {courseData.map((course) => (
-              <tr key={course.id}>
+            {allCourse.map((course) => (
+              <tr key={course._id}>
                 <td className="px-1 py-1 w-1/12 border-b border-gray-200 bg-white text-sm">
                   <p className="text-gray-900 whitespace-no-wrap">
-                    <img src={course.img} />
+                    <img src={course.thumbnail} />
                   </p>
                 </td>
                 <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm text-left">
                   <p className="text-gray-900 whitespace-no-wrap">
-                    {course.title}
+                    {course.courseTitle}
                   </p>
                 </td>
                 <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm text-left">
                   <p className="text-gray-900 whitespace-no-wrap">
-                    {course.category}
+                    {course.courseDepartment}
                   </p>
                 </td>
                 <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm text-left">
                   <p className="text-gray-900 whitespace-no-wrap">
-                    {course.module}
+                    {course.noOfModules}
                   </p>
                 </td>
                 <td className="px-5 py-3 w-3/12 border-b border-gray-200 bg-white text-sm text-left">
                   <p className="text-gray-900 whitespace-no-wrap">
-                    {course.description}
+                    {course.courseDescription}
                   </p>
                 </td>
                 <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm text-center">

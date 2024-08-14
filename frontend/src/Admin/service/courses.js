@@ -22,3 +22,21 @@ export async function addCourse(data) {
     }
   }
 }
+
+export async function showAllCourse() {
+  const apiUrl = `${url}/api/course/allCourse`;
+  try {
+    const response = await axios.get(apiUrl); // Use GET for fetching data
+
+    if (response.status === 200) {
+      console.log(response.data)
+      return response.data; // Assuming response.data contains the array of admin details
+    } else {
+      console.error("Failed to fetch course information:", response.data.error);
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching course information:", error);
+    throw error;
+  }
+}
