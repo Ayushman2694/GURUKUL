@@ -46,6 +46,27 @@ export const getallCourse = async(req,res)=>{
     console.log(error)
 }
 }
+//delete course
+
+
+export const deleteCourse = async (req, res) => {
+    try {
+        const { courseId } = req.params; 
+
+        // Attempt to find and delete the course
+        const deletedCourse = await Course.findByIdAndDelete(courseId);
+
+        if (!deletedCourse) {
+            return res.status(404).json({ success: false, message: "Course not found" });
+        }
+
+        res.status(200).json({ success: true, message: "Course deleted successfully", deletedCourse });
+    } catch (error) {
+        console.log("Error in deleteCourse controller:", error.message);
+        res.status(500).json({ success: false, message: "Server error ,Error in delete Course section" });
+    }
+};
+
 
 
 // viudeo controller 
