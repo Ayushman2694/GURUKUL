@@ -9,11 +9,15 @@ import { IoIosRemoveCircleOutline } from "react-icons/io";
 import { MdFileUpload } from "react-icons/md";
 import { FaAngleUp } from "react-icons/fa";
 import { FaAngleDown } from "react-icons/fa";
+import { useAddModule } from "../components/courses/useAddModule";
 
-export default function AddModule({ noOfModule }) {
+export default function AddModule({ noOfModule, courseId }) {
   const [showVideos, setShowVideos] = useState(true);
   const [noOfVideos, setNoOfVideos] = useState(1);
   const [videoNoList, setVideoNoList] = useState([0]);
+  const [videoArray, setVideoArray] = useState([]);
+  const { addModule, isLoading } = useAddModule();
+  console.log(courseId._id);
 
   const {
     register,
@@ -34,7 +38,18 @@ export default function AddModule({ noOfModule }) {
   }
 
   function onSubmit(data) {
-    console.log(data);
+    console.log({
+      moduleName: data.title,
+      course: courseId._id,
+      moduleNo: noOfModule,
+      video: videoArray,
+    });
+    addModule({
+      moduleName: data.title,
+      course: courseId._id,
+      moduleNo: noOfModule,
+      video: videoArray,
+    });
   }
 
   return (
@@ -114,7 +129,7 @@ export default function AddModule({ noOfModule }) {
         <div className="py-2">
           {videoNoList.map((videoNo) => (
             <div key={videoNo} className="mt-2">
-              <AddVideo videosNo={videoNo + 1} />
+              <AddVideo videosNo={videoNo + 1} setVideoArray={setVideoArray} />
             </div>
           ))}
         </div>

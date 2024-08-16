@@ -23,7 +23,7 @@ export default function AddFullCourse() {
   }
 
   return (
-    <div className="w-full h-full p-4">
+    <div className="w-full h-full">
       {courseUploaded ? (
         <AddCourse
           setCourseUploaded={setCourseUploaded}
@@ -109,7 +109,7 @@ export default function AddFullCourse() {
             </div>
             {moduleNoList.map((moduleNo) => (
               <div key={moduleNo} className="mt-4">
-                <AddModule noOfModule={moduleNo + 1} />
+                <AddModule noOfModule={moduleNo + 1} courseId={courseData} />
               </div>
             ))}
           </div>

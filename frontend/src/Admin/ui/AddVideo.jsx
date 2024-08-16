@@ -1,16 +1,16 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import FormError from "../../Common/Ui/FormError";
 import { MdFileUpload } from "react-icons/md";
 import { useAddVideo } from "../components/courses/useAddVideo";
 import SpinnerMini from "../../Common/Ui/SpinnerMini";
 
-export default function AddVideo({ videosNo }) {
+export default function AddVideo({ videosNo, setVideoArray }) {
   const [videoStates, setVideoStates] = useState({});
 
-  const { addVideo, isLoading } = useAddVideo();
+  const { addVideo, isLoading, VideoData } = useAddVideo();
 
   const {
     register,
@@ -23,6 +23,7 @@ export default function AddVideo({ videosNo }) {
     const formData = new FormData();
     formData.append("videoTitle", data.title);
     formData.append("videoDescription", data.description);
+    formData.append("videoNo", videosNo);
     formData.append("videoLink", videoStates[`selectedFile${videosNo}`]);
 
     addVideo(formData, {
@@ -34,6 +35,16 @@ export default function AddVideo({ videosNo }) {
       },
     });
   }
+  useEffect(() => {
+    if (!VideoData) return;
+
+    setVideoArray((prevArray) => {
+      if (prevArray.includes(VideoData._id)) {
+        return prevArray;
+      }
+      return [...prevArray, VideoData._id];
+    });
+  }, [VideoData, setVideoArray]);
 
   function handleFileChange(event) {
     const file = event.target.files[0];
