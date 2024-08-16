@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 
-const PrivateRoute = ({ children }) => {
+const Protected = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [role, setRole] = useState(null);
@@ -15,7 +15,7 @@ const PrivateRoute = ({ children }) => {
           setIsAuthenticated(false);
         } else {
           const response = await axios.get(
-            'http://localhost:6300/api/user/verifyToken',
+            'http://localhost:6300/api/admin/verifyToken',
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -39,7 +39,7 @@ const PrivateRoute = ({ children }) => {
     return <div>Loading...</div>;
   }
 
-  return isAuthenticated && role === 'user' ? children : <Navigate to="/login" />;
+  return isAuthenticated && role === 'admin' ? children : <Navigate to="/login" />;
 };
 
-export default PrivateRoute;
+export default Protected;

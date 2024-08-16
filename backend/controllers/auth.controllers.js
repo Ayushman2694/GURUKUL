@@ -4,9 +4,11 @@ import { createToken } from "../utils/generateToken.js";
 export const login = async (req, res) => {
   try {
     const { empId, password } = req.body;
+    console.log(empId, password);
     const emp = await Employee.findOne({ empId });
 
     if (!emp) {
+      console.log("not found emp id");
       return res.status(400).json({ error: "Employee not found" });
     }
 
@@ -14,7 +16,7 @@ export const login = async (req, res) => {
       return res.status(400).json({ error: "Invalid password" });
     }
 
-    const token = createToken(emp._id);
+    const token = createToken(emp._id,"user");
     return res.status(200).json({
       success: true,
       token,

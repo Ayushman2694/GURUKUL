@@ -29,8 +29,8 @@ import ShowAllEmployee from "./Admin/pages/ShowAllEmployee";
 import ShowAllDepartment from "./Admin/pages/ShowAllDepartment";
 import CreateQuiz from "./Admin/pages/CreateQuiz";
 import ViewQuiz from "./Admin/pages/ViewQuiz";
-import EditQuiz from "./Admin/pages/EditQuiz";
-
+import EditQuiz from "./Admin/pages/EditQuiz
+import AddFullCourse from "./Admin/pages/AddFullCourse";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -95,6 +95,7 @@ export default function App() {
               path="admin/showAllDepartment"
               element={<ShowAllDepartment />}
             />
+            <Route path="admin/addCourse" element={<AddFullCourse />} />
           </Route>
         </Routes>
         <ToastContainer

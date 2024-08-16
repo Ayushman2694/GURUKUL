@@ -30,3 +30,24 @@ export const deleteEmployee = async (req,res)=>{
     }
 
 }
+
+export const updateEmployee = async (req,res)=>{
+    try {
+        const {empId,employeeName,designation,department,password,joiningDate}=req.body;
+        const updateEmp = {
+            $set: {
+                employeeName:employeeName,
+                designation:designation,
+                department:department,
+                password:password,
+                joiningDate:joiningDate
+            },
+          };
+        await Employee.updateOne({empId},updateEmp);
+        return res.status(200).json({message:"employee updated successfully",updateEmp})
+
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({ error: "error in updateEmployee Controller" });
+    }
+}
