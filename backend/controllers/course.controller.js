@@ -125,18 +125,20 @@ export const allVideo =async (req,res)=>{
 export const addModule = async (req ,res) => {
     try {
         
-        const { moduleName, courseId, videoId } = req.body;
+        const { moduleName, course, video,moduleNo } = req.body;
 
 
-        if (!moduleName || !courseId || !Array.isArray(videoId)) {
+        if (!moduleName || !course || !Array.isArray(video)) {
             return res.status(400).json({ message: 'Invalid input data' });
         }
 
 
         const newModule = new Module({
             moduleName,
-            course:courseId,
-            video:videoId
+            course:course,
+            video:video,
+            moduleNo:moduleNo
+
         });
 
 
@@ -145,8 +147,8 @@ export const addModule = async (req ,res) => {
         res.status(200).json({
             message:"module added successfully",
             moduleName:newModule.moduleName,
-            courseId:newModule.course,
-            videoId:newModule.video
+            course:newModule.course,
+            video:newModule.video
         });
     } catch (error) {
         console.log(error.message);
