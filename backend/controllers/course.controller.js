@@ -62,21 +62,17 @@ export const deleteCourse = async (req, res) => {
         .json({ success: false, message: "Course not found" });
     }
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Course deleted successfully",
-        deletedCourse,
-      });
+    res.status(200).json({
+      success: true,
+      message: "Course deleted successfully",
+      deletedCourse,
+    });
   } catch (error) {
     console.log("Error in deleteCourse controller:", error.message);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Server error ,Error in delete Course section",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Server error ,Error in delete Course section",
+    });
   }
 };
 
@@ -89,6 +85,11 @@ export const addVideo = async (req, res) => {
         .status(400)
         .json({ success: false, message: "No file uploaded" });
     }
+    try {
+
+        if (!req.file) {
+            return res.status(400).json({ success: false, message: "No file uploaded" });
+        }
 
     const video_url = `${req.protocol}://${req.get("host")}/videos/${
       req.file.filename
@@ -98,7 +99,6 @@ export const addVideo = async (req, res) => {
       videoTitle: req.body.videoTitle,
       videoDescription: req.body.videoDescription,
       videoLink: video_url,
-      videoNo: req.body.videoNo,
     });
 
     await video.save();
