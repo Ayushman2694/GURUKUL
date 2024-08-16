@@ -15,6 +15,10 @@ const videosSchema = mongoose.Schema({
     videoLink:{
         type:String,
         required:true,
+    },
+    videoNo:{
+        type:Number,
+        required:true
     }
     
 })

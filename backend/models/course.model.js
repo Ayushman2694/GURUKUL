@@ -21,6 +21,10 @@ const coursesSchema = mongoose.Schema({
     thumbnail:{
         type:String,
         required:true,
+    },
+    
+    noOfModules:{
+        type:Number
     }
     
 })

@@ -12,6 +12,8 @@ export default function ShowAllDepartment() {
   const { removeDepartment, isLoading: deletingDepartment } =
     useDeleteDepartment();
 
+    console.log(allDepartment);
+
   if (loadingAllDepartment) return <Spinner />;
   return (
     <>
