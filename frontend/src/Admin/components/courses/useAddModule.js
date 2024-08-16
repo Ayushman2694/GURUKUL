@@ -13,7 +13,7 @@ export function useAddModule() {
     },
     onError: (err) => {
       console.log(err);
-      toast.error("Module Can't Be Uploaded"); // Show the error message in a toast
+      // toast.error("Module Can't Be Uploaded"); // Show the error message in a toast
     },
   });
 

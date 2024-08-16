@@ -45,13 +45,13 @@ export async function showAllEmployee() {
 }
 
 export async function getEmployeeById(empId) {
-  const apiUrl = `${url}/api/employee/allEmployee/${empId}`;
+  const apiUrl = `${url}/api/employee/getEmployeeById/${empId}`;
 
   try {
     const response = await axios.get(apiUrl); // Use GET for fetching data
 
     if (response.status === 200) {
-      return response.data; // Assuming response.data contains the array of admin details
+      return response.data.emp; // Assuming response.data contains the array of admin details
     } else {
       console.error(
         "Failed to fetch employee information:",

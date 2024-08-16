@@ -1,23 +1,24 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import FormError from "../../Common/Ui/FormError";
 import { MdFileUpload } from "react-icons/md";
 import { useAddVideo } from "../components/courses/useAddVideo";
 import SpinnerMini from "../../Common/Ui/SpinnerMini";
+import toast from "react-hot-toast"; // Import toast
 
-export default function AddVideo({ videosNo, setVideoArray }) {
+export default function AddVideos({ videosNo, setVideoArray }) {
   const [videoStates, setVideoStates] = useState({});
-
   const { addVideo, isLoading, VideoData } = useAddVideo();
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm();
+
+  const validVideoTypes = ["video/mp4", "video/ogg", "video/webm"]; // List of valid video types
 
   function onSubmit(data) {
     const formData = new FormData();
@@ -35,6 +36,7 @@ export default function AddVideo({ videosNo, setVideoArray }) {
       },
     });
   }
+
   useEffect(() => {
     if (!VideoData) return;
 
@@ -48,6 +50,12 @@ export default function AddVideo({ videosNo, setVideoArray }) {
 
   function handleFileChange(event) {
     const file = event.target.files[0];
+
+    if (!validVideoTypes.includes(file.type)) {
+      toast.error("Please select a valid video file!");
+      return;
+    }
+
     setVideoStates((prevState) => ({
       ...prevState,
       [`selectedFile${videosNo}`]: file,
@@ -56,7 +64,7 @@ export default function AddVideo({ videosNo, setVideoArray }) {
 
   return (
     <div className="w-full shadow-lg px-4 py-1 rounded-lg bg-gray-100 border">
-      <h2 className="w-full text-lg font-bold bold mb-1 px-1 ">
+      <h2 className="w-full text-lg font-bold bold mb-1 px-1">
         Video {videosNo}
       </h2>
       <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
@@ -72,8 +80,11 @@ export default function AddVideo({ videosNo, setVideoArray }) {
               <input
                 type="text"
                 id="title"
+                disabled={isLoading || videoStates?.uploaded1}
                 placeholder="Video Title"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                  isLoading || (videoStates?.uploaded1 && "cursor-not-allowed")
+                }`}
                 {...register("title", {
                   required: "This field is required",
                 })}
@@ -92,7 +103,10 @@ export default function AddVideo({ videosNo, setVideoArray }) {
               <textarea
                 id="description"
                 placeholder="Course Description"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                disabled={isLoading || videoStates?.uploaded1}
+                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                  isLoading || (videoStates?.uploaded1 && "cursor-not-allowed")
+                }`}
                 {...register("description", {
                   required: "This field is required",
                 })}
@@ -120,6 +134,7 @@ export default function AddVideo({ videosNo, setVideoArray }) {
             <input
               type="file"
               className="hidden"
+              disabled={isLoading || videoStates?.uploaded1}
               id={`video${videosNo}`}
               {...register("video", {
                 required: "No Video Selected",
@@ -130,7 +145,7 @@ export default function AddVideo({ videosNo, setVideoArray }) {
           </div>
           <div className="w-1/12 px-1 flex justify-center items-center">
             <button
-              disabled={isLoading}
+              disabled={isLoading || videoStates?.uploaded1}
               className={`${
                 videoStates[`uploaded${videosNo}`]
                   ? "bg-gray-400 cursor-not-allowed"

@@ -3,9 +3,19 @@ import AdminDashboardCard from "../components/dashboard/AdminDashboardCard";
 import AdminDashboardPercent from "../components/dashboard/AdminDashboardPercent";
 import AdminDashboardBar from "../components/dashboard/AdminDashboardBar";
 import { useNavigate } from "react-router-dom";
+import { useAllCourse } from "../components/courses/useAllCourse";
+import { useAllEmployee } from "../components/settings/useAllEmployee";
+import Spinner from "../../Common/Ui/Spinner";
 
 export default function AdminDashboard() {
+  const { isLoading: loadindCourses, allCourse } = useAllCourse();
+  const { isLoading: loadingAllEmployee, allEmployee } = useAllEmployee();
   const navigate = useNavigate();
+
+  const courseCount = allCourse ? allCourse.length : 0;
+  const employeeCount = allEmployee ? allEmployee.length : 0;
+
+  if (loadindCourses || loadingAllEmployee) return <Spinner />;
   return (
     <div className="min-h-screen w-full bg-white p-4">
       <div className="flex justify-between items-center">
@@ -26,9 +36,9 @@ export default function AdminDashboard() {
         </div>
       </div>
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <AdminDashboardCard title="Total Courses" number="20" />
+        <AdminDashboardCard title="Total Courses" number={courseCount} />
         <AdminDashboardCard title="Assigned Courses" number="5" />
-        <AdminDashboardCard title="Total users" number="80" />
+        <AdminDashboardCard title="Total users" number={employeeCount} />
       </div>
       <div className="bg-gray-50 shadow-md rounded-lg p-4 mb-6">
         <select className="w-full p-2 border border-gray-300 rounded-lg mb-4">

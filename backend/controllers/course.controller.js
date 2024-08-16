@@ -85,11 +85,6 @@ export const addVideo = async (req, res) => {
         .status(400)
         .json({ success: false, message: "No file uploaded" });
     }
-    try {
-
-        if (!req.file) {
-            return res.status(400).json({ success: false, message: "No file uploaded" });
-        }
 
     const video_url = `${req.protocol}://${req.get("host")}/videos/${
       req.file.filename
@@ -99,6 +94,7 @@ export const addVideo = async (req, res) => {
       videoTitle: req.body.videoTitle,
       videoDescription: req.body.videoDescription,
       videoLink: video_url,
+      videoNo: req.body.videoNo,
     });
 
     await video.save();

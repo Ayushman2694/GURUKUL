@@ -1,12 +1,14 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import {updateEmployee as updateEmployeeApi } from "../../service/employee";
+import { updateEmployee as updateEmployeeApi } from "../../service/employee";
 
-export function useUpdateEmployee() {
+export function useUpdateEmployee(empId) {
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (data) => updateEmployeeApi(data),
 
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["employee", empId] });
       toast.success("Employee updated Successfully");
     },
     onError: (err) => {

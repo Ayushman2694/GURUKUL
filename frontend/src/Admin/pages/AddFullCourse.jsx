@@ -30,8 +30,13 @@ export default function AddFullCourse() {
           setCourseData={setCourseData}
         />
       ) : (
-        <div className="w-full h-full">
-          <h2 className="text-2xl font-bold pb-2">Your Course</h2>
+        <div className="w-full h-full p-4">
+          <div className=" flex justify-between  pb-2">
+            <h1 className="text-2xl font-bold">Your Course</h1>
+            <button className="bg-green-600 text-lg font-semibold text-white py-1 px-2 mx-1 rounded-md cursor-pointer flex justify-center items-center">
+              Done
+            </button>
+          </div>
           <table className="min-w-full leading-normal mb-4">
             <thead>
               <tr>
@@ -109,7 +114,7 @@ export default function AddFullCourse() {
             </div>
             {moduleNoList.map((moduleNo) => (
               <div key={moduleNo} className="mt-4">
-                <AddModule noOfModule={moduleNo + 1} courseId={courseData} />
+                <AddModule moduleNo={moduleNo + 1} courseId={courseData} />
               </div>
             ))}
           </div>
