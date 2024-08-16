@@ -1,5 +1,6 @@
 
 import Course from "../models/course.model.js";
+import Module from "../models/module.model.js";
 import Video from "../models/video.model.js";
 
 export const addCourse = async (req, res) => {
@@ -45,6 +46,27 @@ export const getallCourse = async(req,res)=>{
     console.log(error)
 }
 }
+//delete course
+
+
+export const deleteCourse = async (req, res) => {
+    try {
+        const { courseId } = req.params; 
+
+        // Attempt to find and delete the course
+        const deletedCourse = await Course.findByIdAndDelete(courseId);
+
+        if (!deletedCourse) {
+            return res.status(404).json({ success: false, message: "Course not found" });
+        }
+
+        res.status(200).json({ success: true, message: "Course deleted successfully", deletedCourse });
+    } catch (error) {
+        console.log("Error in deleteCourse controller:", error.message);
+        res.status(500).json({ success: false, message: "Server error ,Error in delete Course section" });
+    }
+};
+
 
 
 // viudeo controller 
@@ -103,27 +125,30 @@ export const allVideo =async (req,res)=>{
 export const addModule = async (req ,res) => {
     try {
         
-        const { moduleName, courseId, videoId } = req.body;
+        const { moduleName, course, video,moduleNo } = req.body;
 
 
-        if (!moduleName || !courseId || !Array.isArray(videoId)) {
+        if (!moduleName || !course || !Array.isArray(video)) {
             return res.status(400).json({ message: 'Invalid input data' });
         }
 
 
         const newModule = new Module({
             moduleName,
-            courseId,
-            videoId
+            course:course,
+            video:video,
+            moduleNo:moduleNo
+
         });
 
 
         await newModule.save();
+
         res.status(200).json({
             message:"module added successfully",
             moduleName:newModule.moduleName,
-            courseId:newModule.courseId,
-            videoId:newModule.videoId
+            course:newModule.course,
+            video:newModule.video
         });
     } catch (error) {
         console.log(error.message);

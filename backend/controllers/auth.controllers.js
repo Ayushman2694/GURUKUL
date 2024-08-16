@@ -16,7 +16,7 @@ export const login = async (req, res) => {
       return res.status(400).json({ error: "Invalid password" });
     }
 
-    const token = createToken(emp._id);
+    const token = createToken(emp._id,"user");
     return res.status(200).json({
       success: true,
       token,

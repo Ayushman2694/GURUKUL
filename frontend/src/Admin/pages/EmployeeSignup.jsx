@@ -7,6 +7,8 @@ import { useEmployeeSignup } from "../components/settings/useEmployeeSignup";
 import SpinnerMini from "../../Common/Ui/SpinnerMini";
 import BackButton from "../../Common/Ui/BackButton";
 import Dropdown from "../ui/DropDown";
+import { updateEmployee } from "../service/employee";
+import { useUpdateEmployee } from "../components/settings/useUpdateEmployee";
 
 export default function EmployeeSignup() {
   const [selectedDepartment, setSelectedDepartment] = useState("");
@@ -19,6 +21,7 @@ export default function EmployeeSignup() {
   } = useForm();
 
   const { employeeSignup, isLoading } = useEmployeeSignup();
+  const { updateEmployee, isLoading:updateEmployeeLoading } = useUpdateEmployee();
 
   function onSubmit(data) {
     if (!selectedDepartment) return null;
@@ -42,7 +45,24 @@ export default function EmployeeSignup() {
         }
       );
     } else {
-      console.log("updating employe");
+      updateEmployee(
+        {
+          empId: data.empid,
+          employeeName: data.name,
+          department: selectedDepartment,
+          designation: data.designation,
+          password: data.password,
+          joiningDate: data.joiningDate,
+        },
+        {
+          onSuccess: () => {
+            reset();
+          },
+          onError: () => {
+            reset();
+          },
+        }
+      );
     }
   }
 
