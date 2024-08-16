@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import  { getallCourse,addCourse, addModule } from '../controllers/course.controller.js';
+import  { getallCourse,addCourse, deleteCourse ,addModule } from '../controllers/course.controller.js';
 
 const courseRouter = express.Router();
 
@@ -13,9 +13,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-courseRouter.post("/addCourse", upload.single("thumbnail"), addCourse);
+courseRouter.post("/addCourse", upload.single("thumbnail"), addCourse)
 courseRouter.get("/allCourse",getallCourse);
+courseRouter.post('/deleteCourse',deleteCourse);
 courseRouter.post("/addModule", addModule);
+
 
 
 export default courseRouter;
