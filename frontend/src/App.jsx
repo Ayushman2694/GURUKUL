@@ -27,8 +27,8 @@ import AddDetertment from "./Admin/pages/AddDetertment";
 import ShowAllAdmin from "./Admin/pages/ShowAllAdmin";
 import ShowAllEmployee from "./Admin/pages/ShowAllEmployee";
 import ShowAllDepartment from "./Admin/pages/ShowAllDepartment";
-import Protected from "./Employee/Ui/Protected";
-import AddCourse from "./Admin/pages/AddCourse";
+import AddFullCourse from "./Admin/pages/AddFullCourse";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -45,7 +45,7 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<PageNotFound />} />
-          {/* ------------------------------- Employee Routes ------------------------------- */}
+          {/* ------------------------------- Employee  Routes ------------------------------- */}
           <Route
             element={
               <PrivateRoute>
@@ -61,12 +61,12 @@ export default function App() {
             <Route path="employee/settings" element={<EmployeeSettings />} />
             <Route path="employee/quiz" element={<Quiz />} />
           </Route>
-          {/* ------------------------------- Admin Routes ------------------------------- */}
+          {/* ------------------------------- Admin  Routes ------------------------------- */}
           <Route
             element={
-              <Protected>
+              <PrivateRoute>
                 <AdminAppLayout />
-              </Protected>
+              </PrivateRoute>
             }
           >
             <Route path="admin/" element={<Navigate to="dashboard" />} />
@@ -88,7 +88,7 @@ export default function App() {
               path="admin/showAllDepartment"
               element={<ShowAllDepartment />}
             />
-            <Route path="admin/addCourse" element={<AddCourse />} />
+            <Route path="admin/addCourse" element={<AddFullCourse />} />
           </Route>
         </Routes>
         <ToastContainer

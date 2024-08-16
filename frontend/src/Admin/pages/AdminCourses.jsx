@@ -4,18 +4,16 @@ import Spinner from "../../Common/Ui/Spinner";
 import { FaPlayCircle } from "react-icons/fa";
 import AddButton from "../ui/AddButton";
 import { useNavigate } from "react-router-dom";
-import { useAllCourse } from "../components/settings/useAllCourse";
+import { useAllCourse } from "../components/courses/useAllCourse";
 
 export default function AdminCourses() {
   const navigate = useNavigate();
- const {isLoading,allCourse}=useAllCourse();
- console.log(allCourse)
- if (isLoading) return < Spinner/>;
- 
+  const { isLoading, allCourse } = useAllCourse();
+  if (isLoading) return <Spinner />;
 
   return (
-    <div className="min-h-screen w-full bg-white p-4">
-      <div className="flex items-center justify-between w-full text-3xl font-bold mb-3 pr-20">
+    <div className="min-h-screen w-full bg-white p-4 ">
+      <div className="flex items-center justify-between w-full text-3xl font-bold mb-3">
         <h1 className="text-3xl font-bold mb-3">Course</h1>
 
         <AddButton
@@ -25,7 +23,7 @@ export default function AdminCourses() {
           }}
         />
       </div>
-      <div className="bg-white shadow-md rounded-lg overflow-hidden">
+      <div className="bg-white shadow-md rounded-lg overflow-hidden pb-20">
         <table className="min-w-full leading-normal">
           <thead>
             <tr>

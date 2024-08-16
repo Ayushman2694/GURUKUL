@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -6,10 +7,10 @@ import { MdFileUpload } from "react-icons/md";
 import { useAddVideo } from "../components/courses/useAddVideo";
 import SpinnerMini from "../../Common/Ui/SpinnerMini";
 
-export default function AddVideo() {
+export default function AddVideo({ videosNo }) {
+  const [videoStates, setVideoStates] = useState({});
+
   const { addVideo, isLoading } = useAddVideo();
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [uploaded, setUploaded] = useState(false);
 
   const {
     register,
@@ -22,23 +23,30 @@ export default function AddVideo() {
     const formData = new FormData();
     formData.append("videoTitle", data.title);
     formData.append("videoDescription", data.description);
-    formData.append("videoLink", selectedFile);
+    formData.append("videoLink", videoStates[`selectedFile${videosNo}`]);
 
     addVideo(formData, {
       onSuccess: () => {
-        setUploaded(true);
+        setVideoStates((prevState) => ({
+          ...prevState,
+          [`uploaded${videosNo}`]: true,
+        }));
       },
     });
   }
 
   function handleFileChange(event) {
-    setSelectedFile(event.target.files[0]);
+    const file = event.target.files[0];
+    setVideoStates((prevState) => ({
+      ...prevState,
+      [`selectedFile${videosNo}`]: file,
+    }));
   }
 
   return (
-    <div className="w-full shadow-lg p-4 rounded-lg bg-gray-100 border">
-      <h2 className="w-full text-lg font-semibold bold mb-1 px-1 ">
-        Add New Video To Module
+    <div className="w-full shadow-lg px-4 py-1 rounded-lg bg-gray-100 border">
+      <h2 className="w-full text-lg font-bold bold mb-1 px-1 ">
+        Video {videosNo}
       </h2>
       <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex">
@@ -87,13 +95,13 @@ export default function AddVideo() {
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Add Video
             </label>
-            <label htmlFor="video" className="relative ">
-              {!selectedFile ? (
-                <div className="w-full flex justify-center items-center bg-blue-600 text-white font-semibold py-1 rounded-md  cursor-pointer">
+            <label htmlFor={`video${videosNo}`} className="relative ">
+              {!videoStates[`selectedFile${videosNo}`] ? (
+                <div className="w-full flex justify-center items-center bg-blue-600 text-white font-semibold py-1 rounded-md cursor-pointer">
                   Select Video
                 </div>
               ) : (
-                <div className="w-full flex justify-center items-center bg-gray-300 text-white font-semibold py-1 rounded-md  cursor-not-allowed">
+                <div className="w-full flex justify-center items-center bg-gray-300 text-white font-semibold py-1 rounded-md cursor-not-allowed">
                   Video Selected
                 </div>
               )}
@@ -101,7 +109,7 @@ export default function AddVideo() {
             <input
               type="file"
               className="hidden"
-              id="video"
+              id={`video${videosNo}`}
               {...register("video", {
                 required: "No Video Selected",
               })}
@@ -113,12 +121,14 @@ export default function AddVideo() {
             <button
               disabled={isLoading}
               className={`${
-                uploaded ? "bg-gray-400 cursor-not-allowed" : "bg-green-600"
+                videoStates[`uploaded${videosNo}`]
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-green-600"
               } text-md font-semibold text-white py-1 px-2 rounded-md`}
             >
               {isLoading ? (
                 <SpinnerMini />
-              ) : uploaded ? (
+              ) : videoStates[`uploaded${videosNo}`] ? (
                 "Uploaded"
               ) : (
                 <div className="flex justify-center items-center">
