@@ -60,6 +60,7 @@ export default function AdminSignup() {
               <input
                 type="text"
                 id="name"
+                placeholder="Enter Name"
                 disabled={isLoading}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("name", {
@@ -78,6 +79,7 @@ export default function AdminSignup() {
               <input
                 type="text"
                 id="email"
+                placeholder="Enter Email"
                 disabled={isLoading}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("email", {
@@ -100,6 +102,7 @@ export default function AdminSignup() {
               <input
                 type="password"
                 id="password"
+                placeholder="Enter Password"
                 disabled={isLoading}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("password", {
@@ -122,6 +125,7 @@ export default function AdminSignup() {
               <input
                 type="password"
                 id="confirmPassword"
+                placeholder="Enter Confirm Password"
                 disabled={isLoading}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("confirmPassword", {

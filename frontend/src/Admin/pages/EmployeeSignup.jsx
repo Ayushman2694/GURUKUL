@@ -62,6 +62,7 @@ export default function EmployeeSignup() {
                 type="text"
                 disabled={isLoading}
                 id="empid"
+                placeholder="Enter Employee Id"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("empid", {
                   required: "This field is required",
@@ -81,6 +82,7 @@ export default function EmployeeSignup() {
                 type="text"
                 disabled={isLoading}
                 id="name"
+                placeholder="Enter Name"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("name", {
                   required: "This field is required",
@@ -99,6 +101,7 @@ export default function EmployeeSignup() {
               <input
                 type="text"
                 id="department"
+                placeholder="Enter Department"
                 disabled={isLoading}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("department", {
@@ -120,6 +123,7 @@ export default function EmployeeSignup() {
               <input
                 type="text"
                 id="designation"
+                placeholder="Enter Designation"
                 disabled={isLoading}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("designation", {
@@ -141,6 +145,7 @@ export default function EmployeeSignup() {
               <input
                 type="date"
                 id="joiningDate"
+                placeholder="Enter Joining Date"
                 disabled={isLoading}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("joiningDate", {
@@ -162,6 +167,7 @@ export default function EmployeeSignup() {
               <input
                 type="password"
                 id="password"
+                placeholder="Enter Password"
                 disabled={isLoading}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("password", {
@@ -185,6 +191,7 @@ export default function EmployeeSignup() {
               <input
                 type="password"
                 id="confirmPassword"
+                placeholder="Enter Confirm Password"
                 disabled={isLoading}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("confirmPassword", {
