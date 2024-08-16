@@ -17,7 +17,6 @@ export default function AddModule({ noOfModule, courseId }) {
   const [videoNoList, setVideoNoList] = useState([0]);
   const [videoArray, setVideoArray] = useState([]);
   const { addModule, isLoading } = useAddModule();
-  console.log(courseId._id);
 
   const {
     register,
@@ -38,17 +37,11 @@ export default function AddModule({ noOfModule, courseId }) {
   }
 
   function onSubmit(data) {
-    console.log({
-      moduleName: data.title,
-      course: courseId._id,
-      moduleNo: noOfModule,
-      video: videoArray,
-    });
     addModule({
       moduleName: data.title,
       course: courseId._id,
       moduleNo: noOfModule,
-      video: videoArray,
+      video: ["66beffb925907baa62f21f57"],
     });
   }
 

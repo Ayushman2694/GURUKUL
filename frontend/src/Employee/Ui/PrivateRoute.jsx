@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import axios from 'axios';
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
+import axios from "axios";
 
 const PrivateRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -10,12 +11,12 @@ const PrivateRoute = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         if (!token) {
           setIsAuthenticated(false);
         } else {
           const response = await axios.get(
-            'http://localhost:6300/api/user/verifyToken',
+            "http://localhost:6300/api/user/verifyToken",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -39,7 +40,11 @@ const PrivateRoute = ({ children }) => {
     return <div>Loading...</div>;
   }
 
-  return isAuthenticated && role === 'user' ? children : <Navigate to="/login" />;
+  return isAuthenticated && role === "user" ? (
+    children
+  ) : (
+    <Navigate to="/login" />
+  );
 };
 
 export default PrivateRoute;

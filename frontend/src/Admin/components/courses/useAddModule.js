@@ -1,15 +1,14 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 import { addModule as addModuleApi } from "../../service/module";
 
 export function useAddModule() {
-  const queryClient = useQueryClient();
+  //   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (data) => addModuleApi(data),
 
-    onSuccess: (data) => {
-      queryClient.setQueryData(["module", data.module._id], data.module);
+    onSuccess: () => {
       toast.success("Module Uploaded Successfully");
     },
     onError: (err) => {

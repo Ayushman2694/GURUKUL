@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 
@@ -9,10 +10,16 @@ import BackButton from "../../Common/Ui/BackButton";
 import Dropdown from "../ui/DropDown";
 import { updateEmployee } from "../service/employee";
 import { useUpdateEmployee } from "../components/settings/useUpdateEmployee";
+import { useParams } from "react-router-dom";
+import { useEmployeeInfo } from "../../Employee/component/employee_info/useEmployeeInfo";
+import Spinner from "../../Common/Ui/Spinner";
 
-export default function EmployeeSignup() {
+export default function EmployeeSignup({ editing = false }) {
   const [selectedDepartment, setSelectedDepartment] = useState("");
-  const [editing, setEditing] = useState(false);
+  const { empId } = useParams();
+  const { isLoading: loadingEmployeeInfo, employe_info } =
+    useEmployeeInfo(empId);
+
   const {
     register,
     handleSubmit,
@@ -21,7 +28,10 @@ export default function EmployeeSignup() {
   } = useForm();
 
   const { employeeSignup, isLoading } = useEmployeeSignup();
-  const { updateEmployee, isLoading:updateEmployeeLoading } = useUpdateEmployee();
+  const { updateEmployee, isLoading: updateEmployeeLoading } =
+    useUpdateEmployee();
+
+  console.log();
 
   function onSubmit(data) {
     if (!selectedDepartment) return null;
@@ -45,6 +55,7 @@ export default function EmployeeSignup() {
         }
       );
     } else {
+      if (data.password !== data.confirmPassword) return null;
       updateEmployee(
         {
           empId: data.empid,
@@ -66,6 +77,8 @@ export default function EmployeeSignup() {
     }
   }
 
+  if (loadingEmployeeInfo) return <Spinner />;
+
   return (
     <>
       <BackButton />
@@ -76,7 +89,7 @@ export default function EmployeeSignup() {
       >
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
           <h2 className="text-2xl font-bold mb-6 text-center">
-            Add New Employee
+            {!editing ? "Add New Employee" : "Update Employee"}
           </h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
@@ -88,8 +101,9 @@ export default function EmployeeSignup() {
               </label>
               <input
                 type="text"
-                disabled={isLoading}
+                disabled={isLoading || updateEmployeeLoading}
                 id="empid"
+                value={employe_info.empId}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("empid", {
                   required: "This field is required",
@@ -107,7 +121,7 @@ export default function EmployeeSignup() {
               </label>
               <input
                 type="text"
-                disabled={isLoading}
+                disabled={isLoading || updateEmployeeLoading}
                 id="name"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("name", {
@@ -140,7 +154,7 @@ export default function EmployeeSignup() {
               <input
                 type="text"
                 id="designation"
-                disabled={isLoading}
+                disabled={isLoading || updateEmployeeLoading}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("designation", {
                   required: "This field is required",
@@ -161,7 +175,7 @@ export default function EmployeeSignup() {
               <input
                 type="date"
                 id="joiningDate"
-                disabled={isLoading}
+                disabled={isLoading || updateEmployeeLoading}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("joiningDate", {
                   required: "This field is required",
@@ -225,7 +239,13 @@ export default function EmployeeSignup() {
                 type="submit"
                 className="bg-blue-600 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
-                {isLoading ? <SpinnerMini /> : "Add Employee"}
+                {isLoading ? (
+                  <SpinnerMini />
+                ) : editing ? (
+                  "Update Employee"
+                ) : (
+                  "Add Employee"
+                )}
               </button>
             </div>
           </form>
