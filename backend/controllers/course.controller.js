@@ -77,6 +77,7 @@ export const deleteCourse = async (req, res) => {
 
 export const addVideo = async (req, res) => {
     try {
+
         if (!req.file) {
             return res.status(400).json({ success: false, message: "No file uploaded" });
         }
@@ -88,6 +89,7 @@ export const addVideo = async (req, res) => {
             videoTitle: req.body.videoTitle,
             videoDescription: req.body.videoDescription,
             videoLink: video_url,
+            videoNo:req.body.videoNo
         });
 
         await video.save();
@@ -148,7 +150,8 @@ export const addModule = async (req ,res) => {
             message:"module added successfully",
             moduleName:newModule.moduleName,
             course:newModule.course,
-            video:newModule.video
+            video:newModule.video,
+            moduleNo:newModule.moduleNo
         });
     } catch (error) {
         console.log(error.message);
