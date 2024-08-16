@@ -27,6 +27,9 @@ import AddDetertment from "./Admin/pages/AddDetertment";
 import ShowAllAdmin from "./Admin/pages/ShowAllAdmin";
 import ShowAllEmployee from "./Admin/pages/ShowAllEmployee";
 import ShowAllDepartment from "./Admin/pages/ShowAllDepartment";
+import CreateQuiz from "./Admin/pages/CreateQuiz";
+import ViewQuiz from "./Admin/pages/ViewQuiz";
+import EditQuiz from "./Admin/pages/EditQuiz
 import AddFullCourse from "./Admin/pages/AddFullCourse";
 
 const queryClient = new QueryClient({
@@ -44,6 +47,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="*" element={<PageNotFound />} />
           {/* ------------------------------- Employee  Routes ------------------------------- */}
           <Route
@@ -79,7 +83,10 @@ export default function App() {
             <Route path="admin/SignUp" element={<AdminSignup />} />
             <Route path="admin/employeeSignUp" element={<EmployeeSignup />} />
             <Route path="admin/addDepartment" element={<AddDetertment />} />
-            <Route path="admin/showAllAdmin" element={<ShowAllAdmin />} />
+            <Route path="admin/showAllAdmin" element={<ShowAllAdmin />} />            
+            <Route path="admin/createQuiz" element={<CreateQuiz />} />            
+            <Route path="admin/viewQuiz" element={<ViewQuiz />} />            
+            <Route path="admin/editQuiz" element={<EditQuiz />} />            
             <Route
               path="admin/showAllEmployee"
               element={<ShowAllEmployee title="Employee List" />}
