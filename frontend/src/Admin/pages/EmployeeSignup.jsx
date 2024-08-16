@@ -10,6 +10,7 @@ import Dropdown from "../ui/DropDown";
 
 export default function EmployeeSignup() {
   const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [editing, setEditing] = useState(false);
   const {
     register,
     handleSubmit,
@@ -21,24 +22,28 @@ export default function EmployeeSignup() {
 
   function onSubmit(data) {
     if (!selectedDepartment) return null;
-    employeeSignup(
-      {
-        empId: data.empid,
-        employeeName: data.name,
-        department: selectedDepartment,
-        designation: data.designation,
-        password: data.password,
-        joiningDate: data.joiningDate,
-      },
-      {
-        onSuccess: () => {
-          reset();
+    if (!editing) {
+      employeeSignup(
+        {
+          empId: data.empid,
+          employeeName: data.name,
+          department: selectedDepartment,
+          designation: data.designation,
+          password: data.password,
+          joiningDate: data.joiningDate,
         },
-        onError: () => {
-          reset();
-        },
-      }
-    );
+        {
+          onSuccess: () => {
+            reset();
+          },
+          onError: () => {
+            reset();
+          },
+        }
+      );
+    } else {
+      console.log("updating employe");
+    }
   }
 
   return (

@@ -10,9 +10,8 @@ export function useAddCourse() {
     mutationFn: (data) => addCourseApi(data),
 
     onSuccess: (data) => {
-      console.log(data.course);
-      queryClient.setQueryData(["course", data.course._id], data.course);
       CourseData = data.course;
+      queryClient.setQueryData(["course", data.course._id], data.course);
       toast.success("Course Created Successfully");
     },
     onError: (err) => {
