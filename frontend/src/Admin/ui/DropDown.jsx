@@ -18,6 +18,8 @@ const Dropdown = ({ selectedOption, setSelectedOption }) => {
         onChange={handleChange}
       >
         <option value="Select A Department">Select A Department</option>
+        <option value="all_department">To All</option>
+        <option value="no_department">none</option>
         {allDepartment.map((department) => (
           <option
             key={department.departmentName}

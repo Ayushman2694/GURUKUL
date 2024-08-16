@@ -29,7 +29,7 @@ import ShowAllEmployee from "./Admin/pages/ShowAllEmployee";
 import ShowAllDepartment from "./Admin/pages/ShowAllDepartment";
 import CreateQuiz from "./Admin/pages/CreateQuiz";
 import ViewQuiz from "./Admin/pages/ViewQuiz";
-import EditQuiz from "./Admin/pages/EditQuiz
+import EditQuiz from "./Admin/pages/EditQuiz";
 import AddFullCourse from "./Admin/pages/AddFullCourse";
 
 const queryClient = new QueryClient({
@@ -68,9 +68,9 @@ export default function App() {
           {/* ------------------------------- Admin  Routes ------------------------------- */}
           <Route
             element={
-              <PrivateRoute>
-                <AdminAppLayout />
-              </PrivateRoute>
+              // /<PrivateRoute>
+              <AdminAppLayout />
+              // </PrivateRoute>
             }
           >
             <Route path="admin/" element={<Navigate to="dashboard" />} />
@@ -82,11 +82,15 @@ export default function App() {
             <Route path="admin/settings" element={<AdminSettings />} />
             <Route path="admin/SignUp" element={<AdminSignup />} />
             <Route path="admin/employeeSignUp" element={<EmployeeSignup />} />
+            <Route
+              path="admin/updateEmployee/:empId"
+              element={<EmployeeSignup editing={true} />}
+            />
             <Route path="admin/addDepartment" element={<AddDetertment />} />
-            <Route path="admin/showAllAdmin" element={<ShowAllAdmin />} />            
-            <Route path="admin/createQuiz" element={<CreateQuiz />} />            
-            <Route path="admin/viewQuiz" element={<ViewQuiz />} />            
-            <Route path="admin/editQuiz" element={<EditQuiz />} />            
+            <Route path="admin/showAllAdmin" element={<ShowAllAdmin />} />
+            <Route path="admin/createQuiz" element={<CreateQuiz />} />
+            <Route path="admin/viewQuiz" element={<ViewQuiz />} />
+            <Route path="admin/editQuiz" element={<EditQuiz />} />
             <Route
               path="admin/showAllEmployee"
               element={<ShowAllEmployee title="Employee List" />}

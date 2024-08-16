@@ -1,19 +1,27 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useForm } from "react-hook-form";
-import FormError from "../../Common/Ui/FormError";
+/* eslint-disable react/prop-types */
 import { useState } from "react";
-import AddVideo from "./AddVideo";
-import { IoIosAddCircleOutline } from "react-icons/io";
-import { IoIosRemoveCircleOutline } from "react-icons/io";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { FaAngleDown, FaAngleUp } from "react-icons/fa";
+import {
+  IoIosAddCircleOutline,
+  IoIosRemoveCircleOutline,
+} from "react-icons/io";
+import FormError from "../../Common/Ui/FormError";
 import { MdFileUpload } from "react-icons/md";
-import { FaAngleUp } from "react-icons/fa";
-import { FaAngleDown } from "react-icons/fa";
+import { useAddModule } from "../components/courses/useAddModule";
 
-export default function AddModule({ noOfModule }) {
+import AddVideos from "./AddVideos";
+
+export default function AddModule({ moduleNo, courseId }) {
   const [showVideos, setShowVideos] = useState(true);
   const [noOfVideos, setNoOfVideos] = useState(1);
   const [videoNoList, setVideoNoList] = useState([0]);
+  const [videoArray, setVideoArray] = useState([]);
+  const { moduleUploaded, setModuleUploaded } = useState(false);
+
+  const { addModule, isLoading } = useAddModule();
 
   const {
     register,
@@ -23,25 +31,59 @@ export default function AddModule({ noOfModule }) {
   } = useForm();
 
   function addVideo() {
-    setNoOfVideos((prevValue) => prevValue + 1);
-    setVideoNoList((prevVideoNoList) => [...prevVideoNoList, noOfVideos]);
+    const filteredArray = videoArray.filter((video) => video !== undefined);
+    const arrayLength = filteredArray.length;
+    if (arrayLength === noOfVideos) {
+      setNoOfVideos((prevValue) => prevValue + 1);
+      setVideoNoList((prevVideoNoList) => [...prevVideoNoList, noOfVideos]);
+    } else {
+      toast.error(
+        `Upload Video No ${arrayLength + 1} In Module No ${moduleNo} First`
+      );
+    }
   }
 
   function removeVideo() {
-    if (noOfVideos === 1) return null;
-    setNoOfVideos((prevValue) => prevValue - 1);
-    setVideoNoList((list) => [...list.slice(0, -1)]);
+    const filteredArray = videoArray.filter((video) => video !== undefined);
+    const arrayLength = filteredArray.length;
+    if (noOfVideos === arrayLength) {
+      toast.error(
+        `Video No ${arrayLength} In Module No ${moduleNo} Already Uploaded `
+      );
+    } else {
+      setNoOfVideos((prevValue) => prevValue - 1);
+      setVideoNoList((list) => [...list.slice(0, -1)]);
+    }
   }
 
   function onSubmit(data) {
-    console.log(data);
+    const filteredArray = videoArray.filter((video) => video !== undefined);
+    const arrayLength = filteredArray.length;
+    if (arrayLength !== noOfVideos) {
+      toast.error`(Please Upload All Videos In Module No ${moduleNo})`;
+    } else {
+      addModule(
+        {
+          moduleName: data.title,
+          course: courseId._id,
+          moduleNo: moduleNo,
+          video: filteredArray,
+        },
+        {
+          onSuccess: () => {
+            setModuleUploaded(true);
+            setShowVideos(false);
+          },
+        }
+      );
+    }
   }
 
   return (
     <div className="w-full shadow-lg p-4 rounded-lg bg-gray-100 border">
       <div className="flex w-full justify-between pb-4">
         <h2 className="text-xl font-extrabold bold mb-1 px-1 ">
-          Module {noOfModule}
+          Module {moduleNo}
         </h2>
         <div>
           <div className="flex">
@@ -49,6 +91,7 @@ export default function AddModule({ noOfModule }) {
               <button
                 className="bg-red-600 text-sm font-semibold text-white py-1 px-2 mx-1 rounded-md cursor-pointer flex justify-center items-center"
                 onClick={() => removeVideo()}
+                disabled={moduleUploaded}
               >
                 <IoIosRemoveCircleOutline />
                 Remove Video
@@ -58,6 +101,7 @@ export default function AddModule({ noOfModule }) {
               <button
                 className="bg-blue-600 text-sm font-semibold text-white py-1 px-2 mx-1 rounded-md cursor-pointer flex justify-center items-center"
                 onClick={() => addVideo()}
+                disabled={moduleUploaded}
               >
                 <IoIosAddCircleOutline />
                 Add Video
@@ -89,6 +133,7 @@ export default function AddModule({ noOfModule }) {
                 type="text"
                 id="title"
                 placeholder="Video Title"
+                disabled={isLoading || moduleUploaded}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("title", {
                   required: "This field is required",
@@ -97,15 +142,16 @@ export default function AddModule({ noOfModule }) {
             </div>
           </div>
           <div className="w-2/12 px-1 flex justify-center items-center">
-            <div
+            <button
               className={`${"bg-green-600"} text-md font-semibold text-white py-1 px-2 rounded-md cursor-pointer`}
               onClick={handleSubmit(onSubmit)}
+              disabled={isLoading || moduleUploaded}
             >
               <div className="flex justify-center items-center">
                 <MdFileUpload />
                 Upload Module
               </div>
-            </div>
+            </button>
           </div>
         </div>
         <div>{errors.title && <FormError error={errors.title.message} />}</div>
@@ -114,7 +160,7 @@ export default function AddModule({ noOfModule }) {
         <div className="py-2">
           {videoNoList.map((videoNo) => (
             <div key={videoNo} className="mt-2">
-              <AddVideo videosNo={videoNo + 1} />
+              <AddVideos videosNo={videoNo + 1} setVideoArray={setVideoArray} />
             </div>
           ))}
         </div>
