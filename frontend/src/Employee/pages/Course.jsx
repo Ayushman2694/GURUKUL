@@ -16,8 +16,6 @@ export default function Course() {
   const { isLoading: loadingModule, modules } = useModuleByCourseId(courseId);
   const { isLoading: loadingCourse, course } = useCourseByCourseId(courseId);
 
-  console.log(course);
-
   if (loadingModule || loadingCourse) return <Spinner />;
   return (
     <div className="w-full flex p-4">

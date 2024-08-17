@@ -11,18 +11,34 @@ import ConfirmDelete from "../ui/ConfirmDelete";
 import { CiEdit } from "react-icons/ci";
 import Dropdown from "../ui/DropDown";
 
-
 export default function ShowAllEmployee({ title }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [name, setName] = useState("");
   const navigate = useNavigate();
   const { isLoading: loadingAllEmployee, allEmployee } = useAllEmployee();
   const { removeEmployee, isLoading: deletingEmployee } = useDeleteEmployee();
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+
+  // Compute filtered employees based on input value
+  const filteredEmployees = allEmployee?.filter(
+    (employee) =>
+      (employee.employeeName.toLowerCase().includes(name.toLowerCase()) ||
+        employee.empId.toLowerCase().includes(name.toLowerCase())) &&
+      (selectedDepartment === "" ||
+        employee.department.toLowerCase() === selectedDepartment.toLowerCase())
+  );
+
+  const handleChange = (e) => {
+    setName(e.target.value);
+  };
+
   if (loadingAllEmployee) return <Spinner />;
+
   return (
     <>
       <BackButton />
-      <div className="min-h-screen w-full bg-white p-4">
-        <div className="flex items-center justify-between w-full text-3xl font-bold mb-6 pr-20">
+      <div className="min-h-screen w-full bg-white p-4 pb-8">
+        <div className="flex items-center justify-between w-full text-3xl font-bold mb-6 pr-22">
           <span>{title}</span>
           <AddButton
             title="Employee"
@@ -30,20 +46,23 @@ export default function ShowAllEmployee({ title }) {
           />
         </div>
         <div className="flex gap-2 mb-2">
-        <div className="w-2/3  rounded border-slate-400">
-          <input
+          <div className="w-2/3 rounded border-slate-400">
+            <input
               type="text"
               placeholder="Enter user info"
-              className="shadow my-1 appearance-none border rounded-full w-full
+              value={name} // Bind the value to the state
+              onChange={handleChange} // Update the state on change
+              className="shadow my-1 appearance-none border rounded w-full
                  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-          
-          
+            />
+          </div>
+          <div className="w-1/3">
+            <Dropdown
+              selectedOption={selectedDepartment}
+              setSelectedOption={setSelectedDepartment}
+            />
+          </div>
         </div>
-        <div className="w-1/3">
-          <Dropdown/>
-        </div>
-      </div>
         <div className="bg-white shadow-md rounded-lg overflow-hidden">
           <table className="min-w-full leading-normal">
             <thead>
@@ -72,7 +91,7 @@ export default function ShowAllEmployee({ title }) {
               </tr>
             </thead>
             <tbody>
-              {allEmployee.map((employee) => (
+              {filteredEmployees.map((employee) => (
                 <tr key={employee.empId}>
                   <td className="px-5 py-3 w-1/7 border-b border-gray-200 bg-white text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">

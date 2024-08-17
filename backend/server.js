@@ -11,7 +11,7 @@ import videoRouter from "./routes/videoRoutes.js";
 import departmentRoutes from "./routes/departmentRoutes.js";
 
 const app = express();
-const port = 6300;
+const port = process.env.PORT || 6300;
 dotenv.config();
 
 // DB connection
