@@ -18,7 +18,7 @@ courseRouter.get("/allCourse",getallCourse);
 courseRouter.post('/deleteCourse',deleteCourse);
 courseRouter.post("/addModule", addModule);
 courseRouter.post("/updateCourse",upload.single("thumbnail") ,updateCourse);
-courseRouter.post("/allModules",modulesByCourseId );
+courseRouter.get("/allModules/:courseId",modulesByCourseId );
 
 
 

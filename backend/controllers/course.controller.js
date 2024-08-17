@@ -189,7 +189,7 @@ export const updateCourse = async (req, res) => {
 
 export const modulesByCourseId = async (req,res)=>{
     try {
-        const {courseId}=req.body;
+        const {courseId}=req.params;
         const allModules = await Module.find({course:courseId});    
         if(allModules.length === 0){
             return res.status(400).json({error:"no modules found"})
