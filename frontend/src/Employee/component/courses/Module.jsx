@@ -7,7 +7,7 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { MdKeyboardArrowUp } from "react-icons/md";
 import Video from "./Video";
 
-const Module = ({ videos, moduleName }) => {
+const Module = ({ videos, moduleName, setVideoDiscription, setVideoLink }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
@@ -24,7 +24,12 @@ const Module = ({ videos, moduleName }) => {
       </button>
 
       {videos.map((id) => (
-        <Video key={id} id={id} />
+        <Video
+          key={id}
+          id={id}
+          setVideoLink={setVideoLink}
+          setVideoDiscription={setVideoDiscription}
+        />
       ))}
     </div>
   );

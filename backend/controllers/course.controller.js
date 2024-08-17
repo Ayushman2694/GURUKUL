@@ -86,7 +86,7 @@ export const addVideo = async (req, res) => {
         .json({ success: false, message: "No file uploaded" });
     }
 
-    const video_url = `${req.protocol}://${req.get("host")}/videos/${
+    const video_url = `${req.protocol}://${req.get("host")}/video/${
       req.file.filename
     }`;
 
@@ -211,23 +211,18 @@ export const modulesByCourseId = async (req, res) => {
   }
 };
 
-        return res.status(200).json({message:"succesfully fetched all modules",allModules})
-
-    } catch (error) {
-        console.log(error.message);
-        return res.status(500).json({ error: "error in modulesByCourseId Controller" });
-    }
-}
-export const getVideoById =async (req,res)=>{
+export const getVideoById = async (req, res) => {
   try {
-      const{_id} = req.params;
-      const video = await Video.findById({_id})
-      if(!video){
-        return res.status(400).json({error:"video not found"})
-      }
-      return res.status(200).json({message:"video fetched successfully",video}) 
+    const { _id } = req.params;
+    const video = await Video.findById({ _id });
+    if (!video) {
+      return res.status(400).json({ error: "video not found" });
+    }
+    return res
+      .status(200)
+      .json({ message: "video fetched successfully", video });
   } catch (error) {
     console.log(error.message);
-        return res.status(500).json({ error: "error in getVideoById Controller" });
+    return res.status(500).json({ error: "error in getVideoById Controller" });
   }
-}
+};
