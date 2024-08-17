@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ConfirmDelete from "../ui/ConfirmDelete";
 import { CiEdit } from "react-icons/ci";
+import Dropdown from "../ui/DropDown";
+
 
 export default function ShowAllEmployee({ title }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -27,6 +29,21 @@ export default function ShowAllEmployee({ title }) {
             onClick={() => navigate("/admin/employeeSignUp")}
           />
         </div>
+        <div className="flex gap-2 mb-2">
+        <div className="w-2/3  rounded border-slate-400">
+          <input
+              type="text"
+              placeholder="Enter user info"
+              className="shadow my-1 appearance-none border rounded-full w-full
+                 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+          
+          
+        </div>
+        <div className="w-1/3">
+          <Dropdown/>
+        </div>
+      </div>
         <div className="bg-white shadow-md rounded-lg overflow-hidden">
           <table className="min-w-full leading-normal">
             <thead>
