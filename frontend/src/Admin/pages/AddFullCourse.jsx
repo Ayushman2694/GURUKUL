@@ -114,7 +114,11 @@ export default function AddFullCourse() {
             </div>
             {moduleNoList.map((moduleNo) => (
               <div key={moduleNo} className="mt-4">
-                <AddModule moduleNo={moduleNo + 1} courseId={courseData} />
+                <AddModule
+                  moduleNo={moduleNo + 1}
+                  courseId={courseData}
+                  courseData={courseData}
+                />
               </div>
             ))}
           </div>

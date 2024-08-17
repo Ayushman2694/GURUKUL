@@ -3,8 +3,9 @@
 // Dropdown.js
 import { useState } from "react";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
-import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
+
 import { MdKeyboardArrowUp } from "react-icons/md";
+import Video from "./Video";
 
 const Module = ({ videos, moduleName }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,18 +23,9 @@ const Module = ({ videos, moduleName }) => {
         </div>
       </button>
 
-      {isOpen &&
-        videos.map((name, index) => (
-          <div
-            key={index}
-            className="w-full p-2 flex items-center border-b-2 cursor-pointer"
-          >
-            <span className="text-2xl font-extrabold">
-              <MdOutlineCheckBoxOutlineBlank />
-            </span>
-            <span className="text-md font-semibold px-2">{name}</span>
-          </div>
-        ))}
+      {videos.map((id) => (
+        <Video key={id} id={id} />
+      ))}
     </div>
   );
 };

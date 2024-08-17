@@ -7,7 +7,6 @@ import Spinner from "../../Common/Ui/Spinner";
 export default function Course() {
   const { courseId } = useParams();
   const { isLoading, modules } = useModuleByCourseId(courseId);
-  const videos = ["Video 1", "Video 2", "Video 3", "Video 4"];
 
   if (isLoading) return <Spinner />;
   return (
@@ -34,7 +33,7 @@ export default function Course() {
           {modules.map((module) => (
             <Module
               key={module._id}
-              videos={videos}
+              videos={module.video}
               moduleName={module.moduleName}
             />
           ))}

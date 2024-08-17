@@ -15,17 +15,13 @@ import { useAddModule } from "../components/courses/useAddModule";
 import AddVideos from "./AddVideos";
 
 export default function AddModule({ moduleNo, courseId }) {
-  const [moduleStates, setModuleStates] = useState({
-    [`showVideos${moduleNo}`]: true,
-    [`noOfVideos${moduleNo}`]: 1,
-    [`videoNoList${moduleNo}`]: [0],
-    [`videoArray${moduleNo}`]: [],
-    [`moduleUploaded${moduleNo}`]: false,
-  });
+  const [showVideos, setShowVideos] = useState(true);
+  const [noOfVideos, setNoOfVideos] = useState(1);
+  const [videoNoList, setVideoNoList] = useState([0]);
+  const [videoArray, setVideoArray] = useState([]);
+  const [moduleUploaded, setModuleUploaded] = useState(false);
 
   const { addModule, isLoading } = useAddModule();
-
-  console.log(moduleStates);
 
   const {
     register,
@@ -35,56 +31,34 @@ export default function AddModule({ moduleNo, courseId }) {
   } = useForm();
 
   function addVideo() {
-    const filteredArray = moduleStates[`videoArray${moduleNo}`].filter(
-      (video) => video !== undefined
-    );
+    const filteredArray = videoArray.filter((video) => video !== undefined);
     const arrayLength = filteredArray.length;
-
-    if (arrayLength === moduleStates[`noOfVideos${moduleNo}`]) {
-      setModuleStates((prevState) => ({
-        ...prevState,
-        [`noOfVideos${moduleNo}`]: prevState[`noOfVideos${moduleNo}`] + 1,
-        [`videoNoList${moduleNo}`]: [
-          ...prevState[`videoNoList${moduleNo}`],
-          prevState[`noOfVideos${moduleNo}`] + 1,
-        ],
-      }));
+    if (arrayLength === noOfVideos) {
+      setNoOfVideos((prevValue) => prevValue + 1);
+      setVideoNoList((prevVideoNoList) => [...prevVideoNoList, noOfVideos]);
     } else {
-      toast.error(
-        `Upload Video No ${arrayLength + 1} In Module No ${moduleNo} First`
-      );
+      toast.error(`
+        Upload Video No ${arrayLength + 1} In Module No ${moduleNo} First`);
     }
   }
 
   function removeVideo() {
-    const filteredArray = moduleStates[`videoArray${moduleNo}`].filter(
-      (video) => video !== undefined
-    );
+    const filteredArray = videoArray.filter((video) => video !== undefined);
     const arrayLength = filteredArray.length;
-
-    if (moduleStates[`noOfVideos${moduleNo}`] === arrayLength) {
+    if (noOfVideos === arrayLength) {
       toast.error(
-        `Video No ${arrayLength} In Module No ${moduleNo} Already Uploaded`
+        `Video No ${arrayLength} In Module No ${moduleNo} Already Uploaded `
       );
     } else {
-      setModuleStates((prevState) => ({
-        ...prevState,
-        [`noOfVideos${moduleNo}`]: prevState[`noOfVideos${moduleNo}`] - 1,
-        [`videoNoList${moduleNo}`]: prevState[`videoNoList${moduleNo}`].slice(
-          0,
-          -1
-        ),
-      }));
+      setNoOfVideos((prevValue) => prevValue - 1);
+      setVideoNoList((list) => [...list.slice(0, -1)]);
     }
   }
 
   function onSubmit(data) {
-    const filteredArray = moduleStates[`videoArray${moduleNo}`].filter(
-      (video) => video !== undefined
-    );
+    const filteredArray = videoArray.filter((video) => video !== undefined);
     const arrayLength = filteredArray.length;
-
-    if (arrayLength !== moduleStates[`noOfVideos${moduleNo}`]) {
+    if (arrayLength !== noOfVideos) {
       toast.error(`Please Upload All Videos In Module No ${moduleNo}`);
     } else {
       addModule(
@@ -96,11 +70,8 @@ export default function AddModule({ moduleNo, courseId }) {
         },
         {
           onSuccess: () => {
-            setModuleStates((prevState) => ({
-              ...prevState,
-              [`moduleUploaded${moduleNo}`]: true,
-              [`showVideos${moduleNo}`]: false,
-            }));
+            setModuleUploaded(true);
+            setShowVideos(false);
           },
         }
       );
@@ -119,7 +90,7 @@ export default function AddModule({ moduleNo, courseId }) {
               <button
                 className="bg-red-600 text-sm font-semibold text-white py-1 px-2 mx-1 rounded-md cursor-pointer flex justify-center items-center"
                 onClick={() => removeVideo()}
-                disabled={moduleStates[`moduleUploaded${moduleNo}`]}
+                disabled={moduleUploaded}
               >
                 <IoIosRemoveCircleOutline />
                 Remove Video
@@ -129,7 +100,7 @@ export default function AddModule({ moduleNo, courseId }) {
               <button
                 className="bg-blue-600 text-sm font-semibold text-white py-1 px-2 mx-1 rounded-md cursor-pointer flex justify-center items-center"
                 onClick={() => addVideo()}
-                disabled={moduleStates[`moduleUploaded${moduleNo}`]}
+                disabled={moduleUploaded}
               >
                 <IoIosAddCircleOutline />
                 Add Video
@@ -138,19 +109,9 @@ export default function AddModule({ moduleNo, courseId }) {
             <div>
               <button
                 className="bg-gray-500 text-lg font-semibold text-white py-1 px-2 mx-1 rounded-md cursor-pointer flex justify-center items-center"
-                onClick={() =>
-                  setModuleStates((prevState) => ({
-                    ...prevState,
-                    [`showVideos${moduleNo}`]:
-                      !prevState[`showVideos${moduleNo}`],
-                  }))
-                }
+                onClick={() => setShowVideos((value) => !value)}
               >
-                {moduleStates[`showVideos${moduleNo}`] ? (
-                  <FaAngleUp />
-                ) : (
-                  <FaAngleDown />
-                )}
+                {showVideos ? <FaAngleUp /> : <FaAngleDown />}
               </button>
             </div>
           </div>
@@ -171,9 +132,7 @@ export default function AddModule({ moduleNo, courseId }) {
                 type="text"
                 id="title"
                 placeholder="Video Title"
-                disabled={
-                  isLoading || moduleStates[`moduleUploaded${moduleNo}`]
-                }
+                disabled={isLoading || moduleUploaded}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("title", {
                   required: "This field is required",
@@ -185,7 +144,7 @@ export default function AddModule({ moduleNo, courseId }) {
             <button
               className={`${"bg-green-600"} text-md font-semibold text-white py-1 px-2 rounded-md cursor-pointer`}
               onClick={handleSubmit(onSubmit)}
-              disabled={isLoading || moduleStates[`moduleUploaded${moduleNo}`]}
+              disabled={isLoading || moduleUploaded}
             >
               <div className="flex justify-center items-center">
                 <MdFileUpload />
@@ -196,19 +155,11 @@ export default function AddModule({ moduleNo, courseId }) {
         </div>
         <div>{errors.title && <FormError error={errors.title.message} />}</div>
       </form>
-      {moduleStates[`showVideos${moduleNo}`] && (
+      {showVideos && (
         <div className="py-2">
-          {moduleStates[`videoNoList${moduleNo}`].map((videoNo) => (
+          {videoNoList.map((videoNo) => (
             <div key={videoNo} className="mt-2">
-              <AddVideos
-                videosNo={moduleStates[`noOfVideos${moduleNo}`] + 1}
-                setVideoArray={(newArray) =>
-                  setModuleStates((prevState) => ({
-                    ...prevState,
-                    [`videoArray${moduleNo}`]: newArray,
-                  }))
-                }
-              />
+              <AddVideos videosNo={videoNo + 1} setVideoArray={setVideoArray} />
             </div>
           ))}
         </div>

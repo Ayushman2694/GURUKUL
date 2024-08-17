@@ -7,7 +7,7 @@ export default function CourseThumbnail({ progress, course }) {
   return (
     <div
       className="w-1/2 md:w-1/3 p-1 py-2 "
-      onClick={() => navigate(`/employee/course/:${course._id}`)}
+      onClick={() => navigate(`/employee/course/${course._id}`)}
     >
       <div className="bg-slate-100 p-4 rounded-md shadow-xl">
         <div className="flex justify-center">
