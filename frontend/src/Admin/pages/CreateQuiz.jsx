@@ -59,16 +59,59 @@
 
 import React from 'react'
 import CreateQuizCard from '../components/quiz/CreateQuizCard'
+import { useState } from 'react';
+import { IoIosAddCircleOutline } from "react-icons/io";
+import { IoIosRemoveCircleOutline } from "react-icons/io";
+import BackButton from '../../Common/Ui/BackButton';
+
+
+
 
 export default function CreateQuiz() {
+  const [quizCards, setQuizCards] = useState([1]);
 
   function saveHandler(){
     console.log("Clicked in parents")
   }
+
+  function addQuizCard() {
+    setQuizCards((prevCards) => [...prevCards, prevCards.length + 1]);
+  }
+
+  function removeQuizCard() {
+    setQuizCards((prevCards) => 
+      prevCards.length > 1 ? prevCards.slice(0, -1) : prevCards
+    );
+  }
+
+
   return (
     <div className="min-h-screen w-full bg-white p-4 ">
       <div className="flex items-center justify-between w-full text-3xl font-bold mb-3 pr-20">
         <h1 className="text-3xl font-bold mb-3">Create Quiz</h1>
+        <div className='flex h-10 gap-2'>
+          <div>
+              <button
+                className="bg-red-600 text-sm font-semibold text-white py-1 px-2 mx-1 rounded-md cursor-pointer flex justify-center items-center"
+                onClick={() => removeQuizCard()}
+              >
+                <IoIosRemoveCircleOutline />
+                Remove Question
+              </button>
+            </div>
+            <div>
+              <button
+                className="bg-blue-600 text-sm font-semibold text-white py-1 px-2 mx-1 rounded-md cursor-pointer flex justify-center items-center"
+                onClick={() => addQuizCard()}
+              >
+                <IoIosAddCircleOutline />
+                Add Question
+              </button>
+            </div>
+            <div>
+              <BackButton/>
+            </div>
+        </div>
       </div>
 
       <form>
@@ -79,7 +122,7 @@ export default function CreateQuiz() {
         <div className="p-2">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="quizname"
+                htmlFor='quizname'
               >
                 Quiz Title
               </label>
@@ -94,34 +137,14 @@ export default function CreateQuiz() {
               />
               
         </div >
-
         <div className=''>
-          <CreateQuizCard
-             index="1"
-              onClickSaveHandler= {saveHandler}
-           /> 
-          <CreateQuizCard
-             index="2"
-              onClickSaveHandler= {saveHandler}
-           />
-          <CreateQuizCard
-             index="3"
-              onClickSaveHandler= {saveHandler}
-           />
-          <CreateQuizCard
-             index="4"
-              onClickSaveHandler= {saveHandler}
-           />
-          <CreateQuizCard
-             index="5"
-              onClickSaveHandler= {saveHandler}
-           />
-          <CreateQuizCard
-             index="6"
-              onClickSaveHandler= {saveHandler}
-           />
-         
-
+          {quizCards.map((card, index) => (
+            <CreateQuizCard
+              key={index}
+              index={index + 1}
+              // onClickSaveHandler={saveHandler}
+            />
+          ))}
         </div>
         <div className="flex items-center justify-center pb-16 m-2 ">
               <button
@@ -129,7 +152,7 @@ export default function CreateQuiz() {
                 onClick={saveHandler}
                 className="bg-blue-600 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
-                Save
+                Submit
                 
               </button>
         </div>
@@ -140,3 +163,91 @@ export default function CreateQuiz() {
     </div>
   )
 }
+
+// import React, { useState } from 'react';
+// import CreateQuizCard from '../components/quiz/CreateQuizCard';
+// import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io";
+
+// export default function CreateQuiz() {
+//   const [quizCards, setQuizCards] = useState([1]);
+
+//   function saveHandler() {
+//     console.log("Clicked in parent");
+//   }
+
+//   function addQuizCard() {
+//     setQuizCards((prevCards) => [...prevCards, prevCards.length + 1]);
+//   }
+
+//   function removeQuizCard() {
+//     setQuizCards((prevCards) => 
+//       prevCards.length > 1 ? prevCards.slice(0, -1) : prevCards
+//     );
+//   }
+
+//   return (
+//     <div className="min-h-screen w-full bg-white p-4 ">
+//       <div className="flex items-center justify-between w-full text-3xl font-bold mb-3 pr-20">
+//         <h1 className="text-3xl font-bold mb-3">Create Quiz</h1>
+//         <div className='flex h-10 gap-2'>
+//           <div>
+//             <button
+//               className="bg-red-600 text-sm font-semibold text-white py-1 px-2 mx-1 rounded-md cursor-pointer flex justify-center items-center"
+//               onClick={removeQuizCard}
+//             >
+//               <IoIosRemoveCircleOutline />
+//               Remove Quiz Card
+//             </button>
+//           </div>
+//           <div>
+//             <button
+//               className="bg-blue-600 text-sm font-semibold text-white py-1 px-2 mx-1 rounded-md cursor-pointer flex justify-center items-center"
+//               onClick={addQuizCard}
+//             >
+//               <IoIosAddCircleOutline />
+//               Add Quiz Card
+//             </button>
+//           </div>
+//         </div>
+//       </div>
+
+//       <form></form>
+
+//       <div className='bg-gray-100 w-full shadow-md p-4 '>
+//         <div className="p-2">
+//           <label
+//             className="block text-gray-700 text-sm font-bold mb-2"
+//             htmlFor='quizname'
+//           >
+//             Quiz Title
+//           </label>
+//           <input
+//             type="text"
+//             id="quizname"
+//             placeholder="Enter Quiz Title"
+//             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+//           />
+//         </div>
+
+//         <div className=''>
+//           {quizCards.map((card, index) => (
+//             <CreateQuizCard
+//               key={index}
+//               index={index + 1}
+//               onClickSaveHandler={saveHandler}
+//             />
+//           ))}
+//         </div>
+
+//         <div className="flex items-center justify-center pb-16 m-2 ">
+//           <button
+//             onClick={saveHandler}
+//             className="bg-blue-600 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+//           >
+//             Save
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
