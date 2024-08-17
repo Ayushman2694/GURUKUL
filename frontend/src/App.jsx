@@ -68,8 +68,8 @@ export default function App() {
           {/* ------------------------------- Admin  Routes ------------------------------- */}
           <Route
             element={
-              // <PrivateRoute>
-                <AdminAppLayout />
+              // /<PrivateRoute>
+              <AdminAppLayout />
               // </PrivateRoute>
             }
           >
@@ -82,11 +82,15 @@ export default function App() {
             <Route path="admin/settings" element={<AdminSettings />} />
             <Route path="admin/SignUp" element={<AdminSignup />} />
             <Route path="admin/employeeSignUp" element={<EmployeeSignup />} />
+            <Route
+              path="admin/updateEmployee/:empId"
+              element={<EmployeeSignup editing={true} />}
+            />
             <Route path="admin/addDepartment" element={<AddDetertment />} />
-            <Route path="admin/showAllAdmin" element={<ShowAllAdmin />} />            
-            <Route path="admin/createQuiz" element={<CreateQuiz />} />            
-            <Route path="admin/viewQuiz" element={<ViewQuiz />} />            
-            <Route path="admin/editQuiz" element={<EditQuiz />} />            
+            <Route path="admin/showAllAdmin" element={<ShowAllAdmin />} />
+            <Route path="admin/createQuiz" element={<CreateQuiz />} />
+            <Route path="admin/viewQuiz" element={<ViewQuiz />} />
+            <Route path="admin/editQuiz" element={<EditQuiz />} />
             <Route
               path="admin/showAllEmployee"
               element={<ShowAllEmployee title="Employee List" />}

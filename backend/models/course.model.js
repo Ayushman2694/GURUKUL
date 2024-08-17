@@ -25,7 +25,18 @@ const coursesSchema = mongoose.Schema({
     
     noOfModules:{
         type:Number
-    }
+    },
+    
+    userStatus:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"User",
+            status:{
+                type:String,
+                default:"not started"
+            }
+        }
+    ]
     
 })
 

@@ -105,7 +105,12 @@ export default function ShowAllEmployee({ title }) {
                     </p>
                   </td>
                   <td className="flex px-5 py-3 w-1/7 border-b border-gray-200 bg-white text-sm text-center">
-                    <button className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-full mr-2 hover:bg-blue-700 hover:scale-110">
+                    <button
+                      onClick={() =>
+                        navigate(`/admin/updateEmployee/${employee.empId}`)
+                      }
+                      className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-full mr-2 hover:bg-blue-700 hover:scale-110"
+                    >
                       <span className="text-xl">
                         <CiEdit />
                       </span>
