@@ -1,8 +1,15 @@
+import { useParams } from "react-router-dom";
 import Module from "../component/courses/Module";
 import StartQuizContainer from "../component/quiz/StartQuizContainer";
+import { useModuleByCourseId } from "../../Admin/components/courses/useModuleByCourseId";
+import Spinner from "../../Common/Ui/Spinner";
 
 export default function Course() {
+  const { courseId } = useParams();
+  const { isLoading, modules } = useModuleByCourseId(courseId);
   const videos = ["Video 1", "Video 2", "Video 3", "Video 4"];
+
+  if (isLoading) return <Spinner />;
   return (
     <div className="w-full flex p-4">
       <div className="w-9/12 overflow-y-auto pb-20">
@@ -24,10 +31,13 @@ export default function Course() {
 
       <div className="w-3/12 h-full  px-2 pb-16 ">
         <div className="bg-slate-100 h-full shadow-lg shadow-stone-400 rounded-md overflow-y-auto">
-          <Module videos={videos} moduleName="Module 1" />
-          <Module videos={videos} moduleName="Module 2" />
-          <Module videos={videos} moduleName="Module 3" />
-          <Module videos={videos} moduleName="Module 4" />
+          {modules.map((module) => (
+            <Module
+              key={module._id}
+              videos={videos}
+              moduleName={module.moduleName}
+            />
+          ))}
         </div>
       </div>
     </div>
