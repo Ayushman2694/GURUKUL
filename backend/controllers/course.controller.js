@@ -226,3 +226,18 @@ export const getVideoById = async (req, res) => {
     return res.status(500).json({ error: "error in getVideoById Controller" });
   }
 };
+
+}
+export const getCourseById =async (req,res)=>{
+  try {
+      const{_id} = req.params;
+      const course = await Course.findById({_id})
+      if(!course){
+        return res.status(400).json({error:"Course not found"})
+      }
+      return res.status(200).json({message:"Course fetched successfully",course}) 
+  } catch (error) {
+    console.log(error.message);
+        return res.status(500).json({ error: "error in getCourseById Controller" });
+  }
+}
