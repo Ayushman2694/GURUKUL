@@ -41,8 +41,8 @@ export const getallCourse = async (req, res) => {
 
     if (!allCourse || allCourse.length === 0) {
       return res
-        .status(404)
-        .json({ success: false, message: "No courses found" });
+        .status(200)
+        .json([]);
     }
     res.status(200).json(allCourse);
   } catch (error) {
@@ -202,4 +202,16 @@ export const modulesByCourseId = async (req,res)=>{
         return res.status(500).json({ error: "error in modulesByCourseId Controller" });
     }
 }
-  
+export const getVideoById =async (req,res)=>{
+  try {
+      const{_id} = req.params;
+      const video = await Video.findById({_id})
+      if(!video){
+        return res.status(400).json({error:"video not found"})
+      }
+      return res.status(200).json({message:"video fetched successfully",video}) 
+  } catch (error) {
+    console.log(error.message);
+        return res.status(500).json({ error: "error in getVideoById Controller" });
+  }
+}
