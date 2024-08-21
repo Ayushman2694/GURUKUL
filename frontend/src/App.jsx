@@ -52,9 +52,9 @@ export default function App() {
           {/* ------------------------------- Employee  Routes ------------------------------- */}
           <Route
             element={
-              <PrivateRoute>
+              // <PrivateRoute>
                 <EmployeeAppLayout />
-              </PrivateRoute>
+              // </PrivateRoute>
             }
           >
             <Route path="employee/" element={<Navigate to="dashboard" />} />

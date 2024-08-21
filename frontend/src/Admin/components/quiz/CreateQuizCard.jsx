@@ -3,21 +3,28 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { FaSave } from "react-icons/fa";
-// import MultipleCorrectOption from './MultipleCorrectOption';
-// import SingleCorrectOption from './SingleCorrectOption';
-import InputQuizOption from './InputQuizOption';
+import MultipleCorrectOption from './MultipleCorrectOption';
+import SingleCorrectOption from './SingleCorrectOption';
+// import InputQuizOption from './InputQuizOption';
 
 export default function CreateQuizCard({ index }) {
   const [selectedType, setSelectedType] = useState(''); 
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
   function checkSubmit(data){
+    // data.preventDefault();
     console.log('Form Data:', data);
+    // reset()
+
+    setIsSubmitted(true)
   }
 
   function optionHandler(event) {
     const { value } = event.target;
+    
     setSelectedType(value); 
+    
   }
 
   return (
@@ -38,6 +45,7 @@ export default function CreateQuizCard({ index }) {
                         id='anstype'
                         {...register('anstype', { required: "Answer type is required" })}
                         onChange={optionHandler}
+                        disabled={isSubmitted} style={{ cursor: isSubmitted ? 'not-allowed' : 'pointer' }}
                     >
                         <option value="">Select</option>
                         <option value="text">Text</option>
@@ -48,7 +56,9 @@ export default function CreateQuizCard({ index }) {
                     <div>
                         <button 
                             type='submit'
-                            className='bg-green-600 flex w-18 gap-1 text-white rounded-full px-3 py-1' 
+                            className={`flex w-18 gap-1 text-white rounded-full px-3 py-1 
+                            ${isSubmitted ? 'bg-gray-400' : 'bg-green-600'}`}
+                            disabled={isSubmitted} style={{ cursor: isSubmitted ? 'not-allowed' : 'pointer' }}
                         >
                             <span className='mt-1'><FaSave /></span>Save
                         </button>
@@ -59,6 +69,10 @@ export default function CreateQuizCard({ index }) {
             type="text"
             id="quizname"
             placeholder="Enter Question"
+            disabled={isSubmitted}
+            style={{
+            cursor: isSubmitted ? 'not-allowed' : 'text',
+          }}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             {...register("question", { required: "Question is required" })}
             />
@@ -73,21 +87,25 @@ export default function CreateQuizCard({ index }) {
                 placeholder="Enter Answer"
                 className="shadow my-1 appearance-none border rounded-full w-2/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("answer", { required: "Answer is required" })}
+                disabled={isSubmitted}
+                style={{
+                cursor: isSubmitted ? 'not-allowed' : 'default',
+          }}
                 />
                 {errors.answer && <p className="text-red-500 text-sm">{errors.answer.message}</p>}
             </div>
             ) : selectedType === "singleCorrect" ?(
             <div>
-                <InputQuizOption ansIndex="1" rad="1"  register={register} setValue={setValue} />
-                <InputQuizOption ansIndex="2" rad="1"  register={register} setValue={setValue} />
-                <InputQuizOption ansIndex="3" rad="1"  register={register} setValue={setValue} />
-                <InputQuizOption ansIndex="4" rad="1"  register={register} setValue={setValue} />
+                <SingleCorrectOption ansIndex="1" isSubmitted={isSubmitted}  register={register} setValue={setValue} />
+                <SingleCorrectOption ansIndex="2" isSubmitted={isSubmitted}  register={register} setValue={setValue} />
+                <SingleCorrectOption ansIndex="3" isSubmitted={isSubmitted}  register={register} setValue={setValue} />
+                <SingleCorrectOption ansIndex="4" isSubmitted={isSubmitted}  register={register} setValue={setValue} />
             </div>
             ):selectedType === "multipleCorrect"?(<div>
-                <InputQuizOption ansIndex="1" rad="1" register={register} setValue="1" />
-                <InputQuizOption ansIndex="2" rad="2"  register={register} setValue="1" />
-                <InputQuizOption ansIndex="3" rad="3"  register={register} setValue="1" />
-                <InputQuizOption ansIndex="4" rad="4"  register={register} setValue="1" />
+                <MultipleCorrectOption ansIndex="1" isSubmitted={isSubmitted} register={register} />
+                <MultipleCorrectOption ansIndex="2" isSubmitted={isSubmitted} register={register}  />
+                <MultipleCorrectOption ansIndex="3" isSubmitted={isSubmitted} register={register}  />
+                <MultipleCorrectOption ansIndex="4" isSubmitted={isSubmitted} register={register}  />
             </div>):(<div></div>)}
         </div>
         </form> 

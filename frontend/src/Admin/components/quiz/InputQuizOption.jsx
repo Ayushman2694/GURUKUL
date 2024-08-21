@@ -1,11 +1,6 @@
-
-
 import React from 'react';
 
 export default function InputQuizOption({ ansIndex, register, setValue, rad }) {
-
-
-    
   return (
     <div className='flex w-full gap-3'>
       <div className='w-2/3'>

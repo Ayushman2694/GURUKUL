@@ -69,6 +69,7 @@ export default function EmployeeSettings() {
             <input
               type="password"
               id="currentPassword"
+              placeholder="Enter Current Password"
               disabled={isLoading}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               {...register("currentPassword", {
@@ -93,6 +94,7 @@ export default function EmployeeSettings() {
             <input
               type="password"
               id="newPassword"
+              placeholder="Enter New Password"
               disabled={isLoading}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               {...register("newPassword", {
@@ -117,6 +119,7 @@ export default function EmployeeSettings() {
             <input
               type="password"
               id="confirmPassword"
+              placeholder="Enter Confirm Password"
               disabled={isLoading}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               {...register("confirmPassword", {

@@ -62,13 +62,28 @@ import CreateQuizCard from '../components/quiz/CreateQuizCard'
 import { useState } from 'react';
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { IoIosRemoveCircleOutline } from "react-icons/io";
+import { FaSave } from "react-icons/fa";
 import BackButton from '../../Common/Ui/BackButton';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 
 
 
 export default function CreateQuiz() {
   const [quizCards, setQuizCards] = useState([1]);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  const navigate = useNavigate()
+
+  function checkSubmit(data){
+    // data.preventDefault();
+    console.log('Form Data:', data);
+    // reset()
+
+    setIsSubmitted(true)
+  }
+  
 
   function saveHandler(){
     console.log("Clicked in parents")
@@ -84,6 +99,12 @@ export default function CreateQuiz() {
     );
   }
 
+  function optionHandler(event) {
+    const { value } = event.target;
+    
+    setSelectedType(value); 
+    
+  }
 
   return (
     <div className="min-h-screen w-full bg-white p-4 ">
@@ -114,29 +135,44 @@ export default function CreateQuiz() {
         </div>
       </div>
 
-      <form>
-        
-      </form>
+      
 
-      <div className='bg-gray-100 w-full shadow-md p-4 '>
+      <div className='bg-gray-100 w-full shadow-md px-4 py-2 '>
+
+      <form onSubmit={handleSubmit(checkSubmit)} >
         <div className="p-2">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor='quizname'
-              >
-                Quiz Title
-              </label>
-              <input
-                type="text"
-                id="quizname"
-                placeholder="Enter Quiz Title"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                // {...register("name", {
-                //   required: "This field is required",
-                // })}
-              />
-              
-        </div >
+                
+                <div className='flex justify-between'>
+                  <label
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                  htmlFor='quizname'
+                  >
+                  Quiz Title
+                  </label>
+                        <button 
+                            type='submit'
+                            className={`flex w-18 gap-1 text-white rounded-full px-3 py-1 mb-1 mr-1 
+                            ${isSubmitted ? 'bg-gray-400' : 'bg-green-600'}`}
+                            disabled={isSubmitted} style={{ cursor: isSubmitted ? 'not-allowed' : 'pointer' }}
+                        >
+                            <span className='mt-1'><FaSave /></span>Save
+                        </button>
+                  </div>
+                <input
+                  type="text"
+                  id="quizname"
+                  placeholder="Enter Quiz Title"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={optionHandler}
+                        disabled={isSubmitted} style={{ cursor: isSubmitted ? 'not-allowed' : 'text' }}
+                  {...register("name", {
+                    required: "This field is required",
+                  })}
+                />
+                
+          </div >  
+      </form>
+        
         <div className=''>
           {quizCards.map((card, index) => (
             <CreateQuizCard
@@ -149,7 +185,7 @@ export default function CreateQuiz() {
         <div className="flex items-center justify-center pb-16 m-2 ">
               <button
                 
-                onClick={saveHandler}
+                onClick={()=>{navigate('/admin/quizzes')}}
                 className="bg-blue-600 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
                 Submit
