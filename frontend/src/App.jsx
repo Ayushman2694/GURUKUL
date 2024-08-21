@@ -27,8 +27,11 @@ import AddDetertment from "./Admin/pages/AddDetertment";
 import ShowAllAdmin from "./Admin/pages/ShowAllAdmin";
 import ShowAllEmployee from "./Admin/pages/ShowAllEmployee";
 import ShowAllDepartment from "./Admin/pages/ShowAllDepartment";
-import Protected from "./Employee/Ui/Protected";
-import AddCourse from "./Admin/pages/AddCourse";
+import CreateQuiz from "./Admin/pages/CreateQuiz";
+import ViewQuiz from "./Admin/pages/ViewQuiz";
+import EditQuiz from "./Admin/pages/EditQuiz";
+import AddFullCourse from "./Admin/pages/AddFullCourse";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -44,8 +47,9 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="*" element={<PageNotFound />} />
-          {/* ------------------------------- Employee Routes ------------------------------- */}
+          {/* ------------------------------- Employee  Routes ------------------------------- */}
           <Route
             element={
               <PrivateRoute>
@@ -61,12 +65,12 @@ export default function App() {
             <Route path="employee/settings" element={<EmployeeSettings />} />
             <Route path="employee/quiz" element={<Quiz />} />
           </Route>
-          {/* ------------------------------- Admin Routes ------------------------------- */}
+          {/* ------------------------------- Admin  Routes ------------------------------- */}
           <Route
             element={
-              <Protected>
-                <AdminAppLayout />
-              </Protected>
+              // /<PrivateRoute>
+              <AdminAppLayout />
+              // </PrivateRoute>
             }
           >
             <Route path="admin/" element={<Navigate to="dashboard" />} />
@@ -78,8 +82,15 @@ export default function App() {
             <Route path="admin/settings" element={<AdminSettings />} />
             <Route path="admin/SignUp" element={<AdminSignup />} />
             <Route path="admin/employeeSignUp" element={<EmployeeSignup />} />
+            <Route
+              path="admin/updateEmployee/:empId"
+              element={<EmployeeSignup editing={true} />}
+            />
             <Route path="admin/addDepartment" element={<AddDetertment />} />
             <Route path="admin/showAllAdmin" element={<ShowAllAdmin />} />
+            <Route path="admin/createQuiz" element={<CreateQuiz />} />
+            <Route path="admin/viewQuiz" element={<ViewQuiz />} />
+            <Route path="admin/editQuiz" element={<EditQuiz />} />
             <Route
               path="admin/showAllEmployee"
               element={<ShowAllEmployee title="Employee List" />}
@@ -88,7 +99,7 @@ export default function App() {
               path="admin/showAllDepartment"
               element={<ShowAllDepartment />}
             />
-            <Route path="admin/addCourse" element={<AddCourse />} />
+            <Route path="admin/addCourse" element={<AddFullCourse />} />
           </Route>
         </Routes>
         <ToastContainer

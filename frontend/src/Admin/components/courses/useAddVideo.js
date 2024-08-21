@@ -2,13 +2,15 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { addVideo as addVideoApi } from "../../service/video";
 
+let VideoData = [];
+
 export function useAddVideo() {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (data) => addVideoApi(data),
 
     onSuccess: (data) => {
-      console.log(data.course);
+      VideoData = data.video;
       queryClient.setQueryData(["video", data.video._id], data.video);
       toast.success("Video Uploaded Successfully");
     },
@@ -21,5 +23,5 @@ export function useAddVideo() {
   const { mutate: addVideo, status } = mutation;
   const isLoading = status === "pending";
 
-  return { addVideo, isLoading };
+  return { addVideo, isLoading, VideoData };
 }
