@@ -7,6 +7,7 @@ import adminRoutes from "./routes/adminRoutes.js";
 import employeeRoutes from "./routes/employeeRoutes.js"
 import courseRouter from "./routes/courseRoutes.js";
 import videoRouter from "./routes/videoRoutes.js";
+import trackingRoutes from "./routes/trackingRoutes.js";
 
 import departmentRoutes from "./routes/departmentRoutes.js"
 
@@ -30,6 +31,7 @@ app.use("/api/course",courseRouter);
 app.use("/api/admin",adminRoutes);
 app.use("/api/employee",employeeRoutes);
 app.use("/api/department",departmentRoutes)
+app.use("/api/tracking",trackingRoutes)
 
 
 app.listen(port, () => {
