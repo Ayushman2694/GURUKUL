@@ -19,7 +19,14 @@ const videosSchema = mongoose.Schema({
     videoNo:{
         type:Number,
         required:true
-    }
+    },
+    watchedBy:[
+        {
+            type:String,
+        },
+    ]
+
+    
     
 })
 

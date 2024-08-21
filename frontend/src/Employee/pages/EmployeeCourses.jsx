@@ -1,12 +1,16 @@
 /* eslint-disable no-unused-vars */
 
+import { useAllCourse } from "../../Admin/components/courses/useAllCourse";
+import Spinner from "../../Common/Ui/Spinner";
 import CourseThumbnail from "../component/courses/CourseThumbnail";
 
 import { useNavigate } from "react-router-dom";
 
 export default function EmployeeCourses() {
   const navigate = useNavigate();
-
+  const { isLoading, allCourse } = useAllCourse();
+  console.log(allCourse);
+  if (isLoading) return <Spinner />;
   return (
     <div className="w-full p-4 h-full">
       <div className="w-full">
@@ -49,9 +53,9 @@ export default function EmployeeCourses() {
         <h1 className="text-3xl font-bold px-1">Courses Not Started</h1>
       </div>
       <div className="flex flex-wrap pt-4 pb-12">
-        <CourseThumbnail progress={0} />
-        <CourseThumbnail progress={0} />
-        <CourseThumbnail progress={0} />
+        {allCourse.map((course) => (
+          <CourseThumbnail key={course._id} course={course} progress={0} />
+        ))}
       </div>
 
       <div className="w-full">
