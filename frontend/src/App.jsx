@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -53,15 +54,15 @@ export default function App() {
           {/* ------------------------------- Employee  Routes ------------------------------- */}
           <Route
             element={
-              <PrivateRoute>
-                <EmployeeAppLayout />
-              </PrivateRoute>
+              // <PrivateRoute>
+              <EmployeeAppLayout />
+              // </PrivateRoute>
             }
           >
             <Route path="employee/" element={<Navigate to="dashboard" />} />
             <Route path="employee/dashboard" element={<EmployeeDashboard />} />
             <Route path="employee/profile" element={<EmployeeInfo />} />
-            <Route path="employee/course" element={<Course />} />
+            <Route path="employee/course/:courseId" element={<Course />} />
             <Route path="employee/courses" element={<EmployeeCourses />} />
             <Route path="employee/settings" element={<EmployeeSettings />} />
             <Route path="employee/quiz" element={<Quiz />} />

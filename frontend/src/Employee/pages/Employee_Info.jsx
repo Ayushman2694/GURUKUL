@@ -1,10 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
+import { useEmployeeById } from "../../Admin/components/employee/useEmployeeById";
+import Spinner from "../../Common/Ui/Spinner";
 
 export default function EmployeeInfo() {
-  const [token] = useState(localStorage.getItem("token"));
-  const { isLoading, employe_info } = useEmployeeInfo(token);
+  const { isLoading, employee: employe_info } = useEmployeeById("MHPL0481");
+  if (isLoading) return <Spinner />;
   return (
     <div className="flex w-full h-screen">
       <div className="w-full p-4">

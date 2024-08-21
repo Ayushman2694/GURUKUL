@@ -6,7 +6,7 @@ import FormError from "../../Common/Ui/FormError";
 import { MdFileUpload } from "react-icons/md";
 import { useAddVideo } from "../components/courses/useAddVideo";
 import SpinnerMini from "../../Common/Ui/SpinnerMini";
-import toast from "react-hot-toast"; // Import toast
+import toast from "react-hot-toast";
 
 export default function AddVideos({ videosNo, setVideoArray }) {
   const [videoStates, setVideoStates] = useState({});
