@@ -32,6 +32,7 @@ import CreateQuiz from "./Admin/pages/CreateQuiz";
 import ViewQuiz from "./Admin/pages/ViewQuiz";
 import EditQuiz from "./Admin/pages/EditQuiz";
 import AddFullCourse from "./Admin/pages/AddFullCourse";
+import Protected from "./Employee/Ui/Protected";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -69,9 +70,9 @@ export default function App() {
           {/* ------------------------------- Admin  Routes ------------------------------- */}
           <Route
             element={
-              // /<PrivateRoute>
+              <Protected>
               <AdminAppLayout />
-              // </PrivateRoute>
+              </Protected>
             }
           >
             <Route path="admin/" element={<Navigate to="dashboard" />} />
