@@ -15,7 +15,7 @@ const PrivateRoute = ({ children }) => {
           setIsAuthenticated(false);
         } else {
           const response = await axios.get(
-            'http://localhost:6300/api/user/verifyToken',
+            'http://localhost:6300/api/auth/verifyToken',
             {
               headers: {
                 Authorization: `Bearer ${token}`,
