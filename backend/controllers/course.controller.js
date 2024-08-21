@@ -40,9 +40,7 @@ export const getallCourse = async (req, res) => {
     const allCourse = await Course.find();
 
     if (!allCourse || allCourse.length === 0) {
-      return res
-        .status(200)
-        .json([]);
+      return res.status(200).json([]);
     }
     res.status(200).json(allCourse);
   } catch (error) {
@@ -88,7 +86,7 @@ export const addVideo = async (req, res) => {
         .json({ success: false, message: "No file uploaded" });
     }
 
-    const video_url = `${req.protocol}://${req.get("host")}/videos/${
+    const video_url = `${req.protocol}://${req.get("host")}/video/${
       req.file.filename
     }`;
 
@@ -155,76 +153,92 @@ export const addModule = async (req, res) => {
 };
 
 export const updateCourse = async (req, res) => {
-    try {
-      const { _id, courseTitle, courseDescription, courseDepartment, noOfModules } = req.body;
-      
-
-      const update = {
-        $set: {
-          courseTitle,
-          courseDescription,
-          courseDepartment,
-          noOfModules,
-        }
-      };
-  
-   
-      if (req.file) {
-        const thumbnail_url = `${req.protocol}://${req.get("host")}/thumbnail/${req.file.filename}`;
-        update.$set.thumbnail = thumbnail_url;
-      }
-  
-      const result = await Course.findByIdAndUpdate(_id, update);
-  
-      if (!result) {
-        return res.status(404).json({ error: "Course not found" });
-      }
-      return res.status(200).json({ message: "Updated course successfully",result});
-      
-    } catch (error) {
-      console.error(error.message);
-      return res.status(500).json({ error: "Error in updateCourse Controller" });
-    }
-  };
-
-export const modulesByCourseId = async (req,res)=>{
-    try {
-        const {courseId}=req.params;
-        const allModules = await Module.find({course:courseId});    
-        if(allModules.length === 0){
-            return res.status(400).json({error:"no modules found"})
-        }
-
-        return res.status(200).json({message:"succesfully fetched all modules",allModules})
-
-    } catch (error) {
-        console.log(error.message);
-        return res.status(500).json({ error: "error in modulesByCourseId Controller" });
-    }
-}
-export const getVideoById =async (req,res)=>{
   try {
-      const{_id} = req.params;
-      const video = await Video.findById({_id})
-      if(!video){
-        return res.status(400).json({error:"video not found"})
-      }
-      return res.status(200).json({message:"video fetched successfully",video}) 
+    const {
+      _id,
+      courseTitle,
+      courseDescription,
+      courseDepartment,
+      noOfModules,
+    } = req.body;
+
+    const update = {
+      $set: {
+        courseTitle,
+        courseDescription,
+        courseDepartment,
+        noOfModules,
+      },
+    };
+
+    if (req.file) {
+      const thumbnail_url = `${req.protocol}://${req.get("host")}/thumbnail/${
+        req.file.filename
+      }`;
+      update.$set.thumbnail = thumbnail_url;
+    }
+
+    const result = await Course.findByIdAndUpdate(_id, update);
+
+    if (!result) {
+      return res.status(404).json({ error: "Course not found" });
+    }
+    return res
+      .status(200)
+      .json({ message: "Updated course successfully", result });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Error in updateCourse Controller" });
+  }
+};
+
+export const modulesByCourseId = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    const allModules = await Module.find({ course: courseId });
+    if (allModules.length === 0) {
+      return res.status(400).json({ error: "no modules found" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "succesfully fetched all modules", allModules });
   } catch (error) {
     console.log(error.message);
-        return res.status(500).json({ error: "error in getVideoById Controller" });
+    return res
+      .status(500)
+      .json({ error: "error in modulesByCourseId Controller" });
   }
-}
-export const getCourseById =async (req,res)=>{
+};
+
+export const getVideoById = async (req, res) => {
   try {
-      const{_id} = req.params;
-      const course = await Course.findById({_id})
-      if(!course){
-        return res.status(400).json({error:"Course not found"})
-      }
-      return res.status(200).json({message:"Course fetched successfully",course}) 
+    const { _id } = req.params;
+    const video = await Video.findById({ _id });
+    if (!video) {
+      return res.status(400).json({ error: "video not found" });
+    }
+    return res
+      .status(200)
+      .json({ message: "video fetched successfully", video });
   } catch (error) {
     console.log(error.message);
-        return res.status(500).json({ error: "error in getCourseById Controller" });
+    return res.status(500).json({ error: "error in getVideoById Controller" });
   }
-}
+};
+
+export const getCourseById = async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const course = await Course.findById({ _id });
+    if (!course) {
+      return res.status(400).json({ error: "Course not found" });
+    }
+    return res
+      .status(200)
+      .json({ message: "Course fetched successfully", course });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ error: "error in getCourseById Controller" });
+  }
+};

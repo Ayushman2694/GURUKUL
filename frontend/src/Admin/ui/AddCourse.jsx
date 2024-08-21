@@ -13,11 +13,16 @@ import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 // import Resizer from "react-image-file-resizer";
 
-export default function AddCourse({ setCourseUploaded, setCourseData }) {
+export default function AddCourse({
+  setCourseUploaded,
+  setCourseData,
+  courseData,
+}) {
   const [image, setImage] = useState(null);
   const [cropper, setCropper] = useState();
   const [cropData, setCropData] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
+
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const { addCourse, isLoading: addingCourse, CourseData } = useAddCourse();
 
@@ -29,9 +34,11 @@ export default function AddCourse({ setCourseUploaded, setCourseData }) {
   } = useForm();
 
   useEffect(() => {
-    setCourseUploaded(CourseData.length === 0);
-    setCourseData(CourseData);
-  }, [CourseData, setCourseData, setCourseUploaded]);
+    if (CourseData !== courseData) {
+      setCourseUploaded(CourseData.length === 0);
+      setCourseData(CourseData);
+    }
+  }, [CourseData, courseData, setCourseData, setCourseUploaded]);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];

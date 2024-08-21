@@ -19,7 +19,7 @@ export default function AddModule({ moduleNo, courseId }) {
   const [noOfVideos, setNoOfVideos] = useState(1);
   const [videoNoList, setVideoNoList] = useState([0]);
   const [videoArray, setVideoArray] = useState([]);
-  const { moduleUploaded, setModuleUploaded } = useState(false);
+  const [moduleUploaded, setModuleUploaded] = useState(false);
 
   const { addModule, isLoading } = useAddModule();
 
@@ -37,9 +37,8 @@ export default function AddModule({ moduleNo, courseId }) {
       setNoOfVideos((prevValue) => prevValue + 1);
       setVideoNoList((prevVideoNoList) => [...prevVideoNoList, noOfVideos]);
     } else {
-      toast.error(
-        `Upload Video No ${arrayLength + 1} In Module No ${moduleNo} First`
-      );
+      toast.error(`
+        Upload Video No ${arrayLength + 1} In Module No ${moduleNo} First`);
     }
   }
 
@@ -60,7 +59,7 @@ export default function AddModule({ moduleNo, courseId }) {
     const filteredArray = videoArray.filter((video) => video !== undefined);
     const arrayLength = filteredArray.length;
     if (arrayLength !== noOfVideos) {
-      toast.error`(Please Upload All Videos In Module No ${moduleNo})`;
+      toast.error(`Please Upload All Videos In Module No ${moduleNo}`);
     } else {
       addModule(
         {

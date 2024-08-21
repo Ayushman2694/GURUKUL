@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // src/pages/Dashboard.jsx
 
 import OnGoingCourseCard from "../component/dashboard/OnGoingCourseCard";
@@ -7,14 +8,16 @@ import Spinner from "../../Common/Ui/Spinner";
 
 import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
 import { useState } from "react";
+import { useEmployeeById } from "../../Admin/components/employee/useEmployeeById";
 
 export default function EmployeeDashboard() {
-  const [token] = useState(localStorage.getItem("token"));
-  const { isLoading, employe_info } = useEmployeeInfo(token);
+  // const [token] = useState(localStorage.getItem("token"));
+  // const { isLoading, employe_info } = useEmployeeById("MHPL0481");
+  const { isLoading, employee: employe_info } = useEmployeeById("MHPL0481");
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="p-8 bg-white min-h-screen">
+    <div className="p-8 w-full bg-white min-h-screen">
       <div className="flex flex-row">
         <h1 className="text-4xl w-1/2 font-bold mb-4">Dashboard</h1>
         <p className="text-xl  mb-4 pt-2 font-medium">
