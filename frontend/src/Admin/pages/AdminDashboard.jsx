@@ -21,16 +21,20 @@ export default function AdminDashboard() {
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
         <div className="space-x-4 text-sm flex mt-0 pt-0 ">
-          <button className="text-blue-600 flex items-center">
+          <button 
+            onClick={() =>{navigate("/admin/addCourse")}}
+            className="text-blue-600 flex items-center">
             <FaPlusCircle className="mr-2" /> Add Course
           </button>
           <button
-            onClick={() => navigate("/admin/employeeSignUp")}
+            onClick={() =>{navigate("/admin/employeeSignUp")}}
             className="text-green-600 flex items-center"
           >
             <FaUserPlus className="mr-2" /> Add Employee
           </button>
-          <button className="text-purple-600 flex items-center">
+          <button 
+            onClick={()=>{navigate('/admin/createQuiz')}}
+            className="text-purple-600 flex items-center">
             <FaQuestionCircle className="mr-2" /> Add Quiz
           </button>
         </div>
