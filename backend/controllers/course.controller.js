@@ -1,8 +1,8 @@
-import { error } from "console";
+
 import Course from "../models/course.model.js";
 import Module from "../models/module.model.js";
 import Video from "../models/video.model.js";
-import { resourceLimits } from "worker_threads";
+
 import Department from "../models/department.model.js";
 
 export const addCourse = async (req, res) => {
@@ -265,5 +265,23 @@ export const getCourseByDepartment = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ error: "error in getCourseByDepartment Controller" });
+  }
+};
+
+export const getVideosByModuleId = async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const module = await Module.findById({ _id });
+    if (!module) {
+      return res.status(400).json({ error: "module not found" });
+    }
+    const allVideoIds = module.video
+    const videoDetails = await Video.find({ _id: { $in: allVideoIds } });
+  return res
+      .status(200)
+      .json({ message: "module fetched successfully",videoDetails});
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ error: "error in getVideosByModuleId Controller" });
   }
 };
