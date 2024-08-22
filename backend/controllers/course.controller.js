@@ -271,11 +271,14 @@ export const getCourseByDepartment = async (req, res) => {
 export const getVideosByModuleId = async (req, res) => {
   try {
     const { _id } = req.params;
-    const module = await Module.findById({ _id });
-    if (!module) {
+    const modules = await Module.find({course: _id });
+    if (!modules) {
       return res.status(400).json({ error: "module not found" });
     }
-    const allVideoIds = module.video
+    const allVideoIds = modules.reduce((acc, module) => {
+      acc.push(...module.video);
+      return acc;
+    }, []);
     const videoDetails = await Video.find({ _id: { $in: allVideoIds } });
   return res
       .status(200)
