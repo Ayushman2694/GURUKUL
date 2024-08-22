@@ -33,3 +33,28 @@ export const assignCourse = async(req,res)=>{
     }
 
 }
+
+
+
+export const excludingDepartment = async (req, res) => {
+  try {
+    const { departmentName , all_department } = req.params;
+
+    if (!departmentName) {
+      return res.status(400).json({ message: "Department name is required" });
+    }
+
+    const courses = await Course.find({
+      courseDepartment: { $ne: departmentName && "all_department" }
+    });
+
+    if (!courses.length) {
+      return res.status(400).json({ message: "No courses found excluding the specified department" });
+    }
+
+    res.status(200).json(courses);
+  } catch (error) {
+    console.error("Error fetching courses:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
