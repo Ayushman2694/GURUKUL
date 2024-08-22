@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import  { getallCourse,addCourse, deleteCourse ,addModule, updateCourse, modulesByCourseId, getVideoById, getCourseById } from '../controllers/course.controller.js';
+import  { getallCourse,addCourse, deleteCourse ,addModule, updateCourse, modulesByCourseId, getVideoById, getCourseById, getCourseByDepartment } from '../controllers/course.controller.js';
 
 const courseRouter = express.Router();
 
@@ -21,6 +21,7 @@ courseRouter.post("/updateCourse",upload.single("thumbnail") ,updateCourse);
 courseRouter.get("/allModules/:courseId",modulesByCourseId );
 courseRouter.get("/getVideo/:_id",getVideoById );
 courseRouter.get("/getCourse/:_id",getCourseById );
+courseRouter.get("/getCourseByDepartment",getCourseByDepartment );
 
 
 

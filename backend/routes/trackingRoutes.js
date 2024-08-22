@@ -1,11 +1,12 @@
 import express from "express";
-import { videoTracker} from "../controllers/track.controller.js";
-import authenticateToken from "../middleware/authMiddleware.js";
+import { updateCourseStatus, videoTracker} from "../controllers/track.controller.js";
+
 
 
 const router = express.Router();
 
-router.post("/watchedBy",authenticateToken,videoTracker)
+router.post("/watchedBy",videoTracker)
+router.post("/courseStatus",updateCourseStatus)
 
 
 

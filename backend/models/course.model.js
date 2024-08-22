@@ -1,50 +1,41 @@
 import mongoose from "mongoose";
 
-
 const coursesSchema = mongoose.Schema({
-
-    courseTitle :{
-        type:String,
-        required:true,
-
+    courseTitle: {
+        type: String,
+        required: true,
     },
-    courseDescription :{
-        type:String,
-        required:true,
+    courseDescription: {
+        type: String,
+        required: true,
     },
-    courseDepartment :{
-        type:String,
-        required:true,
+    courseDepartment: {
+        type: String,
+        required: true,
     },
-       
-    
-    thumbnail:{
-        type:String,
-        required:true,
+    thumbnail: {
+        type: String,
+        required: true,
     },
-    
-    noOfModules:{
-        type:Number
+    noOfModules: {
+        type: Number,
     },
-    
-    userStatus:[
+    userStatus: [
         {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"User",
-            status:{
-                type:String,
-                default:"not started"
-            }
-        }
-    ]
-    
-})
+            user: {
+                type: String,
+                required: true,
+            },
+            status: {
+                type: Number,
+                min:0,
+                max:100,
+                default: 0,
+            },
+        },
+    ],
+});
 
-const Course = new mongoose.model("Course",coursesSchema);
-
-
-
-
-
+const Course = mongoose.model("Course", coursesSchema);
 
 export default Course;
