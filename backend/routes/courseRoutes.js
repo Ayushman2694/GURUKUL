@@ -3,6 +3,7 @@ import multer from 'multer';
 import  { getallCourse,addCourse, deleteCourse ,addModule, updateCourse, modulesByCourseId, getVideoById, getCourseById, getCourseByDepartment } from '../controllers/course.controller.js';
 import { assignCourse } from '../controllers/enrollCourse.controller.js';
 
+
 const courseRouter = express.Router();
 
 const storage = multer.diskStorage({
@@ -24,6 +25,7 @@ courseRouter.get("/getVideo/:_id",getVideoById );
 courseRouter.get("/getCourse/:_id",getCourseById );
 courseRouter.get("/getCourseByDepartment",getCourseByDepartment );
 courseRouter.post("/assign-course/:empId/:courseId",assignCourse)
+
 
 
 

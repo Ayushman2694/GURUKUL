@@ -1,6 +1,6 @@
 import multer from "multer";
 import express from "express"
-import { addVideo, allVideo } from "../controllers/course.controller.js";
+import { addVideo, allVideo, getVideosByCourseId} from "../controllers/course.controller.js";
 
 
 const videoRouter = express.Router()
@@ -20,6 +20,7 @@ const upload = multer({storage:storage})
 
 videoRouter.post("/addVideo",upload.single("videoLink"),addVideo)
 videoRouter.get("/allVideo",allVideo)
+videoRouter.get("/getVideosBycourseId/:_id",getVideosByCourseId );
 
 
 

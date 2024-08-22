@@ -106,6 +106,7 @@ export default function EmployeeSignup({ editing = false }) {
                 disabled={signingUp || updateEmployeeLoading}
                 id="empid"
                 defaultValue={employee?.empId}
+                placeholder="Enter Employee Id"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("empid", {
                   required: "This field is required",
@@ -126,6 +127,7 @@ export default function EmployeeSignup({ editing = false }) {
                 defaultValue={employee?.employeeName}
                 disabled={signingUp || updateEmployeeLoading}
                 id="name"
+                placeholder="Enter Name"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("name", {
                   required: "This field is required",
@@ -159,6 +161,7 @@ export default function EmployeeSignup({ editing = false }) {
                 defaultValue={employee?.designation}
                 type="text"
                 id="designation"
+                placeholder="Enter Designation"
                 disabled={signingUp || updateEmployeeLoading}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("designation", {
@@ -202,6 +205,7 @@ export default function EmployeeSignup({ editing = false }) {
               <input
                 type="password"
                 id="password"
+                placeholder="Enter Password"
                 disabled={signingUp || updateEmployeeLoading}
                 defaultValue={employee?.password}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -226,6 +230,7 @@ export default function EmployeeSignup({ editing = false }) {
               <input
                 type="password"
                 id="confirmPassword"
+                placeholder="Enter Confirm Password"
                 disabled={signingUp || updateEmployeeLoading}
                 defaultValue={employee?.password}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
