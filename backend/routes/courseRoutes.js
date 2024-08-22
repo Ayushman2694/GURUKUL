@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import  { getallCourse,addCourse, deleteCourse ,addModule, updateCourse, modulesByCourseId, getVideoById, getCourseById, getCourseByDepartment } from '../controllers/course.controller.js';
+import  { getallCourse,addCourse, deleteCourse ,addModule, updateCourse, modulesByCourseId, getVideoById, getCourseById, getCourseByDepartment, getVideosByModuleId } from '../controllers/course.controller.js';
 
 const courseRouter = express.Router();
 
@@ -22,6 +22,7 @@ courseRouter.get("/allModules/:courseId",modulesByCourseId );
 courseRouter.get("/getVideo/:_id",getVideoById );
 courseRouter.get("/getCourse/:_id",getCourseById );
 courseRouter.get("/getCourseByDepartment",getCourseByDepartment );
+courseRouter.get("/getVideosByModuleId/:_id",getVideosByModuleId );
 
 
 
