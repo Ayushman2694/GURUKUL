@@ -27,7 +27,7 @@ export default function Quizzes() {
       <div className="grid grid-cols-3 gap-4 mb-6">
         <ShowQuizCard
           title="Course 1 Quiz"
-          description="This is the description of course 1 Quiz"
+          description="This is the description of course 1 Quiz this description is too long for checking the method is working or not "
           viewQuizHandler={()=>{navigate('/admin/viewQuiz')}}
           EditQuizHandler={()=>{navigate('/admin/editQuiz')}}
 

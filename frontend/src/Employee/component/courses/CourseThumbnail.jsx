@@ -1,5 +1,6 @@
 import ProgressBar from "../../../Common/Ui/ProgressBar";
 import { useNavigate } from "react-router-dom";
+import ShowMoreShowLess from "../../../Common/Ui/ShowMoreShowLess";
 
 /* eslint-disable react/prop-types */
 export default function CourseThumbnail({ progress, course }) {
@@ -15,7 +16,11 @@ export default function CourseThumbnail({ progress, course }) {
         </div>
 
         <h5 className="px-2 pt-2 text-lg font-bold">{course?.courseTitle}</h5>
-        <h6 className="px-2 text-sm">{course?.courseDescription}</h6>
+        <h6 className="px-2 text-sm">
+        {/* <ShowMoreShowLess title={course?.courseDescription} charNo="50"/>    */}
+          
+          {course?.courseDescription}
+          </h6>
         {!(progress === 0) ? (
           !(progress === 100) ? (
             <ProgressBar progress={progress} />

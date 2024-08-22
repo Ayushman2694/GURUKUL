@@ -4,6 +4,7 @@ import AddModule from "../ui/AddModule";
 import AddCourse from "../ui/AddCourse";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { IoIosRemoveCircleOutline } from "react-icons/io";
+import ShowMoreShowLess from "../../Common/Ui/ShowMoreShowLess";
 
 export default function AddFullCourse() {
   const [courseUploaded, setCourseUploaded] = useState(true);
@@ -81,7 +82,8 @@ export default function AddFullCourse() {
                 </td>
                 <td className="px-5 py-3 w-4/12 border-b border-gray-200 bg-white text-lg font-semibold text-center">
                   <p className="text-gray-900 whitespace-no-wrap">
-                    {courseData.courseDescription}
+                    {/* {courseData.courseDescription} */}
+                    <ShowMoreShowLess descriptionDetail={courseData.courseDescription} charNo={40} />
                   </p>
                 </td>
               </tr>

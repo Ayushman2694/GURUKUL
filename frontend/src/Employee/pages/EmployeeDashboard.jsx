@@ -17,7 +17,7 @@ export default function EmployeeDashboard() {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="p-8 w-full bg-white min-h-screen">
+    <div className="p-4 w-full bg-white min-h-screen">
       <div className="flex flex-row">
         <h1 className="text-4xl w-1/2 font-bold mb-4">Dashboard</h1>
         <p className="text-xl  mb-4 pt-2 font-medium">
