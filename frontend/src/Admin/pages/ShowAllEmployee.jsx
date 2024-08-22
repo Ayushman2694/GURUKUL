@@ -38,12 +38,15 @@ export default function ShowAllEmployee({ title }) {
     <>
       <BackButton />
       <div className="min-h-screen w-full bg-white p-4 pb-8">
-        <div className="flex items-center justify-between w-full text-3xl font-bold mb-6 pr-22">
+        <div className="flex items-center justify-between w-full text-3xl font-bold mb-6 pr-22 ">
           <span>{title}</span>
+          <div className="mr-20 mb-3">
           <AddButton
+            
             title="Employee"
             onClick={() => navigate("/admin/employeeSignUp")}
           />
+          </div>
         </div>
         <div className="flex gap-2 mb-2">
           <div className="w-2/3 rounded border-slate-400">
