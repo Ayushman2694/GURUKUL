@@ -268,7 +268,7 @@ export const getCourseByDepartment = async (req, res) => {
   }
 };
 
-export const getVideosByModuleId = async (req, res) => {
+export const getVideosByCourseId = async (req, res) => {
   try {
     const { _id } = req.params;
     const modules = await Module.find({course: _id });
