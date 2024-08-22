@@ -1,3 +1,4 @@
+
 import Module from "../models/module.model.js";
 import Quiz from "../models/quiz.model.js";
 
@@ -5,24 +6,25 @@ import Quiz from "../models/quiz.model.js";
 
 // Create a new quiz
 export const createQuiz = async (req, res) => {
-    const { title, moduleId, questions } = req.body;
   
     try {
+      const { title, moduleId, questions,correctOptions } = req.body;
       const module = await Module.findById(moduleId);
   
       if (!module) {
-        return res.status(404).json({ message: "Module not found" });
+        return res.status(400).json({ error: "Module not found" });
       }
   
       const quiz = new Quiz({
         title,
         module: moduleId,
         questions,
+        correctOptions
       });
   
       await quiz.save();
   
-      res.status(201).json(quiz);
+      res.status(200).json({message:"Quiz created successfully"});
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -37,7 +39,7 @@ export const createQuiz = async (req, res) => {
       const quiz = await Quiz.findById(id);
   
       if (!quiz) {
-        return res.status(404).json({ message: "Quiz not found" });
+        return res.status(400).json({ message: "Quiz not found" });
       }
   
       quiz.title = title;
@@ -60,7 +62,7 @@ export const createQuiz = async (req, res) => {
       const quizzes = await Quiz.find({ module: moduleId });
   
       if (!quizzes) {
-        return res.status(404).json({ message: "No quizzes found for this module" });
+        return res.status(400).json({ message: "No quizzes found for this module" });
       }
   
       res.status(200).json(quizzes);
@@ -77,7 +79,7 @@ export const createQuiz = async (req, res) => {
       const quiz = await Quiz.findById(id);
   
       if (!quiz) {
-        return res.status(404).json({ message: "Quiz not found" });
+        return res.status(400).json({ message: "Quiz not found" });
       }
   
       res.status(200).json(quiz);

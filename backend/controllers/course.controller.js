@@ -3,6 +3,7 @@ import Course from "../models/course.model.js";
 import Module from "../models/module.model.js";
 import Video from "../models/video.model.js";
 import { resourceLimits } from "worker_threads";
+import Department from "../models/department.model.js";
 
 export const addCourse = async (req, res) => {
   try {
@@ -240,5 +241,29 @@ export const getCourseById = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ error: "error in getCourseById Controller" });
+  }
+};
+
+
+export const getCourseByDepartment = async (req, res) => {
+  try {
+    const { department } = req.body;
+    const isDepartment = await Department.findOne({departmentName:department})
+    if(!isDepartment){
+      return res.status(400).json({ error: "Department does not exist" })
+    }
+    const course = await Course.find({
+      $or: [
+        { courseDepartment: department },
+        { courseDepartment: "all_department" }
+      ]
+    });
+    if (course.length===0) {
+      return res.status(400).json({ error: "No course found" });
+    }
+    return res.status(200).json({ message: "Course fetched successfully", course });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ error: "error in getCourseByDepartment Controller" });
   }
 };

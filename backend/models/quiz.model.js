@@ -17,25 +17,18 @@ const quizSchema = mongoose.Schema({
         required: true,
       },
       options: [
-        {
-          optionText: {
+          {
             type: String,
             required: true,
           },
-          isCorrect: {
-            type: Boolean,
-            required: true,
-            default: false,
-          },
-        },
       ],
+      correctOptions:[{
+        type: String,
+        required: true,
+      }]
     },
   ],
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+},{timestamp:true});
 
 const Quiz = mongoose.model("Quiz", quizSchema);
 

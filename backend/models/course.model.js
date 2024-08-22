@@ -23,14 +23,14 @@ const coursesSchema = mongoose.Schema({
     userStatus: [
         {
             user: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User",
+                type: String,
                 required: true,
             },
             status: {
-                type: String,
-                enum: ["not started", "On Going", "Completed"],
-                default: "not started",
+                type: Number,
+                min:0,
+                max:100,
+                default: 0,
             },
         },
     ],

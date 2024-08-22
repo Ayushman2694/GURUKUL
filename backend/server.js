@@ -34,7 +34,7 @@ app.use("/api/admin",adminRoutes);
 app.use("/api/employee",employeeRoutes);
 app.use("/api/department",departmentRoutes)
 app.use("/api/tracking",trackingRoutes)
-app.use("/api/quizze",quizRoutes)
+app.use("/api/quiz",quizRoutes)
 
 
 app.listen(port, () => {
