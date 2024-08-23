@@ -25,7 +25,7 @@ courseRouter.get("/getVideo/:_id",getVideoById );
 courseRouter.get("/getCourse/:_id",getCourseById );
 courseRouter.get("/getCourseByDepartment",getCourseByDepartment );
 courseRouter.post("/assign-course",assignCourse)
-courseRouter.get("/course-exclude/:departmentName", excludingDepartment);
+courseRouter.get("/course-exclude/:empId/:departmentName", excludingDepartment);
 
 
 
