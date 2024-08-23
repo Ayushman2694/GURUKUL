@@ -1,2 +1,2 @@
-const url = "https://gurukul-backend.onrender.com";
+const url = "http://localhost:6300";
 export { url };
