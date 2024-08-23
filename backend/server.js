@@ -9,9 +9,11 @@ import courseRouter from "./routes/courseRoutes.js";
 import videoRouter from "./routes/videoRoutes.js";
 import trackingRoutes from "./routes/trackingRoutes.js";
 import quizRoutes from "./routes/quizRoutes.js";
+import addRouter from "./routes/requestRoutes.js";
 
 
 import departmentRoutes from "./routes/departmentRoutes.js";
+import { addRequest } from "./controllers/request.controller.js";
 
 const app = express();
 const port = process.env.PORT || 6300;
@@ -35,6 +37,7 @@ app.use("/api/employee",employeeRoutes);
 app.use("/api/department",departmentRoutes)
 app.use("/api/tracking",trackingRoutes)
 app.use("/api/quiz",quizRoutes)
+app.use("/api/request",addRouter)
 
 
 app.listen(port, () => {
