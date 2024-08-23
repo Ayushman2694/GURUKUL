@@ -6,7 +6,7 @@ const addRouter = express.Router()
 
 addRouter.post("/addRequest",addRequest)
 addRouter.get("/getRequest",getAllRequest)
-addRouter.delete("/deleteRequest",deleteRequest)
+addRouter.delete("/deleteRequest/:id",deleteRequest)
 
 
 
