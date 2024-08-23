@@ -36,3 +36,18 @@ export const addRequest = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
+
+export const getAllRequest = async (req,res)=>{
+  try{
+
+
+    const request = await Request.find()
+    
+    res.status(200).json(request);
+
+  }catch(error){
+    res.status(500).json({ message: "Server error", error: error.message });
+
+  }
+}
