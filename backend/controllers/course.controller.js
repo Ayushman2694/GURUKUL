@@ -246,13 +246,13 @@ export const getCourseById = async (req, res) => {
 export const getCourseByDepartment = async (req, res) => {
   try {
     const { empId} = req.params;
-    const emp = await Employee.findOne({empId}).populate('courses');
+    const emp = await Employee.findOne({empId});
     if(!emp){
       return res.status(400).json({ error: "Employee does not exist" })
     }
 
     const courseInEmp = emp.courses
-    console.log(emp.courses)
+   
     const department = emp.department
     const isDepartment = await Department.findOne({departmentName:department})
     if(!isDepartment){

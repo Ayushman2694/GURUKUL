@@ -1,7 +1,8 @@
 import express from 'express';
-import multer from 'multer';
+
 import  { getallCourse,addCourse, deleteCourse ,addModule, updateCourse, modulesByCourseId, getVideoById, getCourseById, getCourseByDepartment } from '../controllers/course.controller.js';
 import { assignCourse, excludingDepartment } from '../controllers/enrollCourse.controller.js';
+import upload from '../middleware/uploadFileMiddleware.js';
 
 
 
@@ -15,7 +16,7 @@ courseRouter.post("/updateCourse",upload.single("thumbnail") ,updateCourse);
 courseRouter.get("/allModules/:courseId",modulesByCourseId );
 courseRouter.get("/getVideo/:_id",getVideoById );
 courseRouter.get("/getCourse/:_id",getCourseById );
-courseRouter.get("/getCourseByDepartment",getCourseByDepartment );
+courseRouter.get("/getCourseByDepartment/:empId",getCourseByDepartment );
 courseRouter.post("/assign-course",assignCourse)
 courseRouter.get("/course-exclude/:departmentName", excludingDepartment);
 
