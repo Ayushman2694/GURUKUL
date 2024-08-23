@@ -18,9 +18,9 @@ export default function EmployeeDashboard() {
 
   return (
     <div className="p-4 w-full bg-white min-h-screen">
-      <div className="flex flex-row">
-        <h1 className="text-4xl w-1/2 font-bold mb-4">Dashboard</h1>
-        <p className="text-xl  mb-4 pt-2 font-medium">
+      <div className="flex flex-row justify-between">
+        <h1 className="text-2xl md:text-4xl w-1/2 font-bold mb-4">Dashboard</h1>
+        <p className="text-sm md:text-xl  mb-4 pt-2 font-medium">
           {" "}
           {`Employee ID : ${employe_info.empId}`}
         </p>
