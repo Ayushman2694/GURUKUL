@@ -21,6 +21,12 @@ export const addRequest = async (req, res) => {
       return res.status(400).json({ message: "Course not found" });
     }
 
+    const existingRequest = await Request.findOne({ empId: employee.empId, courseId: course._id });
+    if (existingRequest) {
+      return res.status(400).json({ message: "Request for this employee and course already exists" });
+    }
+
+
     const newRequest = new Request({
       empId: employee.empId,
       employeeName: employee.employeeName,
