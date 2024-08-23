@@ -60,17 +60,16 @@ export const getAllRequest = async (req,res)=>{
 
 export const deleteRequest = async (req, res) => {
   try {
-    const { empId, courseId } = req.body;
+    const { id } = req.params; 
 
-  
-    if (!empId || !courseId) {
-      return res.status(400).json({ message: "empId and courseId are required" });
+    if (!id) {
+      return res.status(400).json({ message: "Request ID is required" });
     }
 
-    const deletedRequest = await Request.findOneAndDelete({ empId, courseId });
+    const deletedRequest = await Request.findByIdAndDelete(id);
 
     if (!deletedRequest) {
-      return res.status(400).json({ message: "Request not found" });
+      return res.status(404).json({ message: "Request not found" });
     }
 
     res.status(200).json({ message: "Request deleted successfully", data: deletedRequest });
