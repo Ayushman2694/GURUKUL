@@ -21,6 +21,12 @@ export const addRequest = async (req, res) => {
       return res.status(400).json({ message: "Course not found" });
     }
 
+    const existingRequest = await Request.findOne({ empId: employee.empId, courseId: course._id });
+    if (existingRequest) {
+      return res.status(400).json({ message: "Request for this employee and course already exists" });
+    }
+
+
     const newRequest = new Request({
       empId: employee.empId,
       employeeName: employee.employeeName,
@@ -51,3 +57,25 @@ export const getAllRequest = async (req,res)=>{
 
   }
 }
+
+export const deleteRequest = async (req, res) => {
+  try {
+    const { empId, courseId } = req.body;
+
+  
+    if (!empId || !courseId) {
+      return res.status(400).json({ message: "empId and courseId are required" });
+    }
+
+    const deletedRequest = await Request.findOneAndDelete({ empId, courseId });
+
+    if (!deletedRequest) {
+      return res.status(400).json({ message: "Request not found" });
+    }
+
+    res.status(200).json({ message: "Request deleted successfully", data: deletedRequest });
+  } catch (error) {
+    console.error("Error deleting request:", error.message);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
