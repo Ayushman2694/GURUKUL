@@ -54,19 +54,21 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl md:text-5xl font-bold mb-6">
-        Welcome to Mediversal Gurukul
+      <h1 className="text-xl md:text-4xl text-center font-bold mb-6">
+        <span className="block md:hidden">Mediversal Gurukul</span>
+        <span className="hidden md:block">Welcome to Mediversal Gurukul</span>
       </h1>
+      
       <div
-        className="bg-white p-6 rounded-lg shadow-lg flex w-3/4 max-w-4xl"
-        style={{ minHeight: "470px" }}
+        className="bg-white md:p-8 h-auto  rounded-lg shadow-lg flex w-3/4 md:w-3/4 max-w-4xl"
+        // style={{ minHeight: "470px" }}
       >
         <div
-          className="w-full md:w-1/2 p-6 bg-white rounded-lg shadow-md flex flex-col justify-center"
-          style={{ height: "400px" }}
+          className="w-full md:w-1/2 h-auto md:p-6 p-3 bg-white rounded-lg shadow-md flex flex-col justify-center"
+          // style={{ height: "400px" }}
         >
           <h2 className="text-xl font-bold mb-4 text-center">Login As</h2>
-          <div className="flex justify-center items-center mb-4">
+          <div className="flex justify-center items-center mb-2 md:mb-4">
             <span
               className={`mr-4 ${isEmployee ? "text-black" : "text-gray-500"}`}
             >
@@ -83,12 +85,12 @@ const Login = () => {
               Admin
             </span>
           </div>
-          <hr className="mb-4" />
+          <hr className="mb-1 md:mb-4" />
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="p-4 flex flex-col justify-between h-full"
+            className="p-1 md:p-4 flex flex-col justify-between h-full"
           >
-            <label className=" font-semibold py-2">
+            <label className=" font-semibold py-1 md:py-2">
               {!isEmployee ? "Email" : "Employee ID"}
             </label>
             <input
@@ -110,7 +112,7 @@ const Login = () => {
             />
             {errors.email && <FormError error={errors.email.message} />}
             {errors.empId && <FormError error={errors.empId.message} />}
-            <label className=" font-semibold py-2">Password</label>
+            <label className="font-semibold py-1 md:py-2">Password</label>
             <input
               name="password"
               id="password"

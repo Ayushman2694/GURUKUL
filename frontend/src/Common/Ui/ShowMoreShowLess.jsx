@@ -3,14 +3,18 @@ import { useState } from 'react';
 
 
 
-export default function ShowMoreShowLess({descriptionDetail, charNo}) {
+export default function ShowMoreShowLess({descriptionDetail=" ", charNo}) {
     const [readmore, setReadmore]= useState(false);
-    const description = `${descriptionDetail.substring(0, `${charNo}` )}`;
+    
+   
+    const description = `${descriptionDetail.substring(0, charNo )}`;
+
+    console.log(descriptionDetail)
 
 
     function readMoreHandler(){
         setReadmore(!readmore);
-        console.log("I am clicked");
+        
     }
   return (
     <div className="">
@@ -24,3 +28,4 @@ export default function ShowMoreShowLess({descriptionDetail, charNo}) {
     </div>
   )
 }
+
