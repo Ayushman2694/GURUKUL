@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import { useAllCourse } from "../../Admin/components/courses/useAllCourse";
+import ShowMoreShowLess from "../../Common/Ui/ShowMoreShowLess";
 import Spinner from "../../Common/Ui/Spinner";
 import CourseThumbnail from "../component/courses/CourseThumbnail";
 
@@ -24,10 +25,11 @@ export default function EmployeeCourses() {
         <div className="w-1/2 p-4 ">
           <p className="text-2xl font-bold pb-2">Course Name</p>
           <p className="text-lg font-medium">
-            A video description provides information about the video&apos;s
+           
+            <ShowMoreShowLess descriptionDetail=" A video description provides information about the video&apos;s
             content, including its purpose, key points, and relevant links. It
             enhances viewer understanding and engagement, often boosting search
-            visibility and accessibility.
+            visibility and accessibility." charNo={80}/>
           </p>
           <button
             className="w-full  bg-blue-600 text-slate-50 rounded-md font-bold text-sm p-1 my-8"

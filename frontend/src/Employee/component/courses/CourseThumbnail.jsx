@@ -17,9 +17,9 @@ export default function CourseThumbnail({ progress, course }) {
 
         <h5 className="px-2 pt-2 text-lg font-bold">{course?.courseTitle}</h5>
         <h6 className="px-2 text-sm">
-        {/* <ShowMoreShowLess title={course?.courseDescription} charNo="50"/>    */}
+       
+          <ShowMoreShowLess descriptionDetail={course?.courseDescription} charNo={50} />
           
-          {course?.courseDescription}
           </h6>
         {!(progress === 0) ? (
           !(progress === 100) ? (

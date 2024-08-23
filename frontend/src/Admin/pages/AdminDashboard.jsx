@@ -16,34 +16,42 @@ export default function AdminDashboard() {
   const employeeCount = allEmployee ? allEmployee.length : 0;
 
   if (loadindCourses || loadingAllEmployee) return <Spinner />;
+
   return (
     <div className="min-h-screen w-full bg-white p-4">
-      <div className="flex justify-between items-center">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row justify-between items-center">
         <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
-        <div className="space-x-4 text-sm flex mt-0 pt-0 ">
-          <button 
-            onClick={() =>{navigate("/admin/addCourse")}}
-            className="text-blue-600 flex items-center">
+        <div className="space-x-4 space-y-2 md:space-x-4 md:space-y-0 text-sm flex flex-row md:flex-row mt-0 pt-0">
+          <button
+            onClick={() => { navigate("/admin/addCourse") }}
+            className="text-blue-600 flex items-center"
+          >
             <FaPlusCircle className="mr-2" /> Add Course
           </button>
           <button
-            onClick={() =>{navigate("/admin/employeeSignUp")}}
+            onClick={() => { navigate("/admin/employeeSignUp") }}
             className="text-green-600 flex items-center"
           >
             <FaUserPlus className="mr-2" /> Add Employee
           </button>
-          <button 
-            onClick={()=>{navigate('/admin/createQuiz')}}
-            className="text-purple-600 flex items-center">
+          <button
+            onClick={() => { navigate('/admin/createQuiz') }}
+            className="text-purple-600 flex items-center"
+          >
             <FaQuestionCircle className="mr-2" /> Add Quiz
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-4 mb-6">
+
+      
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
         <AdminDashboardCard title="Total Courses" number={courseCount} />
         <AdminDashboardCard title="Assigned Courses" number="5" />
-        <AdminDashboardCard title="Total users" number={employeeCount} />
+        <AdminDashboardCard title="Total Users" number={employeeCount} />
       </div>
+
+      
       <div className="bg-gray-50 shadow-md rounded-lg p-4 mb-6">
         <select className="w-full p-2 border border-gray-300 rounded-lg mb-4">
           <option>Select Course</option>
@@ -53,9 +61,11 @@ export default function AdminDashboard() {
           <option>course 4</option>
         </select>
       </div>
+
+      
       <div className="bg-gray-50 h-auto shadow-md rounded-lg p-4 mb-6">
         <h1 className="text-xl font-semibold mb-6">Compliance Matrics</h1>
-        <div className="grid grid-cols-2 gap-4 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <AdminDashboardPercent
             percent="52"
             description="completed the course"
@@ -81,8 +91,9 @@ export default function AdminDashboard() {
             description="completed the course"
           />
         </div>
+
+        
         <div className="bg-gray-100 h-auto mb-4 py-2 px-2 rounded-lg">
-          {/* Placeholder for the bar chart */}
           <AdminDashboardBar percent="52" />
           <AdminDashboardBar percent="44" />
           <AdminDashboardBar percent="98" />
