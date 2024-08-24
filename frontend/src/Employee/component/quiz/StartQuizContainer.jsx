@@ -12,7 +12,7 @@ export default function StartQuizContainer() {
         </p>
         <button className=" bg-blue-600 text-slate-50 text-md font-bold rounded-lg py-1 px-2 my-2" 
           onClick={() => {
-            navigate("/quiz");
+            navigate("/employee/quiz");
           }}
         >
           Start Quiz

@@ -34,6 +34,7 @@ import EditQuiz from "./Admin/pages/EditQuiz";
 import AddFullCourse from "./Admin/pages/AddFullCourse";
 import Protected from "./Employee/Ui/Protected";
 
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

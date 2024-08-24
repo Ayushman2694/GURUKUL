@@ -15,7 +15,7 @@ export default function EmployeeCourses() {
   return (
     <div className="w-full p-4 h-full">
       <div className="w-full">
-        <h1 className="text-3xl font-bold px-1 pb-2">Current Courses</h1>
+        <h1 className="text-2xl md:text-4xl font-bold px-1 pb-2">Current Courses</h1>
       </div>
 
       <div className="w-full md:flex grid py-8 bg-slate-100 shadow-xl">

@@ -58,7 +58,6 @@
 
 
 
-
 /* eslint-disable no-unused-vars */
 import { useParams } from "react-router-dom";
 import Module from "../component/courses/Module";
@@ -78,46 +77,45 @@ export default function Course() {
   const { isLoading: loadingCourse, course } = useCourseByCourseId(courseId);
 
   if (loadingModule || loadingCourse) return <Spinner />;
+  
   return (
-    <div className="w-full grid md:flex p-4">
-      <div className=" md:grid md:grid-rows-6 md:grid-cols-4 md:gap-4 ">
-        <div className=" md:row-span-2 md:col-span-3 h-auto">
-            {/* {videoLink && <ReactPlayer url={videoLink} width="100%" controls />} */}
+    <div className="w-full p-4">
+      <div className="md:grid md:grid-rows-9 md:grid-cols-4 md:gap-4">
+        
+        {/* Video Player Section */}
+        <div className="md:row-span-4 md:col-span-3">
           {videoLink ? (
             <VideoPlayer videoLink={videoLink} />
           ) : (
             <img src={course?.thumbnail} className="w-full rounded" />
           )}
         </div>
-
-        <div className=" h-auto  px-2  md:row-span-8 md:col-span-1 ">
-        <div className="bg-slate-100 h-auto shadow-lg shadow-stone-400 rounded-md overflow-y-auto">
-          {modules.map((module) => (
-            <Module
-              key={module._id}
-              videos={module.video}
-              moduleName={module.moduleName}
-              setVideoLink={setVideoLink}
-              setVideoDiscription={setVideoDiscription}
-            />
-          ))}
-        </div>
-      </div>
         
-
-        <div className=" md:row-span-4 md:col-span-3 h-auto w-full shadow-lg shadow-stone-400 rounded-lg border pt-4 mt-8 mb-12 md:mb-0">
-          <p className="text-xl font-bold px-3"> Quizzes</p>
-          <div className="grid grid-cols-1 md:grid-cols-2  gap-1 mb-8">
+        {/* Modules Section */}
+        <div className="md:row-span-8 md:col-span-1 mt-4 md:mt-0 h-auto px-2">
+          <div className="bg-slate-100 h-full shadow-lg shadow-stone-400 rounded-md overflow-y-auto">
+            {modules.map((module) => (
+              <Module
+                key={module._id}
+                videos={module.video}
+                moduleName={module.moduleName}
+                setVideoLink={setVideoLink}
+                setVideoDiscription={setVideoDiscription}
+              />
+            ))}
+          </div>
+        </div>
+        
+        {/* Quizzes Section */}
+        <div className="md:row-span-4 md:col-span-3 mt-8 md:mt-0 h-auto shadow-lg shadow-stone-400 rounded-lg border py-4">
+          <p className="text-xl font-bold px-3">Quizzes</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 px-3">
             <StartQuizContainer />
             <StartQuizContainer />
             <StartQuizContainer />
           </div>
         </div>
-
-        
       </div>
-
-      
     </div>
   );
 }
