@@ -25,14 +25,14 @@ export default function Video({
         setVideoId(video._id);
       }}
     >
-      <span className="text-2xl font-extrabold">
+      <span className="text-2xl font-semibold">
         {video?.watchedBy.includes(employe_info.empId) ? (
           <MdOutlineCheckBox />
         ) : (
           <MdOutlineCheckBoxOutlineBlank />
         )}
       </span>
-      <span className="text-md font-semibold px-2">{video.videoTitle}</span>
+      <span className="text-md font-normal px-2">{video.videoTitle}</span>
     </div>
   );
 }

@@ -6,13 +6,14 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 import { MdKeyboardArrowUp } from "react-icons/md";
 import Video from "./Video";
-import { useVideoByCourseId } from "../../../Admin/components/courses/useVideoByCourseId";
-import { useEmployeeInfo } from "../employee_info/useEmployeeInfo";
 import Spinner from "../../../Common/Ui/Spinner";
+import { useQuizesByModuleId } from "../../../Admin/components/quiz/useQuizesByModuleId";
+import { TbBulb } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 
 const Module = ({
-  id,
   videos,
+  moduleId,
   moduleName,
   setVideoDiscription,
   setVideoLink,
@@ -20,6 +21,11 @@ const Module = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => setIsOpen(!isOpen);
+  const { isLoading, quiz } = useQuizesByModuleId(moduleId);
+  const navigate = useNavigate();
+
+  if (isLoading) return <Spinner />;
+  console.log(quiz);
 
   return (
     <div className="w-full">
@@ -32,16 +38,30 @@ const Module = ({
         </div>
       </button>
 
-      {isOpen &&
-        videos.map((id) => (
-          <Video
-            key={id}
-            id={id}
-            setVideoLink={setVideoLink}
-            setVideoDiscription={setVideoDiscription}
-            setVideoId={setVideoId}
-          />
-        ))}
+      {isOpen && (
+        <>
+          {videos.map((id) => (
+            <Video
+              key={id}
+              id={id}
+              setVideoLink={setVideoLink}
+              setVideoDiscription={setVideoDiscription}
+              setVideoId={setVideoId}
+            />
+          ))}
+          <div
+            className="w-full p-2 flex items-center border-b-2 cursor-pointer"
+            onClick={() => {
+              navigate(`/employee/quiz/${quiz._id}`);
+            }}
+          >
+            <span className="text-2xl">
+              <TbBulb />
+            </span>
+            <p className="text-md font-semibold px-2">{quiz.title}</p>
+          </div>
+        </>
+      )}
     </div>
   );
 };

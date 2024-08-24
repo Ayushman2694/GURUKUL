@@ -13,6 +13,7 @@ import { useUpdateEmployee } from "../components/settings/useUpdateEmployee";
 import { useParams } from "react-router-dom";
 import Spinner from "../../Common/Ui/Spinner";
 import { useEmployeeById } from "../components/employee/useEmployeeById";
+import { toast } from "react-toastify";
 
 export default function EmployeeSignup({ editing = false }) {
   const [selectedDepartment, setSelectedDepartment] = useState("");
@@ -59,22 +60,36 @@ export default function EmployeeSignup({ editing = false }) {
     } else {
       if (data.password !== data.confirmPassword) return null;
       if (selectedDepartment === "") {
-        updateEmployee({
-          empId: data.empid,
-          employeeName: data.name,
-          designation: data.designation,
-          password: data.password,
-          joiningDate: data.joiningDate,
-        });
+        updateEmployee(
+          {
+            empId: data.empid,
+            employeeName: data.name,
+            designation: data.designation,
+            password: data.password,
+            joiningDate: data.joiningDate,
+          },
+          {
+            onSuccess: () => {
+              toast.success("Employee Updated Successsfully");
+            },
+          }
+        );
       } else {
-        updateEmployee({
-          empId: data.empid,
-          employeeName: data.name,
-          designation: data.designation,
-          department: selectedDepartment,
-          password: data.password,
-          joiningDate: data.joiningDate,
-        });
+        updateEmployee(
+          {
+            empId: data.empid,
+            employeeName: data.name,
+            designation: data.designation,
+            department: selectedDepartment,
+            password: data.password,
+            joiningDate: data.joiningDate,
+          },
+          {
+            onSuccess: () => {
+              toast.success("Employee Updated Successsfully");
+            },
+          }
+        );
       }
     }
   }

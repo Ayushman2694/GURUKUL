@@ -60,14 +60,14 @@ export default function Course() {
           {course.courseDescription}
         </div>
 
-        <div className="w-full shadow-lg shadow-stone-400 rounded-lg border py-4 mt-8">
+        {/* <div className="w-full shadow-lg shadow-stone-400 rounded-lg border py-4 mt-8">
           <p className="text-xl font-bold px-3"> Quizzes</p>
           <div className="flex flex-wrap">
             <StartQuizContainer />
             <StartQuizContainer />
             <StartQuizContainer />
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="w-3/12 h-full  px-2 pb-16 ">
@@ -75,6 +75,7 @@ export default function Course() {
           {sortedmodules.map((module) => (
             <Module
               key={module._id}
+              moduleId={module._id}
               id={courseId}
               videos={module.video}
               moduleName={module.moduleName}
