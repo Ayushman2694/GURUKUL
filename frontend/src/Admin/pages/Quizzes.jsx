@@ -1,6 +1,5 @@
 import ShowQuizCard from "../components/quiz/ShowQuizCard";
 import { useNavigate } from "react-router-dom";
-import { IoMdAdd } from "react-icons/io";
 import AddButton from "../ui/AddButton";
 
 
