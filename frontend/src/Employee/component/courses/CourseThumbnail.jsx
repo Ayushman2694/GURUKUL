@@ -42,7 +42,7 @@ export default function CourseThumbnail({
         <h6 className="px-2 text-sm">
           <ShowMoreShowLess
             descriptionDetail={course?.courseDescription}
-            charNo="50"
+            charNo="10"
           />
         </h6>
         {notEnorll ? (
