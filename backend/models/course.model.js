@@ -32,7 +32,7 @@ const coursesSchema = mongoose.Schema({
                 max:100,
                 default: 0,
             },
-        },
+        },{timestamps:true}
     ],
 });
 

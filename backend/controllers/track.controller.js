@@ -40,19 +40,21 @@ export const updateCourseStatus = async (req, res) => {
             return res.status(400).json({ success: false, message: "Course not found" });
         }
 
-        const userStatus = course.userStatus.find(us => us.user.toString() === userId);
+        const userStatus = course.userStatus.find(us => us.user === userId)
 
         if (!userStatus) {
             course.userStatus.push({ user: userId, status });
             await course.save();
             return res.status(200).json({ message:"user enrolled in the course",course });
         }
+        else{
+            userStatus.status = status;
 
-        userStatus.status = status;
+            await course.save();
+    
+            res.status(200).json({ message: "Course status updated successfully", course });
+        }
 
-        await course.save();
-
-        res.status(200).json({ message: "Course status updated successfully", course });
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: "error in updateCourseStatus controller" });

@@ -5,7 +5,6 @@ import { updateEmployee } from "../controllers/employee.controller.js";
 
 const router = express.Router();
 
-
 router.get("/allAdmin",showAllAdmin)
 router.post("/deleteAdmin",deleteAdmin);
 router.get("/verifyToken", verifyToken);
