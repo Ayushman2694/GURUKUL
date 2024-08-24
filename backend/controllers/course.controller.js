@@ -262,9 +262,6 @@ export const getCourseByDepartment = async (req, res) => {
       ],
     });
 
-    // if (course.length === 0) {
-    //   return res.status(200).json([]);
-    // }
     return res
       .status(200)
       .json({ message: "Course fetched successfully", course });

@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+import mongoose from "mongoose";
+
 const quizSchema = mongoose.Schema(
   {
     title: {
@@ -14,8 +16,14 @@ const quizSchema = mongoose.Schema(
       type: [mongoose.Schema.Types.Mixed],
       required: true,
     },
+    attemptedBy: [
+      {
+        type: String,
+        unique: true,
+      },
+    ],
   },
-  { timestamps: true } // Corrected to timestamps instead of timestamp
+  { timestamp: true }
 );
 
 const Quiz = mongoose.model("Quiz", quizSchema);

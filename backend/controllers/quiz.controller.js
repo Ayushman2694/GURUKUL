@@ -4,18 +4,17 @@ import Quiz from "../models/quiz.model.js";
 // Create a new quiz
 export const createQuiz = async (req, res) => {
   try {
-    const { title, questions } = req.body;
-    // const module = await Module.findById(moduleId);
+    const { title, moduleId, questions } = req.body;
+    const module = await Module.findById(moduleId);
 
-    // if (!module) {
-    //   return res.status(400).json({ error: "Module not found" });
-    // }
+    if (!module) {
+      return res.status(400).json({ error: "Module not found" });
+    }
 
     const quiz = new Quiz({
       title,
-      // module: moduleId,
+      module: moduleId,
       questions,
-      // correctOptions,
     });
 
     await quiz.save();
@@ -49,25 +48,23 @@ export const updateQuiz = async (req, res) => {
   }
 };
 
-export const getQuizzesByModule = async (req, res) => {
+export const getQuizByModuleId = async (req, res) => {
   const { moduleId } = req.params;
 
   try {
-    const quizzes = await Quiz.find({ module: moduleId });
+    const quiz = await Quiz.find({ module: moduleId });
 
-    if (!quizzes) {
-      return res
-        .status(400)
-        .json({ message: "No quizzes found for this module" });
+    if (!quiz) {
+      return res.status(400).json({ message: "No quiz found for this module" });
     }
 
-    res.status(200).json(quizzes);
+    res.status(200).json({ message: "quiz fetched Successfully", quiz });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.log(error.message);
+    res.status(500).json({ error: "error in getQuizByModule controller" });
   }
 };
 
-// Get a single quiz by ID
 export const getQuizById = async (req, res) => {
   const { id } = req.params;
 
@@ -80,7 +77,7 @@ export const getQuizById = async (req, res) => {
 
     res.status(200).json(quiz);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
@@ -99,5 +96,20 @@ export const deleteQuiz = async (req, res) => {
     res.status(200).json({ message: "Quiz deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+export const getAllQuiz = async (req, res) => {
+  try {
+    const quizzes = await Quiz.find({});
+    if (!quizzes) {
+      return res.status(400).json({ error: "error in fetching quizzes" });
+    }
+    return res
+      .status(200)
+      .json({ message: "all quizzes fetched successfully", quizzes });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ error: "error in getAllQuiz controller" });
   }
 };

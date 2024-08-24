@@ -1,12 +1,8 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaSave } from "react-icons/fa";
 import MultipleCorrectOption from "./MultipleCorrectOption";
 import SingleCorrectOption from "./SingleCorrectOption";
-// import InputQuizOption from './InputQuizOption';
 
 export default function CreateQuizCard({ index, setQuestions }) {
   const [selectedType, setSelectedType] = useState("");
