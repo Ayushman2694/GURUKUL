@@ -11,6 +11,8 @@ import { FaBook } from "react-icons/fa";
 import { HiLightBulb } from "react-icons/hi";
 import { FaUsers } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { MdNotificationsActive } from "react-icons/md";
 
 import { Logout } from "../../Common/service/auth";
 
@@ -102,6 +104,19 @@ export default function AdminSideBar({ setSideBar }) {
             title="Settings"
             link="admin/settings"
             itemSelected={itemSelected === "Settings"}
+          />
+        </div>
+        <div
+          onClick={() => {
+            setItemSelected("Requests");
+            // setSideBar(false);
+          }}
+        >
+          <SideBarItem
+            icon={<MdNotificationsActive />}
+            title="Requests"
+            link="admin/request"
+            itemSelected={itemSelected === "Requests"}
           />
         </div>
 

@@ -41,22 +41,21 @@ export default function ShowAllEmployee({ title }) {
         <div className="flex items-center justify-between w-full text-3xl font-bold mb-6 pr-22 ">
           <span>{title}</span>
           <div className="mr-20 mb-3">
-          <AddButton
-            
-            title="Employee"
-            onClick={() => navigate("/admin/employeeSignUp")}
-          />
+            <AddButton
+              title="Employee"
+              onClick={() => navigate("/admin/employeeSignUp")}
+            />
           </div>
         </div>
         <div className="flex gap-2 mb-2">
-          <div className="w-2/3 rounded border-slate-400">
+          <div className="w-2/3 rounded ">
             <input
               type="text"
               placeholder="Enter user info"
               value={name} // Bind the value to the state
               onChange={handleChange} // Update the state on change
               className="shadow my-1 appearance-none border rounded w-full
-                 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-slate-500"
             />
           </div>
           <div className="w-1/3">

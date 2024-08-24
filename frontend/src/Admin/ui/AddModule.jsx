@@ -10,18 +10,13 @@ import {
 } from "react-icons/io";
 import FormError from "../../Common/Ui/FormError";
 import { MdFileUpload } from "react-icons/md";
-import { useAddModule } from "../components/courses/useAddModule";
-
 import AddVideos from "./AddVideos";
 
-export default function AddModule({ moduleNo, courseId }) {
+export default function AddModule({ moduleNo, setModuleData, setNoOfModule }) {
   const [showVideos, setShowVideos] = useState(true);
-  const [noOfVideos, setNoOfVideos] = useState(1);
-  const [videoNoList, setVideoNoList] = useState([0]);
+  const [noOfVideos, setNoOfVideos] = useState(0);
+  const [videoNoList, setVideoNoList] = useState([]);
   const [videoArray, setVideoArray] = useState([]);
-  const [moduleUploaded, setModuleUploaded] = useState(false);
-
-  const { addModule, isLoading } = useAddModule();
 
   const {
     register,
@@ -31,50 +26,57 @@ export default function AddModule({ moduleNo, courseId }) {
   } = useForm();
 
   function addVideo() {
-    const filteredArray = videoArray.filter((video) => video !== undefined);
-    const arrayLength = filteredArray.length;
-    if (arrayLength === noOfVideos) {
-      setNoOfVideos((prevValue) => prevValue + 1);
-      setVideoNoList((prevVideoNoList) => [...prevVideoNoList, noOfVideos]);
-    } else {
-      toast.error(`
-        Upload Video No ${arrayLength + 1} In Module No ${moduleNo} First`);
-    }
+    setNoOfVideos((prevValue) => prevValue + 1);
+    setVideoNoList((prevVideoNoList) => [...prevVideoNoList, noOfVideos]);
+    // const filteredArray = videoArray.filter((video) => video !== undefined);
+    // const arrayLength = filteredArray.length;
+    // if (arrayLength === noOfVideos) {
+    //   setNoOfVideos((prevValue) => prevValue + 1);
+    //   setVideoNoList((prevVideoNoList) => [...prevVideoNoList, noOfVideos]);
+    // } else {
+    //   toast.error(`
+    //     Upload Video No ${arrayLength + 1} In Module No ${moduleNo} First`);
+    // }
   }
 
   function removeVideo() {
-    const filteredArray = videoArray.filter((video) => video !== undefined);
-    const arrayLength = filteredArray.length;
-    if (noOfVideos === arrayLength) {
-      toast.error(
-        `Video No ${arrayLength} In Module No ${moduleNo} Already Uploaded `
-      );
-    } else {
-      setNoOfVideos((prevValue) => prevValue - 1);
-      setVideoNoList((list) => [...list.slice(0, -1)]);
-    }
+    setNoOfVideos((prevValue) => prevValue - 1);
+    setVideoNoList((list) => [...list.slice(0, -1)]);
+    // const filteredArray = videoArray.filter((video) => video !== undefined);
+    // const arrayLength = filteredArray.length;
+    // if (noOfVideos === arrayLength) {
+    //   toast.error(
+    //     `Video No ${arrayLength} In Module No ${moduleNo} Already Uploaded `
+    //   );
+    // } else {
+    //   setNoOfVideos((prevValue) => prevValue - 1);
+    //   setVideoNoList((list) => [...list.slice(0, -1)]);
+    // }
   }
 
   function onSubmit(data) {
-    const filteredArray = videoArray.filter((video) => video !== undefined);
-    const arrayLength = filteredArray.length;
-    if (arrayLength !== noOfVideos) {
-      toast.error(`Please Upload All Videos In Module No ${moduleNo}`);
+    const filteredVideoArray = videoArray;
+    if (noOfVideos === 0) {
+      toast.error("Add Atleast One Video");
     } else {
-      addModule(
+      // Remove the first element from the filtered array
+      const updatedVideoArray = filteredVideoArray.slice(1);
+      console.log(updatedVideoArray);
+
+      setModuleData((prevArray) => [
+        ...prevArray,
         {
           moduleName: data.title,
-          course: courseId._id,
           moduleNo: moduleNo,
-          video: filteredArray,
+          video: updatedVideoArray,
         },
-        {
-          onSuccess: () => {
-            setModuleUploaded(true);
-            setShowVideos(false);
-          },
-        }
-      );
+      ]);
+
+      reset();
+      setNoOfVideos(0);
+      setVideoNoList([]);
+      setVideoArray([]);
+      setNoOfModule((value) => value + 1);
     }
   }
 
@@ -90,7 +92,7 @@ export default function AddModule({ moduleNo, courseId }) {
               <button
                 className="bg-red-600 text-sm font-semibold text-white py-1 px-2 mx-1 rounded-md cursor-pointer flex justify-center items-center"
                 onClick={() => removeVideo()}
-                disabled={moduleUploaded}
+                // disabled={moduleUploaded}
               >
                 <IoIosRemoveCircleOutline />
                 Remove Video
@@ -100,7 +102,7 @@ export default function AddModule({ moduleNo, courseId }) {
               <button
                 className="bg-blue-600 text-sm font-semibold text-white py-1 px-2 mx-1 rounded-md cursor-pointer flex justify-center items-center"
                 onClick={() => addVideo()}
-                disabled={moduleUploaded}
+                // disabled={moduleUploaded}
               >
                 <IoIosAddCircleOutline />
                 Add Video
@@ -117,7 +119,6 @@ export default function AddModule({ moduleNo, courseId }) {
           </div>
         </div>
       </div>
-
       <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex">
           <div className="w-10/12 px-1">
@@ -132,7 +133,7 @@ export default function AddModule({ moduleNo, courseId }) {
                 type="text"
                 id="title"
                 placeholder="Video Title"
-                disabled={isLoading || moduleUploaded}
+                // disabled={moduleUploaded}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 {...register("title", {
                   required: "This field is required",
@@ -144,7 +145,7 @@ export default function AddModule({ moduleNo, courseId }) {
             <button
               className={`${"bg-green-600"} text-md font-semibold text-white py-1 px-2 rounded-md cursor-pointer`}
               onClick={handleSubmit(onSubmit)}
-              disabled={isLoading || moduleUploaded}
+              // disabled={moduleUploaded}
             >
               <div className="flex justify-center items-center">
                 <MdFileUpload />
@@ -155,15 +156,17 @@ export default function AddModule({ moduleNo, courseId }) {
         </div>
         <div>{errors.title && <FormError error={errors.title.message} />}</div>
       </form>
-      {showVideos && (
-        <div className="py-2">
-          {videoNoList.map((videoNo) => (
-            <div key={videoNo} className="mt-2">
-              <AddVideos videosNo={videoNo + 1} setVideoArray={setVideoArray} />
-            </div>
-          ))}
-        </div>
-      )}
+      <div className="py-2">
+        {videoNoList.map((videoNo, index) => (
+          <div key={index} className="mt-2">
+            <AddVideos
+              videosNo={videoNo + 1}
+              videoArray={videoArray}
+              setVideoArray={setVideoArray}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

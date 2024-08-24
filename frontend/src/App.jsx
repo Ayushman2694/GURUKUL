@@ -33,6 +33,7 @@ import ViewQuiz from "./Admin/pages/ViewQuiz";
 import EditQuiz from "./Admin/pages/EditQuiz";
 import AddFullCourse from "./Admin/pages/AddFullCourse";
 import Protected from "./Employee/Ui/Protected";
+import Request from "./Admin/pages/Request";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,7 +56,7 @@ export default function App() {
           <Route
             element={
               <PrivateRoute>
-              <EmployeeAppLayout />
+                <EmployeeAppLayout />
               </PrivateRoute>
             }
           >
@@ -71,7 +72,7 @@ export default function App() {
           <Route
             element={
               <Protected>
-              <AdminAppLayout />
+                <AdminAppLayout />
               </Protected>
             }
           >
@@ -82,6 +83,7 @@ export default function App() {
             <Route path="admin/quizzes" element={<Quizzes />} />
             <Route path="admin/users" element={<Users />} />
             <Route path="admin/settings" element={<AdminSettings />} />
+            <Route path="admin/request" element={<Request />} />
             <Route path="admin/SignUp" element={<AdminSignup />} />
             <Route path="admin/employeeSignUp" element={<EmployeeSignup />} />
             <Route
