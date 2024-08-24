@@ -31,8 +31,8 @@ export default function EmployeeDashboard() {
   const coursesStatus100 = [];
 
   courseByEmpId.forEach((course) => {
-    const userStatus = course.userStatus.find(
-      (user) => user.user === employe_info.empId
+    const userStatus = course?.userStatus.find(
+      (user) => user.user === employe_info?.empId
     );
 
     if (userStatus) {
@@ -77,11 +77,7 @@ export default function EmployeeDashboard() {
         <DashboardCard
           title="Certificates Earned"
           icon={<GrCertificate />}
-          courses={[
-            "Certified Data Scientist",
-            "Certified Machine Learning Specialist",
-            "Certified Python Developer",
-          ]}
+          courses={coursesStatus100}
         />
       </div>
       <h2 className="text-2xl font-bold mb-4">Ongoing Courses</h2>

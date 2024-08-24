@@ -24,8 +24,8 @@ export const assignCourse = async (req, res) => {
       return res.status(400).json({ message: "Course already assigned to the employee" });
     }
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "An error occurred while assigning the course" });
+    console.error(error.message);
+    return res.status(500).json({ message: "An error occurred while assigning the course" });
   }
 };
 
@@ -46,17 +46,10 @@ export const excludingDepartment = async (req, res) => {
       _id: { $nin: employee.courses }, 
       courseDepartment: { $ne: departmentName }
     });
-
-    console.log("Courses found:", courses);
-
-    if (!courses.length) {
-      return res.status(400).json({ message: "No courses found matching the criteria" });
-    }
-
-    res.status(200).json(courses);
+     return  res.status(200).json(courses);
   } catch (error) {
     console.error("Error fetching courses:", error);
-    res.status(500).json({ message: "Server error", error: error.message });
+    return res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 

@@ -8,7 +8,7 @@ import Quiz from "../models/quiz.model.js";
 export const createQuiz = async (req, res) => {
   
     try {
-      const { title, moduleId, questions,correctOptions } = req.body;
+      const { title,moduleId,questions} = req.body;
       const module = await Module.findById(moduleId);
   
       if (!module) {
@@ -19,8 +19,8 @@ export const createQuiz = async (req, res) => {
         title,
         module: moduleId,
         questions,
-        correctOptions
       });
+      
   
       await quiz.save();
   
@@ -55,23 +55,24 @@ export const createQuiz = async (req, res) => {
   
 
 
-  export const getQuizzesByModule = async (req, res) => {
+  export const getQuizByModuleId = async (req, res) => {
     const { moduleId } = req.params;
   
     try {
-      const quizzes = await Quiz.find({ module: moduleId });
+      const quiz = await Quiz.find({ module: moduleId });
   
-      if (!quizzes) {
-        return res.status(400).json({ message: "No quizzes found for this module" });
+      if (!quiz) {
+        return res.status(400).json({ message: "No quiz found for this module" });
       }
   
-      res.status(200).json(quizzes);
+      res.status(200).json({message:"quiz fetched Successfully",quiz});
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      console.log(error.message)
+      res.status(500).json({ error:"error in getQuizByModule controller" });
     }
   };
   
-  // Get a single quiz by ID
+
   export const getQuizById = async (req, res) => {
     const { id } = req.params;
   
@@ -84,7 +85,7 @@ export const createQuiz = async (req, res) => {
   
       res.status(200).json(quiz);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      return res.status(500).json({ message: error.message });
     }
   };
 
@@ -107,3 +108,19 @@ export const createQuiz = async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   };
+
+  export const getAllQuiz = async(req,res)=>{
+    try {
+      const quizzes = await Quiz.find({})
+      if(!quizzes){
+        return res.status(400).json({ error: "error in fetching quizzes" });
+      }
+      return res.status(200).json({ message: "all quizzes fetched successfully",quizzes });
+
+      
+    } catch (error) {
+      console.log(error.message)
+      return res.status(500).json({ error:"error in getAllQuiz controller" });
+    }
+  }
+

@@ -265,11 +265,7 @@ export const getCourseByDepartment = async (req, res) => {
         {_id:{$in:courseInEmp}}
       ]
     });
-   
-    
-    if (course.length===0) {
-      return res.status(400).json({ error: "No course found" });
-    }
+  
     return res.status(200).json({ message: "Course fetched successfully",course });
   } catch (error) {
     console.log(error.message);
