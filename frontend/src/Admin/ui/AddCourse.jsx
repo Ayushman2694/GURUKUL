@@ -11,20 +11,14 @@ import { useForm } from "react-hook-form";
 import Dropdown from "./DropDown";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
-// import Resizer from "react-image-file-resizer";
 
-export default function AddCourse({
-  setCourseUploaded,
-  setCourseData,
-  courseData,
-}) {
+export default function AddCourse({ setCourseData }) {
   const [image, setImage] = useState(null);
   const [cropper, setCropper] = useState();
   const [cropData, setCropData] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
 
   const [selectedDepartment, setSelectedDepartment] = useState("");
-  const { addCourse, isLoading: addingCourse, CourseData } = useAddCourse();
 
   const {
     register,
@@ -32,13 +26,6 @@ export default function AddCourse({
     formState: { errors },
     reset,
   } = useForm();
-
-  useEffect(() => {
-    if (CourseData !== courseData) {
-      setCourseUploaded(CourseData.length === 0);
-      setCourseData(CourseData);
-    }
-  }, [CourseData, courseData, setCourseData, setCourseUploaded]);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -77,19 +64,17 @@ export default function AddCourse({
     if (!imageUpload) return;
     if (!selectedDepartment) return;
 
-    const formData = new FormData();
-    formData.append("courseTitle", data.title);
-    formData.append("courseDescription", data.description);
-    formData.append("courseDepartment", selectedDepartment);
-    formData.append("thumbnail", imageUpload);
+    // const formData = new FormData();
+    // formData.append("courseTitle", data.title);
+    // formData.append("courseDescription", data.description);
+    // formData.append("courseDepartment", selectedDepartment);
+    // formData.append("thumbnail", imageUpload);
 
-    addCourse(formData, {
-      onSuccess: () => {
-        reset();
-        setImage(null);
-        setCropData(null);
-        setImageUpload(null);
-      },
+    setCourseData({
+      courseTitle: data.title,
+      courseDescription: data.description,
+      courseDepartment: selectedDepartment,
+      thumbnail: imageUpload,
     });
   };
 
@@ -114,7 +99,8 @@ export default function AddCourse({
               <input
                 type="file"
                 id="image"
-                disabled={addingCourse || !!image}
+                accept="image/*"
+                disabled={!!image}
                 className="absolute top-0 left-0 w-full h-full opacity-0 "
                 onChange={handleImageChange}
               />
@@ -152,7 +138,7 @@ export default function AddCourse({
             </div>
           ) : (
             <div>
-              <img src={cropData} />
+              <img src={cropData} alt="Cropped" />
             </div>
           )}
           {((!image && !cropData) || (image && cropData)) && (
@@ -165,7 +151,6 @@ export default function AddCourse({
                   type="text"
                   id="title"
                   placeholder="Course Title"
-                  disabled={addingCourse}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   {...register("title", {
                     required: "This field is required",
@@ -180,6 +165,7 @@ export default function AddCourse({
                 <Dropdown
                   selectedOption={selectedDepartment}
                   setSelectedOption={setSelectedDepartment}
+                  uploading={true}
                 />
               </div>
               <div className="mb-4">
@@ -189,7 +175,6 @@ export default function AddCourse({
                 <textarea
                   id="description"
                   placeholder="Course Description"
-                  disabled={addingCourse}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   {...register("description", {
                     required: "This field is required",
@@ -202,10 +187,9 @@ export default function AddCourse({
               <div className="flex items-center justify-center">
                 <button
                   type="submit"
-                  disabled={addingCourse}
                   className="bg-blue-600 w-full hover:bg-blue-700 text-white font-bold mt-2 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 >
-                  {addingCourse ? <SpinnerMini /> : "Add Course"}
+                  Add Course{" "}
                 </button>
               </div>
             </>

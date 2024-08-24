@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 
 export default function AddVideos({ videosNo, setVideoArray }) {
   const [videoStates, setVideoStates] = useState({});
+  const [uploadProgress, setUploadProgress] = useState(0);
   const { addVideo, isLoading, VideoData } = useAddVideo();
   const {
     register,
@@ -18,7 +19,7 @@ export default function AddVideos({ videosNo, setVideoArray }) {
     reset,
   } = useForm();
 
-  const validVideoTypes = ["video/mp4", "video/ogg", "video/webm"]; // List of valid video types
+  const validVideoTypes = ["video/mp4", "video/ogg", "video/webm"];
 
   function onSubmit(data) {
     const formData = new FormData();
@@ -28,11 +29,18 @@ export default function AddVideos({ videosNo, setVideoArray }) {
     formData.append("videoLink", videoStates[`selectedFile${videosNo}`]);
 
     addVideo(formData, {
+      onUploadProgress: (progressEvent) => {
+        const percentCompleted = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
+        setUploadProgress(percentCompleted);
+      },
       onSuccess: () => {
         setVideoStates((prevState) => ({
           ...prevState,
           [`uploaded${videosNo}`]: true,
         }));
+        setUploadProgress(0);
       },
     });
   }
@@ -70,7 +78,8 @@ export default function AddVideos({ videosNo, setVideoArray }) {
       <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex">
           <div className="w-3/12 px-1">
-            <div className="">
+            {/* Title input */}
+            <div>
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="title"
@@ -93,7 +102,8 @@ export default function AddVideos({ videosNo, setVideoArray }) {
             </div>
           </div>
           <div className="w-5/12 px-1">
-            <div className="">
+            {/* Description input */}
+            <div>
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="description"
@@ -117,6 +127,7 @@ export default function AddVideos({ videosNo, setVideoArray }) {
             </div>
           </div>
           <div className="w-3/12 px-1">
+            {/* Video upload */}
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Add Video
             </label>
@@ -144,6 +155,7 @@ export default function AddVideos({ videosNo, setVideoArray }) {
             {errors.video && <FormError error={errors.video.message} />}
           </div>
           <div className="w-1/12 px-1 flex justify-center items-center">
+            {/* Upload button */}
             <button
               disabled={isLoading || videoStates?.uploaded1}
               className={`${
@@ -165,6 +177,15 @@ export default function AddVideos({ videosNo, setVideoArray }) {
             </button>
           </div>
         </div>
+        {/* Progress bar */}
+        {isLoading && (
+          <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+            <div
+              className="bg-green-600 h-2 rounded-full"
+              style={{ width: `${uploadProgress}%` }}
+            ></div>
+          </div>
+        )}
       </form>
     </div>
   );
