@@ -33,6 +33,10 @@ const employeeSchema = new mongoose.Schema(
         ref:"Course"
       },
     ],
+    currentCourse:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Course"
+    }
   },
   { timestamps: true }
 );
