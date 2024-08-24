@@ -2,7 +2,7 @@ import SpinnerMini from "../../Common/Ui/SpinnerMini";
 import { useAllDepartment } from "../components/settings/useAllDepartment";
 
 /* eslint-disable react/prop-types */
-const Dropdown = ({ selectedOption, setSelectedOption }) => {
+const Dropdown = ({ selectedOption, setSelectedOption, uploading = false }) => {
   const { isLoading: loadingAllDepartment, allDepartment } = useAllDepartment();
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
@@ -17,9 +17,13 @@ const Dropdown = ({ selectedOption, setSelectedOption }) => {
         value={selectedOption}
         onChange={handleChange}
       >
-        <option value="Select A Department">Select A Department</option>
-        <option value="all_department">To All</option>
-        <option value="no_department">none</option>
+        <option value="">Select A Department</option>
+        {uploading && (
+          <>
+            <option value="all_department">To All Department</option>
+            <option value="no_department">none</option>
+          </>
+        )}
         {allDepartment.map((department) => (
           <option
             key={department.departmentName}

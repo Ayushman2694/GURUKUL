@@ -1,7 +1,6 @@
 import ShowQuizCard from "../components/quiz/ShowQuizCard";
 import { useNavigate } from "react-router-dom";
 import { IoMdAdd } from "react-icons/io";
-import AddButton from "../ui/AddButton";
 
 
 export default function Quizzes() {
@@ -12,11 +11,11 @@ export default function Quizzes() {
         <h1 className="text-3xl font-bold mb-6">All Quizzes</h1>
         <div className="space-x-4 text-sm flex mt-0 pt-0 ">
 
-          <AddButton
+          <button 
             onClick={()=>{navigate('/admin/createQuiz')}}
-            
-              title = " Quiz"
-          />        
+            className='bg-blue-600 text-white font-semibold rounded-full px-3 py-2 flex items-center'>
+              <IoMdAdd className="mr-1 font-semibold" /> Create New Quiz
+          </button>         
         </div>
       </div>
       <div className="m-2 rounded-full">
@@ -25,7 +24,7 @@ export default function Quizzes() {
           placeholder="Search Quiz"
           className="w-full h-10  bg-gray-100  rounded-full px-3" />
       </div>
-      <div className="grid grid-cols-1 gap-4 mb-6  md:grid-cols-3 lg:grid-cols-3">
+      <div className="grid grid-cols-3 gap-4 mb-6">
         <ShowQuizCard
           title="Course 1 Quiz"
           description="This is the description of course 1 Quiz this description is too long for checking the method is working or not "

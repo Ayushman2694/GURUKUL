@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom'
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
+import axios from "axios";
+import { url } from "../../Common/service/Url";
 
 const PrivateRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -12,18 +13,15 @@ const PrivateRoute = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         if (!token) {
           setIsAuthenticated(false);
         } else {
-          const response = await axios.get(
-            'http://localhost:6300/api/auth/verifyToken',
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+          const response = await axios.get(`${url}/api/auth/verifyToken`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
           setIsAuthenticated(response.data.success);
           setRole(response.data.decoded.role);
         }
@@ -41,7 +39,11 @@ const PrivateRoute = ({ children }) => {
     return <div>Loading...</div>;
   }
 
-  return isAuthenticated && role === 'user' ? children : <Navigate to="/login" />;
+  return isAuthenticated && role === "user" ? (
+    children
+  ) : (
+    <Navigate to="/login" />
+  );
 };
 
 export default PrivateRoute;

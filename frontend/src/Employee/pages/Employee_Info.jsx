@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
-import { useEmployeeById } from "../../Admin/components/employee/useEmployeeById";
 import Spinner from "../../Common/Ui/Spinner";
 
 export default function EmployeeInfo() {
-  const { isLoading, employee: employe_info } = useEmployeeById("MHPL0481");
+  const [token] = useState(localStorage.getItem("token"));
+  const { isLoading, employe_info } = useEmployeeInfo(token);
   if (isLoading) return <Spinner />;
+
   return (
     <div className="flex w-full h-screen">
       <div className="w-full p-4">
@@ -53,7 +54,11 @@ export default function EmployeeInfo() {
           </div>
           <div className="w-full md:w-1/2 border-2 m-1 rounded-sm bg-slate-50 drop-shadow-xl">
             <h3 className="font-semibold p-2 text-lg">Assigned Courses</h3>
-            {/* Courses will go here */}
+            {employe_info.courses.map((course) => (
+              <p key={course} className="px-2 py-1">
+                {course}
+              </p>
+            ))}
           </div>
         </div>
         <div className="w-full border m-1 rounded-sm bg-slate-50 drop-shadow-xl py-2">
