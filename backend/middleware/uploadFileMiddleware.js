@@ -1,16 +1,29 @@
-// middleware/cloudinaryMiddleware.js
 import multer from 'multer';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
-import cloudinary from '../utils/cloudinary.js'; // Adjust path as necessary
+import cloudinary from '../utils/cloudinary.js';
 
-const storage = new CloudinaryStorage({
+const videoStorage = new CloudinaryStorage({
   cloudinary: cloudinary.v2,
   params: {
-    folder: 'courses',
-    allowed_formats: ['jpg', 'png', 'jpeg'],
+    folder: 'videos', 
+    allowed_formats: ['mp4', 'mov', 'avi', 'mkv'], 
+    resource_type: 'video'
   },
 });
 
-const upload = multer({ storage });
+export const uploadVideo = multer({ storage: videoStorage });
 
-export default upload;
+
+
+const imageStorage = new CloudinaryStorage({
+    cloudinary: cloudinary.v2,
+    params: {
+      folder: 'Images',
+      allowed_formats: ['jpg', 'png', 'jpeg'],
+      resource_type: 'image', // Optional, Cloudinary handles images by default
+    },
+  });
+  
+ export const uploadImage = multer({ storage: imageStorage });
+  
+  
