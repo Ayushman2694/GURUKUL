@@ -7,7 +7,7 @@ export default function CourseThumbnail({ progress, course }) {
   const navigate = useNavigate();
   return (
     <div
-      className="w-1/2 md:w-1/3 p-1 py-2 "
+      className="w-1/2 md:w-1/3 p-1 py-2 min-h-32 "
       onClick={() => navigate(`/employee/course/${course._id}`)}
     >
       <div className="bg-slate-100 p-4 rounded-md shadow-xl">
@@ -28,7 +28,7 @@ export default function CourseThumbnail({ progress, course }) {
             <p className=" p-2 font-bold text-md text-blue-700">Completed</p>
           )
         ) : (
-          <button className="w-full bg-blue-600 text-slate-50 rounded-md mx-2 font-bold text-sm p-1 my-2">
+          <button className="w-full bg-blue-600 text-slate-50 rounded-md mx-0 font-bold text-sm p-1 my-2">
             Start Course
           </button>
         )}
