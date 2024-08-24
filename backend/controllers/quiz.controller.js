@@ -4,16 +4,10 @@ import Quiz from "../models/quiz.model.js";
 // Create a new quiz
 export const createQuiz = async (req, res) => {
   try {
-    const { title, moduleId, questions } = req.body;
-    const module = await Module.findById(moduleId);
-
-    if (!module) {
-      return res.status(400).json({ error: "Module not found" });
-    }
+    const { title, questions } = req.body;
 
     const quiz = new Quiz({
       title,
-      module: moduleId,
       questions,
     });
 
@@ -52,7 +46,7 @@ export const getQuizByModuleId = async (req, res) => {
   const { moduleId } = req.params;
 
   try {
-    const quiz = await Quiz.find({ module: moduleId });
+    const quiz = await Quiz.findOne({ module: moduleId });
 
     if (!quiz) {
       return res.status(400).json({ message: "No quiz found for this module" });

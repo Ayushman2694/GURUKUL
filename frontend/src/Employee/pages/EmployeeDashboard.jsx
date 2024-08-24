@@ -81,7 +81,6 @@ export default function EmployeeDashboard() {
           title="Certificates Earned"
           icon={<GrCertificate />}
           courses={coursesStatus100}
-          courses={coursesStatus100}
         />
       </div>
       <h2 className="text-2xl font-bold mb-4">Ongoing Courses</h2>
