@@ -6,10 +6,13 @@ import { useVideoWatched } from "../../Admin/components/courses/useVideoWatched"
 import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
 import SpinnerMini from "../../Common/Ui/SpinnerMini";
 import { useUpdateCourseStatus } from "../../Admin/components/courses/useUpdateCourseStatus";
+import { useUpdateEmployee } from "../../Admin/components/settings/useUpdateEmployee";
 
 const VideoPlayer = ({ videoLink, videoId, courseId, percentage }) => {
   const [token] = useState(localStorage.getItem("token"));
   const { isLoading: loadingEmployee, employe_info } = useEmployeeInfo(token);
+  const { updateEmployee, isLoading: updateEmployeeLoading } =
+    useUpdateEmployee();
   const [duration, setDuration] = useState(0);
   // const [hasRun, setHasRun] = useState(false);
 
@@ -30,17 +33,19 @@ const VideoPlayer = ({ videoLink, videoId, courseId, percentage }) => {
   };
 
   useEffect(() => {
-    console.log("data send", {
-      userId: employe_info.empId,
-      courseId: courseId,
-      status: percentage,
-    });
+    updateEmployee({ empId: employe_info.empId, currentCourse: courseId });
     updateCourseStatus({
       userId: employe_info.empId,
       courseId: courseId,
       status: percentage,
     });
-  }, [courseId, employe_info.empId, percentage, updateCourseStatus]);
+  }, [
+    courseId,
+    employe_info.empId,
+    percentage,
+    updateCourseStatus,
+    updateEmployee,
+  ]);
 
   const runFunction = () => {
     addVideoWatched({ videoId, empId: employe_info.empId });

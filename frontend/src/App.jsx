@@ -66,7 +66,7 @@ export default function App() {
             <Route path="employee/course/:courseId" element={<Course />} />
             <Route path="employee/courses" element={<EmployeeCourses />} />
             <Route path="employee/settings" element={<EmployeeSettings />} />
-            <Route path="employee/quiz" element={<Quiz />} />
+            <Route path="employee/quiz/:quizId" element={<Quiz />} />
           </Route>
           {/* ------------------------------- Admin  Routes ------------------------------- */}
           <Route

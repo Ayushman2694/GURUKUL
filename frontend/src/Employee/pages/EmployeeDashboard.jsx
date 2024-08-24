@@ -26,11 +26,14 @@ export default function EmployeeDashboard() {
   if (loadingCourseByEmpId || loadingEmployeeInfo || isLoading)
     return <Spinner />;
 
+  console.log(courses);
+  console.log(courseByEmpId);
+
   const coursesStatus0OrNotFound = [];
   const coursesStatusMoreThan0LessThan100 = [];
   const coursesStatus100 = [];
 
-  courseByEmpId.forEach((course) => {
+  courses.forEach((course) => {
     const userStatus = course.userStatus.find(
       (user) => user.user === employe_info.empId
     );
@@ -77,15 +80,11 @@ export default function EmployeeDashboard() {
         <DashboardCard
           title="Certificates Earned"
           icon={<GrCertificate />}
-          courses={[
-            "Certified Data Scientist",
-            "Certified Machine Learning Specialist",
-            "Certified Python Developer",
-          ]}
+          courses={coursesStatus100}
         />
       </div>
       <h2 className="text-2xl font-bold mb-4">Ongoing Courses</h2>
-      <div className="flex flex-col lg:grid-cols-3 gap-4 mb-8">
+      <div className="flex flex-col lg:grid-cols-3 gap-4 md-2">
         {coursesStatusMoreThan0LessThan100.length > 0 ? (
           <div className="flex flex-wrap pt-4 pb-12">
             {coursesStatusMoreThan0LessThan100.map((course) => (
@@ -117,9 +116,28 @@ export default function EmployeeDashboard() {
       </div>
       <h2 className="text-2xl font-bold mb-4">More Courses</h2>
       <div className="flex flex-wrap pt-4 pb-20">
-        {courses?.map((course) => (
-          <CourseThumbnail key={course._id} course={course} notEnorll={true} />
-        ))}
+        {courses.length === 0 ? (
+          <div className="w-full flex items-center justify-center">
+            <div>
+              <div className="w-full flex items-center justify-center">
+                <p className="text-8xl">
+                  <PiEmptyBold />
+                </p>
+              </div>
+              <p className="text-xl py-2 px-4 font-medium">
+                No More Course To Enroll
+              </p>
+            </div>
+          </div>
+        ) : (
+          courses?.map((course) => (
+            <CourseThumbnail
+              key={course._id}
+              course={course}
+              notEnorll={true}
+            />
+          ))
+        )}
       </div>
     </div>
   );

@@ -21,36 +21,40 @@ export const assignCourse = async (req, res) => {
       await employee.save();
       return res.status(200).json({ message: "Course assigned successfully" });
     } else {
-      return res.status(400).json({ message: "Course already assigned to the employee" });
+      return res
+        .status(400)
+        .json({ message: "Course already assigned to the employee" });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "An error occurred while assigning the course" });
+    res
+      .status(500)
+      .json({ message: "An error occurred while assigning the course" });
   }
 };
-
-
-
 
 export const excludingDepartment = async (req, res) => {
   try {
     const { empId } = req.params;
 
-    const employee = await Employee.findOne({ empId }).select("courses department");
+    const employee = await Employee.findOne({ empId }).select(
+      "courses department"
+    );
     if (!employee) {
       return res.status(400).json({ message: "Employee not found" });
     }
 
-    const departmentName = employee.department; 
+    const departmentName = employee.department;
     const courses = await Course.find({
-      _id: { $nin: employee.courses }, 
-      courseDepartment: { $ne: departmentName }
+      _id: { $nin: employee.courses },
+      courseDepartment: { $ne: departmentName },
     });
 
     console.log("Courses found:", courses);
 
-    if (!courses.length) {
-      return res.status(400).json({ message: "No courses found matching the criteria" });
+    if (courses.length === 0) {
+      console.log(courses.length);
+      return res.status(200).json([]);
     }
 
     res.status(200).json(courses);
@@ -59,7 +63,3 @@ export const excludingDepartment = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
-
-
-
-
