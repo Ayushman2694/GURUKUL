@@ -19,7 +19,7 @@ courseRouter.get("/getVideo/:_id",getVideoById );
 courseRouter.get("/getCourse/:_id",getCourseById );
 courseRouter.get("/getCourseByDepartment/:empId",getCourseByDepartment );
 courseRouter.post("/assign-course",assignCourse)
-courseRouter.get("/course-exclude/:empId/:departmentName", excludingDepartment);
+courseRouter.get("/course-exclude/:empId", excludingDepartment);
 
 
 

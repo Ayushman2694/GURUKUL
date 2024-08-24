@@ -34,29 +34,23 @@ export const assignCourse = async (req, res) => {
 
 export const excludingDepartment = async (req, res) => {
   try {
-    const { empId, departmentName } = req.params;
+    const { empId } = req.params;
 
-    if (!departmentName) {
-      return res.status(400).json({ message: "Department name is required" });
-    }
-
-    const employee = await Employee.findOne({ empId }).select("courses");
+    const employee = await Employee.findOne({ empId }).select("courses department");
     if (!employee) {
       return res.status(400).json({ message: "Employee not found" });
     }
 
-    console.log("Employee courses:", employee.courses);
-    console.log("Excluding department:", departmentName);
-
+    const departmentName = employee.department; 
     const courses = await Course.find({
-      _id: { $nin: employee.courses },
-      courseDepartment: { $ne: departmentName && "all_department" } // Exclude the specified department
+      _id: { $nin: employee.courses }, 
+      courseDepartment: { $ne: departmentName }
     });
 
-    console.log("Courses found:", courses); // Log results for debugging
+    console.log("Courses found:", courses);
 
     if (!courses.length) {
-      return res.status(404).json({ message: "No courses found matching the criteria" });
+      return res.status(400).json({ message: "No courses found matching the criteria" });
     }
 
     res.status(200).json(courses);
@@ -65,6 +59,7 @@ export const excludingDepartment = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 
 
 
