@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaSave } from "react-icons/fa";
 import MultipleCorrectOption from "./MultipleCorrectOption";
