@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Module from "../models/module.model.js";
 import Quiz from "../models/quiz.model.js";
 import QuizResponse from "../models/quizResponse.model.js";
@@ -49,8 +50,8 @@ export const updateQuiz = async (req, res) => {
 
     return res.status(200).json({ message: "Quiz updated successfully", quiz });
   } catch (error) {
-    console.log(error.message)
-    return res.status(500).json({ error:"error in quiz update controller"});
+    console.log(error.message);
+    return res.status(500).json({ error: "error in quiz update controller" });
   }
 };
 
@@ -125,7 +126,7 @@ export const getAllQuiz = async (req, res) => {
 export const quizResponse = async (req, res) => {
   try {
     const { empId, quizId, answers, result } = req.body;
-    
+
     const newResponse = new QuizResponse({
       empId,
       quizId,
@@ -142,15 +143,23 @@ export const quizResponse = async (req, res) => {
   }
 };
 
-export const getAllResponse=async(req,res)=>{
+export const getAllResponse = async (req, res) => {
   try {
-    const allResponse = await QuizResponse.find({})
-    if(!allResponse){
-      return res.status(400).json({ error:"error in fetching responses" });
+    const { quizId } = req.params;
+    console.log(quizId);
+    // const objectId = new mongoose.Types.ObjectId(quizId);
+
+    const allResponse = await QuizResponse.find({ quizId: quizId });
+    if (!allResponse) {
+      return res.status(400).json({ error: "error in fetching responses" });
     }
-    return res.status(200).json({ message:"all responses fetched successfully",allResponse });
+    return res
+      .status(200)
+      .json({ message: "all responses fetched successfully", allResponse });
   } catch (error) {
     console.log(error.message);
-    return res.status(500).json({ error: "Error in getAllResponse controller" });
+    return res
+      .status(500)
+      .json({ error: "Error in getAllResponse controller" });
   }
-}
+};

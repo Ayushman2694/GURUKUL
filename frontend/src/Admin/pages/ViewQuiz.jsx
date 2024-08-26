@@ -13,6 +13,8 @@ import { useState } from "react";
 import { AiOutlineSelect } from "react-icons/ai";
 import { TiPencil } from "react-icons/ti";
 import SelectModule from "../../Employee/component/quiz/SelectModule";
+import ShowAllQuizResponse from "../../Employee/component/quiz/ShowAllQuizResponse";
+import { FaEyeSlash } from "react-icons/fa";
 
 export default function ViewQuiz() {
   const navigate = useNavigate();
@@ -20,6 +22,7 @@ export default function ViewQuiz() {
   const [answers, setAnswers] = useState([]);
   const { isloading, quiz } = useQuizId(quizId);
   const [selectModule, setSelectModule] = useState(false);
+  const [viewResponse, setViewResponse] = useState(false);
 
   if (isloading) return <Spinner />;
 
@@ -39,10 +42,15 @@ export default function ViewQuiz() {
               <span className="px-2">Select Module</span>
             </div>
           </button>
-          <button className="ml-2  mt-4 py-2 w-full bg-green-600 text-white rounded font-bold">
+          <button
+            className="ml-2  mt-4 py-2 w-full bg-green-600 text-white rounded font-bold"
+            onClick={() => setViewResponse((valve) => !valve)}
+          >
             <div className="flex items-center justify-center">
-              <FaEye />
-              <span className="px-2">View Response</span>
+              {viewResponse ? <FaEye /> : <FaEyeSlash />}
+              <span className="px-2">
+                {viewResponse ? "Hide Response" : "View Response"}
+              </span>
             </div>
           </button>
           <button
@@ -58,38 +66,41 @@ export default function ViewQuiz() {
           </button>
         </div>
 
-        {quiz?.questions.map((question, index) => {
-          if (question.questionType === "text") {
-            return (
-              <TextQuestion
-                key={index}
-                index={index + 1}
-                question={question}
-                setAnswers={setAnswers}
-              />
-            );
-          } else if (question.questionType === "singleCorrect") {
-            return (
-              <SingleCorrectQuestion
-                key={index}
-                index={index + 1}
-                question={question}
-                setAnswers={setAnswers}
-              />
-            );
-          } else {
-            return (
-              <MultipeCorrectQuestion
-                key={index}
-                index={index + 1}
-                question={question}
-                setAnswers={setAnswers}
-              />
-            );
-          }
-        })}
+        {viewResponse ? (
+          <ShowAllQuizResponse quizId={quizId} />
+        ) : (
+          quiz?.questions.map((question, index) => {
+            if (question.questionType === "text") {
+              return (
+                <TextQuestion
+                  key={index}
+                  index={index + 1}
+                  question={question}
+                  setAnswers={setAnswers}
+                />
+              );
+            } else if (question.questionType === "singleCorrect") {
+              return (
+                <SingleCorrectQuestion
+                  key={index}
+                  index={index + 1}
+                  question={question}
+                  setAnswers={setAnswers}
+                />
+              );
+            } else {
+              return (
+                <MultipeCorrectQuestion
+                  key={index}
+                  index={index + 1}
+                  question={question}
+                  setAnswers={setAnswers}
+                />
+              );
+            }
+          })
+        )}
       </div>
-      {selectModule && <SelectModule />}
     </>
   );
 }
