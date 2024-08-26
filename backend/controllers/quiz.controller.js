@@ -2,7 +2,6 @@ import Module from "../models/module.model.js";
 import Quiz from "../models/quiz.model.js";
 import QuizResponse from "../models/quizResponse.model.js";
 
-// Create a new quiz
 export const createQuiz = async (req, res) => {
   try {
     const { title, moduleId, questions } = req.body;
@@ -26,7 +25,6 @@ export const createQuiz = async (req, res) => {
   }
 };
 
-// Update a quiz
 export const updateQuiz = async (req, res) => {
   const { quizId, title, questions, moduleId } = req.body;
 
@@ -49,8 +47,8 @@ export const updateQuiz = async (req, res) => {
 
     return res.status(200).json({ message: "Quiz updated successfully", quiz });
   } catch (error) {
-    console.log(error.message)
-    return res.status(500).json({ error:"error in quiz update controller"});
+    console.log(error.message);
+    return res.status(500).json({ error: "error in quiz update controller" });
   }
 };
 
@@ -125,7 +123,7 @@ export const getAllQuiz = async (req, res) => {
 export const quizResponse = async (req, res) => {
   try {
     const { empId, quizId, answers, result } = req.body;
-    
+
     const newResponse = new QuizResponse({
       empId,
       quizId,
@@ -142,15 +140,39 @@ export const quizResponse = async (req, res) => {
   }
 };
 
-export const getAllResponse=async(req,res)=>{
+export const getAllResponse = async (req, res) => {
   try {
-    const allResponse = await QuizResponse.find({})
-    if(!allResponse){
-      return res.status(400).json({ error:"error in fetching responses" });
+    const { quizId } = req.params;
+    const allResponse = await QuizResponse.find(quizId);
+    if (!allResponse) {
+      return res.status(400).json({ error: "error in fetching responses" });
     }
-    return res.status(200).json({ message:"all responses fetched successfully",allResponse });
+    return res
+      .status(200)
+      .json({ message: "all responses fetched successfully", allResponse });
   } catch (error) {
     console.log(error.message);
-    return res.status(500).json({ error: "Error in getAllResponse controller" });
+    return res
+      .status(500)
+      .json({ error: "Error in getAllResponse controller" });
   }
-}
+};
+
+export const getResponseByResponseId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(`Received id: ${id}`);
+    const response = await QuizResponse.findById(id);
+    if (!response) {
+      return res.status(400).json({ error: "error in fetching response" });
+    }
+    return res
+      .status(200)
+      .json({ message: "response fetched successfully", response });
+  } catch (error) {
+    console.log(error.message);
+    return res
+      .status(500)
+      .json({ error: "Error in getResponseByResponseId controller" });
+  }
+};
