@@ -168,9 +168,7 @@ export const updateCourse = async (req, res) => {
     };
 
     if (req.file) {
-      const thumbnail_url = `${req.protocol}://${req.get("host")}/thumbnail/${
-        req.file.filename
-      }`;
+      const thumbnail_url = req.file.path;
       update.$set.thumbnail = thumbnail_url;
     }
 

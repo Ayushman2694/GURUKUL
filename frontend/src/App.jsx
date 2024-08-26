@@ -34,6 +34,7 @@ import EditQuiz from "./Admin/pages/EditQuiz";
 import AddFullCourse from "./Admin/pages/AddFullCourse";
 import Protected from "./Employee/Ui/Protected";
 import Request from "./Admin/pages/Request";
+import Certificate from "./Common/Ui/Certificate";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -50,6 +51,16 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route
+            path="/certificate"
+            element={
+              <Certificate
+                name="Cyril Babu"
+                department="Web Devplor"
+                course="React"
+              />
+            }
+          />
           <Route path="/" element={<Login />} />
           <Route path="*" element={<PageNotFound />} />
           {/* ------------------------------- Employee  Routes ------------------------------- */}
@@ -66,7 +77,7 @@ export default function App() {
             <Route path="employee/course/:courseId" element={<Course />} />
             <Route path="employee/courses" element={<EmployeeCourses />} />
             <Route path="employee/settings" element={<EmployeeSettings />} />
-            <Route path="employee/quiz" element={<Quiz />} />
+            <Route path="employee/quiz/:quizId" element={<Quiz />} />
           </Route>
           {/* ------------------------------- Admin  Routes ------------------------------- */}
           <Route

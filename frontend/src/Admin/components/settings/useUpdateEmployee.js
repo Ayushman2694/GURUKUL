@@ -9,7 +9,6 @@ export function useUpdateEmployee(empId) {
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["employee", empId] });
-      toast.success("Employee updated Successfully");
     },
     onError: (err) => {
       toast.error(err.message); // Show the error message in a toast

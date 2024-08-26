@@ -27,29 +27,24 @@ export const createQuiz = async (req, res) => {
 
 // Update a quiz
 export const updateQuiz = async (req, res) => {
-  const { quizId, title, questions, moduleId } = req.body;
+  const { id } = req.params;
+  const { title, questions } = req.body;
 
   try {
-    const updateDetails = {
-      $set: {
-        title: title,
-        questions: questions,
-        moduleId: moduleId,
-      },
-    };
-
-    const quiz = await Quiz.findByIdAndUpdate(quizId, updateDetails, {
-      new: true,
-    });
+    const quiz = await Quiz.findById(id);
 
     if (!quiz) {
-      return res.status(404).json({ error: "Quiz not found" });
+      return res.status(400).json({ message: "Quiz not found" });
     }
 
-    return res.status(200).json({ message: "Quiz updated successfully", quiz });
+    quiz.title = title;
+    quiz.questions = questions;
+
+    await quiz.save();
+
+    res.status(200).json(quiz);
   } catch (error) {
-    console.log(error.message)
-    return res.status(500).json({ error:"error in quiz update controller"});
+    res.status(500).json({ message: error.message });
   }
 };
 

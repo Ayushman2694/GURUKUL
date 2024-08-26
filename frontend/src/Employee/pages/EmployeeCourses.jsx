@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 
-import { useQuery } from "@tanstack/react-query";
-import { useAllCourse } from "../../Admin/components/courses/useAllCourse";
 import ShowMoreShowLess from "../../Common/Ui/ShowMoreShowLess";
 import Spinner from "../../Common/Ui/Spinner";
 import CourseThumbnail from "../component/courses/CourseThumbnail";
@@ -9,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
 import { useCourseByEmpId } from "../../Admin/components/courses/useCourseByEmpId";
+import { PiEmptyBold } from "react-icons/pi";
 
 export default function EmployeeCourses() {
   const navigate = useNavigate();
@@ -71,47 +70,53 @@ export default function EmployeeCourses() {
 
   return (
     <div className="w-full p-4 h-full ">
-      <div className="w-full">
-        <h1 className="text-3xl font-bold px-1 pb-2">Current Courses</h1>
-      </div>
-
       {!mostRecentCourse ? null : (
-        <div className="w-full flex py-8 bg-slate-100 shadow-xl">
-          <div className="w-1/2 px-2">
-            <img
-              className="w-full"
-              src={mostRecentCourse?.thumbnail}
-              alt="thumbnail"
-            />
+        <>
+          <div className="w-full flex">
+            <h1 className="text-3xl font-bold  bg-blue-600 text-white pr-8 pl-2 shadow shadow-black py-1 rounded-r-full">
+              Current Courses
+            </h1>
           </div>
-          <div className="w-1/2 p-4 ">
-            <p className="text-2xl font-bold pb-2">
-              {mostRecentCourse?.courseTitle}
-            </p>
-            <p className="text-lg font-medium">
-              <ShowMoreShowLess
-                descriptionDetail={mostRecentCourse?.courseDescription}
-                charNo={200}
+          <div className="w-full flex py-8 bg-slate-100 shadow-xl">
+            <div className="w-1/2 px-2">
+              <img
+                className="w-full"
+                src={mostRecentCourse?.thumbnail}
+                alt="thumbnail"
               />
-            </p>
-            <button
-              className="w-full bg-blue-600 text-slate-50 rounded-md font-bold text-sm p-1 my-8"
-              onClick={() => {
-                navigate("/course");
-              }}
-            >
-              Continue Course
-            </button>
+            </div>
+            <div className="w-1/2 p-4 ">
+              <p className="text-2xl font-bold pb-2">
+                {mostRecentCourse?.courseTitle}
+              </p>
+              <p className="text-lg font-medium">
+                <ShowMoreShowLess
+                  descriptionDetail={mostRecentCourse?.courseDescription}
+                  charNo={200}
+                />
+              </p>
+              <button
+                className="w-full bg-blue-600 text-slate-50 rounded-md font-bold text-sm p-1 my-8"
+                onClick={() => {
+                  navigate(`/employee/course/${mostRecentCourse?._id}`);
+                }}
+              >
+                Continue Course
+              </button>
+            </div>
           </div>
-        </div>
+        </>
       )}
+
+      <div className="w-full flex pt-4">
+        <h1 className="text-3xl font-bold  bg-blue-600 text-white pr-8 pl-2 shadow shadow-black py-1 rounded-r-full">
+          Ongoing Courses
+        </h1>
+      </div>
 
       {coursesStatusMoreThan0LessThan100.length > 0 ? (
         <>
-          <div className="w-full pt-10">
-            <h1 className="text-3xl font-bold px-1">Ongoing Courses</h1>
-          </div>
-          <div className="flex flex-wrap pt-4 pb-12">
+          <div className="flex flex-wrap pt-4 ">
             {coursesStatusMoreThan0LessThan100.map((course) => (
               <CourseThumbnail
                 key={course._id}
@@ -126,32 +131,50 @@ export default function EmployeeCourses() {
           </div>
         </>
       ) : (
-        <div className="w-full flex items-center justify-center">
-          <p className="text-xl p-4 font-medium">
-            No ongoing courses at the moment.
-          </p>
+        <div className="w-full flex items-center justify-center py-2">
+          <div>
+            <div className="w-full flex items-center justify-center">
+              <p className="text-8xl">
+                <PiEmptyBold />
+              </p>
+            </div>
+            <p className="text-xl py-2 px-4 font-medium">
+              No ongoing courses at the moment.
+            </p>
+          </div>
         </div>
       )}
 
-      <div className="w-full">
-        <h1 className="text-3xl font-bold px-1">Courses Not Started</h1>
+      <div className="w-full flex pt-4">
+        <h1 className="text-3xl font-bold  bg-blue-600 text-white pr-8 pl-2 shadow shadow-black py-1 rounded-r-full">
+          Courses Not Started
+        </h1>
       </div>
       {coursesStatus0OrNotFound.length > 0 ? (
-        <div className="flex flex-wrap pt-4 pb-12">
+        <div className="flex flex-wrap pt-4 ">
           {coursesStatus0OrNotFound.map((course) => (
             <CourseThumbnail key={course._id} course={course} progress={0} />
           ))}
         </div>
       ) : (
-        <div className="w-full flex items-center justify-center pb-20">
-          <p className="text-xl p-4 font-medium">
-            No courses available to start.
-          </p>
+        <div className="w-full flex items-center justify-center py-2">
+          <div>
+            <div className="w-full flex items-center justify-center">
+              <p className="text-8xl">
+                <PiEmptyBold />
+              </p>
+            </div>
+            <p className="text-xl py-2 px-4 font-medium">
+              No courses available to start.
+            </p>
+          </div>
         </div>
       )}
 
-      <div className="w-full">
-        <h1 className="text-3xl font-bold px-1">Courses Completed</h1>
+      <div className="w-full flex pt-4">
+        <h1 className="text-3xl font-bold  bg-blue-600 text-white pr-8 pl-2 shadow shadow-black py-1 rounded-r-full">
+          Courses Completed
+        </h1>
       </div>
       {coursesStatus100.length > 0 ? (
         <div className="flex flex-wrap pt-4 pb-20">
@@ -160,8 +183,17 @@ export default function EmployeeCourses() {
           ))}
         </div>
       ) : (
-        <div className="w-full flex items-center justify-center pb-20">
-          <p className="text-xl p-4 font-medium">No courses completed yet.</p>
+        <div className="w-full flex items-center justify-center py-2">
+          <div>
+            <div className="w-full flex items-center justify-center">
+              <p className="text-8xl">
+                <PiEmptyBold />
+              </p>
+            </div>
+            <p className="text-xl py-2 px-4 font-medium">
+              No courses completed yet.
+            </p>
+          </div>
         </div>
       )}
     </div>
