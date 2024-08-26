@@ -11,7 +11,6 @@ import trackingRoutes from "./routes/trackingRoutes.js";
 import quizRoutes from "./routes/quizRoutes.js";
 import addRouter from "./routes/requestRoutes.js";
 
-
 import departmentRoutes from "./routes/departmentRoutes.js";
 import { addRequest } from "./controllers/request.controller.js";
 
@@ -30,15 +29,14 @@ app.use("/thumbnail", express.static("uploads"));
 app.use("/video", express.static("videos"));
 
 app.use("/api/auth", authRoutes);
-app.use("/api/video",videoRouter)
-app.use("/api/course",courseRouter);
-app.use("/api/admin",adminRoutes);
-app.use("/api/employee",employeeRoutes);
-app.use("/api/department",departmentRoutes)
-app.use("/api/tracking",trackingRoutes)
-app.use("/api/quiz",quizRoutes)
-app.use("/api/request",addRouter)
-
+app.use("/api/video", videoRouter);
+app.use("/api/course", courseRouter);
+app.use("/api/admin", adminRoutes);
+app.use("/api/employee", employeeRoutes);
+app.use("/api/department", departmentRoutes);
+app.use("/api/tracking", trackingRoutes);
+app.use("/api/quiz", quizRoutes);
+app.use("/api/request", addRouter);
 
 app.listen(port, () => {
   console.log(`Server started on http://localhost:${port}`);

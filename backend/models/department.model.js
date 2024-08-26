@@ -4,7 +4,7 @@ const departmentSchema = mongoose.Schema({
   departmentName: {
     type: String,
     required: true,
-    unique:true
+    unique: true,
   },
 });
 

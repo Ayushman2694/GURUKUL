@@ -49,7 +49,7 @@ export const adminLogin = async (req, res) => {
       return res.status(400).json({ error: "Admin Not Found" });
     } else {
       if (password === admin.adminPassword) {
-        const token = createToken(admin._id,'admin');
+        const token = createToken(admin._id, "admin");
 
         return res.status(200).json({
           succes: true,
