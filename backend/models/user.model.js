@@ -27,16 +27,16 @@ const employeeSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    courses:[
+    courses: [
       {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Course"
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Course",
       },
     ],
-    currentCourse:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Course"
-    }
+    currentCourse: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course",
+    },
   },
   { timestamps: true }
 );

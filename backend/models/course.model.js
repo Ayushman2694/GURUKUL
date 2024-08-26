@@ -1,39 +1,40 @@
 import mongoose from "mongoose";
 
 const coursesSchema = mongoose.Schema({
-    courseTitle: {
+  courseTitle: {
+    type: String,
+    required: true,
+  },
+  courseDescription: {
+    type: String,
+    required: true,
+  },
+  courseDepartment: {
+    type: String,
+    required: true,
+  },
+  thumbnail: {
+    type: String,
+    required: true,
+  },
+  noOfModules: {
+    type: Number,
+  },
+  userStatus: [
+    {
+      user: {
         type: String,
         required: true,
-    },
-    courseDescription: {
-        type: String,
-        required: true,
-    },
-    courseDepartment: {
-        type: String,
-        required: true,
-    },
-    thumbnail: {
-        type: String,
-        required: true,
-    },
-    noOfModules: {
+      },
+      status: {
         type: Number,
+        min: 0,
+        max: 100,
+        default: 0,
+      },
     },
-    userStatus: [
-        {
-            user: {
-                type: String,
-                required: true,
-            },
-            status: {
-                type: Number,
-                min:0,
-                max:100,
-                default: 0,
-            },
-        },{timestamps:true}
-    ],
+    { timestamps: true },
+  ],
 });
 
 const Course = mongoose.model("Course", coursesSchema);

@@ -1,13 +1,20 @@
 import Module from "../models/module.model.js";
 import Quiz from "../models/quiz.model.js";
+import QuizResponse from "../models/quizResponse.model.js";
 
 // Create a new quiz
 export const createQuiz = async (req, res) => {
   try {
-    const { title, questions } = req.body;
+    const { title, moduleId, questions } = req.body;
+    const module = await Module.findById(moduleId);
+
+    if (!module) {
+      return res.status(400).json({ error: "Module not found" });
+    }
 
     const quiz = new Quiz({
       title,
+      module: moduleId,
       questions,
     });
 
@@ -46,7 +53,7 @@ export const getQuizByModuleId = async (req, res) => {
   const { moduleId } = req.params;
 
   try {
-    const quiz = await Quiz.findOne({ module: moduleId });
+    const quiz = await Quiz.find({ module: moduleId });
 
     if (!quiz) {
       return res
@@ -107,5 +114,25 @@ export const getAllQuiz = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ error: "error in getAllQuiz controller" });
+  }
+};
+
+export const quizResponse = async (req, res) => {
+  try {
+    const { empId, quizId, answers, result } = req.body;
+    
+    const newResponse = new QuizResponse({
+      empId,
+      quizId,
+      answers,
+      result,
+    });
+    await newResponse.save();
+    return res
+      .status(200)
+      .json({ message: "Quiz response saved successfully", newResponse });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ error: "Error in quizResponse controller" });
   }
 };
