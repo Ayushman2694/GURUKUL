@@ -118,10 +118,7 @@ export const getAllQuiz = async (req, res) => {
 export const quizResponse = async (req, res) => {
   try {
     const { empId, quizId, answers, result } = req.body;
-    const response = await QuizResponse.findOne({ empId, quizId });
-    if (response) {
-      return res.status(400).json({ message: "Quiz already attempted" });
-    }
+    
     const newResponse = new QuizResponse({
       empId,
       quizId,
