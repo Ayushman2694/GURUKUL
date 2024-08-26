@@ -5,6 +5,7 @@ import {
   getAllQuiz,
   getQuizById,
   getQuizByModuleId,
+  quizResponse,
   updateQuiz,
 } from "../controllers/quiz.controller.js";
 
@@ -16,6 +17,6 @@ router.delete("deleteQuiz/:id", deleteQuiz);
 router.get("/getQuizByModuleId/:moduleId", getQuizByModuleId);
 router.get("/getAllQuiz", getAllQuiz);
 router.get("/getQuizById/:id", getQuizById);
-
+router.post("/quizResponse", quizResponse);
 
 export default router;
