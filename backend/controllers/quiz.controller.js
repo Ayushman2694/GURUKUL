@@ -3,7 +3,6 @@ import Module from "../models/module.model.js";
 import Quiz from "../models/quiz.model.js";
 import QuizResponse from "../models/quizResponse.model.js";
 
-// Create a new quiz
 export const createQuiz = async (req, res) => {
   try {
     const { title, moduleId, questions } = req.body;
@@ -27,7 +26,6 @@ export const createQuiz = async (req, res) => {
   }
 };
 
-// Update a quiz
 export const updateQuiz = async (req, res) => {
   const { quizId, title, questions, moduleId } = req.body;
 
@@ -50,6 +48,8 @@ export const updateQuiz = async (req, res) => {
 
     return res.status(200).json({ message: "Quiz updated successfully", quiz });
   } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ error: "error in quiz update controller" });
     console.log(error.message);
     return res.status(500).json({ error: "error in quiz update controller" });
   }
@@ -145,11 +145,7 @@ export const quizResponse = async (req, res) => {
 
 export const getAllResponse = async (req, res) => {
   try {
-    const { quizId } = req.params;
-    console.log(quizId);
-    // const objectId = new mongoose.Types.ObjectId(quizId);
-
-    const allResponse = await QuizResponse.find({ quizId: quizId });
+    const allResponse = await QuizResponse.find({});
     if (!allResponse) {
       return res.status(400).json({ error: "error in fetching responses" });
     }
