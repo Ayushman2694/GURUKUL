@@ -21,6 +21,6 @@ const quizResponseSchema = mongoose.Schema({
   },
 });
 
-const QuizResponse = mongoose.Schema(" QuizResponse", quizResponseSchema);
+const QuizResponse = mongoose.model(" QuizResponse", quizResponseSchema);
 
 export default QuizResponse;
