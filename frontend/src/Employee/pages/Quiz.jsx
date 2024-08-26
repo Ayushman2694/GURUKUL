@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuizId } from "../../Admin/components/quiz/useQuizById";
 import Spinner from "../../Common/Ui/Spinner";
 import TextQuestion from "../component/quiz/TextQuestion";
@@ -9,6 +9,7 @@ import { useUploadQuizResponse } from "../../Admin/components/quiz/useuploadQuiz
 import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
 
 export default function Quiz() {
+  const navigate = useNavigate();
   const { quizId } = useParams();
   const { isloading, quiz } = useQuizId(quizId);
   const [answers, setAnswers] = useState([]);
@@ -25,11 +26,18 @@ export default function Quiz() {
 
   const handleSubmit = () => {
     const cleanedAnswers = answers.filter((answer) => answer !== undefined);
-    uploadQuizResponse({
-      empId: employe_info.empId,
-      quizId: quizId,
-      answers: cleanedAnswers,
-    });
+    uploadQuizResponse(
+      {
+        empId: employe_info.empId,
+        quizId: quizId,
+        answers: cleanedAnswers,
+      },
+      {
+        onSuccess: () => {
+          navigate(-1);
+        },
+      }
+    );
   };
 
   if (isloading || loadingEmployeeInfo) return <Spinner />;

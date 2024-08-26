@@ -1,16 +1,13 @@
 /* eslint-disable react/prop-types */
 import { GrView } from "react-icons/gr";
-import { MdEdit } from "react-icons/md";
 import ShowMoreShowLess from "../../../Common/Ui/ShowMoreShowLess";
 
-export default function ShowQuizCard({
-  title,
-  description,
-  viewQuizHandler,
-  EditQuizHandler,
-}) {
+export default function ShowQuizCard({ title, description, viewQuizHandler }) {
   return (
-    <div className="bg-gray-100 shadow-md rounded-lg p-4">
+    <div
+      className="bg-gray-100 shadow-md rounded-lg p-4"
+      onClick={viewQuizHandler}
+    >
       <h2 className=" text-xl font-bold"> {title}</h2>
       <p className="text-gray-600">
         <ShowMoreShowLess descriptionDetail={description} charNo={42} />
@@ -25,7 +22,7 @@ export default function ShowQuizCard({
           </span>
           View
         </button>
-        <button
+        {/* <button
           onClick={EditQuizHandler}
           className="bg-blue-600 flex w-18 gap-1 text-white rounded-full px-3 py-1"
         >
@@ -33,7 +30,7 @@ export default function ShowQuizCard({
             <MdEdit />
           </span>
           Edit
-        </button>
+        </button> */}
         {/* <button className='bg-blue-600 w-18 text-white rounded-full px-3 py-1'>Edit</button> */}
       </div>
     </div>
