@@ -7,6 +7,7 @@ import SingleCorrectOption from "./SingleCorrectOption";
 export default function CreateQuizCard({ index, setQuestions }) {
   const [selectedType, setSelectedType] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -27,7 +28,7 @@ export default function CreateQuizCard({ index, setQuestions }) {
   }
 
   return (
-    <div className="m-2 bg-blue-100 rounded">
+    <div className="m-2 h-auto mb-14 bg-blue-100 rounded">
       <form onSubmit={handleSubmit(checkSubmit)}>
         <div className="p-2">
           <div className="flex justify-between">
@@ -52,7 +53,7 @@ export default function CreateQuizCard({ index, setQuestions }) {
                 style={{ cursor: isSubmitted ? "not-allowed" : "pointer" }}
               >
                 <option value="">Select</option>
-                <option value="text">Text</option>
+                {/* <option value="text">Text</option> */}
                 <option value="singleCorrect">Single Correct</option>
                 <option value="multipleCorrect">Multiple Correct</option>
               </select>
@@ -85,9 +86,9 @@ export default function CreateQuizCard({ index, setQuestions }) {
             type="text"
             id="quizname"
             placeholder="Enter Question"
-            disabled={isSubmitted}
+            disabled={!selectedType || isSubmitted}
             style={{
-              cursor: isSubmitted ? "not-allowed" : "text",
+              cursor: !selectedType || isSubmitted ? "not-allowed" : "text",
             }}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             {...register("question", { required: "Question is required" })}
