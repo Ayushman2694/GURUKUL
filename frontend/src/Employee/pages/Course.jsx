@@ -56,9 +56,6 @@
 //   );
 // }
 
-
-
-
 /* eslint-disable no-unused-vars */
 import { useParams } from "react-router-dom";
 import Module from "../component/courses/Module";
@@ -134,6 +131,7 @@ export default function Course() {
               setVideoLink={setVideoLink}
               setVideoDiscription={setVideoDiscription}
               setVideoId={setVideoId}
+              empId={employe_info.empId}
             />
           ))}
         </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuizId } from "../../Admin/components/quiz/useQuizById";
 import Spinner from "../../Common/Ui/Spinner";
@@ -9,6 +9,7 @@ import { useUploadQuizResponse } from "../../Admin/components/quiz/useuploadQuiz
 import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { useQuizAttempt } from "../../Admin/components/quiz/useQuizAttempt";
 
 export default function Quiz() {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ export default function Quiz() {
   const [token] = useState(localStorage.getItem("token"));
   const { isLoading: loadingEmployeeInfo, employe_info } =
     useEmployeeInfo(token);
+  const { quizAttempt, isLoading: loadingQuizAttempt } = useQuizAttempt();
 
   const handleAnswerChange = (index, answer) => {
     const updatedAnswers = [...answers];
@@ -44,6 +46,37 @@ export default function Quiz() {
     );
   };
 
+  useEffect(() => {
+    if (quizSubmited) {
+      const correctCount = answers.reduce((count, answer) => {
+        const { correctAnswer, userAnswer } = answer;
+        if (Array.isArray(correctAnswer)) {
+          // For multiple correct answers
+          return (
+            count +
+            (userAnswer.length === correctAnswer.length &&
+            userAnswer.every((ans) => correctAnswer.includes(ans))
+              ? 1
+              : 0)
+          );
+        } else {
+          // For single correct answers
+          return count + (userAnswer === correctAnswer ? 1 : 0);
+        }
+      }, 0);
+
+      const totalQuestions = answers.length;
+      const percentage = (correctCount / totalQuestions) * 100;
+      const status = percentage > 70 ? "pass" : "Fail";
+
+      quizAttempt({
+        empId: employe_info.empId,
+        quizId: quizId,
+        status: status,
+      });
+    }
+  }, [employe_info?.empId, quizAttempt, quizId, quizSubmited, answers]);
+
   if (isloading || loadingEmployeeInfo) return <Spinner />;
 
   let correctCount = 0;
@@ -57,27 +90,17 @@ export default function Quiz() {
       const { correctAnswer, userAnswer } = answer;
 
       if (Array.isArray(correctAnswer)) {
-        // For multiple correct answers, check if userAnswer contains all correct answers
         const isCorrect =
           userAnswer.length === correctAnswer.length &&
           userAnswer.every((ans) => correctAnswer.includes(ans));
-
-        if (isCorrect) {
-          correctCount++;
-        } else {
-          wrongCount++;
-        }
+        if (isCorrect) correctCount++;
+        else wrongCount++;
       } else {
-        // For single correct answers, compare directly
-        if (userAnswer === correctAnswer) {
-          correctCount++;
-        } else {
-          wrongCount++;
-        }
+        if (userAnswer === correctAnswer) correctCount++;
+        else wrongCount++;
       }
     });
 
-    // Calculate percentage of correct answers
     totalQuestions = answers.length;
     percentage = (correctCount / totalQuestions) * 100;
     isPass = percentage > 70;
@@ -86,7 +109,6 @@ export default function Quiz() {
   return (
     <div className="p-8 w-full bg-gray-100 h-fit">
       <h1 className="text-4xl font-bold mb-4">{quiz?.title}</h1>
-
       {quizSubmited ? (
         <div
           className={`flex justify-center w-full p-8 ${
@@ -101,7 +123,6 @@ export default function Quiz() {
             <h2 className="text-3xl font-bold text-slate-600 mb-4">
               Quiz Results
             </h2>
-
             <div
               className="my-6"
               style={{ width: 200, height: 200, margin: "0 auto" }}
@@ -118,13 +139,11 @@ export default function Quiz() {
                 })}
               />
             </div>
-
             <div className="text-4xl flex justify-center font-bold text-slate-600 mt-4">
               <p className="border w-auto px-6 rounded">
                 {isPass ? "Pass" : "Fail"}
               </p>
             </div>
-
             <div className="flex justify-between text-xl font-semibold text-slate-600 mt-8">
               <span>Questions: {totalQuestions}</span>
               <span>Correct: {correctCount}</span>
@@ -167,7 +186,6 @@ export default function Quiz() {
           }
         })
       )}
-
       {quizSubmited ? (
         <div className="flex">
           {percentage < 70 && (
@@ -190,7 +208,7 @@ export default function Quiz() {
           onClick={handleSubmit}
           disabled={isLoading}
         >
-          {isLoading ? <Spinner /> : " Submit"}
+          {isLoading || loadingQuizAttempt ? <Spinner /> : " Submit"}
         </button>
       )}
     </div>

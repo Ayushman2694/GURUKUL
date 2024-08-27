@@ -8,11 +8,11 @@ export const createQuiz = async (req, res) => {
     const { title, questions } = req.body;
 
     const quiz = new Quiz({
-      title:title,
-      questions:questions,
+      title: title,
+      questions: questions,
       attemptedBy: [],
     });
-    console.log(quiz)
+    console.log(quiz);
     await quiz.save();
 
     return res.status(200).json({ message: "Quiz created successfully" });
@@ -199,26 +199,37 @@ export const quizByCourseId = async (req, res) => {
       .json({ error: "Error in quizByCourseId Controller" });
   }
 };
-export const quizAttempt=async(req,res)=>{
+
+export const quizAttempt = async (req, res) => {
   try {
-    const {empId,quizId,status}=req.body;
+    const { empId, quizId, status } = req.body;
+
     const quiz = await Quiz.findById(quizId);
-    if(!quiz){
-      return res.status(400).json({error:"unable to fetch quiz"})
+
+    if (!quiz) {
+      return res.status(404).json({ error: "Quiz not found" });
     }
-    else{
-    if(status==="pass"){
-      quiz.attemptedBy.push(empId)
-      quiz.passedBy.push(empId)
+
+    if (!quiz.attemptedBy) quiz.attemptedBy = [];
+    if (status === "pass") {
+      if (!quiz.passedBy) quiz.passedBy = [];
+      if (!quiz.attemptedBy.includes(empId)) {
+        quiz.attemptedBy.push(empId);
+      }
+      if (!quiz.passedBy.includes(empId)) {
+        quiz.passedBy.push(empId);
+      }
+    } else {
+      if (!quiz.attemptedBy.includes(empId)) {
+        quiz.attemptedBy.push(empId);
+      }
     }
-    else{
-      quiz.attemptedBy.push(empId)
-  }
-    return res.status(200).json({message:"user attempted successfully"})}
+
+    await quiz.save();
+
+    return res.status(200).json({ message: "User attempted successfully" });
   } catch (error) {
     console.error(error.message);
-    return res
-      .status(500)
-      .json({ error: "Error in quizAttempt Controller" });
+    return res.status(500).json({ error: "Error in quizAttempt Controller" });
   }
-}
+};

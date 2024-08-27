@@ -3,6 +3,10 @@ import { useState } from "react";
 import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
 import Spinner from "../../Common/Ui/Spinner";
 import CourseName from "../Ui/CourseName";
+import { ImInfo } from "react-icons/im";
+import { FaBook } from "react-icons/fa6";
+import { PiCertificateBold } from "react-icons/pi";
+import { IoChevronForwardCircleOutline } from "react-icons/io5";
 
 export default function EmployeeInfo() {
   const [token] = useState(localStorage.getItem("token"));
@@ -13,11 +17,29 @@ export default function EmployeeInfo() {
     <div className="flex w-full h-screen">
       <div className="w-full p-4">
         <div className="w-full">
-          <h1 className="text-2xl md:text-4xl font-bold px-1">Employee Information</h1>
+          <h1 className="text-2xl md:text-4xl font-bold px-1">
+            Employee Information
+          </h1>
         </div>
-        <div className="md:flex w-full py-4">
+        <div className="md:flex w-full pt-4 ">
           <div className="w-full md:w-1/2 border m-1 rounded-sm bg-slate-50 drop-shadow-xl py-2">
-            <h3 className="font-semibold p-2 text-lg">Basic Information</h3>
+            <div className="flex">
+              <div className=" bg-slate-50">
+                <h3 className="text-xl font-bold flex py-1 px-4 rounded-r-lg rounded-tl-lg items-center  text-white bg-blue-600">
+                  Basic Information
+                  <span className="pl-2">
+                    <ImInfo />
+                  </span>
+                </h3>
+                <div className=" bg-blue-600">
+                  <h3 className="text-sm font-bold flex text-slate-100 bg-slate-100 rounded-tl-lg relative overflow-hidden">
+                    <span className="absolute inset-x-0 inset-r-0 h-2 "></span>.
+                  </h3>
+                </div>
+              </div>
+            </div>
+
+            {/* <h3 className="font-semibold p-2 text-lg">Basic Information</h3> */}
             <div className="flex p-2">
               <div className="w-1/2 font-medium">Employee Id:</div>
               <div className="w-1/2 flex justify-end">{employe_info.empId}</div>
@@ -53,15 +75,48 @@ export default function EmployeeInfo() {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-1/2 border-2 m-1 rounded-sm bg-slate-50 drop-shadow-xl">
-            <h3 className="font-semibold p-2 text-lg">Assigned Courses</h3>
+          <div className="w-full md:w-1/2 border-2 m-1 rounded-sm pt-1 bg-slate-50 drop-shadow-xl">
+            <div className="flex">
+              <div className=" bg-slate-50">
+                <h3 className="text-xl font-bold flex py-1 px-4 rounded-r-lg rounded-tl-lg items-center  text-white bg-blue-600">
+                  Assigned Courses
+                  <span className="pl-2">
+                    <FaBook />
+                  </span>
+                </h3>
+                <div className=" bg-blue-600">
+                  <h3 className="text-sm font-bold flex text-slate-100 bg-slate-100 rounded-tl-lg relative overflow-hidden">
+                    <span className="absolute inset-x-0 inset-r-0 h-2 "></span>.
+                  </h3>
+                </div>
+              </div>
+            </div>
+
             {employe_info.courses.map((course) => (
-              <CourseName key={course} course={course} />
+              <div key={course} className="flex px-2 items-center">
+                <IoChevronForwardCircleOutline />
+                <CourseName course={course} />
+              </div>
             ))}
           </div>
         </div>
-        <div className="w-full border m-1 rounded-sm bg-slate-50 drop-shadow-xl py-2">
-          <h3 className="font-semibold px-2 text-lg">Certificates</h3>
+        <div className="w-full border m-1 rounded-sm bg-slate-50 drop-shadow-xl md:py-2">
+          <div className="flex">
+            <div className=" bg-slate-50">
+              <h3 className="text-xl font-bold flex py-1 px-4 rounded-r-lg rounded-tl-lg items-center  text-white bg-blue-600">
+                Certificates
+                <span className="pl-2">
+                  <PiCertificateBold />
+                </span>
+              </h3>
+              <div className=" bg-blue-600">
+                <h3 className="text-sm font-bold flex text-slate-100 bg-slate-100 rounded-tl-lg relative overflow-hidden">
+                  <span className="absolute inset-x-0 inset-r-0 h-2 "></span>.
+                </h3>
+              </div>
+            </div>
+          </div>
+
           {/* Certificates will go here */}
         </div>
       </div>
