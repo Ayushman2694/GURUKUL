@@ -8,6 +8,7 @@ import {
   getQuizByModuleId,
   getResponseByResponseId,
   quizResponse,
+  rrequestedQuiz,
   updateQuiz,
 } from "../controllers/quiz.controller.js";
 import { quizByCourseId } from "../controllers/quiz.controller.js";
@@ -24,6 +25,7 @@ router.get("/getAllResponse", getAllResponse);
 router.get("/getResponseByResponseId/:id", getResponseByResponseId);
 router.post("/quizResponse", quizResponse);
 router.get("/quizByCourseId/:courseId", quizByCourseId);
+router.get("/requestQuiz",rrequestedQuiz)
 
 
 export default router;

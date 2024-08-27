@@ -3,7 +3,7 @@ import express from "express";
 import {
   getallCourse,
   addCourse,
-  deleteCourse,
+  deleteCourseWithCascade,
   addModule,
   updateCourse,
   modulesByCourseId,
@@ -21,7 +21,7 @@ const courseRouter = express.Router();
 
 courseRouter.post("/addCourse", uploadImage.single("thumbnail"), addCourse);
 courseRouter.get("/allCourse", getallCourse);
-courseRouter.post("/deleteCourse", deleteCourse);
+courseRouter.delete("/deleteCourse/:courseId",deleteCourseWithCascade);
 courseRouter.post("/addModule", addModule);
 courseRouter.post(
   "/updateCourse",
