@@ -47,7 +47,7 @@ export const excludingDepartment = async (req, res) => {
     const departmentName = employee.department;
     const courses = await Course.find({
       _id: { $nin: employee.courses },
-      courseDepartment: { $ne: departmentName },
+      courseDepartment: { $ne: departmentName && "all_department" },
     });
     return res.status(200).json(courses);
   } catch (error) {

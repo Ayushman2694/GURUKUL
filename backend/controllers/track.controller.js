@@ -1,5 +1,9 @@
 import Course from "../models/course.model.js";
 import Video from "../models/video.model.js";
+import Employee from "../models/user.model.js";
+import Quiz from "../models/quiz.model.js";
+
+
 
 export const videoTracker = async (req, res) => {
   try {
@@ -63,3 +67,33 @@ export const updateCourseStatus = async (req, res) => {
     res.status(500).json({ message: "error in updateCourseStatus controller" });
   }
 };
+
+export const attemptQuiz = async (req, res) => {
+  try {
+    const { empId, quizId } = req.body;
+
+    const employee = await  Employee.findOne({ empId });
+    if (!employee) {
+      return res.status(400).json({ message: "Employee not found" });
+    }
+
+    const quiz = await Quiz.findById(quizId);
+    if (!quiz) {
+      return res.status(400).json({ message: "Quiz not found" });
+    }
+
+    if (quiz.attemptedBy.includes(empId)) {
+      return res.status(400).json({ message: "Quiz already attempted by this employee" });
+    }
+
+    quiz.attemptedBy.push(empId);
+    await quiz.save();
+
+    res.status(200).json({ message: "Quiz attempt recorded successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
