@@ -47,32 +47,41 @@ export const getallCourse = async (req, res) => {
 };
 //delete course
 
-export const deleteCourse = async (req, res) => {
+
+
+export const deleteCourseWithCascade = async (req, res) => {
   try {
     const { courseId } = req.params;
 
-    // Attempt to find and delete the course
-    const deletedCourse = await Course.findByIdAndDelete(courseId);
-
-    if (!deletedCourse) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Course not found" });
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(400).json({ success: false, message: "Course not found" });
     }
+
+    const modules = await Module.find({ course: courseId });
+    if (modules.length > 0) {
+      const videoIds = modules.flatMap((module) => module.video);
+
+      await Video.deleteMany({ _id: { $in: videoIds } });
+
+      await Module.deleteMany({ course: courseId });
+    }
+
+    await Course.findByIdAndDelete(courseId);
 
     res.status(200).json({
       success: true,
-      message: "Course deleted successfully",
-      deletedCourse,
+      message: "Course and its related modules/videos deleted successfully",
     });
   } catch (error) {
-    console.log("Error in deleteCourse controller:", error.message);
+    console.log("Error in deleteCourseWithCascade controller:", error.message);
     res.status(500).json({
       success: false,
-      message: "Server error ,Error in delete Course section",
+      message: "Server error, error in deleteCourseWithCascade controller",
     });
   }
 };
+
 
 // viudeo controller
 

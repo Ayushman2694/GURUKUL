@@ -56,9 +56,6 @@
 //   );
 // }
 
-
-
-
 /* eslint-disable no-unused-vars */
 import { useParams } from "react-router-dom";
 import Module from "../component/courses/Module";
@@ -97,7 +94,7 @@ export default function Course() {
 
   return (
     <div className="w-full  md:flex p-4">
-      <div className=" w-full md:w-9/12  overflow-y-auto pb-20">
+      <div className=" w-full md:w-9/12  overflow-y-auto pb-3 md:pb-20">
         {videoLink ? (
           <VideoPlayer
             videoLink={videoLink}
@@ -134,6 +131,7 @@ export default function Course() {
               setVideoLink={setVideoLink}
               setVideoDiscription={setVideoDiscription}
               setVideoId={setVideoId}
+              empId={employe_info.empId}
             />
           ))}
         </div>

@@ -10,7 +10,7 @@ export default function Navbar({ setSideBar }) {
         <p className="px-2 md:text-3xl text-xl ">Mediversal Gurukul</p>
       </div>
       <div
-        className="px-4 text-4xl"
+        className="px-4 text-4xl hidden md:flex"
         onClick={() => {
           setSideBar((value) => !value);
         }}

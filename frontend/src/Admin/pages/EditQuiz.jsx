@@ -1,4 +1,3 @@
-
 import React from "react";
 import Spinner from "../../Common/Ui/Spinner";
 import EditTextQuestion from "../components/quiz/EditTextQuestion";
@@ -149,7 +148,5 @@ export default function EditQuiz() {
         </div>
       </form>
     </div>
-
-
   );
 }
