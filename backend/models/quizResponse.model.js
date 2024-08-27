@@ -22,9 +22,7 @@ const quizResponseSchema = mongoose.Schema({
   },
 });
 
-
 const QuizResponse = new mongoose.model("QuizResponse", quizResponseSchema);
-
 
 export default QuizResponse;
 

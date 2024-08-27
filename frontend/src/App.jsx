@@ -35,6 +35,7 @@ import AddFullCourse from "./Admin/pages/AddFullCourse";
 import Protected from "./Employee/Ui/Protected";
 import Request from "./Admin/pages/Request";
 import Certificate from "./Common/Ui/Certificate";
+import ShowAnswers from "./Admin/components/quiz/ShowAnswers";
 
 
 const queryClient = new QueryClient({
@@ -105,6 +106,10 @@ export default function App() {
             <Route path="admin/addDepartment" element={<AddDetertment />} />
             <Route path="admin/showAllAdmin" element={<ShowAllAdmin />} />
             <Route path="admin/quizzes/createQuiz" element={<CreateQuiz />} />
+            <Route
+              path="admin/quizzes/ShowAnswers/:responseId"
+              element={<ShowAnswers />}
+            />
             <Route
               path="admin/quizzes/viewQuiz/:quizId"
               element={<ViewQuiz />}
