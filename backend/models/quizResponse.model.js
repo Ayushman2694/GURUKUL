@@ -1,43 +1,28 @@
 import mongoose from "mongoose";
 
-
-
 const quizResponseSchema = mongoose.Schema({
 
-empId:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"Employee",
-    required:true
-},
-quizId:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"Quiz",
-    required:true
-},
-answers: [
-    {
-      question: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Quiz.questions",
-        required: true,
-      },
-      selectedOptions: [
-        {
-          type: String,
-          required: true,
-        },
-      ],
-    },
-  ],
+  empId: {
+    type: String,
+    required: true,
+  },
+  quizId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Quiz",
+    required: true,
+  },
+  answers: {
+    type: [mongoose.Schema.Types.Mixed],
+  },
 
-  result:{
-    type:String,
-    enum:["notChecked", "passed", "failed"],
-    default:"notChecked",
-  }
+  result: {
+    type: String,
+    enum: ["Not Checked", "Passed", "Failed"],
+    default: "Not Checked",
+  },
+});
 
-})
+const QuizResponse = mongoose.model("QuizResponse", quizResponseSchema);
 
-const QuizResponse = mongoose.Schema("QuizResponse",quizResponseSchema);
+export default QuizResponse;
 
-export default QuizResponse
