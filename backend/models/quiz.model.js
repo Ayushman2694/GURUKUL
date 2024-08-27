@@ -16,11 +16,11 @@ const quizSchema = mongoose.Schema(
     },
     attemptedBy: {
       type: [String],
-     default:[]
+      default: [],
     },
     passedBy: {
       type: [String],
-     default:[]
+      default: [],
     },
   },
   { timestamp: true }

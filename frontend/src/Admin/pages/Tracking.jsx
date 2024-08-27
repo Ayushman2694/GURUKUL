@@ -22,7 +22,7 @@ export default function Tracking() {
           <input
             type="search"
             placeholder="Search Quiz"
-            className="shadow my-1 appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow  appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
         <div className="grid grid-cols-2 gap-4 mb-4">
@@ -66,7 +66,8 @@ export default function Tracking() {
           <input
             type="search"
             placeholder="Search Quiz"
-            className="shadow my-1 appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            className="shadow  appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
         </div>
         <div className="grid grid-cols-2 gap-4 mb-4">
           <AdminDashboardPercent
@@ -109,7 +110,7 @@ export default function Tracking() {
           <input
             type="search"
             placeholder="Search Quiz"
-            className="w-full h-10 border-slate-800 rounded-full px-3"
+            className="shadow  appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
         <div className="grid grid-cols-2 gap-4 mb-4">

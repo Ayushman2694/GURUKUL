@@ -8,12 +8,20 @@ export default function EmployeeInfo() {
   const [token] = useState(localStorage.getItem("token"));
   const { isLoading, employe_info } = useEmployeeInfo(token);
   if (isLoading) return <Spinner />;
+  const parseDate = (dateString) => {
+    const [day, month, year] = dateString.split("-");
+    return new Date(`${year}-${month}-${day}`);
+  };
+
+  console.log(employe_info);
 
   return (
     <div className="flex w-full h-screen">
       <div className="w-full p-4">
         <div className="w-full">
-          <h1 className="text-2xl md:text-4xl font-bold px-1">Employee Information</h1>
+          <h1 className="text-2xl md:text-4xl font-bold px-1">
+            Employee Information
+          </h1>
         </div>
         <div className="md:flex w-full py-4">
           <div className="w-full md:w-1/2 border m-1 rounded-sm bg-slate-50 drop-shadow-xl py-2">
@@ -43,7 +51,7 @@ export default function EmployeeInfo() {
             <div className="flex p-2">
               <div className="w-1/2 font-medium">Joining Date:</div>
               <div className="w-1/2 flex justify-end">
-                {new Date(employe_info.joiningDate).toLocaleDateString()}
+                {parseDate(employe_info.joiningDate).toLocaleDateString()}
               </div>
             </div>
             <div className="flex p-2">

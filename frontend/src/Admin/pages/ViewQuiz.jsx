@@ -63,7 +63,7 @@ export default function ViewQuiz() {
             return (
               <TextQuestion
                 key={index}
-                index={index + 1}
+                index={index}
                 question={question}
                 setAnswers={setAnswers}
               />
@@ -72,7 +72,7 @@ export default function ViewQuiz() {
             return (
               <SingleCorrectQuestion
                 key={index}
-                index={index + 1}
+                index={index}
                 question={question}
                 setAnswers={setAnswers}
               />
@@ -81,7 +81,7 @@ export default function ViewQuiz() {
             return (
               <MultipeCorrectQuestion
                 key={index}
-                index={index + 1}
+                index={index}
                 question={question}
                 setAnswers={setAnswers}
               />

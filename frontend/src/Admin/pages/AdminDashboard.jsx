@@ -24,34 +24,38 @@ export default function AdminDashboard() {
         <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
         <div className="space-x-4 space-y-2 md:space-x-4 md:space-y-0 text-sm flex flex-row md:flex-row mt-0 pt-0">
           <button
-            onClick={() => { navigate("/admin/addCourse") }}
+            onClick={() => {
+              navigate("/admin/addCourse");
+            }}
             className="text-blue-600 flex items-center"
           >
             <FaPlusCircle className="mr-2" /> Add Course
           </button>
           <button
-            onClick={() => { navigate("/admin/employeeSignUp") }}
+            onClick={() => {
+              navigate("/admin/employeeSignUp");
+            }}
             className="text-green-600 flex items-center"
           >
             <FaUserPlus className="mr-2" /> Add Employee
           </button>
           <button
-            onClick={() => { navigate('/admin/createQuiz') }}
+            onClick={() => {
+              navigate("/admin/quizzes/createQuiz");
+            }}
             className="text-purple-600 flex items-center"
           >
-            <FaQuestionCircle className="mr-2" /> Add Quiz
+            <FaQuestionCircle className="mr-2" /> Create Quiz
           </button>
         </div>
       </div>
 
-      
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
         <AdminDashboardCard title="Total Courses" number={courseCount} />
         <AdminDashboardCard title="Assigned Courses" number="5" />
         <AdminDashboardCard title="Total Users" number={employeeCount} />
       </div>
 
-      
       <div className="bg-gray-50 shadow-md rounded-lg p-4 mb-6">
         <select className="w-full p-2 border border-gray-300 rounded-lg mb-4">
           <option>Select Course</option>
@@ -62,7 +66,6 @@ export default function AdminDashboard() {
         </select>
       </div>
 
-      
       <div className="bg-gray-50 h-auto shadow-md rounded-lg p-4 mb-6">
         <h1 className="text-xl font-semibold mb-6">Compliance Matrics</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
@@ -92,7 +95,6 @@ export default function AdminDashboard() {
           />
         </div>
 
-        
         <div className="bg-gray-100 h-auto mb-4 py-2 px-2 rounded-lg">
           <AdminDashboardBar percent="52" />
           <AdminDashboardBar percent="44" />

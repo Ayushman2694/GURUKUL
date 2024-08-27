@@ -111,13 +111,13 @@ export default function AddFullCourse() {
                   {noOfModule}
                 </td>
                 <td className="px-5 py-3 w-4/12 border-b border-gray-200 bg-white text-lg font-semibold text-center">
-                  <p className="text-gray-900 whitespace-no-wrap">
+                  <div className="text-gray-900 whitespace-no-wrap">
                     {/* {courseData.courseDescription} */}
                     <ShowMoreShowLess
                       descriptionDetail={courseData.courseDescription}
                       charNo={40}
                     />
-                  </p>
+                  </div>
                 </td>
               </tr>
             </tbody>

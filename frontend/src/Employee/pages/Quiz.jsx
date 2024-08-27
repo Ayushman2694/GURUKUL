@@ -43,14 +43,14 @@ export default function Quiz() {
   if (isloading || loadingEmployeeInfo) return <Spinner />;
   return (
     <div className="p-8 w-full bg-gray-100 h-fit">
-      <h1 className="text-4xl font-bold mb-4">{quiz?.title}</h1>
+      <h1 className="text-2xl font-bold mb-4">{quiz?.title}</h1>
 
       {quiz?.questions.map((question, index) => {
         if (question.questionType === "text") {
           return (
             <TextQuestion
               key={index}
-              index={index + 1}
+              index={index}
               question={question}
               onAnswerChange={(answer) => handleAnswerChange(index, answer)}
               setAnswers={setAnswers}
@@ -60,7 +60,7 @@ export default function Quiz() {
           return (
             <SingleCorrectQuestion
               key={index}
-              index={index + 1}
+              index={index}
               question={question}
               onAnswerChange={(answer) => handleAnswerChange(index, answer)}
               setAnswers={setAnswers}
@@ -70,7 +70,7 @@ export default function Quiz() {
           return (
             <MultipeCorrectQuestion
               key={index}
-              index={index + 1}
+              index={index}
               question={question}
               onAnswerChange={(answer) => handleAnswerChange(index, answer)}
               setAnswers={setAnswers}
@@ -80,7 +80,7 @@ export default function Quiz() {
       })}
 
       <button
-        className="ml-2  mt-4 py-2 w-full bg-blue-500 text-white rounded"
+        className="ml-2  mt-2 mb-8 py-2 w-full bg-blue-500 text-white rounded"
         onClick={handleSubmit}
         disabled={isLoading}
       >

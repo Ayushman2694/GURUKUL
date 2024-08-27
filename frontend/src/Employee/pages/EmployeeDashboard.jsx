@@ -26,8 +26,8 @@ export default function EmployeeDashboard() {
   if (loadingCourseByEmpId || loadingEmployeeInfo || isLoading)
     return <Spinner />;
 
-  console.log(courses);
-  console.log(courseByEmpId);
+  // console.log(courses);
+  // console.log(courseByEmpId);
 
   const coursesStatus0OrNotFound = [];
   const coursesStatusMoreThan0LessThan100 = [];

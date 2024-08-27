@@ -13,11 +13,10 @@ export default function AdminCourses() {
   const { isLoading, allCourse } = useAllCourse();
   if (isLoading) return <Spinner />;
   // const [readmore, setReadmore]= useState(false);
-//   function readMoreHandler(){
-//     setReadmore(!readmore);
-//     // console.log("I am clicked");
-// }
-  
+  //   function readMoreHandler(){
+  //     setReadmore(!readmore);
+  //     // console.log("I am clicked");
+  // }
 
   return (
     <div className="min-h-screen w-full bg-white p-4 ">
@@ -79,9 +78,12 @@ export default function AdminCourses() {
                   </p>
                 </td>
                 <td className="px-5 py-3 w-3/12 border-b border-gray-200 bg-white text-sm text-left">
-                  <p className="text-gray-900 whitespace-no-wrap">
-                    <ShowMoreShowLess descriptionDetail={course?.courseDescription} charNo={50}/>                
-                  </p>
+                  <div className="text-gray-900 whitespace-no-wrap">
+                    <ShowMoreShowLess
+                      descriptionDetail={course?.courseDescription}
+                      charNo={50}
+                    />
+                  </div>
                 </td>
                 <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm text-center">
                   <div className="flex justify-center gap-2">
@@ -113,7 +115,6 @@ export default function AdminCourses() {
     </div>
   );
 }
-
 
 // import { RiDeleteBin6Line } from "react-icons/ri";
 // import { MdEdit } from "react-icons/md";
@@ -203,7 +204,7 @@ export default function AdminCourses() {
 //                         onClick={() => toggleReadMore(course?._id)}
 //                       >
 //                         {description.length<40?" ":isExpanded ? " ...Show Less" : " ...Read More"}
-                        
+
 //                       </span>
 //                     </p>
 //                   </td>

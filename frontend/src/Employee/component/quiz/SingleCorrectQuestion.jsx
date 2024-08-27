@@ -38,7 +38,8 @@ export default function SingleCorrectQuestion({ question, index, setAnswers }) {
       </label>
 
       <div className="mb-2">
-        <label className="inline-flex items-center">
+        <label className="inline-flex items-center gap-2">
+          Option 1:
           <input
             type="radio"
             value="option1"
@@ -46,12 +47,13 @@ export default function SingleCorrectQuestion({ question, index, setAnswers }) {
             onChange={handleOptionChange}
             className="form-radio"
           />
-          <span className="ml-2">{question.option1}</span>
+          <span className="ml-0">{question.option1}</span>
         </label>
       </div>
 
       <div className="mb-2">
-        <label className="inline-flex items-center">
+        <label className="inline-flex items-center gap-2">
+          Option 2:
           <input
             type="radio"
             value="option2"
@@ -59,12 +61,13 @@ export default function SingleCorrectQuestion({ question, index, setAnswers }) {
             onChange={handleOptionChange}
             className="form-radio"
           />
-          <span className="ml-2">{question.option2}</span>
+          <span className="ml-0">{question.option2}</span>
         </label>
       </div>
 
       <div className="mb-2">
-        <label className="inline-flex items-center">
+        <label className="inline-flex items-center gap-2">
+          Option 3:
           <input
             type="radio"
             value="option3"
@@ -72,12 +75,13 @@ export default function SingleCorrectQuestion({ question, index, setAnswers }) {
             onChange={handleOptionChange}
             className="form-radio"
           />
-          <span className="ml-2">{question.option3}</span>
+          <span className="ml-0">{question.option3}</span>
         </label>
       </div>
 
       <div className="mb-2">
-        <label className="inline-flex items-center">
+        <label className="inline-flex items-center gap-2">
+          Option 4:
           <input
             type="radio"
             value="option4"
@@ -85,7 +89,7 @@ export default function SingleCorrectQuestion({ question, index, setAnswers }) {
             onChange={handleOptionChange}
             className="form-radio"
           />
-          <span className="ml-2">{question.option4}</span>
+          <span className="ml-0">{question.option4}</span>
         </label>
       </div>
     </div>
