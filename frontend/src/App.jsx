@@ -104,9 +104,15 @@ export default function App() {
             />
             <Route path="admin/addDepartment" element={<AddDetertment />} />
             <Route path="admin/showAllAdmin" element={<ShowAllAdmin />} />
-            <Route path="admin/createQuiz" element={<CreateQuiz />} />
-            <Route path="admin/viewQuiz" element={<ViewQuiz />} />
-            <Route path="admin/editQuiz" element={<EditQuiz />} />
+            <Route path="admin/quizzes/createQuiz" element={<CreateQuiz />} />
+            <Route
+              path="admin/quizzes/viewQuiz/:quizId"
+              element={<ViewQuiz />}
+            />
+            <Route
+              path="admin/quizzes/editQuiz/:quizId"
+              element={<EditQuiz />}
+            />
             <Route
               path="admin/showAllEmployee"
               element={<ShowAllEmployee title="Employee List" />}

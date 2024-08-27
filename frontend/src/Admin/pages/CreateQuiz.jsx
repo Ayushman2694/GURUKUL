@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useUploadQuiz } from "../components/quiz/useUploadQuiz";
 import { IoCreateOutline } from "react-icons/io5";
+import { toast } from "react-toastify";
 
 export default function CreateQuiz() {
   const [quizCards, setQuizCards] = useState([1]);
@@ -28,10 +29,8 @@ export default function CreateQuiz() {
   const navigate = useNavigate();
 
   function checkSubmit(data) {
-    console.log(data);
     uploadQuiz({ title: data.name, questions: questions });
-    console.log({ title: data.name, questions: questions });
-    // setIsSubmitted(true);
+    navigate("/admin/quizzes");
   }
 
   function addQuizCard() {
@@ -126,16 +125,6 @@ export default function CreateQuiz() {
             />
           ))}
         </div>
-        {/* <div className="flex items-center justify-center pb-16 m-2 ">
-          <button
-            onClick={() => {
-              navigate("/admin/quizzes");
-            }}
-            className="bg-blue-600 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Submit
-          </button>
-        </div> */}
       </div>
     </div>
   );

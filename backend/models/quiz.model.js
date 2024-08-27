@@ -14,16 +14,18 @@ const quizSchema = mongoose.Schema(
       type: [mongoose.Schema.Types.Mixed],
       required: true,
     },
-    attemptedBy: [
-      {
-        type: String,
-        unique: true,
-      },
-    ],
+    attemptedBy: {
+      type: [String],
+     default:[]
+    },
+    passedBy: {
+      type: [String],
+     default:[]
+    },
   },
   { timestamp: true }
 );
 
-const Quiz = mongoose.model("Quiz", quizSchema);
+const Quiz = mongoose.model(" Quiz", quizSchema);
 
 export default Quiz;

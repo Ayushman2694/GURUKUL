@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
 import Spinner from "../../Common/Ui/Spinner";
+import CourseName from "../Ui/CourseName";
 
 export default function EmployeeInfo() {
   const [token] = useState(localStorage.getItem("token"));
@@ -55,9 +56,7 @@ export default function EmployeeInfo() {
           <div className="w-full md:w-1/2 border-2 m-1 rounded-sm bg-slate-50 drop-shadow-xl">
             <h3 className="font-semibold p-2 text-lg">Assigned Courses</h3>
             {employe_info.courses.map((course) => (
-              <p key={course} className="px-2 py-1">
-                {course}
-              </p>
+              <CourseName key={course} course={course} />
             ))}
           </div>
         </div>
