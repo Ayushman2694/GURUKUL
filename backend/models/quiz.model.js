@@ -26,6 +26,6 @@ const quizSchema = mongoose.Schema(
   { timestamp: true }
 );
 
-const Quiz = mongoose.model("Quiz", quizSchema);
+const Quiz = mongoose.model(" Quiz", quizSchema);
 
 export default Quiz;
