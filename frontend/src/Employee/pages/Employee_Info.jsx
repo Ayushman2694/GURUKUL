@@ -13,7 +13,7 @@ export default function EmployeeInfo() {
     <div className="flex w-full h-screen">
       <div className="w-full p-4">
         <div className="w-full">
-          <h1 className="text-3xl font-bold px-1">Employee Information</h1>
+          <h1 className="text-2xl md:text-4xl font-bold px-1">Employee Information</h1>
         </div>
         <div className="md:flex w-full py-4">
           <div className="w-full md:w-1/2 border m-1 rounded-sm bg-slate-50 drop-shadow-xl py-2">

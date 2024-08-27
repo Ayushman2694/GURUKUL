@@ -10,6 +10,7 @@ import {
   quizResponse,
   updateQuiz,
 } from "../controllers/quiz.controller.js";
+import { quizByCourseId } from "../controllers/quiz.controller.js";
 
 const router = express.Router();
 
@@ -23,5 +24,6 @@ router.get("/getAllResponse", getAllResponse);
 router.get("/getResponseByResponseId/:id", getResponseByResponseId);
 router.get("/getAllResponse/:quizId", getAllResponse);
 router.post("/quizResponse", quizResponse);
+router.get("/quizByCourseId/:courseId", quizByCourseId);
 
 export default router;
