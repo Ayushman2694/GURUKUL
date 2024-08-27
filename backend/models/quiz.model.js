@@ -22,6 +22,10 @@ const quizSchema = mongoose.Schema(
       type: [String],
       default: [],
     },
+    requestedBy:{
+      type: [String],
+      default:[]
+    }
   },
   { timestamp: true }
 );

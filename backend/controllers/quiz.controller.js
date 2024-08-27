@@ -232,4 +232,29 @@ export const quizAttempt = async (req, res) => {
     console.error(error.message);
     return res.status(500).json({ error: "Error in quizAttempt Controller" });
   }
-};
+}
+
+
+
+export const rrequestedQuiz = async (req,res)=>{
+  const {empId, quizId} = req.body
+
+
+
+  const quiz = await Quiz.findById(quizId)
+  if(!quiz){
+    return res.status(400).json({error:"Quiz not found"})
+  }
+
+  if(quiz.requestedBy.include(empId)){
+    return res.status(400).json({error:"Already requested"})
+
+  }
+  
+ const requestedQuizs =  quiz.requestedBy.push(empId);
+    await requestedQuizs.save()
+    res.status(200).json({ message: "Quiz requested successfully", requestedQuizs });
+
+
+}
+
