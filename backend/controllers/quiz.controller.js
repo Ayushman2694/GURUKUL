@@ -159,3 +159,21 @@ export const getAllResponse = async (req, res) => {
       .json({ error: "Error in getAllResponse controller" });
   }
 };
+export const getResponseByResponseId = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const response = await QuizResponse.findById(id);
+    if (!response) {
+      return res.status(400).json({ error: "error in fetching response" });
+    }
+    return res
+      .status(200)
+      .json({ message: "response fetched successfully", response });
+  } catch (error) {
+    console.log(error.message);
+    return res
+      .status(500)
+      .json({ error: "Error in getResponseByResponseId controller" });
+  }
+};

@@ -132,7 +132,7 @@ export async function showAllRespnse(quizId) {
 }
 
 export async function showRespnseById(id) {
-  const apiUrl = `${url}/api/quiz/getResponseByReponseId/${id}`;
+  const apiUrl = `${url}/api/quiz/getResponseByResponseId/${id}`;
 
   try {
     const response = await axios.get(apiUrl); // Use GET for fetching data

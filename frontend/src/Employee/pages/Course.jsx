@@ -36,7 +36,7 @@ export default function Course() {
 
   return (
     <div className="w-full  md:flex p-4">
-      <div className=" w-full md:w-9/12  overflow-y-auto pb-20">
+      <div className=" w-full md:w-9/12  overflow-y-auto pb-3 md:pb-20">
         {videoLink ? (
           <VideoPlayer
             videoLink={videoLink}
