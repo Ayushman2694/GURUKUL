@@ -35,8 +35,8 @@ export default function Course() {
   const percentage = Math.round((watchedCount / length) * 100);
 
   return (
-    <div className="w-full flex p-4">
-      <div className="w-9/12 overflow-y-auto pb-20">
+    <div className="w-full  md:flex p-4">
+      <div className=" w-full md:w-9/12  overflow-y-auto pb-20">
         {videoLink ? (
           <VideoPlayer
             videoLink={videoLink}
@@ -59,18 +59,9 @@ export default function Course() {
           <h3 className="text-md pb-2 font-bold">Course Discription</h3>
           {course.courseDescription}
         </div>
-
-        {/* <div className="w-full shadow-lg shadow-stone-400 rounded-lg border py-4 mt-8">
-          <p className="text-xl font-bold px-3"> Quizzes</p>
-          <div className="flex flex-wrap">
-            <StartQuizContainer />
-            <StartQuizContainer />
-            <StartQuizContainer />
-          </div>
-        </div> */}
       </div>
 
-      <div className="w-3/12 h-full  px-2 pb-16 ">
+      <div className="w-full md:w-3/12 h-full  px-2 pb-16 ">
         <div className="bg-slate-100 h-full shadow-lg shadow-stone-400 rounded-md overflow-y-auto">
           {sortedmodules.map((module) => (
             <Module

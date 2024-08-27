@@ -55,7 +55,9 @@ export const getQuizByModuleId = async (req, res) => {
     const quiz = await Quiz.find({ module: moduleId });
 
     if (!quiz) {
-      return res.status(400).json({ message: "No quiz found for this module" });
+      return res
+        .status(200)
+        .json({ message: "No quiz found for this module", quiz });
     }
 
     res.status(200).json({ message: "quiz fetched Successfully", quiz });
