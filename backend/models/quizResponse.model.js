@@ -38,6 +38,6 @@ answers: [
 
 })
 
-const QuizResponse = mongoose.Schema(" QuizResponse",quizResponseSchema);
+const QuizResponse = mongoose.Schema("QuizResponse",quizResponseSchema);
 
 export default QuizResponse
