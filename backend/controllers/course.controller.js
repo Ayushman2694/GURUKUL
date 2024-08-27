@@ -1,4 +1,3 @@
-
 import Course from "../models/course.model.js";
 import Module from "../models/module.model.js";
 import Video from "../models/video.model.js";
@@ -6,10 +5,8 @@ import Video from "../models/video.model.js";
 import Department from "../models/department.model.js";
 import Employee from "../models/user.model.js";
 
-
 export const addCourse = async (req, res) => {
   try {
-  
     console.log(req.file);
 
     if (!req.file) {
@@ -17,7 +14,7 @@ export const addCourse = async (req, res) => {
         .status(400)
         .json({ success: false, message: "No file uploaded" });
     }
-    
+
     // Generate the URL for the uploaded thumbnail
     const thumbnail_url = req.file.path;
 
@@ -171,9 +168,7 @@ export const updateCourse = async (req, res) => {
     };
 
     if (req.file) {
-      const thumbnail_url = `${req.protocol}://${req.get("host")}/thumbnail/${
-        req.file.filename
-      }`;
+      const thumbnail_url = req.file.path;
       update.$set.thumbnail = thumbnail_url;
     }
 
@@ -242,45 +237,46 @@ export const getCourseById = async (req, res) => {
   }
 };
 
-
 export const getCourseByDepartment = async (req, res) => {
   try {
-    const { empId} = req.params;
-    const emp = await Employee.findOne({empId});
-    if(!emp){
-      return res.status(400).json({ error: "Employee does not exist" })
+    const { empId } = req.params;
+    const emp = await Employee.findOne({ empId });
+    if (!emp) {
+      return res.status(400).json({ error: "Employee does not exist" });
     }
 
-    const courseInEmp = emp.courses
-   
-    const department = emp.department
-    const isDepartment = await Department.findOne({departmentName:department})
-    if(!isDepartment){
-      return res.status(400).json({ error: "Department does not exist" })
+    const courseInEmp = emp.courses;
+
+    const department = emp.department;
+    const isDepartment = await Department.findOne({
+      departmentName: department,
+    });
+    if (!isDepartment) {
+      return res.status(400).json({ error: "Department does not exist" });
     }
     const course = await Course.find({
       $or: [
         { courseDepartment: department },
         { courseDepartment: "all_department" },
-        {_id:{$in:courseInEmp}}
-      ]
+        { _id: { $in: courseInEmp } },
+      ],
     });
-   
-    
-    if (course.length===0) {
-      return res.status(400).json({ error: "No course found" });
-    }
-    return res.status(200).json({ message: "Course fetched successfully",course });
+
+    return res
+      .status(200)
+      .json({ message: "Course fetched successfully", course });
   } catch (error) {
     console.log(error.message);
-    return res.status(500).json({ error: "error in getCourseByDepartment Controller" });
+    return res
+      .status(500)
+      .json({ error: "error in getCourseByDepartment Controller" });
   }
 };
 
 export const getVideosByCourseId = async (req, res) => {
   try {
     const { _id } = req.params;
-    const modules = await Module.find({course: _id });
+    const modules = await Module.find({ course: _id });
     if (!modules) {
       return res.status(400).json({ error: "module not found" });
     }
@@ -289,12 +285,13 @@ export const getVideosByCourseId = async (req, res) => {
       return acc;
     }, []);
     const videoDetails = await Video.find({ _id: { $in: allVideoIds } });
-  return res
+    return res
       .status(200)
-      .json({ message: "module fetched successfully",videoDetails});
+      .json({ message: "module fetched successfully", videoDetails });
   } catch (error) {
     console.log(error.message);
-    return res.status(500).json({ error: "error in getVideosByModuleId Controller" });
+    return res
+      .status(500)
+      .json({ error: "error in getVideosByModuleId Controller" });
   }
 };
-

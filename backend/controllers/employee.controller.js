@@ -33,14 +33,16 @@ export const deleteEmployee = async (req,res)=>{
 
 export const updateEmployee = async (req,res)=>{
     try {
-        const {empId,employeeName,designation,department,password,joiningDate}=req.body;
+        const {empId,employeeName,designation,department,password,joiningDate,currentCourse}=req.body;
         const updateEmp = {
             $set: {
                 employeeName:employeeName,
                 designation:designation,
                 department:department,
                 password:password,
-                joiningDate:joiningDate
+                joiningDate:joiningDate,
+                currentCourse:currentCourse
+
             },
           };
         await Employee.updateOne({empId},updateEmp);

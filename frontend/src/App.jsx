@@ -33,6 +33,8 @@ import ViewQuiz from "./Admin/pages/ViewQuiz";
 import EditQuiz from "./Admin/pages/EditQuiz";
 import AddFullCourse from "./Admin/pages/AddFullCourse";
 import Protected from "./Employee/Ui/Protected";
+import Request from "./Admin/pages/Request";
+import Certificate from "./Common/Ui/Certificate";
 
 
 const queryClient = new QueryClient({
@@ -50,13 +52,23 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route
+            path="/certificate"
+            element={
+              <Certificate
+                name="Cyril Babu"
+                department="Web Devplor"
+                course="React"
+              />
+            }
+          />
           <Route path="/" element={<Login />} />
           <Route path="*" element={<PageNotFound />} />
           {/* ------------------------------- Employee  Routes ------------------------------- */}
           <Route
             element={
               <PrivateRoute>
-              <EmployeeAppLayout />
+                <EmployeeAppLayout />
               </PrivateRoute>
             }
           >
@@ -66,13 +78,13 @@ export default function App() {
             <Route path="employee/course/:courseId" element={<Course />} />
             <Route path="employee/courses" element={<EmployeeCourses />} />
             <Route path="employee/settings" element={<EmployeeSettings />} />
-            <Route path="employee/quiz" element={<Quiz />} />
+            <Route path="employee/quiz/:quizId" element={<Quiz />} />
           </Route>
           {/* ------------------------------- Admin  Routes ------------------------------- */}
           <Route
             element={
               <Protected>
-              <AdminAppLayout />
+                <AdminAppLayout />
               </Protected>
             }
           >
@@ -83,6 +95,7 @@ export default function App() {
             <Route path="admin/quizzes" element={<Quizzes />} />
             <Route path="admin/users" element={<Users />} />
             <Route path="admin/settings" element={<AdminSettings />} />
+            <Route path="admin/request" element={<Request />} />
             <Route path="admin/SignUp" element={<AdminSignup />} />
             <Route path="admin/employeeSignUp" element={<EmployeeSignup />} />
             <Route
