@@ -59,6 +59,13 @@ const VideoPlayer = ({ videoLink, videoId, courseId, percentage }) => {
         key={videoLink} // Force re-render on videoLink change
         url={videoLink}
         controls
+        config={{
+          file: {
+            attributes: {
+              controlsList: "nodownload",
+            },
+          },
+        }}s
         playing={true} // Enable autoplay
         width="100%"
         height="auto"
