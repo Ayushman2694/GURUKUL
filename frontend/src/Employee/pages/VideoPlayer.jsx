@@ -14,7 +14,6 @@ const VideoPlayer = ({ videoLink, videoId, courseId, percentage }) => {
   const { updateEmployee, isLoading: updateEmployeeLoading } =
     useUpdateEmployee();
   const [duration, setDuration] = useState(0);
-  // const [hasRun, setHasRun] = useState(false);
 
   const { addVideoWatched, isLoading } = useVideoWatched(videoId, courseId);
   const { updateCourseStatus, isLoading: updatingStatus } =
@@ -24,7 +23,6 @@ const VideoPlayer = ({ videoLink, videoId, courseId, percentage }) => {
     const remainingTime = duration - playedSeconds;
     if (remainingTime <= 5) {
       runFunction();
-      // setHasRun(true);
     }
   };
 
@@ -54,11 +52,21 @@ const VideoPlayer = ({ videoLink, videoId, courseId, percentage }) => {
   if (isLoading || loadingEmployee) return <SpinnerMini />;
 
   return (
-    <div className="video-wrapper">
+    <div
+      className="video-wrapper"
+      onContextMenu={(e) => e.preventDefault()} // Disable right-click context menu
+    >
       <ReactPlayer
         key={videoLink} // Force re-render on videoLink change
         url={videoLink}
         controls
+        config={{
+          file: {
+            attributes: {
+              controlsList: "nodownload",
+            },
+          },
+        }}s
         playing={true} // Enable autoplay
         width="100%"
         height="auto"

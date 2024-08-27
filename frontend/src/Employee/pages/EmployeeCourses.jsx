@@ -18,7 +18,7 @@ export default function EmployeeCourses() {
   const { isLoading, courses } = useCourseByEmpId(employe_info?.empId);
 
   if (isLoading || loadingEmployee) return <Spinner />;
-  console.log(courses);
+  console.log(courses, employe_info.currentCourse);
 
   // Separate courses into different categories based on status
   const coursesStatus0OrNotFound = [];
@@ -44,28 +44,13 @@ export default function EmployeeCourses() {
     }
   });
 
-  const getMostRecentCourseForUser = (courses, userId) => {
-    const recentCourse = courses
-      .map((course) => {
-        const userEntry = course.userStatus
-          .filter((status) => status.user === userId)
-          .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))[0];
-
-        return userEntry ? { ...course, recentStatus: userEntry } : null;
-      })
-      .filter((course) => course !== null)
-      .sort(
-        (a, b) =>
-          new Date(b.recentStatus.updatedAt) -
-          new Date(a.recentStatus.updatedAt)
-      )[0];
-
-    return recentCourse || null;
+  const getMostRecentCourseForUser = (courses, currentCourse) => {
+    return courses.find((course) => course._id === currentCourse);
   };
 
   const mostRecentCourse = getMostRecentCourseForUser(
     courses,
-    employe_info.empId
+    employe_info.currentCourse
   );
 
   return (
@@ -73,7 +58,7 @@ export default function EmployeeCourses() {
       {!mostRecentCourse ? null : (
         <>
           <div className="w-full flex">
-            <h1 className="md:text-3xl font-bold  bg-blue-600 text-white pr-8 pl-2 shadow shadow-black py-1 rounded-r-full">
+            <h1 className="md:text-3xl font-bold bg-blue-600 text-white pr-8 pl-2 shadow shadow-black py-1 rounded-r-full">
               Current Courses
             </h1>
           </div>
@@ -85,7 +70,7 @@ export default function EmployeeCourses() {
                 alt="thumbnail"
               />
             </div>
-            <div className="md:w-1/2 p-4 ">
+            <div className="md:w-1/2 p-4 flex flex-col">
               <p className="text-2xl font-bold pb-2">
                 {mostRecentCourse?.courseTitle}
               </p>
@@ -96,7 +81,7 @@ export default function EmployeeCourses() {
                 />
               </p>
               <button
-                className="w-full bg-blue-600 text-slate-50 rounded-md font-bold text-sm p-1 mt-8"
+                className="w-full bg-blue-600 text-slate-50 rounded-md font-bold text-sm p-1 mt-auto"
                 onClick={() => {
                   navigate(`/employee/course/${mostRecentCourse?._id}`);
                 }}
