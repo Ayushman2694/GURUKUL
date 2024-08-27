@@ -53,13 +53,13 @@ const Module = ({
             <div
               className="w-full p-2 flex items-center border-b-2 cursor-pointer"
               onClick={() => {
-                navigate(`/employee/quiz/${quiz[0]._id}`);
+                navigate(`/employee/quiz/${quiz[0]?._id}`);
               }}
             >
               <span className="text-2xl">
                 <TbBulb />
               </span>
-              <p className="text-md font-semibold px-2">{quiz[0].title}</p>
+              <p className="text-md font-semibold px-2">{quiz[0]?.title}</p>
             </div>
           )}
         </>
