@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const quizResponseSchema = mongoose.Schema({
+
   empId: {
     type: String,
     required: true,
@@ -26,3 +27,4 @@ const QuizResponse = new mongoose.model("QuizResponse", quizResponseSchema);
 
 
 export default QuizResponse;
+
