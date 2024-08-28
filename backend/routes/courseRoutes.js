@@ -3,13 +3,13 @@ import express from "express";
 import {
   getallCourse,
   addCourse,
-  deleteCourse,
   addModule,
   updateCourse,
   modulesByCourseId,
   getVideoById,
   getCourseById,
   getCourseByDepartment,
+  deleteCourseAndReferences,
 } from "../controllers/course.controller.js";
 import {
   assignCourse,
@@ -21,7 +21,7 @@ const courseRouter = express.Router();
 
 courseRouter.post("/addCourse", uploadImage.single("thumbnail"), addCourse);
 courseRouter.get("/allCourse", getallCourse);
-courseRouter.post("/deleteCourse", deleteCourse);
+courseRouter.delete("/deleteCourse/:courseId",deleteCourseAndReferences);
 courseRouter.post("/addModule", addModule);
 courseRouter.post(
   "/updateCourse",
