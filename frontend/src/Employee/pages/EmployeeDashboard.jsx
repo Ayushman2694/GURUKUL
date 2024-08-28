@@ -24,9 +24,9 @@ export default function EmployeeDashboard() {
     useCourseByEmpId(employe_info?.empId);
 
 
+
   if (loadingCourseByEmpId || loadingEmployeeInfo )
     return <Spinner />;
-
 
 
   const coursesStatus0OrNotFound = [];

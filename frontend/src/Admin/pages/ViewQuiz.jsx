@@ -4,9 +4,9 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuizId } from "../../Admin/components/quiz/useQuizById";
 import { FaEye } from "react-icons/fa";
-import TextQuestion from "../../Employee/component/quiz/TextQuestion";
-import SingleCorrectQuestion from "../../Employee/component/quiz/SingleCorrectQuestion";
-import MultipeCorrectQuestion from "../../Employee/component/quiz/MultipeCorrectQuestion";
+// import TextQuestion from "../../Employee/component/quiz/TextQuestion";
+// import SingleCorrectQuestion from "../../Employee/component/quiz/SingleCorrectQuestion";
+// import MultipeCorrectQuestion from "../../Employee/component/quiz/MultipeCorrectQuestion";
 import Spinner from "../../Common/Ui/Spinner";
 import BackButton from "../../Common/Ui/BackButton";
 import { useState } from "react";
@@ -15,6 +15,9 @@ import { TiPencil } from "react-icons/ti";
 import SelectModule from "../../Employee/component/quiz/SelectModule";
 import ShowAllQuizResponse from "../../Employee/component/quiz/ShowAllQuizResponse";
 import { FaEyeSlash } from "react-icons/fa";
+import ShowTextAnswer from "../components/quiz/ShowTextAnswer";
+import ShowSingleCorrectOption from "../components/quiz/ShowSingleCorrectOption";
+import ShowMultipleCorrectOption from "../components/quiz/ShowMultipleCorrectOption";
 
 export default function ViewQuiz() {
   const navigate = useNavigate();
@@ -29,8 +32,8 @@ export default function ViewQuiz() {
   return (
     <>
       <BackButton />
-      <div className="p-8 w-full bg-gray-100  h-fit">
-        <h1 className="text-4xl font-bold mb-4">{quiz?.title}</h1>
+      <div className="min-h-screen w-full  bg-white p-4 ">
+        <h1 className="text-3xl font-bold mb-3">{quiz?.title}</h1>
 
         <div className="flex pb-2">
           <button
@@ -69,7 +72,7 @@ export default function ViewQuiz() {
         {quiz?.questions.map((question, index) => {
           if (question.questionType === "text") {
             return (
-              <TextQuestion
+              <ShowTextAnswer
                 key={index}
                 index={index}
                 question={question}
@@ -78,7 +81,7 @@ export default function ViewQuiz() {
             );
           } else if (question.questionType === "singleCorrect") {
             return (
-              <SingleCorrectQuestion
+              <ShowSingleCorrectOption
                 key={index}
                 index={index}
                 question={question}
@@ -87,7 +90,7 @@ export default function ViewQuiz() {
             );
           } else {
             return (
-              <MultipeCorrectQuestion
+              <ShowMultipleCorrectOption
                 key={index}
                 index={index}
                 question={question}
@@ -96,6 +99,7 @@ export default function ViewQuiz() {
             );
           }
         })}
+        <div className="mb-10 h-14"></div>
       </div>
     </>
   );

@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 export default function TextQuestion({ question, index, setAnswers }) {
   const [answer, setAnswer] = useState("");
 
+  console.log("Questions are here ", question);
+
   const handleInputChange = (e) => {
     const newAnswer = e.target.value;
     setAnswer(newAnswer);
