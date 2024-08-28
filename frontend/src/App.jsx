@@ -37,7 +37,6 @@ import Request from "./Admin/pages/Request";
 import Certificate from "./Common/Ui/Certificate";
 import ShowAnswers from "./Admin/components/quiz/ShowAnswers";
 
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -54,7 +53,7 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route
-            path="/certificate"
+            path="/certificate/:name/:courseName/:depertment"
             element={
               <Certificate
                 name="Cyril Babu"

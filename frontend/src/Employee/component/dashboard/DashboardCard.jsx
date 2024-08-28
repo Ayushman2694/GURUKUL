@@ -4,9 +4,21 @@
 import { PiEmptyBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import { IoChevronForwardCircleOutline } from "react-icons/io5";
+import { useState } from "react";
+import { useEmployeeInfo } from "../employee_info/useEmployeeInfo";
 
-export default function DashboardCard({ title, icon, courses }) {
+export default function DashboardCard({
+  title,
+  icon,
+  courses,
+  Certificate = true,
+}) {
   const navigate = useNavigate();
+  const [token] = useState(localStorage.getItem("token"));
+  const { isLoading: loadingEmployeeInfo, employe_info } =
+    useEmployeeInfo(token);
+
+  if (loadingEmployeeInfo) return null;
   return (
     <div className=" py-2 bg-slate-100 border  shadow ">
       <div className="flex">
@@ -39,7 +51,13 @@ export default function DashboardCard({ title, icon, courses }) {
             <li
               key={index}
               onClick={() => {
-                navigate(`/employee/course/${course?._id}`);
+                navigate(
+                  `${
+                    Certificate
+                      ? `/certificate/${employe_info.employeeName}/${course.courseTitle}/${employe_info.department}`
+                      : `/employee/course/${course?._id}`
+                  }`
+                );
               }}
               className=" p-1 flex items-center hover:underline text-lg cursor-pointer font-bold"
             >

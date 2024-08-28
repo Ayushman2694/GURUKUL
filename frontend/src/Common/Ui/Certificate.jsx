@@ -1,38 +1,43 @@
 /* eslint-disable react/prop-types */
 import React, { useRef } from "react";
+import { useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
+import BackButton from "./BackButton";
 
 const Certificate = React.forwardRef((props, ref) => (
-  <div
-    ref={ref}
-    className="bg-white p-10 shadow-lg w-11/12 md:w-3/4 lg:w-1/2 mx-auto my-8 relative"
-  >
-    <div className="border-4 border-blue-500 p-8 relative">
+  <div ref={ref} className="flex items-center justify-center p-4 bg-gray-100">
+    <div className="relative w-full max-w-4xl p-10 bg-white border-2 border-blue-500 shadow-lg rounded-lg text-center">
       <div
-        className="absolute top-4 left-4 w-24 h-24 bg-center bg-contain bg-no-repeat"
-        // style={{ backgroundImage: "url('logo.png')" }}
+        className="absolute top-2 left-2 w-24 h-24 bg-no-repeat bg-center bg-contain"
+        style={{
+          backgroundImage:
+            "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAHcUlEQVR4nO2de4hXRRTHP6u2ZWlqaZakRpaVldVDKzXL1B5qD3ualj0pKnpJ9DCiKKQXQT+IXlBREFlEf0SU9jAq0h6WZfawrMxeVlrmQ81Wd2PjwFm4XO7vd2fOzPzu ... )",
+        }}
       ></div>
-      <h1 className="text-4xl font-bold text-gray-700 mb-2 uppercase">
+      <div className="border border-blue-500 absolute inset-2 pointer-events-none"></div>
+      <h1 className="text-4xl font-bold text-gray-800 mb-5 uppercase tracking-wider">
         Certificate of Completion
       </h1>
-      <div className="h-1 w-32 bg-gradient-to-r from-blue-500 to-green-500 mx-auto my-4"></div>
-      <h2 className="text-2xl text-gray-600 mb-8">Mediversal Gurukul</h2>
-      <p className="text-lg text-gray-700 mb-8">
+      <div className="w-24 h-1 mx-auto bg-gradient-to-r from-blue-500 to-green-500 mb-5"></div>
+      <h2 className="text-2xl text-gray-700 mb-8 font-light">
+        Mediversal Gurukul
+      </h2>
+      <p className="text-lg text-gray-800 mb-8">
         This is to certify that
-        <span className="block text-2xl font-semibold text-blue-500 my-2">
+        <div className="text-2xl font-bold text-blue-500 inline-block my-2 px-2">
           {props.name}
-        </span>
+        </div>
         from the Department of
-        <span className="block text-2xl font-semibold text-blue-500 my-2">
+        <div className="text-2xl font-bold text-blue-500 inline-block my-2 px-2">
           {props.department}
-        </span>
+        </div>
         has successfully completed the course
-        <span className="block text-2xl font-semibold text-blue-500 my-2">
+        <div className="text-2xl font-bold text-blue-500 inline-block my-2 px-2">
           {props.course}
-        </span>
+        </div>
       </p>
-      <div className="h-1 w-32 bg-gradient-to-r from-blue-500 to-green-500 mx-auto my-4"></div>
-      <div className="text-right mt-8 text-gray-600 italic">
+      <div className="w-24 h-1 mx-auto bg-gradient-to-r from-blue-500 to-green-500 mb-8"></div>
+      <div className="italic text-gray-700">
         <p>Director</p>
         <p>Mediversal Gurukul</p>
       </div>
@@ -43,25 +48,30 @@ const Certificate = React.forwardRef((props, ref) => (
 Certificate.displayName = "Certificate";
 
 export default function App() {
+  const { name, courseName, depertment } = useParams();
+  console.log(name, courseName, depertment);
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <Certificate
-        ref={componentRef}
-        name="John Doe"
-        department="Computer Science"
-        course="Full Stack Development"
-      />
-      <button
-        onClick={handlePrint}
-        className="mt-4 px-6 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition duration-300"
-      >
-        Download as PDF
-      </button>
-    </div>
+    <>
+      <BackButton />
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <Certificate
+          ref={componentRef}
+          name={name}
+          course={courseName}
+          department={depertment}
+        />
+        <button
+          onClick={handlePrint}
+          className="mt-4 px-6 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition duration-300"
+        >
+          Download as PDF
+        </button>
+      </div>
+    </>
   );
 }
