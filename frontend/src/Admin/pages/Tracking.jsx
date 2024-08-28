@@ -1,162 +1,44 @@
-import { useNavigate } from "react-router-dom";
-import AdminDashboardPercent from "../components/dashboard/AdminDashboardPercent";
+import { useState } from "react";
+import TrackByCourse from "../components/tracking/TrackByCourse";
+import TrackByDepartment from "../components/tracking/TrackByDepartment";
+import TrackByEmployee from "../components/tracking/TrackByEmployee";
+
 export default function Tracking() {
+  const [selectedOption, setSelectedOption] = useState("");
 
-  const navigate = useNavigate()
+  const handleChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
   return (
-    <div className="min-h-screen w-full bg-white p-4">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold mb-6">Tracking</h1>
-        
-      </div>
-      
-      
-      <div className='bg-gray-50 h-auto shadow-md rounded-lg p-4 mb-6'>
-      <div className="flex justify-between items-center">
-        <h1 className="text-xl font-semibold mb-6">Track by username</h1>
-        <div className="space-x-4 text-sm bg-blue-600 flex mt-0 px-4 py-2 rounded-full">
+    <div className="w-full">
+      <div className="min-h-screen w-full bg-white p-4">
+        <div className="flex justify-between items-center p-2 rounded-lg shadow bg-slate-100 mb-3">
+          <h1 className="text-3xl font-bold">Tracking</h1>
+          <div className="w-4/12 border rounded">
+            <select
+              className=" w-full border p-2 rounded shadow"
+              id="dropdown"
+              value={selectedOption}
+              onChange={handleChange}
+            >
+              <option value="">Track By</option>
+              <option value="Course">Track By Course</option>
+              <option value="Employee">Track By Employee</option>
+              <option value="Department">Track By Department</option>
+            </select>
+          </div>
+        </div>
 
-          <button className='text-white flex items-center'>
-              {/* <FaPlusCircle className="mr-2" /> */}
-               Download Report
-          </button>
-          
-        </div>
-      </div>
-      <div className="m-2 border  rounded-full">
-        <input type="search"
-          placeholder="Search Quiz"
-          className="w-full h-10 border-slate-800 rounded-full px-3" />
-      </div>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <AdminDashboardPercent
-            percent="52"
-            description="completed the course"
-          />
-          <AdminDashboardPercent
-            percent="44"
-            description="currently using the course"
-          />
-          <AdminDashboardPercent
-            percent="98"
-            description="completed the course"
-          />
-          <AdminDashboardPercent
-            percent="24"
-            description="completed the course"
-          />
-          <AdminDashboardPercent
-            percent="39"
-            description="completed the course"
-          />
-          <AdminDashboardPercent
-            percent="75"
-            description="completed the course"
-          />
-          
-          
-        </div>
-        
-       
-      </div>
-      <div className='bg-gray-50 h-auto shadow-md rounded-lg p-4 mb-6'>
-      <div className="flex justify-between items-center">
-        <h1 className="text-xl font-semibold mb-6">Track by Course</h1>
-        <div className="space-x-4 text-sm bg-blue-600 flex mt-0 px-4 py-2 rounded-full">
-
-          <button className='text-white flex items-center'>
-              {/* <FaPlusCircle className="mr-2" /> */}
-               Download Report
-          </button>
-          
-        </div>
-      </div>
-      <div className="m-2 border  rounded-full">
-        <input type="search"
-          placeholder="Search Quiz"
-          className="w-full h-10 border-slate-800 rounded-full px-3" />
-      </div>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <AdminDashboardPercent
-            percent="52"
-            description="completed the course"
-          />
-          <AdminDashboardPercent
-            percent="44"
-            description="currently using the course"
-          />
-          <AdminDashboardPercent
-            percent="98"
-            description="completed the course"
-          />
-          <AdminDashboardPercent
-            percent="24"
-            description="completed the course"
-          />
-          <AdminDashboardPercent
-            percent="39"
-            description="completed the course"
-          />
-          <AdminDashboardPercent
-            percent="75"
-            description="completed the course"
-          />
-          
-          
-        </div>
-        
-       
-      </div>
-      <div className='bg-gray-50 h-auto shadow-md rounded-lg p-4 pb-14'>
-      <div className="flex justify-between items-center">
-        <h1 className="text-xl font-semibold mb-6">Track by Department</h1>
-        <div className="space-x-4 text-sm bg-blue-600 flex mt-0 px-4 py-2 rounded-full">
-
-          <button className='text-white flex items-center'>
-              {/* <FaPlusCircle className="mr-2" /> */}
-               Download Report
-          </button>
-          
-        </div>
-      </div>
-      <div className="m-2 border  rounded-full">
-        <input type="search"
-          placeholder="Search Quiz"
-          className="w-full h-10 border-slate-800 rounded-full px-3" />
-      </div>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <AdminDashboardPercent
-            percent="52"
-            description="completed the course"
-          />
-          <AdminDashboardPercent
-            percent="44"
-            description="currently using the course"
-          />
-          <AdminDashboardPercent
-            percent="98"
-            description="completed the course"
-          />
-          <AdminDashboardPercent
-            percent="24"
-            description="completed the course"
-          />
-          <AdminDashboardPercent
-            percent="39"
-            description="completed the course"
-          />
-          <AdminDashboardPercent
-            percent="75"
-            description="completed the course"
-          />
-          
-          
-        </div>
-        
-       
+        {/* Conditionally render components based on selected option */}
+        {(!selectedOption || selectedOption === "Course") && <TrackByCourse />}
+        {(!selectedOption || selectedOption === "Employee") && (
+          <TrackByEmployee />
+        )}
+        {(!selectedOption || selectedOption === "Department") && (
+          <TrackByDepartment />
+        )}
       </div>
     </div>
   );
-
-
 }

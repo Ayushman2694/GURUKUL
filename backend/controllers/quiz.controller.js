@@ -23,14 +23,14 @@ export const createQuiz = async (req, res) => {
 };
 
 export const updateQuiz = async (req, res) => {
-  const { quizId, title, questions, moduleId } = req.body;
+  const { quizId, title, questions, module } = req.body;
 
   try {
     const updateDetails = {
       $set: {
         title: title,
         questions: questions,
-        moduleId: moduleId,
+        module: module,
       },
     };
 
@@ -44,8 +44,6 @@ export const updateQuiz = async (req, res) => {
 
     return res.status(200).json({ message: "Quiz updated successfully", quiz });
   } catch (error) {
-    console.log(error.message);
-    return res.status(500).json({ error: "error in quiz update controller" });
     console.log(error.message);
     return res.status(500).json({ error: "error in quiz update controller" });
   }

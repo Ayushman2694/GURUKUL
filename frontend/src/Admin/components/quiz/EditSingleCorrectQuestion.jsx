@@ -8,13 +8,13 @@ export default function EditSingleCorrectQuestion({ quiz, index, register }) {
           className="block text-lg font-semibold mb-2"
           htmlFor={`question${index}`}
         >
-          Question {index}
+          Question {index + 1}
         </label>
         <input
           type="text"
           id={`question${index}`}
           className="shadow my-1 appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          defaultValue={quiz.question}
+          defaultValue={quiz?.question}
           {...register(`questions[${index}].question`)}
         />
       </div>

@@ -194,3 +194,24 @@ export async function getQuizByCourseId(courseId) {
     throw error;
   }
 }
+
+export async function addModuleInQuiz(data) {
+  const apiUrl = `${url}/api/quiz/updateQuiz`;
+
+  try {
+    const response = await axios.put(apiUrl, data); // Use put for updating data
+
+    if (response.status === 200) {
+      return response.data.allQuizzes; // Assuming response.data contains the array of admin details
+    } else {
+      console.error(
+        "Failed to fetch employee information:",
+        response.data.error
+      );
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching employee information:", error);
+    throw error;
+  }
+}

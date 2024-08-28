@@ -21,7 +21,6 @@ export default function EmployeeCourses() {
     useCourseNotByEmpId(employe_info?.empId);
 
   if (isLoading || loadingEmployee || loadingMoreCourse) return <Spinner />;
-  console.log(courses, employe_info.currentCourse);
 
   // Separate courses into different categories based on status
   const coursesStatus0OrNotFound = [];

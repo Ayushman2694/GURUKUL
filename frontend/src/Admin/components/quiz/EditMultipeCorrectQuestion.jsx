@@ -8,7 +8,7 @@ export default function EditMultipleCorrectQuestion({ quiz, index, register }) {
           className="block text-lg font-semibold mb-2"
           htmlFor={`question${index}`}
         >
-          Question {index}
+          Question {index + 1}
         </label>
         <input
           type="text"
