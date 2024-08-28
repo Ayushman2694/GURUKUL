@@ -4,6 +4,8 @@ import Video from "../models/video.model.js";
 
 import Department from "../models/department.model.js";
 import Employee from "../models/user.model.js";
+import mongoose from "mongoose";
+import Quiz from "../models/quiz.model.js";
 
 export const addCourse = async (req, res) => {
   try {
@@ -49,39 +51,62 @@ export const getallCourse = async (req, res) => {
 
 
 
-export const deleteCourseWithCascade = async (req, res) => {
+export const deleteCourseAndReferences = async (req, res) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
   try {
     const { courseId } = req.params;
 
-    const course = await Course.findById(courseId);
-    if (!course) {
-      return res.status(400).json({ success: false, message: "Course not found" });
+    const modules = await Module.find({ course: courseId }).session(session);
+
+    for (const module of modules) {
+ 
+      const quizzes = await Quiz.find({ module: module._id }).session(session);
+
+      for (const quiz of quizzes) {
+
+        await Quiz.findByIdAndDelete(quiz._id).session(session);
+      }
+
+
+      const videos = await Video.find({ _id: { $in: module.video } }).session(session);
+
+      for (const video of videos) {
+
+        await Video.findByIdAndDelete(video._id).session(session);
+      }
+
+
+      await Module.findByIdAndDelete(module._id).session(session);
     }
 
-    const modules = await Module.find({ course: courseId });
-    if (modules.length > 0) {
-      const videoIds = modules.flatMap((module) => module.video);
 
-      await Video.deleteMany({ _id: { $in: videoIds } });
+    await Employee.updateMany(
+      { courses: courseId },
+      { $pull: { courses: courseId } }
+    ).session(session);
 
-      await Module.deleteMany({ course: courseId });
-    }
 
-    await Course.findByIdAndDelete(courseId);
+    await Employee.updateMany(
+      { currentCourse: courseId },
+      { $set: { currentCourse: null } }
+    ).session(session);
 
-    res.status(200).json({
-      success: true,
-      message: "Course and its related modules/videos deleted successfully",
-    });
+
+    await Course.findByIdAndDelete(courseId).session(session);
+
+    await session.commitTransaction();
+    session.endSession();
+
+    return res.status(200).json({ message: "Course and its references deleted successfully" });
   } catch (error) {
-    console.log("Error in deleteCourseWithCascade controller:", error.message);
-    res.status(500).json({
-      success: false,
-      message: "Server error, error in deleteCourseWithCascade controller",
-    });
+    await session.abortTransaction();
+    session.endSession();
+    console.error(error.message);
+    return res.status(500).json({ error: "Error deleting course and its references" });
   }
 };
-
 
 // viudeo controller
 

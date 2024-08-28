@@ -12,14 +12,13 @@ import { useDeleteCourse } from "../components/courses/useDeleteCourse";
 export default function AdminCourses() {
   const navigate = useNavigate();
   const { isLoading, allCourse } = useAllCourse();
-  const { removeCourse ,isLoading:deleteCourseLoading } = useDeleteCourse();
+  const { removeCourse, isLoading: deleteCourseLoading } = useDeleteCourse();
   if (isLoading) return <Spinner />;
   // const [readmore, setReadmore]= useState(false);
-//   function readMoreHandler(){
-//     setReadmore(!readmore);
-//     // console.log("I am clicked");
-// }
-  
+  //   function readMoreHandler(){
+  //     setReadmore(!readmore);
+  //     // console.log("I am clicked");
+  // }
 
   return (
     <div className="min-h-screen w-full bg-white p-4 ">
@@ -82,7 +81,10 @@ export default function AdminCourses() {
                 </td>
                 <td className="px-5 py-3 w-3/12 border-b border-gray-200 bg-white text-sm text-left">
                   <p className="text-gray-900 whitespace-no-wrap">
-                    <ShowMoreShowLess descriptionDetail={course?.courseDescription} charNo={50}/>                
+                    <ShowMoreShowLess
+                      descriptionDetail={course?.courseDescription}
+                      charNo={50}
+                    />
                   </p>
                 </td>
                 <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm text-center">
@@ -99,12 +101,13 @@ export default function AdminCourses() {
                       </span>
                       Edit
                     </button>
-                    <button onClick={() => {
-                          removeCourse({
-                            _id: course._id,
-                          });
-                        }}
-                        disabled={deleteCourseLoading}className="flex items-center gap-2 bg-red-600 text-white font-semibold px-4 py-2 rounded-full hover:bg-red-700">
+                    <button
+                      onClick={() => {
+                        removeCourse(course._id);
+                      }}
+                      disabled={deleteCourseLoading}
+                      className="flex items-center gap-2 bg-red-600 text-white font-semibold px-4 py-2 rounded-full hover:bg-red-700"
+                    >
                       <span className="text-xl">
                         <RiDeleteBin6Line />
                       </span>
@@ -120,7 +123,6 @@ export default function AdminCourses() {
     </div>
   );
 }
-
 
 // import { RiDeleteBin6Line } from "react-icons/ri";
 // import { MdEdit } from "react-icons/md";
@@ -210,7 +212,7 @@ export default function AdminCourses() {
 //                         onClick={() => toggleReadMore(course?._id)}
 //                       >
 //                         {description.length<40?" ":isExpanded ? " ...Show Less" : " ...Read More"}
-                        
+
 //                       </span>
 //                     </p>
 //                   </td>
