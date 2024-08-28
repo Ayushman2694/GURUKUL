@@ -8,7 +8,9 @@ import {
   getQuizByModuleId,
   getResponseByResponseId,
   quizResponse,
+  rrequestedQuiz,
   updateQuiz,
+  quizAttempt
 } from "../controllers/quiz.controller.js";
 import { quizByCourseId } from "../controllers/quiz.controller.js";
 
@@ -22,7 +24,14 @@ router.get("/getAllQuiz", getAllQuiz);
 router.get("/getQuizById/:id", getQuizById);
 router.get("/getAllResponse", getAllResponse);
 router.get("/getResponseByResponseId/:id", getResponseByResponseId);
+router.get("/getAllResponse/:quizId", getAllResponse);
 router.post("/quizResponse", quizResponse);
 router.get("/quizByCourseId/:courseId", quizByCourseId);
+
+router.get("/requestQuiz",rrequestedQuiz)
+
+router.post("/quizAttempt",quizAttempt);
+
+
 
 export default router;

@@ -22,10 +22,14 @@ const quizSchema = mongoose.Schema(
       type: [String],
       default: [],
     },
+    requestedBy:{
+      type: [String],
+      default:[]
+    }
   },
   { timestamp: true }
 );
 
-const Quiz = mongoose.model(" Quiz", quizSchema);
+const Quiz = mongoose.model("Quiz", quizSchema);
 
 export default Quiz;

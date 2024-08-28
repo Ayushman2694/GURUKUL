@@ -58,7 +58,7 @@ const Login = () => {
         <span className="block md:hidden">Mediversal Gurukul</span>
         <span className="hidden md:block">Welcome to Mediversal Gurukul</span>
       </h1>
-      
+
       <div
         className="bg-white md:p-8 h-auto  rounded-lg shadow-lg flex w-3/4 md:w-3/4 max-w-4xl"
         // style={{ minHeight: "470px" }}
@@ -67,8 +67,8 @@ const Login = () => {
           className="w-full md:w-1/2 h-auto md:p-6 p-3 bg-white rounded-lg shadow-md flex flex-col justify-center"
           // style={{ height: "400px" }}
         >
-          <h2 className="text-xl font-bold mb-4 text-center">Login As</h2>
-          <div className="flex justify-center items-center mb-2 md:mb-4">
+          <h2 className="text-xl font-bold mb-4 text-center">Login</h2>
+          <div className="hidden md:flex justify-center items-center md:mb-4">
             <span
               className={`mr-4 ${isEmployee ? "text-black" : "text-gray-500"}`}
             >

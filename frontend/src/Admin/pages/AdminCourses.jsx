@@ -7,10 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { useAllCourse } from "../components/courses/useAllCourse";
 // import { useState } from "react";
 import ShowMoreShowLess from "../../Common/Ui/ShowMoreShowLess";
+import { useDeleteCourse } from "../components/courses/useDeleteCourse";
 
 export default function AdminCourses() {
   const navigate = useNavigate();
   const { isLoading, allCourse } = useAllCourse();
+  const { removeCourse ,isLoading:deleteCourseLoading } = useDeleteCourse();
   if (isLoading) return <Spinner />;
   // const [readmore, setReadmore]= useState(false);
   //   function readMoreHandler(){
@@ -99,7 +101,12 @@ export default function AdminCourses() {
                       </span>
                       Edit
                     </button>
-                    <button className="flex items-center gap-2 bg-red-600 text-white font-semibold px-4 py-2 rounded-full hover:bg-red-700">
+                    <button onClick={() => {
+                          removeCourse({
+                            _id: course._id,
+                          });
+                        }}
+                        disabled={deleteCourseLoading}className="flex items-center gap-2 bg-red-600 text-white font-semibold px-4 py-2 rounded-full hover:bg-red-700">
                       <span className="text-xl">
                         <RiDeleteBin6Line />
                       </span>

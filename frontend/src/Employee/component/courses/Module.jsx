@@ -18,6 +18,7 @@ const Module = ({
   setVideoDiscription,
   setVideoLink,
   setVideoId,
+  empId,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => setIsOpen(!isOpen);
@@ -25,7 +26,18 @@ const Module = ({
   const navigate = useNavigate();
 
   if (isLoading) return <Spinner />;
-  // console.log(quiz);
+
+  let attempted;
+  let passed;
+
+  quiz.some((item) => {
+    // Check if empId is in attemptedBy
+    attempted = item.attemptedBy.includes(empId);
+    // Check if empId is in passedBy
+    passed = item.passedBy.includes(empId);
+  });
+
+  console.log(quiz);
 
   return (
     <div className="w-full">
@@ -49,17 +61,22 @@ const Module = ({
               setVideoId={setVideoId}
             />
           ))}
-          {quiz && (
+          {quiz.length !== 0 && (
             <div
-              className="w-full p-2 flex items-center border-b-2 cursor-pointer"
+              className={`w-full p-2 flex items-center border-b-2 cursor-pointer ${
+                attempted && (passed ? "bg-green-300" : "bg-red-300")
+              }`}
               onClick={() => {
-                navigate(`/employee/quiz/${quiz[0]?._id}`);
+                if (!attempted) navigate(`/employee/quiz/${quiz[0]?._id}`);
               }}
             >
               <span className="text-2xl">
                 <TbBulb />
               </span>
-              <p className="text-md font-semibold px-2">{quiz[0]?.title}</p>
+              <p className="text-md font-semibold px-2">
+                {quiz[0]?.title}
+                {attempted && (passed ? "(passed)" : "(failed)")}
+              </p>
             </div>
           )}
         </>

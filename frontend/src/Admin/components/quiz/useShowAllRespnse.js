@@ -1,14 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { showAllCourse } from "../../service/courses";
+
+import { showAllRespnse } from "../../service/quiz";
 
 export function useShowAllRespnse(quizId) {
-  const { isLoading, data: allCourse } = useQuery({
+  const { isLoading, data: allResponse } = useQuery({
     queryKey: ["AllRespnse", quizId],
-    queryFn: () => showAllCourse(quizId),
+    queryFn: () => showAllRespnse(quizId),
   });
 
   return {
     isLoading,
-    allCourse,
+    allResponse,
   };
 }
