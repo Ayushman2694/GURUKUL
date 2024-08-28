@@ -7,14 +7,20 @@ import { FaBook } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 import { IoIosLogOut } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Logout } from "../../Common/service/auth";
 
 export default function SideBar() {
-  const [itemSelected, setItemSelected] = useState("dashboard");
+  const [itemSelected, setItemSelected] = useState(
+    localStorage.getItem("sidebar-selected") || "dashboard"
+  );
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem("sidebar-selected", itemSelected);
+  }, [itemSelected]);
 
   return (
     <div className="bg-blue-700 h-full w-full border-t-2 pt-1 flex justify-center">

@@ -1,76 +1,17 @@
-import React from "react";
-import Spinner from "../../Common/Ui/Spinner";
 import EditTextQuestion from "../components/quiz/EditTextQuestion";
 import EditSingleCorrectQuestion from "../components/quiz/EditSingleCorrectQuestion";
 import EditMultipeCorrectQuestion from "../components/quiz/EditMultipeCorrectQuestion";
 import { IoCreateOutline } from "react-icons/io5";
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
+import { useQuizId } from "../components/quiz/useQuizById";
+import Spinner from "../../Common/Ui/Spinner";
 
 export default function EditQuiz() {
-  const Quizs = [
-    {
-      quizTitle: "Animal Quiz",
-    },
-    {
-      correctAnswer: "Elephant",
-      question: "What is the largest land animal?",
-      questionType: "text",
-    },
-    {
-      correctAnswer: "option2",
-      option1: "Lion",
-      option2: "Tiger",
-      option3: "Cheetah",
-      option4: "Leopard",
-      question: "Which animal is known as the 'King of the Jungle'?",
-      questionType: "singleCorrect",
-    },
-    {
-      correctAnswer: ["option1", "option3"],
-      option1: "Penguin",
-      option2: "Eagle",
-      option3: "Albatross",
-      option4: "Parrot",
-      question: "Which of these animals can fly?",
-      questionType: "multipleCorrect",
-    },
-    {
-      correctAnswer: "Giraffe",
-      question: "Which animal has the longest neck?",
-      questionType: "text",
-    },
-    {
-      correctAnswer: "Blue Whale",
-      question: "What is the largest animal in the world?",
-      questionType: "text",
-    },
-    {
-      correctAnswer: ["option2", "option4"],
-      option1: "Cat",
-      option2: "Dog",
-      option3: "Hamster",
-      option4: "Rabbit",
-      question: "Which of these animals are commonly kept as pets?",
-      questionType: "multipleCorrect",
-    },
-    {
-      correctAnswer: "Hawk",
-      option1: "Eagle",
-      option2: "Hawk",
-      option3: "Vulture",
-      option4: "Owl",
-      question:
-        "Which bird is known for its excellent vision and hunting skills?",
-      questionType: "singleCorrect",
-    },
-  ];
+  const { quizId } = useParams();
+  const { isloading, quiz } = useQuizId(quizId);
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   function checkSubmit(data) {
     console.log(data);
@@ -78,6 +19,8 @@ export default function EditQuiz() {
     // console.log({ title: data.name, questions: questions });
     // setIsSubmitted(true);
   }
+  if (isloading) return <Spinner />;
+  
 
   return (
     <div className="min-h-screen w-full bg-white p-4">
@@ -92,7 +35,7 @@ export default function EditQuiz() {
                 className="block text-gray-700 text-lg font-bold mb-"
                 htmlFor="quizTitle"
               >
-                Quiz Title
+              
               </label>
               <button
                 type="submit"
@@ -108,14 +51,14 @@ export default function EditQuiz() {
               type="text"
               id="quizTitle"
               className="shadow appearance-none border rounded w-full py-2  mb-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              defaultValue={Quizs[0]?.quizTitle}
+              defaultValue={quiz.title}
               {...register("title", {
                 required: "This field is required",
               })}
             />
           </div>
 
-          {Quizs.slice(1).map((quiz, index) => {
+          {quiz.questions.map((quiz, index) => {
             if (quiz.questionType === "text") {
               return (
                 <EditTextQuestion
