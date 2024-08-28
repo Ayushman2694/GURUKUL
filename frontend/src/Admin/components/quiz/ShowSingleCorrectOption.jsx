@@ -1,37 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 
-export default function SingleCorrectQuestion({ question, index, setAnswers }) {
-  const [selectedOption, setSelectedOption] = useState("");
-
-  // console.log("Questions are here ", question);
-
-  const handleOptionChange = (event) => {
-    const newSelectedOption = event.target.value;
-    setSelectedOption(newSelectedOption);
-
-    // Update the answers array with the new selected option as userAnswer
-    setAnswers((prevAnswers) => {
-      const updatedAnswers = [...prevAnswers];
-      const updatedQuestion = {
-        ...updatedAnswers[index],
-        userAnswer: newSelectedOption,
-      };
-      updatedAnswers[index] = updatedQuestion;
-      return updatedAnswers;
-    });
-  };
-
-  useEffect(() => {
-    // Ensure that setAnswers has an entry for this question when it first renders
-    setAnswers((prevAnswers) => {
-      const updatedAnswers = [...prevAnswers];
-      if (!updatedAnswers[index]) {
-        updatedAnswers[index] = { ...question, userAnswer: "" };
-      }
-      return updatedAnswers;
-    });
-  }, [index, setAnswers, question]);
+export default function ShowSingleCorrectOption({
+  question,
+  index,
+  setAnswers,
+}) {
+  //   const [selectedOption, setSelectedOption] = useState("");
 
   return (
     <div className="w-full m-2 p-2 border bg-gray-200 rounded-md">
@@ -45,8 +20,8 @@ export default function SingleCorrectQuestion({ question, index, setAnswers }) {
           <input
             type="radio"
             value="option1"
-            checked={selectedOption === "option1"}
-            onChange={handleOptionChange}
+            checked={question.correctAnswer === "option1"}
+            readOnly
             className="form-radio"
           />
           <span className="ml-0">{question.option1}</span>
@@ -59,8 +34,8 @@ export default function SingleCorrectQuestion({ question, index, setAnswers }) {
           <input
             type="radio"
             value="option2"
-            checked={selectedOption === "option2"}
-            onChange={handleOptionChange}
+            checked={question.correctAnswer === "option2"}
+            readOnly
             className="form-radio"
           />
           <span className="ml-0">{question.option2}</span>
@@ -73,8 +48,8 @@ export default function SingleCorrectQuestion({ question, index, setAnswers }) {
           <input
             type="radio"
             value="option3"
-            checked={selectedOption === "option3"}
-            onChange={handleOptionChange}
+            checked={question.correctAnswer === "option3"}
+            readOnly
             className="form-radio"
           />
           <span className="ml-0">{question.option3}</span>
@@ -87,8 +62,8 @@ export default function SingleCorrectQuestion({ question, index, setAnswers }) {
           <input
             type="radio"
             value="option4"
-            checked={selectedOption === "option4"}
-            onChange={handleOptionChange}
+            checked={question.correctAnswer === "option4"}
+            readOnly
             className="form-radio"
           />
           <span className="ml-0">{question.option4}</span>

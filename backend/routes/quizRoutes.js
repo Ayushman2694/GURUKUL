@@ -8,16 +8,20 @@ import {
   getQuizByModuleId,
   getResponseByResponseId,
   quizResponse,
-  rrequestedQuiz,
   updateQuiz,
   quizAttempt,
+
+  requestedQuiz
+
 } from "../controllers/quiz.controller.js";
 import { quizByCourseId } from "../controllers/quiz.controller.js";
 
 const router = express.Router();
 
 router.post("/createQuiz", createQuiz);
+
 router.put("/updateQuiz", updateQuiz);
+
 router.delete("deleteQuiz/:id", deleteQuiz);
 router.get("/getQuizByModuleId/:moduleId", getQuizByModuleId);
 router.get("/getAllQuiz", getAllQuiz);
@@ -28,8 +32,13 @@ router.get("/getAllResponse/:quizId", getAllResponse);
 router.post("/quizResponse", quizResponse);
 router.get("/quizByCourseId/:courseId", quizByCourseId);
 
-router.get("/requestQuiz", rrequestedQuiz);
 
-router.post("/quizAttempt", quizAttempt);
+router.get("/requestQuiz",requestedQuiz)
+
+router.post("/quizAttempt",quizAttempt);
+
+
+
+
 
 export default router;

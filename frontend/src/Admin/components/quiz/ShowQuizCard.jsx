@@ -9,9 +9,9 @@ export default function ShowQuizCard({ title, description, viewQuizHandler }) {
       onClick={viewQuizHandler}
     >
       <h2 className=" text-xl font-bold"> {title}</h2>
-      <p className="text-gray-600">
+      <div className="text-gray-600">
         <ShowMoreShowLess descriptionDetail={description} charNo={42} />
-      </p>
+      </div>
       <div className="flex gap-2 mt-4 item justify-end items-center">
         <button
           onClick={viewQuizHandler}

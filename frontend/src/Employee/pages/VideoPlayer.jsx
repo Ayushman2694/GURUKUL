@@ -21,7 +21,7 @@ const VideoPlayer = ({ videoLink, videoId, courseId, percentage }) => {
 
   const handleProgress = ({ playedSeconds }) => {
     const remainingTime = duration - playedSeconds;
-    if (remainingTime <= 5) {
+    if (remainingTime <= 1) {
       runFunction();
     }
   };

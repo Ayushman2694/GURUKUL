@@ -5,10 +5,8 @@ export function useQuizId(id) {
   const { isLoading, data: quiz } = useQuery({
     queryKey: ["quiz", id],
     queryFn: () => showQuizesById(id),
+
   });
-
-  // console.log(quiz);
-
   return {
     isLoading,
     quiz,

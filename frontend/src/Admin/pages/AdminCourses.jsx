@@ -80,12 +80,20 @@ export default function AdminCourses() {
                   </p>
                 </td>
                 <td className="px-5 py-3 w-3/12 border-b border-gray-200 bg-white text-sm text-left">
-                  <p className="text-gray-900 whitespace-no-wrap">
+
+                  <div className="text-gray-900 whitespace-no-wrap">
+
+                  <div className="text-gray-900 whitespace-no-wrap">
+
                     <ShowMoreShowLess
                       descriptionDetail={course?.courseDescription}
                       charNo={50}
                     />
-                  </p>
+
+                  </div>
+
+                  </div>
+
                 </td>
                 <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm text-center">
                   <div className="flex justify-center gap-2">

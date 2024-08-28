@@ -19,7 +19,7 @@ export default function CreateQuiz() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { uploadQuiz, isLoading } = useUploadQuiz();
   const [questions, setQuestions] = useState([]);
-  console.log(questions);
+  // console.log(questions);
   const {
     register,
     handleSubmit,

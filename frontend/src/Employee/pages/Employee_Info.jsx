@@ -13,6 +13,12 @@ export default function EmployeeInfo() {
   const { isLoading, employe_info } = useEmployeeInfo(token);
 
   if (isLoading) return <Spinner />;
+  const parseDate = (dateString) => {
+    const [day, month, year] = dateString.split("-");
+    return new Date(`${year}-${month}-${day}`);
+  };
+
+  console.log(employe_info);
 
   return (
     <div className="flex w-full h-screen">
@@ -33,7 +39,7 @@ export default function EmployeeInfo() {
                   </span>
                 </h3>
                 <div className=" bg-blue-600">
-                  <h3 className="text-sm font-bold flex text-slate-100 bg-slate-100 rounded-tl-lg relative overflow-hidden">
+                  <h3 className="text-sm font-bold flex text-slate-100 bg-slate-50 rounded-tl-lg relative overflow-hidden">
                     <span className="absolute inset-x-0 inset-r-0 h-2 "></span>.
                   </h3>
                 </div>
@@ -66,7 +72,7 @@ export default function EmployeeInfo() {
             <div className="flex p-2">
               <div className="w-1/2 font-medium">Joining Date:</div>
               <div className="w-1/2 flex justify-end">
-                {new Date(employe_info.joiningDate).toLocaleDateString()}
+                {parseDate(employe_info.joiningDate).toLocaleDateString()}
               </div>
             </div>
             <div className="flex p-2">
@@ -86,7 +92,7 @@ export default function EmployeeInfo() {
                   </span>
                 </h3>
                 <div className=" bg-blue-600">
-                  <h3 className="text-sm font-bold flex text-slate-100 bg-slate-100 rounded-tl-lg relative overflow-hidden">
+                  <h3 className="text-sm font-bold flex text-slate-100 bg-slate-50 rounded-tl-lg relative overflow-hidden">
                     <span className="absolute inset-x-0 inset-r-0 h-2 "></span>.
                   </h3>
                 </div>

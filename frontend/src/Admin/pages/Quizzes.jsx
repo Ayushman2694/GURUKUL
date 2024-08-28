@@ -8,7 +8,7 @@ export default function Quizzes() {
   const { isLoading, allQuizs } = useAllQuizs();
   if (isLoading) return <Spinner />;
 
-  console.log(allQuizs);
+  // console.log(allQuizs);
   return (
     <div className="min-h-screen w-full bg-white p-4">
       <div className="flex justify-between items-center">
@@ -28,7 +28,7 @@ export default function Quizzes() {
         <input
           type="search"
           placeholder="Search Quiz"
-          className="w-full h-10  bg-gray-100  rounded-full px-3"
+          className="shadow  appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
       </div>
       <div className="grid grid-cols-3 gap-4 mb-6">
