@@ -1,7 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { FaPlusCircle, FaUserPlus, FaQuestionCircle } from "react-icons/fa";
 import AdminDashboardCard from "../components/dashboard/AdminDashboardCard";
 import AdminDashboardPercent from "../components/dashboard/AdminDashboardPercent";
-import AdminDashboardBar from "../components/dashboard/AdminDashboardBar";
 import { useNavigate } from "react-router-dom";
 import { useAllCourse } from "../components/courses/useAllCourse";
 import { useAllEmployee } from "../components/settings/useAllEmployee";
@@ -9,6 +9,8 @@ import Spinner from "../../Common/Ui/Spinner";
 import CourseDropdown from "../ui/CourseDropDown";
 import { useState } from "react";
 import { useQuizByCourseId } from "../components/quiz/useQuizByCourseId";
+import MyBarChart from "../components/Chart/BarChart";
+import MyPieChart from "../components/Chart/PieChart";
 
 export default function AdminDashboard() {
   const { isLoading: loadindCourses, allCourse } = useAllCourse();
@@ -19,7 +21,7 @@ export default function AdminDashboard() {
     selectedOption || null
   );
 
-  if (loadindCourses || loadingAllEmployee || loadingQuizs) return <Spinner />;
+  if (loadindCourses || loadingAllEmployee) return <Spinner />;
 
   console.log(quizs);
   const courseCount = allCourse ? allCourse.length : 0;
@@ -75,8 +77,45 @@ export default function AdminDashboard() {
     attemptedNotPassed
   );
 
+  const data = [
+    {
+      name: "completed",
+      percent: Math.round((usersWithStatus100 / employeeCount) * 100),
+    },
+    {
+      name: "currently doing",
+      percent: Math.round((usersWithStatusLessThan100 / employeeCount) * 100),
+    },
+    {
+      name: "not started",
+      percent: Math.round(
+        ((employeeCount - usersWithStatus100 - usersWithStatusLessThan100) /
+          employeeCount) *
+          100
+      ),
+    },
+    {
+      name: "passed all quizzes",
+      percent: Math.round(
+        (employeesPassedAllQuizzes.length / employeeCount) * 100
+      ),
+    },
+    {
+      name: "failed a quiz",
+      percent: Math.round(
+        ((employeeCount - attemptedNotPassed.length) / employeeCount) * 100
+      ),
+    },
+    {
+      name: "not started Quiz",
+      percent: Math.round(
+        ((employeeCount - uniqueAttemptedByArray.length) / employeeCount) * 100
+      ),
+    },
+  ];
+
   return (
-    <div className="min-h-screen w-full bg-white p-4">
+    <div className="min-h-screen w-full bg-white p-4 ">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-center">
         <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
@@ -109,12 +148,20 @@ export default function AdminDashboard() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-        <AdminDashboardCard title="Total Courses" number={courseCount} />
-        <AdminDashboardCard title="Assigned Courses" number="5" />
-        <AdminDashboardCard title="Total Users" number={employeeCount} />
+        <AdminDashboardCard
+          title="Total Courses"
+          number={courseCount}
+          color="green"
+        />
+        <AdminDashboardCard title="Assigned Courses" number="5" color="red" />
+        <AdminDashboardCard
+          title="Total Users"
+          number={employeeCount}
+          color="fuchsia"
+        />
       </div>
 
-      <div className="bg-gray-50 shadow-md rounded-lg my-4 mb-6">
+      <div className="shadow-md rounded-lg my-4 mb-6">
         <CourseDropdown
           selectedOption={selectedOption}
           setSelectedOption={setSelectedOption}
@@ -122,8 +169,21 @@ export default function AdminDashboard() {
       </div>
 
       <div className="bg-gray-50 h-auto shadow-md rounded-lg p-4 mb-6">
-        <h1 className="text-xl font-semibold mb-6">Compliance Matrics</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        <div className="w-full flex pt-4">
+          <h1 className="md:text-3xl font-bold  bg-blue-600 text-white pr-8 pl-2 shadow shadow-black py-1 mb-4 rounded-r-full">
+            Compliance Matrics
+          </h1>
+        </div>
+
+        <div className="bg-gray-100 h-auto mb-4 flex py-2 px-2 rounded-lg  w-full">
+          <div className="w-1/2 mr-1">
+            <MyPieChart data={data} />
+          </div>
+          <div className="w-1/2 mr-1">
+            <MyBarChart data={data} />
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4  mb-20">
           <AdminDashboardPercent
             percent={((usersWithStatus100 / employeeCount) * 100).toFixed(2)}
             description="completed the course"
@@ -167,18 +227,6 @@ export default function AdminDashboard() {
             ).toFixed(2)}
             description="of employee not started Quiz"
           />
-        </div>
-
-        <div className="bg-gray-100 h-auto mb-4 py-2 px-2 rounded-lg">
-          <AdminDashboardBar percent="52" />
-          <AdminDashboardBar percent="44" />
-          <AdminDashboardBar percent="98" />
-          <AdminDashboardBar percent="24" />
-          <AdminDashboardBar percent="39" />
-          <AdminDashboardBar percent="75" />
-          <button className="bg-blue-600 mb-14 text-white w-full py-2 rounded-full hover:bg-blue-700">
-            Download Metrics
-          </button>
         </div>
       </div>
     </div>
