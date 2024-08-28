@@ -66,40 +66,36 @@ export default function ViewQuiz() {
           </button>
         </div>
 
-        {viewResponse ? (
-          <ShowAllQuizResponse quizId={quizId} />
-        ) : (
-          quiz?.questions.map((question, index) => {
-            if (question.questionType === "text") {
-              return (
-                <TextQuestion
-                  key={index}
-                  index={index + 1}
-                  question={question}
-                  setAnswers={setAnswers}
-                />
-              );
-            } else if (question.questionType === "singleCorrect") {
-              return (
-                <SingleCorrectQuestion
-                  key={index}
-                  index={index + 1}
-                  question={question}
-                  setAnswers={setAnswers}
-                />
-              );
-            } else {
-              return (
-                <MultipeCorrectQuestion
-                  key={index}
-                  index={index + 1}
-                  question={question}
-                  setAnswers={setAnswers}
-                />
-              );
-            }
-          })
-        )}
+        {quiz?.questions.map((question, index) => {
+          if (question.questionType === "text") {
+            return (
+              <TextQuestion
+                key={index}
+                index={index}
+                question={question}
+                setAnswers={setAnswers}
+              />
+            );
+          } else if (question.questionType === "singleCorrect") {
+            return (
+              <SingleCorrectQuestion
+                key={index}
+                index={index}
+                question={question}
+                setAnswers={setAnswers}
+              />
+            );
+          } else {
+            return (
+              <MultipeCorrectQuestion
+                key={index}
+                index={index}
+                question={question}
+                setAnswers={setAnswers}
+              />
+            );
+          }
+        })}
       </div>
     </>
   );

@@ -54,7 +54,8 @@ export default function MultipleCorrectQuestion({
       </label>
 
       <div className="mb-2">
-        <label className="inline-flex items-center">
+        <label className="inline-flex items-center gap-2">
+          Option 1:
           <input
             type="checkbox"
             name="option1"
@@ -62,12 +63,13 @@ export default function MultipleCorrectQuestion({
             onChange={handleCheckboxChange}
             className="form-checkbox"
           />
-          <span className="ml-2">{question.option1}</span>
+          <span className="ml-0">{question.option1}</span>
         </label>
       </div>
 
       <div className="mb-2">
-        <label className="inline-flex items-center">
+        <label className="inline-flex items-center gap-2">
+          Option 2:
           <input
             type="checkbox"
             name="option2"
@@ -75,12 +77,13 @@ export default function MultipleCorrectQuestion({
             onChange={handleCheckboxChange}
             className="form-checkbox"
           />
-          <span className="ml-2">{question.option2}</span>
+          <span className="ml-0">{question.option2}</span>
         </label>
       </div>
 
       <div className="mb-2">
-        <label className="inline-flex items-center">
+        <label className="inline-flex items-center gap-2">
+          Option 3:
           <input
             type="checkbox"
             name="option3"
@@ -88,12 +91,13 @@ export default function MultipleCorrectQuestion({
             onChange={handleCheckboxChange}
             className="form-checkbox"
           />
-          <span className="ml-2">{question.option3}</span>
+          <span className="ml-0">{question.option3}</span>
         </label>
       </div>
 
       <div className="mb-2">
-        <label className="inline-flex items-center">
+        <label className="inline-flex items-center gap-2">
+          Option 4:
           <input
             type="checkbox"
             name="option4"
@@ -101,7 +105,7 @@ export default function MultipleCorrectQuestion({
             onChange={handleCheckboxChange}
             className="form-checkbox"
           />
-          <span className="ml-2">{question.option4}</span>
+          <span className="ml-0">{question.option4}</span>
         </label>
       </div>
     </div>

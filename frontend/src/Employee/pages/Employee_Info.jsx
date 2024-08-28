@@ -13,6 +13,12 @@ export default function EmployeeInfo() {
   const { isLoading, employe_info } = useEmployeeInfo(token);
 
   if (isLoading) return <Spinner />;
+  const parseDate = (dateString) => {
+    const [day, month, year] = dateString.split("-");
+    return new Date(`${year}-${month}-${day}`);
+  };
+
+  console.log(employe_info);
 
   return (
     <div className="flex w-full h-screen">
@@ -66,7 +72,7 @@ export default function EmployeeInfo() {
             <div className="flex p-2">
               <div className="w-1/2 font-medium">Joining Date:</div>
               <div className="w-1/2 flex justify-end">
-                {new Date(employe_info.joiningDate).toLocaleDateString()}
+                {parseDate(employe_info.joiningDate).toLocaleDateString()}
               </div>
             </div>
             <div className="flex p-2">

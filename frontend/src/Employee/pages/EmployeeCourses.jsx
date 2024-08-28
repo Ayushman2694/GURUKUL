@@ -20,8 +20,12 @@ export default function EmployeeCourses() {
   const { isLoading: loadingMoreCourse, courses: moreCourse } =
     useCourseNotByEmpId(employe_info?.empId);
 
+
+
   if (isLoading || loadingEmployee || loadingMoreCourse) return <Spinner />;
-  console.log(courses, employe_info.currentCourse);
+
+
+
 
   // Separate courses into different categories based on status
   const coursesStatus0OrNotFound = [];
@@ -77,12 +81,12 @@ export default function EmployeeCourses() {
               <p className="text-2xl font-bold pb-2">
                 {mostRecentCourse?.courseTitle}
               </p>
-              <p className="text-lg font-medium">
+              <div className="text-lg font-medium">
                 <ShowMoreShowLess
                   descriptionDetail={mostRecentCourse?.courseDescription}
                   charNo={200}
                 />
-              </p>
+              </div>
               <button
                 className="w-full bg-blue-600 text-slate-50 rounded-md font-bold text-sm p-1 mt-auto"
                 onClick={() => {
