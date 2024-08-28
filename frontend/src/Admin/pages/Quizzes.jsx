@@ -35,14 +35,13 @@ export default function Quizzes() {
         {allQuizs.map((quiz) => (
           <ShowQuizCard
             key={quiz._id}
+            id={quiz._id}
             title={quiz.title}
             description={quiz.module}
             viewQuizHandler={() => {
               navigate(`/admin/quizzes/viewQuiz/${quiz._id}`);
             }}
-            EditQuizHandler={() => {
-              navigate(`/admin/quizzes/editQuiz/${quiz._id}`);
-            }}
+            
           />
         ))}
       </div>
