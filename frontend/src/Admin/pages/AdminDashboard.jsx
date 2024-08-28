@@ -13,17 +13,16 @@ import MyBarChart from "../components/Chart/BarChart";
 import MyPieChart from "../components/Chart/PieChart";
 
 export default function AdminDashboard() {
+  const navigate = useNavigate();
   const { isLoading: loadindCourses, allCourse } = useAllCourse();
   const { isLoading: loadingAllEmployee, allEmployee } = useAllEmployee();
   const [selectedOption, setSelectedOption] = useState();
-  const navigate = useNavigate();
   const { isLoading: loadingQuizs, quizs } = useQuizByCourseId(
     selectedOption || null
   );
 
   if (loadindCourses || loadingAllEmployee) return <Spinner />;
 
-  console.log(quizs);
   const courseCount = allCourse ? allCourse.length : 0;
   const employeeCount = allEmployee ? allEmployee.length : 0;
 
@@ -53,7 +52,6 @@ export default function AdminDashboard() {
   const allAttemptedBy = quizs?.flatMap((quiz) => quiz.attemptedBy);
   const uniqueAttemptedBy = new Set(allAttemptedBy);
   const uniqueAttemptedByArray = Array.from(uniqueAttemptedBy);
-  console.log("Unique employee IDs in attemptedBy:", uniqueAttemptedByArray);
 
   const attemptedBySet = new Set();
   quizs?.forEach((quiz) =>
@@ -70,11 +68,6 @@ export default function AdminDashboard() {
 
   const attemptedNotPassed = attemptedByArray.filter(
     (empId) => !passedByArray.includes(empId)
-  );
-
-  console.log(
-    "Employees who attempted quizzes but did not pass any:",
-    attemptedNotPassed
   );
 
   const data = [
@@ -109,7 +102,7 @@ export default function AdminDashboard() {
     {
       name: "not started Quiz",
       percent: Math.round(
-        ((employeeCount - uniqueAttemptedByArray.length) / employeeCount) * 100
+        (uniqueAttemptedByArray.length / employeeCount) * 100
       ),
     },
   ];
@@ -226,8 +219,7 @@ export default function AdminDashboard() {
           />
           <AdminDashboardPercent
             percent={(
-              ((employeeCount - uniqueAttemptedByArray.length) /
-                employeeCount) *
+              (uniqueAttemptedByArray.length / employeeCount) *
               100
             ).toFixed(2)}
             description="of employee not started Quiz"

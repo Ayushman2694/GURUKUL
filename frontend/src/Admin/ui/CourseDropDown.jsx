@@ -2,11 +2,7 @@ import SpinnerMini from "../../Common/Ui/SpinnerMini";
 import { useAllCourse } from "../components/courses/useAllCourse";
 
 /* eslint-disable react/prop-types */
-const CourseDropdown = ({
-  selectedOption,
-  setSelectedOption,
-  uploading = false,
-}) => {
+const CourseDropdown = ({ selectedOption, setSelectedOption }) => {
   const { isLoading, allCourse } = useAllCourse();
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
@@ -22,13 +18,7 @@ const CourseDropdown = ({
         value={selectedOption}
         onChange={handleChange}
       >
-        <option value="">Select A Department</option>
-        {uploading && (
-          <>
-            <option value="all_department">To All Department</option>
-            <option value="no_department">none</option>
-          </>
-        )}
+        <option value="">Select A Couse</option>
         {allCourse.map((course) => (
           <option key={course.courseTitle} value={course._id}>
             {course.courseTitle}

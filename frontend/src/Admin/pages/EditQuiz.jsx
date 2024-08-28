@@ -3,24 +3,35 @@ import EditSingleCorrectQuestion from "../components/quiz/EditSingleCorrectQuest
 import EditMultipeCorrectQuestion from "../components/quiz/EditMultipeCorrectQuestion";
 import { IoCreateOutline } from "react-icons/io5";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuizId } from "../components/quiz/useQuizById";
 import Spinner from "../../Common/Ui/Spinner";
+import { useAddModuleInQuiz } from "../../Admin/components/quiz/useAddModuleInQuiz";
 
 export default function EditQuiz() {
   const { quizId } = useParams();
+  const navigate = useNavigate();
   const { isloading, quiz } = useQuizId(quizId);
+  const { addModuleInQuiz, isLoading } = useAddModuleInQuiz();
 
   const { register, handleSubmit } = useForm();
 
   function checkSubmit(data) {
     console.log(data);
-    // uploadQuiz({ title: data.name, questions: questions });
-    // console.log({ title: data.name, questions: questions });
-    // setIsSubmitted(true);
+    addModuleInQuiz(
+      {
+        quizId: quizId,
+        title: data.title,
+        questions: data.questions,
+      },
+      {
+        onSuccess: () => {
+          navigate("/admin/quizzes");
+        },
+      }
+    );
   }
   if (isloading) return <Spinner />;
-  
 
   return (
     <div className="min-h-screen w-full bg-white p-4">
@@ -35,10 +46,11 @@ export default function EditQuiz() {
                 className="block text-gray-700 text-lg font-bold mb-"
                 htmlFor="quizTitle"
               >
-              
+                Quiz Title
               </label>
               <button
                 type="submit"
+                disabled={isLoading}
                 className={`flex w-18 gap-1 text-white font-bold rounded-full px-3 py-1 mb-1 mr-1 bg-green-600 `}
               >
                 <span className="mt-1">
@@ -59,20 +71,20 @@ export default function EditQuiz() {
           </div>
 
           {quiz.questions.map((quiz, index) => {
-            if (quiz.questionType === "text") {
+            if (quiz?.questionType === "text") {
               return (
                 <EditTextQuestion
                   key={index} // Add key prop here
-                  index={index + 1}
+                  index={index}
                   quiz={quiz}
                   register={register}
                 />
               );
-            } else if (quiz.questionType === "singleCorrect") {
+            } else if (quiz?.questionType === "singleCorrect") {
               return (
                 <EditSingleCorrectQuestion
                   key={index} // Add key prop here
-                  index={index + 1}
+                  index={index}
                   quiz={quiz}
                   register={register}
                 />
@@ -81,7 +93,7 @@ export default function EditQuiz() {
               return (
                 <EditMultipeCorrectQuestion
                   key={index} // Add key prop here
-                  index={index + 1}
+                  index={index}
                   quiz={quiz}
                   register={register}
                 />

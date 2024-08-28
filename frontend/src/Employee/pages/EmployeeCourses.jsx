@@ -25,8 +25,6 @@ export default function EmployeeCourses() {
   if (isLoading || loadingEmployee || loadingMoreCourse) return <Spinner />;
 
 
-
-
   // Separate courses into different categories based on status
   const coursesStatus0OrNotFound = [];
   const coursesStatusMoreThan0LessThan100 = [];
