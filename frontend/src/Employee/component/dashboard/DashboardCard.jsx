@@ -11,7 +11,7 @@ export default function DashboardCard({
   title,
   icon,
   courses,
-  Certificate = true,
+  Certificate = false,
 }) {
   const navigate = useNavigate();
   const [token] = useState(localStorage.getItem("token"));

@@ -39,7 +39,7 @@ export default function EmployeeInfo() {
                   </span>
                 </h3>
                 <div className=" bg-blue-600">
-                  <h3 className="text-sm font-bold flex text-slate-100 bg-slate-100 rounded-tl-lg relative overflow-hidden">
+                  <h3 className="text-sm font-bold flex text-slate-100 bg-slate-50 rounded-tl-lg relative overflow-hidden">
                     <span className="absolute inset-x-0 inset-r-0 h-2 "></span>.
                   </h3>
                 </div>
@@ -92,7 +92,7 @@ export default function EmployeeInfo() {
                   </span>
                 </h3>
                 <div className=" bg-blue-600">
-                  <h3 className="text-sm font-bold flex text-slate-100 bg-slate-100 rounded-tl-lg relative overflow-hidden">
+                  <h3 className="text-sm font-bold flex text-slate-100 bg-slate-50 rounded-tl-lg relative overflow-hidden">
                     <span className="absolute inset-x-0 inset-r-0 h-2 "></span>.
                   </h3>
                 </div>

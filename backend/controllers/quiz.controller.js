@@ -46,8 +46,7 @@ export const updateQuiz = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ error: "error in quiz update controller" });
-    console.log(error.message);
-    return res.status(500).json({ error: "error in quiz update controller" });
+    
   }
 };
 
@@ -236,7 +235,7 @@ export const quizAttempt = async (req, res) => {
 
 
 
-export const rrequestedQuiz = async (req,res)=>{
+export const requestedQuiz = async (req,res)=>{
   const {empId, quizId} = req.body
 
 

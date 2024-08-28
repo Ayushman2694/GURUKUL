@@ -23,7 +23,11 @@ export default function EmployeeDashboard() {
   const { isLoading: loadingCourseByEmpId, courses: courseByEmpId } =
     useCourseByEmpId(employe_info?.empId);
 
-  if (loadingCourseByEmpId || loadingEmployeeInfo) return <Spinner />;
+
+
+  if (loadingCourseByEmpId || loadingEmployeeInfo )
+    return <Spinner />;
+
 
   const coursesStatus0OrNotFound = [];
   const coursesStatusMoreThan0LessThan100 = [];
