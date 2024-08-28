@@ -16,6 +16,9 @@ import ShowAllQuizResponse from "../../Employee/component/quiz/ShowAllQuizRespon
 import { FaEyeSlash } from "react-icons/fa";
 import { useAllCourse } from "../components/courses/useAllCourse";
 import SelectModule from "../components/quiz/SelectModule";
+import ShowTextAnswer from "../components/quiz/ShowTextAnswer";
+import ShowSingleCorrectOption from "../components/quiz/ShowSingleCorrectOption";
+import ShowMultipleCorrectOption from "../components/quiz/ShowMultipleCorrectOption";
 
 export default function ViewQuiz() {
   const [name, setName] = useState("");
@@ -88,7 +91,7 @@ export default function ViewQuiz() {
             quiz?.questions.map((question, index) => {
               if (question.questionType === "text") {
                 return (
-                  <TextQuestion
+                  <ShowTextAnswer
                     key={index}
                     index={index}
                     question={question}
@@ -97,7 +100,7 @@ export default function ViewQuiz() {
                 );
               } else if (question.questionType === "singleCorrect") {
                 return (
-                  <SingleCorrectQuestion
+                  <ShowSingleCorrectOption
                     key={index}
                     index={index}
                     question={question}
@@ -106,7 +109,7 @@ export default function ViewQuiz() {
                 );
               } else {
                 return (
-                  <MultipeCorrectQuestion
+                  <ShowMultipleCorrectOption
                     key={index}
                     index={index}
                     question={question}
@@ -156,6 +159,7 @@ export default function ViewQuiz() {
             </div>
           </div>
         )}
+        <div className="mb-10 h-10"></div>
       </div>
     </>
   );

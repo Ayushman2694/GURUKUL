@@ -157,7 +157,7 @@ export default function Quiz() {
             return (
               <TextQuestion
                 key={index}
-                index={index + 1}
+                index={index }
                 question={question}
                 onAnswerChange={(answer) => handleAnswerChange(index, answer)}
                 setAnswers={setAnswers}
@@ -167,7 +167,7 @@ export default function Quiz() {
             return (
               <SingleCorrectQuestion
                 key={index}
-                index={index + 1}
+                index={index}
                 question={question}
                 onAnswerChange={(answer) => handleAnswerChange(index, answer)}
                 setAnswers={setAnswers}
@@ -177,7 +177,7 @@ export default function Quiz() {
             return (
               <MultipeCorrectQuestion
                 key={index}
-                index={index + 1}
+                index={index }
                 question={question}
                 onAnswerChange={(answer) => handleAnswerChange(index, answer)}
                 setAnswers={setAnswers}

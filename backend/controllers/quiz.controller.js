@@ -23,14 +23,14 @@ export const createQuiz = async (req, res) => {
 };
 
 export const updateQuiz = async (req, res) => {
-  const { quizId, title, questions, module } = req.body;
+  const { quizId, title, questions, moduleId } = req.body;
 
   try {
     const updateDetails = {
       $set: {
         title: title,
         questions: questions,
-        module: module,
+        moduleId: moduleId,
       },
     };
 
@@ -46,7 +46,7 @@ export const updateQuiz = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ error: "error in quiz update controller" });
-
+    
   }
 };
 
@@ -85,23 +85,6 @@ export const getQuizById = async (req, res) => {
   }
 };
 
-export const deleteQuiz = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const quiz = await Quiz.findById(id);
-
-    if (!quiz) {
-      return res.status(404).json({ message: "Quiz not found" });
-    }
-
-    await quiz.remove();
-
-    res.status(200).json({ message: "Quiz deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
 
 export const getAllQuiz = async (req, res) => {
   try {
@@ -236,24 +219,48 @@ export const quizAttempt = async (req, res) => {
 
 
 export const requestedQuiz = async (req,res)=>{
-  const {empId, quizId} = req.body
-
-
-
-  const quiz = await Quiz.findById(quizId)
-  if(!quiz){
-    return res.status(400).json({error:"Quiz not found"})
-  }
-
-  if(quiz.requestedBy.include(empId)){
-    return res.status(400).json({error:"Already requested"})
-
-  }
+  try {
+    const {empId, quizId} = req.body
+    const quiz = await Quiz.findById(quizId)
+    if(!quiz){
+      return res.status(400).json({error:"Quiz not found"})
+    }
   
- const requestedQuizs =  quiz.requestedBy.push(empId);
-    await requestedQuizs.save()
-    res.status(200).json({ message: "Quiz requested successfully", requestedQuizs });
-
-
+    if(quiz.requestedBy.include(empId)){
+      return res.status(400).json({error:"Already requested"})
+  
+    }
+    
+   const requestedQuizs =  quiz.requestedBy.push(empId);
+      await requestedQuizs.save()
+      res.status(200).json({ message: "Quiz requested successfully", requestedQuizs });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Error in requestedQuiz Controller" });
+  }
 }
+
+export const deleteQuiz = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const quiz = await Quiz.findById(id);
+
+    if (!quiz) {
+      return res.status(404).json({ message: "Quiz not found" });
+    }
+
+    await Module.findByIdAndUpdate(quiz.module, {
+      $pull: { quizzes: id },
+    });
+
+    await Quiz.findByIdAndDelete(id);
+
+    return res.status(200).json({ message: "Quiz deleted successfully" });
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
 

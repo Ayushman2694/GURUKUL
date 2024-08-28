@@ -8,6 +8,7 @@ import { useAllCourse } from "../components/courses/useAllCourse";
 // import { useState } from "react";
 import ShowMoreShowLess from "../../Common/Ui/ShowMoreShowLess";
 import { useDeleteCourse } from "../components/courses/useDeleteCourse";
+import SpinnerMini from "../../Common/Ui/SpinnerMini";
 
 export default function AdminCourses() {
   const navigate = useNavigate();
@@ -119,7 +120,7 @@ export default function AdminCourses() {
                       <span className="text-xl">
                         <RiDeleteBin6Line />
                       </span>
-                      Remove
+                      {deleteCourseLoading ?<SpinnerMini/> : "Remove"}
                     </button>
                   </div>
                 </td>

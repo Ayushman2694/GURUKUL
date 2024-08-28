@@ -4,7 +4,7 @@ import { showAllQuizes } from "../../service/quiz";
 
 export function useAllQuizs() {
   const { isLoading, data: allQuizs } = useQuery({
-    queryKey: ["allDepartment"],
+    queryKey: ["allQuiz"],
     queryFn: () => showAllQuizes(),
   });
 
