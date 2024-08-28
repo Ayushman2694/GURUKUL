@@ -168,11 +168,11 @@ export async function getCourseByEmpId(empId) {
   }
 }
 
-export async function removeCourse(data) {
-  let newUrl = `${url}/api/department/deleteCourse`;
+export async function removeCourse(courseId) {
+  let newUrl = `${url}/api/course/deleteCourse/${courseId}`;
 
   try {
-    const response = await axios.post(newUrl, data);
+    const response = await axios.delete(newUrl);
     if (response.status === 200) {
       return response.data; // Return the data if needed
     } else {

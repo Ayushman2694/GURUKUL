@@ -8,7 +8,7 @@ export function useDeleteCourse() {
     mutationFn: (data) => removeCourseApi(data),
 
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["allCourses"] });
+      queryClient.invalidateQueries({ queryKey: ["allCourse"] });
       toast.success("Course Deleted Successfully");
     },
     onError: () => {

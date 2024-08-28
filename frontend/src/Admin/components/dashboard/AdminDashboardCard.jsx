@@ -1,10 +1,17 @@
-import React from 'react'
-
-export default function AdminDashboardCard({title, number}) {
+/* eslint-disable react/prop-types */
+import { FaBook } from "react-icons/fa6";
+export default function AdminDashboardCard({ title, number, color }) {
   return (
-    <div className="bg-gray-50 shadow-md rounded-lg p-4">
-          <h2 className="text-gray-600"> {title}</h2>
-          <p className="text-2xl font-bold">{number}</p>
+    <div className={`shadow-md flex rounded-lg p-4 bg-${color}-200`}>
+      <div
+        className={`text-4xl p-2 rounded-full border mr-2 bg-${color}-100 text-gray-800`}
+      >
+        <FaBook />
+      </div>
+      <div>
+        <h2 className="text-gray-700 font-semibold"> {title}</h2>
+        <p className="text-2xl font-bold">{number}</p>
+      </div>
     </div>
-  )
+  );
 }

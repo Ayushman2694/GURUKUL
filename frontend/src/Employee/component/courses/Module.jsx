@@ -37,8 +37,6 @@ const Module = ({
     passed = item.passedBy.includes(empId);
   });
 
-  console.log(quiz);
-
   return (
     <div className="w-full">
       <button onClick={() => toggleDropdown()} className="w-full  border-b-2">

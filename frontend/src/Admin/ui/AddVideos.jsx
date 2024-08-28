@@ -41,6 +41,8 @@ export default function AddVideos({ videosNo, setVideoArray }) {
           [`uploaded${videosNo}`]: true,
         }));
         setUploadProgress(0);
+        toast.success("Video uploaded successfully!");
+        reset();
       },
     });
   }
@@ -72,9 +74,7 @@ export default function AddVideos({ videosNo, setVideoArray }) {
 
   return (
     <div className="w-full shadow-lg px-4 py-1 rounded-lg bg-gray-100 border">
-      <h2 className="w-full text-lg font-bold bold mb-1 px-1">
-        Video {videosNo}
-      </h2>
+      <h2 className="w-full text-lg font-bold mb-1 px-1">Video {videosNo}</h2>
       <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex">
           <div className="w-3/12 px-1">
@@ -89,10 +89,11 @@ export default function AddVideos({ videosNo, setVideoArray }) {
               <input
                 type="text"
                 id="title"
-                disabled={isLoading || videoStates?.uploaded1}
+                disabled={isLoading || videoStates[`uploaded${videosNo}`]}
                 placeholder="Video Title"
                 className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                  isLoading || (videoStates?.uploaded1 && "cursor-not-allowed")
+                  isLoading ||
+                  (videoStates[`uploaded${videosNo}`] && "cursor-not-allowed")
                 }`}
                 {...register("title", {
                   required: "This field is required",
@@ -113,9 +114,10 @@ export default function AddVideos({ videosNo, setVideoArray }) {
               <textarea
                 id="description"
                 placeholder="Course Description"
-                disabled={isLoading || videoStates?.uploaded1}
+                disabled={isLoading || videoStates[`uploaded${videosNo}`]}
                 className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                  isLoading || (videoStates?.uploaded1 && "cursor-not-allowed")
+                  isLoading ||
+                  (videoStates[`uploaded${videosNo}`] && "cursor-not-allowed")
                 }`}
                 {...register("description", {
                   required: "This field is required",
@@ -131,7 +133,7 @@ export default function AddVideos({ videosNo, setVideoArray }) {
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Add Video
             </label>
-            <label htmlFor={`video${videosNo}`} className="relative ">
+            <label htmlFor={`video${videosNo}`} className="relative">
               {!videoStates[`selectedFile${videosNo}`] ? (
                 <div className="w-full flex justify-center items-center bg-blue-600 text-white font-semibold py-1 rounded-md cursor-pointer">
                   Select Video
@@ -145,7 +147,7 @@ export default function AddVideos({ videosNo, setVideoArray }) {
             <input
               type="file"
               className="hidden"
-              disabled={isLoading || videoStates?.uploaded1}
+              disabled={isLoading || videoStates[`uploaded${videosNo}`]}
               id={`video${videosNo}`}
               {...register("video", {
                 required: "No Video Selected",
@@ -157,7 +159,8 @@ export default function AddVideos({ videosNo, setVideoArray }) {
           <div className="w-1/12 px-1 flex justify-center items-center">
             {/* Upload button */}
             <button
-              disabled={isLoading || videoStates?.uploaded1}
+              type="submit"
+              disabled={isLoading || videoStates[`uploaded${videosNo}`]}
               className={`${
                 videoStates[`uploaded${videosNo}`]
                   ? "bg-gray-400 cursor-not-allowed"
@@ -177,7 +180,7 @@ export default function AddVideos({ videosNo, setVideoArray }) {
             </button>
           </div>
         </div>
-        {/* Progress bar */}
+
         {isLoading && (
           <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
             <div
