@@ -10,8 +10,8 @@ const Certificate = React.forwardRef((props, ref) => (
       <div
         className="absolute top-0 left-0 w-full h-full bg-no-repeat bg-center bg-contain"
         style={{
-          backgroundImage:
-            "url('https://res.cloudinary.com/dhfky54ml/image/upload/v1724771882/Images/ekxglqrrxbspgcgduute.png')",
+          // backgroundImage:
+          //   "url('https://res.cloudinary.com/dhfky54ml/image/upload/v1724771882/Images/ekxglqrrxbspgcgduute.png')",
           backgroundSize: "cover",
         }}
       ></div>

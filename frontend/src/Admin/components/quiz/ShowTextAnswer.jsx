@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 /* eslint-disable react/prop-types */
 export default function ShowTextAnswer({ question, index, setAnswers }) {
