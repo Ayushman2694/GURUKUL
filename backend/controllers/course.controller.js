@@ -4,6 +4,8 @@ import Video from "../models/video.model.js";
 
 import Department from "../models/department.model.js";
 import Employee from "../models/user.model.js";
+import mongoose from "mongoose";
+import Quiz from "../models/quiz.model.js";
 
 export const addCourse = async (req, res) => {
   try {
@@ -47,30 +49,62 @@ export const getallCourse = async (req, res) => {
 };
 //delete course
 
-export const deleteCourse = async (req, res) => {
+
+
+export const deleteCourseAndReferences = async (req, res) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
   try {
     const { courseId } = req.params;
 
-    // Attempt to find and delete the course
-    const deletedCourse = await Course.findByIdAndDelete(courseId);
+    const modules = await Module.find({ course: courseId }).session(session);
 
-    if (!deletedCourse) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Course not found" });
+    for (const module of modules) {
+ 
+      const quizzes = await Quiz.find({ module: module._id }).session(session);
+
+      for (const quiz of quizzes) {
+
+        await Quiz.findByIdAndDelete(quiz._id).session(session);
+      }
+
+
+      const videos = await Video.find({ _id: { $in: module.video } }).session(session);
+
+      for (const video of videos) {
+
+        await Video.findByIdAndDelete(video._id).session(session);
+      }
+
+
+      await Module.findByIdAndDelete(module._id).session(session);
     }
 
-    res.status(200).json({
-      success: true,
-      message: "Course deleted successfully",
-      deletedCourse,
-    });
+
+    await Employee.updateMany(
+      { courses: courseId },
+      { $pull: { courses: courseId } }
+    ).session(session);
+
+
+    await Employee.updateMany(
+      { currentCourse: courseId },
+      { $set: { currentCourse: null } }
+    ).session(session);
+
+
+    await Course.findByIdAndDelete(courseId).session(session);
+
+    await session.commitTransaction();
+    session.endSession();
+
+    return res.status(200).json({ message: "Course and its references deleted successfully" });
   } catch (error) {
-    console.log("Error in deleteCourse controller:", error.message);
-    res.status(500).json({
-      success: false,
-      message: "Server error ,Error in delete Course section",
-    });
+    await session.abortTransaction();
+    session.endSession();
+    console.error(error.message);
+    return res.status(500).json({ error: "Error deleting course and its references" });
   }
 };
 
