@@ -12,10 +12,6 @@ const router = express.Router();
 router.get("/allEmployee", showAllEmployee);
 router.post("/deleteEmployee", deleteEmployee);
 router.get("/getEmployeeById/:empId", getEmployeeById);
-router.post(
-  "/multipleEmployeeUpload",
-  uploadCsv.single("csvFile"),
-  multipleEmployeeUpload
-);
+
 
 export default router;

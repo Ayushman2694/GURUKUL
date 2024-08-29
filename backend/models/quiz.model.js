@@ -27,7 +27,7 @@ const quizSchema = mongoose.Schema(
       default:[]
     }
   },
-  { timestamp: true }
+  { timestamps: true }
 );
 
 const Quiz = mongoose.model(" Quiz", quizSchema);

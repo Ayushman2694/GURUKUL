@@ -124,3 +124,24 @@ export async function assignCourse(data) {
     }
   }
 }
+export async function bulkEmployees(data) {
+  const endpointUrl = `${url}/api/admin/multipleEmployeeUpload`;
+
+  try {
+    const response = await axios.post(endpointUrl, data);
+
+    if (response.status === 200) {
+      return response.data; // Return the data if needed
+    } else {
+      console.log("Unexpected status code:", response.status);
+      return null;
+    }
+  } catch (error) {
+    if (error.response && error.response.status === 400) {
+      const errorMessage = error.response.data.error;
+      throw new Error(errorMessage); // Throw the error with the specific message
+    } else {
+      throw error; // Handle other types of errors
+    }
+  }
+}

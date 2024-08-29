@@ -37,23 +37,24 @@ export const excludingDepartment = async (req, res) => {
   try {
     const { empId } = req.params;
 
-    const employee = await Employee.findOne({ empId }).select(
-      "courses department"
-    );
+    // Find the employee by empId
+    const employee = await Employee.findOne({ empId });
     if (!employee) {
       return res.status(400).json({ message: "Employee not found" });
     }
 
-    const departmentName = employee.department;
+  const departmentName=employee.department
+
+    // Find courses that the employee has not enrolled in and that do not belong to the employee's department or "all_department"
     const courses = await Course.find({
       _id: { $nin: employee.courses },
-      courseDepartment: { $ne: departmentName && "all_department" },
+      courseDepartment: { $nin: [departmentName, "all_department"] }, // Corrected the query using $nin
     });
+
     return res.status(200).json(courses);
   } catch (error) {
     console.error("Error fetching courses:", error);
-    return res
-      .status(500)
-      .json({ message: "Server error", error: error.message });
+    return res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+

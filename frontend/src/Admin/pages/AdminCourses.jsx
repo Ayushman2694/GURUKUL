@@ -9,10 +9,14 @@ import { useAllCourse } from "../components/courses/useAllCourse";
 import ShowMoreShowLess from "../../Common/Ui/ShowMoreShowLess";
 import { useDeleteCourse } from "../components/courses/useDeleteCourse";
 import SpinnerMini from "../../Common/Ui/SpinnerMini";
+import ConfirmDelete from "../ui/ConfirmDelete";
+import { useState } from "react";
 
 export default function AdminCourses() {
   const navigate = useNavigate();
   const { isLoading, allCourse } = useAllCourse();
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
   const { removeCourse, isLoading: deleteCourseLoading } = useDeleteCourse();
   if (isLoading) return <Spinner />;
   // const [readmore, setReadmore]= useState(false);
@@ -106,23 +110,29 @@ export default function AdminCourses() {
                     </button>
                     <button
                       onClick={() => {
-                        removeCourse(course._id);
+                        setConfirmDelete(true);
                       }}
                       disabled={deleteCourseLoading}
                       className="flex items-center gap-2 bg-red-600 text-white font-semibold px-4 py-2 rounded-full hover:bg-red-700"
                     >
-                      {deleteCourseLoading ? (
-                        <SpinnerMini />
-                      ) : (
-                        <>
-                          <span className="text-xl">
-                            <RiDeleteBin6Line />
-                          </span>
-                          Remove
-                        </>
-                      )}
+                      <>
+                        <span className="text-xl">
+                          <RiDeleteBin6Line />
+                        </span>
+                        Remove
+                      </>
                     </button>
                   </div>
+                  {confirmDelete && (
+                    <ConfirmDelete
+                      what="Course"
+                      who={course?.courseTitle}
+                      handelClick={() => {
+                        removeCourse(course._id);
+                      }}
+                      close={setConfirmDelete}
+                    />
+                  )}
                 </td>
               </tr>
             ))}
