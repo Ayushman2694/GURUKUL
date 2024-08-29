@@ -10,6 +10,7 @@ import {
   getCourseById,
   getCourseByDepartment,
   deleteCourseAndReferences,
+  getModulebyId,
 } from "../controllers/course.controller.js";
 import {
   assignCourse,
@@ -34,5 +35,6 @@ courseRouter.get("/getCourse/:_id", getCourseById);
 courseRouter.get("/getCourseByDepartment/:empId", getCourseByDepartment);
 courseRouter.post("/assign-course", assignCourse);
 courseRouter.get("/course-exclude/:empId", excludingDepartment);
+courseRouter.get("/getModule/:id", getModulebyId);
 
 export default courseRouter;

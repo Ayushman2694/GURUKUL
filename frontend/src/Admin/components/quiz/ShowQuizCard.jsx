@@ -4,25 +4,25 @@ import ShowMoreShowLess from "../../../Common/Ui/ShowMoreShowLess";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useRemoveQuiz } from "./useRemoveQuiz";
 import SpinnerMini from "../../../Common/Ui/SpinnerMini";
+import ModuleName from "../../../Employee/Ui/ModuleName";
+import { useState } from "react";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 
-export default function ShowQuizCard({
-  id,
-  title,
-  description,
-  viewQuizHandler,
-}) {
-
+export default function ShowQuizCard({ id, title, moduleId, viewQuizHandler }) {
   const { removeQuiz, isLoading } = useRemoveQuiz();
-  console.log(id)
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  console.log(id);
   if (isLoading) return <SpinnerMini />;
   return (
     <div
       className="bg-gray-100 shadow-md rounded-lg p-4"
       // onClick={viewQuizHandler}
     >
-      <h2 className=" text-xl font-bold"> {title}</h2>
+      <h2 className=" text-xl font-bold">
+        <ShowMoreShowLess descriptionDetail={title} charNo="30" />
+      </h2>
       <div className="text-gray-600">
-        <ShowMoreShowLess descriptionDetail={description} charNo={42} />
+        <ModuleName moduleId={moduleId} />
       </div>
       <div className="flex gap-2 mt-4 item justify-end items-center">
         <button
@@ -37,7 +37,7 @@ export default function ShowQuizCard({
         {
           <button
             onClick={() => {
-              removeQuiz(id);
+              setConfirmDelete(true)
             }}
             disabled={isLoading}
             className="flex items-center gap-2 bg-red-600 text-white font-semibold px-4 py-1 rounded-full hover:bg-red-700"
@@ -49,6 +49,16 @@ export default function ShowQuizCard({
           </button>
         }
       </div>
+      {confirmDelete && (
+        <ConfirmDelete
+          what="Quiz"
+          who={title}
+          handelClick={() => {
+            removeQuiz(id);
+          }}
+          close={setConfirmDelete}
+        />
+      )}
     </div>
   );
 }

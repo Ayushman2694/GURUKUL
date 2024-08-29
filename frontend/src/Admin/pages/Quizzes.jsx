@@ -1,14 +1,25 @@
+import React, { useState } from "react";
 import ShowQuizCard from "../components/quiz/ShowQuizCard";
 import { useNavigate } from "react-router-dom";
 import { useAllQuizs } from "../components/quiz/useAllQuiz";
 import Spinner from "../../Common/Ui/Spinner";
+import CourseDropdown from "../ui/CourseDropDown";
 
 export default function Quizzes() {
   const navigate = useNavigate();
+  const [selectedOption, setSelectedOption ] = useState("")
   const { isLoading, allQuizs } = useAllQuizs();
+
+  // State to store search query
+  const [searchQuery, setSearchQuery] = useState("");
+
   if (isLoading) return <Spinner />;
 
-  // console.log(allQuizs);
+  // Filter quizzes based on the search query
+  const filteredQuizzes = allQuizs.filter((quiz) =>
+    quiz.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="min-h-screen w-full bg-white p-4">
       <div className="flex justify-between items-center">
@@ -24,24 +35,28 @@ export default function Quizzes() {
           </button>
         </div>
       </div>
-      <div className="m-2 rounded-full">
+      <div className="flex m-2 rounded-lg mr-2">
         <input
           type="search"
           placeholder="Search Quiz"
-          className="shadow  appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
+        <div className="w-1/3 ml-2">
+          <CourseDropdown  selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
+        </div>
       </div>
       <div className="grid grid-cols-3 gap-4 mb-6">
-        {allQuizs.map((quiz) => (
+        {filteredQuizzes.map((quiz) => (
           <ShowQuizCard
             key={quiz._id}
             id={quiz._id}
             title={quiz.title}
-            description={quiz.module}
+            moduleId={quiz.module}
             viewQuizHandler={() => {
               navigate(`/admin/quizzes/viewQuiz/${quiz._id}`);
             }}
-            
           />
         ))}
       </div>

@@ -13,9 +13,7 @@ export default function ShowMoreShowLess({ descriptionDetail = "", charNo }) {
       ) : (
         <div>
           <div className="group">
-            <div className="flex group-hover:hidden">
-              {description} .....Read More
-            </div>
+            <div className="flex group-hover:hidden">{description}...</div>
             <div className="hidden group-hover:block">{descriptionDetail}</div>
           </div>
           {/* {readmore ? descriptionDetail : description}
