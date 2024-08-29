@@ -131,9 +131,7 @@ export default function AdminDashboard() {
           </button>
           <button
             onClick={() => {
-
               navigate("/admin/quizzes/createQuiz");
-
             }}
             className="text-purple-600 flex items-center"
           >
@@ -146,24 +144,25 @@ export default function AdminDashboard() {
         <AdminDashboardCard
           title="Total Courses"
           number={courseCount}
-          color="green"
+          color="bg-green-300"
         />
-        <AdminDashboardCard title="Assigned Courses" number="5" color="red" />
+        <AdminDashboardCard
+          title="Assigned Courses"
+          number="5"
+          color="bg-amber-200"
+        />
         <AdminDashboardCard
           title="Total Users"
           number={employeeCount}
-          color="fuchsia"
+          color="bg-fuchsia-300"
         />
       </div>
-
-
 
       <div className="shadow-md rounded-lg my-4 mb-6">
         <CourseDropdown
           selectedOption={selectedOption}
           setSelectedOption={setSelectedOption}
         />
-
       </div>
 
       <div className="bg-gray-50 h-auto shadow-md rounded-lg p-4 mb-6">
@@ -225,7 +224,6 @@ export default function AdminDashboard() {
             description="of employee not started Quiz"
           />
         </div>
-
       </div>
     </div>
   );

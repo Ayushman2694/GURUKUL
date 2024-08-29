@@ -20,10 +20,9 @@ export default function EmployeeCourses() {
   const { isLoading: loadingMoreCourse, courses: moreCourse } =
     useCourseNotByEmpId(employe_info?.empId);
 
-
-
   if (isLoading || loadingEmployee || loadingMoreCourse) return <Spinner />;
 
+  console.log(moreCourse);
 
   // Separate courses into different categories based on status
   const coursesStatus0OrNotFound = [];
@@ -206,7 +205,7 @@ export default function EmployeeCourses() {
             </div>
           </div>
         ) : (
-          courses?.map((course) => (
+          moreCourse?.map((course) => (
             <CourseThumbnail
               key={course._id}
               course={course}
