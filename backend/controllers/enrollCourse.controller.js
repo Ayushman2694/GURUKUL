@@ -42,10 +42,11 @@ export const excludingDepartment = async (req, res) => {
       "courses",
     ]);
 
-    console.log("Employee", employee);
+
     if (!employee) {
       return res.status(404).json({ message: "Employee not found" });
     }
+
 
     const departmentName = employee.department;
 
@@ -57,15 +58,13 @@ export const excludingDepartment = async (req, res) => {
       ],
     });
 
-    console.log("courses", courses);
+ 
 
-    // Return the found courses with a 200 status
     return res.status(200).json(courses);
   } catch (error) {
     // Log the error and return a 500 error with the error message
     console.error("Error fetching courses:", error);
-    return res
-      .status(500)
-      .json({ message: "Server error", error: error.message });
+    return res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+

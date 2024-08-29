@@ -329,3 +329,21 @@ export const getVideosByCourseId = async (req, res) => {
       .json({ error: "error in getVideosByModuleId Controller" });
   }
 };
+
+export const getModulebyId = async(req,res)=>{
+
+  try {
+    const {id} = req.params;
+    const module =  await Module.findById(id)
+    if(!module){
+      return res.status(400).json({error:"module not found"})
+    } 
+    return res.status(200).json({error:"module fetched successfully",module})
+
+  } catch (error) {
+    console.log(error.message);
+    return res
+      .status(500)
+      .json({ error: "error in getModuleById Controller" });
+  }
+}

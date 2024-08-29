@@ -17,7 +17,7 @@ import { quizByCourseId } from "../controllers/quiz.controller.js";
 const router = express.Router();
 
 router.post("/createQuiz", createQuiz);
-router.put("/updateQuiz", updateQuiz);
+router.post("/updateQuiz", updateQuiz);
 router.delete("/deleteQuiz/:id", deleteQuiz);
 router.get("/getQuizByModuleId/:moduleId", getQuizByModuleId);
 router.get("/getAllQuiz", getAllQuiz);

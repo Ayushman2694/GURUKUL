@@ -200,7 +200,7 @@ export async function addModuleInQuiz(data) {
   const apiUrl = `${url}/api/quiz/updateQuiz`;
 
   try {
-    const response = await axios.put(apiUrl, data); // Use put for updating data
+    const response = await axios.post(apiUrl, data); // Use put for updating data
 
     if (response.status === 200) {
       return response.data.allQuizzes; // Assuming response.data contains the array of admin details
