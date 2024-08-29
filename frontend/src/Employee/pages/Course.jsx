@@ -9,6 +9,7 @@ import { useCourseByCourseId } from "../../Admin/components/courses/useCourseByC
 import { useVideoByCourseId } from "../../Admin/components/courses/useVideoByCourseId";
 import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
 import { useQuizByCourseId } from "../../Admin/components/quiz/useQuizByCourseId";
+import NetworkStatus from "../../Common/Ui/NetworkStatus";
 
 export default function Course() {
   const { courseId } = useParams();
@@ -52,6 +53,7 @@ export default function Course() {
 
   return (
     <div className="w-full  md:flex p-4">
+      
       <div className=" w-full md:w-9/12  overflow-y-auto pb-3 md:pb-20">
         {videoLink ? (
           <VideoPlayer

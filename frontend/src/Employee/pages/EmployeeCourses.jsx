@@ -10,6 +10,7 @@ import { useCourseByEmpId } from "../../Admin/components/courses/useCourseByEmpI
 import { PiEmptyBold } from "react-icons/pi";
 import { useCourseNotByEmpId } from "../../Admin/components/courses/useCourseNotDepartmentName";
 
+
 export default function EmployeeCourses() {
   const navigate = useNavigate();
   // const { isLoading, allCourse } = useAllCourse();
@@ -20,10 +21,7 @@ export default function EmployeeCourses() {
   const { isLoading: loadingMoreCourse, courses: moreCourse } =
     useCourseNotByEmpId(employe_info?.empId);
 
-
-
   if (isLoading || loadingEmployee || loadingMoreCourse) return <Spinner />;
-
 
   // Separate courses into different categories based on status
   const coursesStatus0OrNotFound = [];
@@ -60,6 +58,7 @@ export default function EmployeeCourses() {
 
   return (
     <div className="w-full p-4 h-full ">
+      
       {!mostRecentCourse ? null : (
         <>
           <div className="w-full flex">

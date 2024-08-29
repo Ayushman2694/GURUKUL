@@ -38,9 +38,10 @@ export default function EmployeeInfo() {
                     <ImInfo />
                   </span>
                 </h3>
-                <div className=" bg-blue-600">
-                  <h3 className="text-sm font-bold flex text-slate-100 bg-slate-50 rounded-tl-lg relative overflow-hidden">
-                    <span className="absolute inset-x-0 inset-r-0 h-2 "></span>.
+                <div className="bg-blue-600 border-none">
+                  <h3 className="text-sm font-bold flex text-slate-100 bg-slate-50 rounded-tl-lg relative overflow-hidden border-none">
+                    <span className="absolute inset-x-0 inset-r-0 h-2 border-none"></span>
+                    .
                   </h3>
                 </div>
               </div>
@@ -48,36 +49,36 @@ export default function EmployeeInfo() {
 
             {/* <h3 className="font-semibold p-2 text-lg">Basic Information</h3> */}
             <div className="flex p-2">
-              <div className="w-1/2 font-medium">Employee Id:</div>
-              <div className="w-1/2 flex justify-end">{employe_info.empId}</div>
+              <div className="w-1/3 font-medium">Employee Id:</div>
+              <div className="w-2/3 flex justify-end">{employe_info.empId}</div>
             </div>
             <div className="flex p-2">
-              <div className="w-1/2 font-medium">Name:</div>
-              <div className="w-1/2 flex justify-end">
+              <div className="w-1/3 font-medium">Name:</div>
+              <div className="w-2/3 flex justify-end">
                 {employe_info.employeeName}
               </div>
             </div>
             <div className="flex p-2">
-              <div className="w-1/2 font-medium">Department:</div>
-              <div className="w-1/2 flex justify-end">
+              <div className="w-1/3 font-medium">Department:</div>
+              <div className="w-2/3 flex justify-end">
                 {employe_info.department}
               </div>
             </div>
             <div className="flex p-2">
-              <div className="w-1/2 font-medium">Designation:</div>
-              <div className="w-1/2 flex justify-end">
+              <div className="w-1/3 font-medium">Designation:</div>
+              <div className="w-2/3 flex justify-end">
                 {employe_info.designation}
               </div>
             </div>
             <div className="flex p-2">
-              <div className="w-1/2 font-medium">Joining Date:</div>
-              <div className="w-1/2 flex justify-end">
+              <div className="w-1/3 font-medium">Joining Date:</div>
+              <div className="w-2/3 flex justify-end">
                 {parseDate(employe_info.joiningDate).toLocaleDateString()}
               </div>
             </div>
             <div className="flex p-2">
-              <div className="w-1/2 font-medium">Reporting Manager:</div>
-              <div className="w-1/2 flex justify-end">
+              <div className="w-1/3 font-medium">Reporting Manager:</div>
+              <div className="w-2/3 flex justify-end">
                 {employe_info.reportingManager}
               </div>
             </div>
