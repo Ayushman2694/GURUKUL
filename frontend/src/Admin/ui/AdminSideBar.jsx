@@ -15,10 +15,15 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdNotificationsActive } from "react-icons/md";
 
 import { Logout } from "../../Common/service/auth";
+import { useAllRequest } from "../components/requests/useAllRequests";
+import Spinner from "../../Common/Ui/Spinner";
 
-export default function AdminSideBar({ setSideBar }) {
+export default function AdminSideBar() {
+  const { isLoading: loadingRequests, allRequest } = useAllRequest();
   const [itemSelected, setItemSelected] = useState("dashboard");
   const navigate = useNavigate();
+
+  if (loadingRequests) return <Spinner />;
 
   return (
     <div className="bg-blue-700 h-full w-full border-t-2 pt-1 flex justify-center">
@@ -114,7 +119,8 @@ export default function AdminSideBar({ setSideBar }) {
         >
           <SideBarItem
             icon={<MdNotificationsActive />}
-            title="Requests"
+            title={`Requests`}
+            request={allRequest?.length}
             link="admin/request"
             itemSelected={itemSelected === "Requests"}
           />

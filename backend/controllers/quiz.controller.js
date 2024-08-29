@@ -46,7 +46,6 @@ export const updateQuiz = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ error: "error in quiz update controller" });
-    
   }
 };
 
@@ -85,7 +84,6 @@ export const getQuizById = async (req, res) => {
   }
 };
 
-
 export const getAllQuiz = async (req, res) => {
   try {
     const quizzes = await Quiz.find({});
@@ -123,7 +121,8 @@ export const quizResponse = async (req, res) => {
 
 export const getAllResponse = async (req, res) => {
   try {
-    const allResponse = await QuizResponse.find({});
+    const { quizId } = req.params;
+    const allResponse = await QuizResponse.find({ quizId: quizId });
     if (!allResponse) {
       return res.status(400).json({ error: "error in fetching responses" });
     }
@@ -214,31 +213,30 @@ export const quizAttempt = async (req, res) => {
     console.error(error.message);
     return res.status(500).json({ error: "Error in quizAttempt Controller" });
   }
-}
+};
 
-
-
-export const requestedQuiz = async (req,res)=>{
+export const requestedQuiz = async (req, res) => {
   try {
-    const {empId, quizId} = req.body
-    const quiz = await Quiz.findById(quizId)
-    if(!quiz){
-      return res.status(400).json({error:"Quiz not found"})
+    const { empId, quizId } = req.body;
+    const quiz = await Quiz.findById(quizId);
+    if (!quiz) {
+      return res.status(400).json({ error: "Quiz not found" });
     }
-  
-    if(quiz.requestedBy.include(empId)){
-      return res.status(400).json({error:"Already requested"})
-  
+
+    if (quiz.requestedBy.include(empId)) {
+      return res.status(400).json({ error: "Already requested" });
     }
-    
-   const requestedQuizs =  quiz.requestedBy.push(empId);
-      await requestedQuizs.save()
-      res.status(200).json({ message: "Quiz requested successfully", requestedQuizs });
+
+    const requestedQuizs = quiz.requestedBy.push(empId);
+    await requestedQuizs.save();
+    res
+      .status(200)
+      .json({ message: "Quiz requested successfully", requestedQuizs });
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({ error: "Error in requestedQuiz Controller" });
   }
-}
+};
 
 export const deleteQuiz = async (req, res) => {
   try {
@@ -258,9 +256,9 @@ export const deleteQuiz = async (req, res) => {
 
     return res.status(200).json({ message: "Quiz deleted successfully" });
   } catch (error) {
-    console.log(error.message)
-    return res.status(500).json({ message: "Server error", error: error.message });
+    console.log(error.message);
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
   }
 };
-
-

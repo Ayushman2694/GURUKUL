@@ -71,33 +71,6 @@ export default function TrackByEmployee() {
           <MyBarChart data={data} />
         </div>
       </div>
-
-      {/* <div className="grid grid-cols-2 gap-4 mb-4">
-        <AdminDashboardPercent
-          percent={courses?.length}
-          description="Total Course"
-        />
-        <AdminDashboardPercent
-          percent={coursesStatus0OrNotFound?.length}
-          description="currently Not Started Courses"
-        />
-        <AdminDashboardPercent
-          percent={coursesStatus100?.length}
-          description="completed the course"
-        />
-        <AdminDashboardPercent
-          percent={coursesStatusMoreThan0LessThan100?.length}
-          description="total ongoing courses"
-        />
-        <AdminDashboardPercent
-          percent="39"
-          description="completed the course"
-        />
-        <AdminDashboardPercent
-          percent="75"
-          description="completed the course"
-        />
-      </div> */}
     </div>
   );
 }
