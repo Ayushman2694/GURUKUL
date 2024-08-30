@@ -11,11 +11,10 @@ export function useSendRequestsForCourse() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["allRequest"] });
       toast.success("Request Send Successfully");
-      toast.success("Access the course once the admin approves your request.");
     },
-    onError: (err) => {
-      console.log(err);
-      toast.success("Request Cant't Be Send");
+    onError: () => {
+      toast.error("Request Can't Be Send");
+
       // toast.error("Module Can't Be Uploaded"); // Show the error message in a toast
     },
   });

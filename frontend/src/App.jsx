@@ -36,6 +36,7 @@ import Protected from "./Employee/Ui/Protected";
 import Request from "./Admin/pages/Request";
 import Certificate from "./Common/Ui/Certificate";
 import ShowAnswers from "./Admin/components/quiz/ShowAnswers";
+import AdminWatchCourse from "./Admin/components/courses/AdminWatchCourse";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -97,6 +98,10 @@ export default function App() {
             <Route path="admin/settings" element={<AdminSettings />} />
             <Route path="admin/request" element={<Request />} />
             <Route path="admin/SignUp" element={<AdminSignup />} />
+            <Route
+              path="admin/course/:courseId"
+              element={<AdminWatchCourse />}
+            />
             <Route path="admin/employeeSignUp" element={<EmployeeSignup />} />
             <Route
               path="admin/updateEmployee/:empId"

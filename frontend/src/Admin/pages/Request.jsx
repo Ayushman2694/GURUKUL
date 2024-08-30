@@ -6,13 +6,17 @@ import Spinner from "../../Common/Ui/Spinner";
 import { useDeleteRequest } from "../components/requests/useDeleteRequest";
 import { PiEmptyBold } from "react-icons/pi";
 import { useAssignCourse } from "../components/employee/useAssignCourse";
+import { useNavigate } from "react-router-dom";
 
 export default function Request() {
+  const navigate = useNavigate();
   const { isLoading: loadingRequests, allRequest } = useAllRequest();
   const { removeRequest, isLoading: deletingRequest } = useDeleteRequest();
   const { assignCourse, isLoading } = useAssignCourse();
 
   if (loadingRequests) return <Spinner />;
+
+  console.log(allRequest);
 
   return (
     <>
@@ -41,11 +45,8 @@ export default function Request() {
                   <th className="px-5 py-3 w-1/4 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                     User
                   </th>
-                  <th className="px-5 py-3 w-1/4 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
-                    For
-                  </th>
-                  <th className="px-5 py-3 w-1/4 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
-                    Course
+                  <th className="px-5 py-3 w-2/4 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                    Message
                   </th>
                   <th className="px-5 py-3 w-1/4 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-bold text-gray-600 uppercase tracking-wider">
                     Actions
@@ -57,19 +58,43 @@ export default function Request() {
                   <tr key={request._id}>
                     <td className="px-5 py-3 w-1/4 border-b border-gray-200 bg-white text-sm">
                       <p className="text-gray-900 whitespace-no-wrap">
-                        {request.employeeName}
+                        {request.employeeName} ({request.empId})
                       </p>
                     </td>
-                    <td className="px-5 py-3 w-1/4 border-b border-gray-200 bg-white text-sm text-left">
-                      <p className="text-gray-900 whitespace-no-wrap">
-                        is interested in enrolling in the course
-                      </p>
+                    <td className="px-5 py-3 w-2/4 border-b border-gray-200 bg-white text-sm text-left">
+                      {request.courseId ? (
+                        <p className="text-gray-900 whitespace-no-wrap flex">
+                          is interested in enrolling in the course
+                          <p
+                            onClick={() => {
+                              navigate(`/admin/course/${request.courseId}`);
+                            }}
+                            className="font-semibold px-2 hover:underline hover:cursor-pointer"
+                          >
+                            {"("}
+                            {request.courseTitle}
+                            {")"}
+                          </p>
+                        </p>
+                      ) : (
+                        <p className="text-gray-900 whitespace-no-wrap flex ">
+                          want to re attempt the Quiz
+                          <p
+                            onClick={() => {
+                              navigate(
+                                `/admin/quizzes/viewQuiz/${request.quizId}`
+                              );
+                            }}
+                            className="font-semibold px-2 hover:underline hover:cursor-pointer"
+                          >
+                            {"("}
+                            {request.quizTitle}
+                            {")"}
+                          </p>
+                        </p>
+                      )}
                     </td>
-                    <td className="px-5 py-3 w-1/4 border-b border-gray-200 bg-white text-sm text-left">
-                      <p className="text-gray-900 whitespace-no-wrap">
-                        {request.courseTitle}
-                      </p>
-                    </td>
+
                     <td className="px-5 py-3 w-1/4 border-b border-gray-200 bg-white text-sm text-center">
                       <div className="flex justify-center">
                         <button

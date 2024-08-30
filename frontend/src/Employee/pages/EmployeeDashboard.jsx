@@ -23,17 +23,13 @@ export default function EmployeeDashboard() {
   const { isLoading: loadingCourseByEmpId, courses: courseByEmpId } =
     useCourseByEmpId(employe_info?.empId);
 
-
-
-  if (loadingCourseByEmpId || loadingEmployeeInfo )
-    return <Spinner />;
-
+  if (loadingCourseByEmpId || loadingEmployeeInfo) return <Spinner />;
 
   const coursesStatus0OrNotFound = [];
   const coursesStatusMoreThan0LessThan100 = [];
   const coursesStatus100 = [];
 
-  courseByEmpId.forEach((course) => {
+  courseByEmpId?.forEach((course) => {
     const userStatus = course?.userStatus.find(
       (user) => user.user === employe_info?.empId
     );
@@ -132,7 +128,49 @@ export default function EmployeeDashboard() {
           </div>
         </div>
         <div className="flex p-2 flex-wrap">
-          {coursesStatus100.map((course) => (
+          {coursesStatus100.length === 0 ? (
+            <div className="w-full flex items-center justify-center">
+              <div>
+                <div className="w-full flex items-center justify-center">
+                  <p className="text-8xl">
+                    <PiEmptyBold />
+                  </p>
+                </div>
+                <p className="text-xl py-2 px-4 font-medium">
+                  No Certificates Earned.
+                </p>
+              </div>
+            </div>
+          ) : (
+            coursesStatus100.map((course) => (
+              <div
+                key={course._id}
+                className="border rounded shadow p-2 w-3/12"
+              >
+                <div className="flex w-full justify-center">
+                  <div className="w-full">
+                    <div className="flex justify-center  items-center text-xl font-bold pb-2 text-center hover:underline">
+                      {course.courseTitle}
+                      <span className="px-2">
+                        <PiCertificateBold />
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => {
+                        navigate(
+                          `/certificate/${employe_info.employeeName}/${course.courseTitle}/${employe_info.department}`
+                        );
+                      }}
+                      className="bg-blue-600 w-full rounded px-3 py-1 text-white"
+                    >
+                      Download
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+          {/* {coursesStatus100.map((course) => (
             <div key={course._id} className="border rounded shadow p-2 w-3/12">
               <div className="flex w-full justify-center">
                 <div className="w-full">
@@ -155,7 +193,7 @@ export default function EmployeeDashboard() {
                 </div>
               </div>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>

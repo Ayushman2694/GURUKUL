@@ -8,7 +8,13 @@ import SpinnerMini from "../../Common/Ui/SpinnerMini";
 import { useUpdateCourseStatus } from "../../Admin/components/courses/useUpdateCourseStatus";
 import { useUpdateEmployee } from "../../Admin/components/settings/useUpdateEmployee";
 
-const VideoPlayer = ({ videoLink, videoId, courseId, percentage }) => {
+const VideoPlayer = ({
+  videoLink,
+  videoId,
+  courseId,
+  percentage,
+  setVideoLink,
+}) => {
   const [token] = useState(localStorage.getItem("token"));
   const { isLoading: loadingEmployee, employe_info } = useEmployeeInfo(token);
   const { updateEmployee, isLoading: updateEmployeeLoading } =
@@ -47,6 +53,7 @@ const VideoPlayer = ({ videoLink, videoId, courseId, percentage }) => {
 
   const runFunction = () => {
     addVideoWatched({ videoId, empId: employe_info.empId });
+    setVideoLink((value) => value + 1);
   };
 
   if (isLoading || loadingEmployee) return <SpinnerMini />;
@@ -66,7 +73,8 @@ const VideoPlayer = ({ videoLink, videoId, courseId, percentage }) => {
               controlsList: "nodownload",
             },
           },
-        }}s
+        }}
+        s
         playing={true} // Enable autoplay
         width="100%"
         height="auto"
