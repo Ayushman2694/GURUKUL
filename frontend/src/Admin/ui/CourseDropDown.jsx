@@ -18,7 +18,7 @@ const CourseDropdown = ({ selectedOption, setSelectedOption }) => {
         value={selectedOption}
         onChange={handleChange}
       >
-        <option value="">Select A Couse</option>
+        <option value="">Select A Course</option>
         {allCourse.map((course) => (
           <option key={course.courseTitle} value={course._id}>
             {course.courseTitle}

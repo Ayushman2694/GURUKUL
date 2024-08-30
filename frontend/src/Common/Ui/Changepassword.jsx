@@ -1,4 +1,5 @@
 import React from "react";
+import FormError from "./FormError";
 
 export default function Changepassword({ register, isLoading, errors }) {
   return (

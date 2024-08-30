@@ -102,7 +102,7 @@ export default function TrackByCourse() {
   return (
     <div className="bg-gray-50 h-auto shadow-md rounded-lg p-4 mb-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-xl font-semibold mb-6">Track by course</h1>
+        <h1 className="text-xl font-semibold mb-6">Track By Course</h1>
       </div>
       <div className="pb-3">
         <CourseDropdown
