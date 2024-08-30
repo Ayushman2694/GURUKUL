@@ -65,15 +65,15 @@ export default function TrackByCourse() {
 
   const data = [
     {
-      name: "completed",
+      name: "Completed",
       percent: Math.round((usersWithStatus100 / employeeCount) * 100),
     },
     {
-      name: "currently doing",
+      name: "Currently Doing",
       percent: Math.round((usersWithStatusLessThan100 / employeeCount) * 100),
     },
     {
-      name: "not started",
+      name: "Not Started",
       percent: Math.round(
         ((employeeCount - usersWithStatus100 - usersWithStatusLessThan100) /
           employeeCount) *
@@ -81,19 +81,19 @@ export default function TrackByCourse() {
       ),
     },
     {
-      name: "passed all quizzes",
+      name: "Passed All Quizzes",
       percent: Math.round(
         (employeesPassedAllQuizzes.length / employeeCount) * 100
       ),
     },
     {
-      name: "failed a quiz",
+      name: "Failed a Quiz",
       percent: Math.round(
         ((employeeCount - attemptedNotPassed.length) / employeeCount) * 100
       ),
     },
     {
-      name: "not started Quiz",
+      name: "Not Started Quiz",
       percent: Math.round(
         (uniqueAttemptedByArray.length / employeeCount) * 100
       ),
@@ -102,7 +102,7 @@ export default function TrackByCourse() {
   return (
     <div className="bg-gray-50 h-auto shadow-md rounded-lg p-4 mb-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-xl font-semibold mb-6">Track by course</h1>
+        <h1 className="text-xl font-semibold mb-6">Track by Course</h1>
       </div>
       <div className="pb-3">
         <CourseDropdown

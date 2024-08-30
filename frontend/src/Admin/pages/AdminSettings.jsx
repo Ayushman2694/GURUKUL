@@ -79,7 +79,10 @@ export default function AddUserAdmin() {
                 className="bg-blue-600 text-white px-7 mx-1 py-1 h-10 text-sm font-bold rounded-full hover:bg-blue-700 hover:scale-110"
               >
                 <div className=" flex justify-center items-center">
-                  <span className="px-1">Change password</span>
+
+
+                  <span className="px-1">Change Password</span>
+
                 </div>
               </button>
             </div>
