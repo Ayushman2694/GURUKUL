@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // Dropdown.js
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 import { MdKeyboardArrowUp } from "react-icons/md";
@@ -10,30 +10,53 @@ import Spinner from "../../../Common/Ui/Spinner";
 import { useQuizesByModuleId } from "../../../Admin/components/quiz/useQuizesByModuleId";
 import { TbBulb } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
+import { useSendRequestsForCourse } from "../../../Admin/components/requests/useSendRequestsForCourse";
+import { useEmployeeInfo } from "../employee_info/useEmployeeInfo";
+import { useAllRequest } from "../../../Admin/components/requests/useAllRequests";
 
 const Module = ({
   videos,
   moduleId,
   moduleName,
-  setVideoDiscription,
   setVideoLink,
-  setVideoId,
   empId,
+  allVideos,
+  videoLink,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => setIsOpen(!isOpen);
   const { isLoading, quiz } = useQuizesByModuleId(moduleId);
   const navigate = useNavigate();
+  const [token] = useState(localStorage.getItem("token"));
+  const { isLoading: loadingEmployee, employe_info } = useEmployeeInfo(token);
+  const { sendRequestsForCourse, isLoading: sendingRequest } =
+    useSendRequestsForCourse();
+  const { isLoading: loadingRequests, allRequest } = useAllRequest();
 
-  if (isLoading) return <Spinner />;
+  useEffect(() => {
+    const video = allVideos.find((video) => video.sequenceNo === videoLink);
+    const open = videos.includes(video?._id);
+    setIsOpen(open);
+  }, [allVideos, moduleName, videoLink, videos]);
+
+  if (isLoading || loadingEmployee || loadingRequests) return <Spinner />;
+
+  function checkQuizAndEmpId(quizId, empId) {
+    return allRequest.some(
+      (item) => item.quizId === quizId && item.empId === empId
+    );
+  }
+
+  const quizIdToCheck = quiz[0]?._id;
+  const empIdToCheck = employe_info.empId;
+
+  const result = checkQuizAndEmpId(quizIdToCheck, empIdToCheck);
 
   let attempted;
   let passed;
 
   quiz.some((item) => {
-    // Check if empId is in attemptedBy
     attempted = item.attemptedBy.includes(empId);
-    // Check if empId is in passedBy
     passed = item.passedBy.includes(empId);
   });
 
@@ -54,9 +77,10 @@ const Module = ({
             <Video
               key={id}
               id={id}
+              videoLink={videoLink}
               setVideoLink={setVideoLink}
-              setVideoDiscription={setVideoDiscription}
-              setVideoId={setVideoId}
+              // setVideoId={setVideoId}
+              allVideos={allVideos}
             />
           ))}
           {quiz.length !== 0 && (
@@ -75,11 +99,27 @@ const Module = ({
                 {quiz[0]?.title}
                 {attempted && (passed ? "(passed)" : " (failed)")}
               </p>
-              {attempted && (
-                <button className="bg-green-500 font-bold text-slate-800 rounded border px-2 py-1">
-                  Retry
-                </button>
-              )}
+              {attempted &&
+                (passed ? (
+                  ""
+                ) : (
+                  <button
+                    disabled={sendingRequest || result}
+                    onClick={() => {
+                      sendRequestsForCourse({
+                        quizId: quiz[0]?._id,
+                        quizTitle: quiz[0]?.title,
+                        empId: employe_info.empId,
+                        employeeName: employe_info.employeeName,
+                      });
+                    }}
+                    className={`font-bold ${
+                      result ? "bg-gray-500" : "bg-green-500"
+                    } text-slate-800 rounded border px-2 py-1`}
+                  >
+                    Retry
+                  </button>
+                ))}
             </div>
           )}
         </>

@@ -5,10 +5,10 @@ import { FaPlayCircle } from "react-icons/fa";
 import AddButton from "../ui/AddButton";
 import { useNavigate } from "react-router-dom";
 import { useAllCourse } from "../components/courses/useAllCourse";
-// import { useState } from "react";
+
 import ShowMoreShowLess from "../../Common/Ui/ShowMoreShowLess";
 import { useDeleteCourse } from "../components/courses/useDeleteCourse";
-import SpinnerMini from "../../Common/Ui/SpinnerMini";
+
 import ConfirmDelete from "../ui/ConfirmDelete";
 import { useState } from "react";
 
@@ -19,11 +19,6 @@ export default function AdminCourses() {
 
   const { removeCourse, isLoading: deleteCourseLoading } = useDeleteCourse();
   if (isLoading) return <Spinner />;
-  // const [readmore, setReadmore]= useState(false);
-  //   function readMoreHandler(){
-  //     setReadmore(!readmore);
-  //     // console.log("I am clicked");
-  // }
 
   return (
     <div className="min-h-screen w-full bg-white p-4 ">
@@ -96,7 +91,12 @@ export default function AdminCourses() {
                 </td>
                 <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm text-center">
                   <div className="flex justify-center gap-2">
-                    <button className="flex items-center gap-2 bg-blue-600 text-white font-semibold px-4 py-2 rounded-full hover:bg-blue-700">
+                    <button
+                      onClick={() => {
+                        navigate(`/admin/course/${course?._id}`);
+                      }}
+                      className="flex items-center gap-2 bg-blue-600 text-white font-semibold px-4 py-2 rounded-full hover:bg-blue-700"
+                    >
                       <span className="text-xl">
                         <FaPlayCircle />
                       </span>

@@ -1,6 +1,7 @@
 import Request from "../models/request.model.js";
 import Employee from "../models/user.model.js";
 import Course from "../models/course.model.js";
+import Quiz from "../models/quiz.model.js";
 
 // Controller to add a new request
 export const addRequest = async (req, res) => {
@@ -65,7 +66,7 @@ export const addRequest = async (req, res) => {
         empId: employee.empId,
         employeeName: employee.employeeName,
         quizId: quiz._id,
-        quizTitle: quiz.quizTitle,
+        quizTitle: quiz.title,
       });
 
       await newRequest.save();
@@ -76,13 +77,13 @@ export const addRequest = async (req, res) => {
     }
 
     return res.status(400).json({ message: "Invalid request parameters" });
-
   } catch (error) {
     console.error("Error adding request:", error.message);
-    return res.status(500).json({ message: "Server error", error: error.message });
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
   }
 };
-
 
 export const getAllRequest = async (req, res) => {
   try {

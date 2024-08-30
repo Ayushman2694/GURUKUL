@@ -11,7 +11,7 @@ import ConfirmDelete from "../../ui/ConfirmDelete";
 export default function ShowQuizCard({ id, title, moduleId, viewQuizHandler }) {
   const { removeQuiz, isLoading } = useRemoveQuiz();
   const [confirmDelete, setConfirmDelete] = useState(false);
-  console.log(id);
+
   if (isLoading) return <SpinnerMini />;
   return (
     <div
@@ -22,7 +22,7 @@ export default function ShowQuizCard({ id, title, moduleId, viewQuizHandler }) {
         <ShowMoreShowLess descriptionDetail={title} charNo="30" />
       </h2>
       <div className="text-gray-600">
-        <ModuleName moduleId={moduleId} />
+        {moduleId && <ModuleName moduleId={moduleId} />}
       </div>
       <div className="flex gap-2 mt-4 item justify-end items-center">
         <button
@@ -37,7 +37,7 @@ export default function ShowQuizCard({ id, title, moduleId, viewQuizHandler }) {
         {
           <button
             onClick={() => {
-              setConfirmDelete(true)
+              setConfirmDelete(true);
             }}
             disabled={isLoading}
             className="flex items-center gap-2 bg-red-600 text-white font-semibold px-4 py-1 rounded-full hover:bg-red-700"

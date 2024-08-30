@@ -57,11 +57,11 @@ export default function EmployeeInfo() {
       percent: coursesStatus0OrNotFound?.length,
     },
     {
-      name: "completed",
+      name: "Completed",
       percent: coursesStatus100?.length,
     },
     {
-      name: "ongoing",
+      name: "Ongoing",
       percent: coursesStatusMoreThan0LessThan100?.length,
     },
   ];
