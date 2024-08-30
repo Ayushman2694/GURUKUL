@@ -8,11 +8,11 @@ import AddButton from "../ui/AddButton";
 
 import CourseDropdown from "../ui/CourseDropDown";
 
-
 export default function Quizzes() {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState("");
   const { isLoading, allQuizs } = useAllQuizs();
+  
 
   // State to store search query
   const [searchQuery, setSearchQuery] = useState("");
