@@ -73,7 +73,7 @@ export default function AddUserAdmin() {
               >
                 <div className=" flex justify-center items-center">
 
-                  <span className="px-1">Change password</span>
+                  <span className="px-1">Change Password</span>
                 </div>
               </button>
             </div>
