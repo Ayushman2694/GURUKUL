@@ -23,6 +23,10 @@ export default function EmployeeCourses() {
 
   if (isLoading || loadingEmployee || loadingMoreCourse) return <Spinner />;
 
+
+  console.log(moreCourse);
+
+
   // Separate courses into different categories based on status
   const coursesStatus0OrNotFound = [];
   const coursesStatusMoreThan0LessThan100 = [];
@@ -205,7 +209,7 @@ export default function EmployeeCourses() {
             </div>
           </div>
         ) : (
-          courses?.map((course) => (
+          moreCourse?.map((course) => (
             <CourseThumbnail
               key={course._id}
               course={course}

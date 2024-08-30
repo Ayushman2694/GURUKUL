@@ -188,11 +188,6 @@ export default function Quiz() {
       )}
       {quizSubmited ? (
         <div className="flex">
-          {percentage < 70 && (
-            <button className="ml-2  mt-4 py-2 w-full font-bold bg-yellow-400 text-white rounded">
-              Request For Reattempt
-            </button>
-          )}
           <button
             onClick={() => {
               navigate(-1);

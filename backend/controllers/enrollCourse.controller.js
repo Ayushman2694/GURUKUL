@@ -36,23 +36,33 @@ export const assignCourse = async (req, res) => {
 export const excludingDepartment = async (req, res) => {
   try {
     const { empId } = req.params;
+    console.log("excludingDepartment ", empId);
+    const employee = await Employee.findOne({ empId }).select([
+      "department",
+      "courses",
+    ]);
 
-    // Find the employee by empId
-    const employee = await Employee.findOne({ empId });
+
     if (!employee) {
-      return res.status(400).json({ message: "Employee not found" });
+      return res.status(404).json({ message: "Employee not found" });
     }
 
-  const departmentName=employee.department
 
-    // Find courses that the employee has not enrolled in and that do not belong to the employee's department or "all_department"
+    const departmentName = employee.department;
+
     const courses = await Course.find({
       _id: { $nin: employee.courses },
-      courseDepartment: { $nin: [departmentName, "all_department"] }, // Corrected the query using $nin
+      $and: [
+        { courseDepartment: { $ne: departmentName } },
+        { courseDepartment: { $ne: "all_department" } },
+      ],
     });
+
+ 
 
     return res.status(200).json(courses);
   } catch (error) {
+    // Log the error and return a 500 error with the error message
     console.error("Error fetching courses:", error);
     return res.status(500).json({ message: "Server error", error: error.message });
   }

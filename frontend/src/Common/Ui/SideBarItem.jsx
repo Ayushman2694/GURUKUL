@@ -4,7 +4,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
-export default function SideBarItem({ icon, title, link, itemSelected }) {
+export default function SideBarItem({
+  icon,
+  title,
+  link,
+  itemSelected,
+  request = 0,
+}) {
   return (
     <Link to={`${link}`}>
       <div
@@ -18,6 +24,11 @@ export default function SideBarItem({ icon, title, link, itemSelected }) {
           <>
             <span className="pt-1">{icon}</span>
             <p className="px-2">{title}</p>
+            {request !== 0 && (
+              <span className=" text-white bg-red-600 rounded-full w-5 h-5 text-sm  font-semibold text-center ">
+                {request}
+              </span>
+            )}
             {itemSelected && (
               <span className="text-3xl justify-end">
                 <MdOutlineKeyboardArrowRight />

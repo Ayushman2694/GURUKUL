@@ -73,8 +73,13 @@ const Module = ({
               </span>
               <p className="text-md font-semibold px-2">
                 {quiz[0]?.title}
-                {attempted && (passed ? "(passed)" : "(failed)")}
+                {attempted && (passed ? "(passed)" : " (failed)")}
               </p>
+              {attempted && (
+                <button className="bg-green-500 font-bold text-slate-800 rounded border px-2 py-1">
+                  Retry
+                </button>
+              )}
             </div>
           )}
         </>

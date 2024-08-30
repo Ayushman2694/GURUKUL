@@ -13,13 +13,19 @@ const requestSchema = new mongoose.Schema({
   },
   courseId: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
     ref: "Course",
   },
   courseTitle: {
     type: String,
-    required: true,
     ref: "Course",
+  },
+  quizId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Quiz",
+  },
+  quizTitle: {
+    type: String,
+    ref: "Quiz",
   },
 });
 

@@ -1,11 +1,6 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from "react";
 
-export default function ShowSingleCorrectOption({
-  question,
-  index,
-  setAnswers,
-}) {
+export default function ShowSingleCorrectOption({ question, index }) {
   //   const [selectedOption, setSelectedOption] = useState("");
 
   return (

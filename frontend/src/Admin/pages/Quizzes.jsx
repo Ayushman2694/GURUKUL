@@ -3,7 +3,11 @@ import ShowQuizCard from "../components/quiz/ShowQuizCard";
 import { useNavigate } from "react-router-dom";
 import { useAllQuizs } from "../components/quiz/useAllQuiz";
 import Spinner from "../../Common/Ui/Spinner";
+
+import AddButton from "../ui/AddButton";
+
 import CourseDropdown from "../ui/CourseDropDown";
+
 
 export default function Quizzes() {
   const navigate = useNavigate();
@@ -24,7 +28,13 @@ export default function Quizzes() {
     <div className="min-h-screen w-full bg-white p-4">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold mb-6">All Quizzes</h1>
-        <div className="space-x-4 text-sm flex mt-0 pt-0 ">
+        <AddButton
+          title="Quiz"
+          onClick={() => {
+            navigate("/admin/quizzes/createQuiz");
+          }}
+        />
+        {/* <div className="space-x-4 text-sm flex mt-0 pt-0 ">
           <button
             onClick={() => {
               navigate("/admin/quizzes/createQuiz");
@@ -33,7 +43,7 @@ export default function Quizzes() {
           >
             Create New Quiz
           </button>
-        </div>
+        </div> */}
       </div>
       <div className="flex m-2 rounded-lg mr-2">
         <input
