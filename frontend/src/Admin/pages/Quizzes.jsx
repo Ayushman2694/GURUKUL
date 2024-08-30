@@ -11,7 +11,7 @@ import CourseDropdown from "../ui/CourseDropDown";
 
 export default function Quizzes() {
   const navigate = useNavigate();
-  const [selectedOption, setSelectedOption ] = useState("")
+  const [selectedOption, setSelectedOption] = useState("");
   const { isLoading, allQuizs } = useAllQuizs();
 
   // State to store search query
@@ -54,7 +54,10 @@ export default function Quizzes() {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         <div className="w-1/3 ml-2">
-          <CourseDropdown  selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
+          <CourseDropdown
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
+          />
         </div>
       </div>
       <div className="grid grid-cols-3 gap-4 mb-6">

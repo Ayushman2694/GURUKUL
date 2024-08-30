@@ -67,6 +67,7 @@ export default function EmployeeInfo() {
   ];
 
   return (
+
     <div className="w-full">
       <div className="flex w-full h-screen">
         <div className="w-full p-4">
@@ -84,6 +85,7 @@ export default function EmployeeInfo() {
                     <span className="pl-2">
                       <ImInfo />
                     </span>
+
                   </h3>
                   <div className=" bg-blue-600">
                     <h3 className="text-sm font-bold flex text-slate-100 bg-slate-50 rounded-tl-lg relative overflow-hidden">
@@ -93,6 +95,7 @@ export default function EmployeeInfo() {
                   </div>
                 </div>
               </div>
+
 
               {/* <h3 className="font-semibold p-2 text-lg">Basic Information</h3> */}
               <div className="flex p-2">
@@ -130,6 +133,7 @@ export default function EmployeeInfo() {
                 <div className="w-1/2 flex justify-end">
                   {employe_info.reportingManager}
                 </div>
+
               </div>
             </div>
             <div className="w-full md:w-1/2 border-2 m-1 rounded-sm pt-1 bg-slate-50 drop-shadow-xl">

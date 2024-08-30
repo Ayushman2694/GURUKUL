@@ -5,7 +5,7 @@ import { useBulkEmployess } from "../components/settings/useBulkEmployee";
 
 export default function AddUserAdmin() {
   const navigate = useNavigate();
-  const { bulkEmployees, isLoading }=useBulkEmployess()
+  const { bulkEmployees, isLoading } = useBulkEmployess();
 
   return (
     <div className={`w-full p-4`}>
@@ -36,7 +36,9 @@ export default function AddUserAdmin() {
             <h2 className="text-xl font-bold">Add Bulk Employees</h2>
             <div className="flex items-center space-x-4">
               <button
-                
+                onClick={() => {
+                  navigate("/admin/setting/upload-bulk");
+                }}
                 className="bg-blue-600 text-white px-10 mx-1 py-1 h-10 text-sm font-bold rounded-full hover:bg-blue-700 hover:scale-110"
               >
                 <div className=" flex justify-center items-center">
@@ -50,9 +52,12 @@ export default function AddUserAdmin() {
         <div className="mb-2 rounded shadow-md">
           <div className="flex justify-between items-center w-full rounded py-4 px-6 bg-gray-100 h-13">
             <h2 className="text-xl font-bold">Certificate Background</h2>
+
             <div className="flex items-center space-x-4">
               <button
-                
+                onClick={() => {
+                  navigate("/admin/setting/certificate-image");
+                }}
                 className="bg-blue-600 text-white px-3 mx-1 py-1 h-10 text-sm font-bold rounded-full hover:bg-blue-700 hover:scale-110"
               >
                 <div className=" flex justify-center items-center">
@@ -68,12 +73,16 @@ export default function AddUserAdmin() {
             <h2 className="text-xl font-bold">Change Password</h2>
             <div className="flex items-center space-x-4">
               <button
-                
+                onClick={() => {
+                  navigate("/admin/setting/changepassword");
+                }}
                 className="bg-blue-600 text-white px-7 mx-1 py-1 h-10 text-sm font-bold rounded-full hover:bg-blue-700 hover:scale-110"
               >
                 <div className=" flex justify-center items-center">
 
+
                   <span className="px-1">Change Password</span>
+
                 </div>
               </button>
             </div>
