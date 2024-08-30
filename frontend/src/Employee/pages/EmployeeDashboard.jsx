@@ -14,6 +14,7 @@ import { MdOutlineBookmarkAdd } from "react-icons/md";
 import { PiCertificateBold } from "react-icons/pi";
 import { useCourseByEmpId } from "../../Admin/components/courses/useCourseByEmpId";
 import { useNavigate } from "react-router-dom";
+import NetworkStatus from "../../Common/Ui/NetworkStatus";
 
 export default function EmployeeDashboard() {
   const navigate = useNavigate();
@@ -50,6 +51,7 @@ export default function EmployeeDashboard() {
 
   return (
     <div className="p-4 w-full bg-white min-h-screen">
+      {/* <NetworkStatus /> */}
       <div className="flex flex-row justify-between">
         <h1 className="text-2xl md:text-4xl w-1/2 font-bold mb-4">Dashboard</h1>
         <p className="text-sm md:text-xl  mb-4 pt-2 font-medium">

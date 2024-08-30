@@ -3,15 +3,16 @@ import React, { useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import BackButton from "./BackButton";
+import { useGetCertificate } from "../../Admin/components/courses/useGetCertificate";
+import Spinner from "./Spinner";
 
 const Certificate = React.forwardRef((props, ref) => (
   <div ref={ref} className="flex items-center justify-center p-4 bg-gray-100">
-    <div className="relative w-full max-w-4xl p-10 bg-white border-2 border-blue-500 shadow-lg rounded-lg text-center">
+    <div className="relative w-full max-w-4xl p-10 bg-white  shadow-lg rounded-lg text-center">
       <div
         className="absolute top-0 left-0 w-full h-full bg-no-repeat bg-center bg-contain"
         style={{
-          backgroundImage:
-            "url('https://www.pngkey.com/png/full/397-3976507_employee-of-the-month-certificate-border-border-design.png')",
+          backgroundImage: `url(${props.link})`,
           backgroundSize: "cover",
         }}
       ></div>
@@ -52,17 +53,21 @@ Certificate.displayName = "Certificate";
 export default function App() {
   const { name, courseName, department } = useParams();
   console.log(name, courseName, department);
+  const { certificate, isLoading } = useGetCertificate();
+
+  console.log(certificate);
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
-
+  if (isLoading) return <Spinner />;
   return (
     <>
       <BackButton />
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
         <Certificate
           ref={componentRef}
+          link={certificate.certificate}
           name={name}
           course={courseName}
           department={department}

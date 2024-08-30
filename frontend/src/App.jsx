@@ -36,7 +36,13 @@ import Protected from "./Employee/Ui/Protected";
 import Request from "./Admin/pages/Request";
 import Certificate from "./Common/Ui/Certificate";
 import ShowAnswers from "./Admin/components/quiz/ShowAnswers";
+
 import AdminWatchCourse from "./Admin/components/courses/AdminWatchCourse";
+
+import AdminChangePassword from "./Admin/components/settings/AdminChangePassword";
+import CertificateBackground from "./Admin/pages/CertificateBackground";
+import UploadCSV from "./Admin/pages/UploadCSV";
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -131,6 +137,15 @@ export default function App() {
               element={<ShowAllDepartment />}
             />
             <Route path="admin/addCourse" element={<AddFullCourse />} />
+            <Route
+              path="admin/setting/changepassword"
+              element={<AdminChangePassword />}
+            />
+            <Route
+              path="admin/setting/certificate-image"
+              element={<CertificateBackground />}
+            />
+            <Route path="admin/setting/upload-bulk" element={<UploadCSV />} />
           </Route>
         </Routes>
         <ToastContainer

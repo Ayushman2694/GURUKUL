@@ -7,7 +7,7 @@ export function useEmployeeSignup() {
     mutationFn: (data) => employeeSignupApi(data),
 
     onSuccess: () => {
-      toast.success("Admin Created Successfully");
+      toast.success("Employee Created Successfully");
     },
     onError: (err) => {
       toast.error(err.message); // Show the error message in a toast
