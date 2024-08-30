@@ -107,8 +107,8 @@ export default function Quiz() {
   }
 
   return (
-    <div className="p-8 w-full bg-gray-100 h-fit">
-      <h1 className="text-4xl font-bold mb-4">{quiz?.title}</h1>
+    <div className="md:p-8 p-4 w-full bg-gray-100 h-fit">
+      <h1 className="md:text-4xl text-2xl font-bold mb-4">{quiz?.title}</h1>
       {quizSubmited ? (
         <div
           className={`flex justify-center w-full p-8 ${
