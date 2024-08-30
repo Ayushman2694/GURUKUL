@@ -13,9 +13,8 @@ export async function sendRequestsForCourse(data) {
       return null;
     }
   } catch (error) {
-    console.log(error);
     if (error.response && error.response.status === 400) {
-      const errorMessage = error.response.data.error;
+      const errorMessage = error.response.data;
       throw new Error(errorMessage); // Throw the error with the specific message
     } else {
       throw error; // Handle other types of errors

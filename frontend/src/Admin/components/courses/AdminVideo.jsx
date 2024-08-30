@@ -1,21 +1,14 @@
 /* eslint-disable react/prop-types */
 import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
-import { MdOutlineCheckBox } from "react-icons/md";
-import { useEmployeeInfo } from "../employee_info/useEmployeeInfo";
-import { useState } from "react";
 
-export default function Video({
+export default function AdminVideo({
   id,
-  // setVideoDiscription,
+
   setVideoLink,
   videoLink,
-  // setVideoId,
+
   allVideos,
 }) {
-  const [token] = useState(localStorage.getItem("token"));
-  const { isLoading: loadingEmployee, employe_info } = useEmployeeInfo(token);
-
-  if (loadingEmployee) return null;
   const video = allVideos.find((video) => video._id === id);
 
   return (
@@ -29,11 +22,7 @@ export default function Video({
       }}
     >
       <span className="text-2xl font-semibold">
-        {video?.watchedBy.includes(employe_info.empId) ? (
-          <MdOutlineCheckBox />
-        ) : (
-          <MdOutlineCheckBoxOutlineBlank />
-        )}
+        <MdOutlineCheckBoxOutlineBlank />
       </span>
       <span className="text-md font-normal px-2">{video.videoTitle}</span>
     </div>

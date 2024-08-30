@@ -35,7 +35,7 @@ export default function DashboardCard({
       </div>
 
       <ul className="max-h-[14vh] mx-4 mb-2 overflow-y-auto">
-        {courses.length === 0 ? (
+        {courses?.length === 0 ? (
           <div className="w-full flex items-center justify-center">
             <div>
               <div className="w-full flex items-center justify-center">
@@ -47,7 +47,7 @@ export default function DashboardCard({
             </div>
           </div>
         ) : (
-          courses.map((course, index) => (
+          courses?.map((course, index) => (
             <li
               key={index}
               onClick={() => {
