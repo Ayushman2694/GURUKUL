@@ -1,4 +1,6 @@
 import React from "react";
+import FormError from "./FormError";
+import SpinnerMini from "./SpinnerMini";
 
 export default function Changepassword({ register, isLoading, errors }) {
   return (

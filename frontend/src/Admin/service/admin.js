@@ -56,3 +56,58 @@ export async function removeAdmin(data) {
       throw error;
     });
 }
+
+export async function changePassword(data) {
+  const endpointUrl = `${url}/api/auth/adminChangePassword`; // Adjust the endpoint URL as needed
+
+  try {
+    const response = await axios.post(endpointUrl, data);
+
+    if (response.status === 200) {
+      return response.data; // Return the data if needed
+    } else {
+      return null; // Return null or handle the error as needed
+    }
+  } catch (error) {
+    console.log("error found", error.message);
+    throw error; // Return null or handle the error as needed
+  }
+}
+
+// src/services/certificateSe
+
+export async function uploadCertificate (file)  {
+  const endpointUrl = `${url}/api/admin/uploadCertificate`;
+  const formData = new FormData();
+  formData.append("certificate", file);
+
+  try {
+    const response = await axios.post(endpointUrl, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error uploading certificate:", error);
+    throw error;
+  }
+}
+
+export async function getCertificate ()  {
+  const endpointUrl = `${url}/api/admin/getCertificate`;
+
+  try {
+    const response = await axios.get(endpointUrl)
+    if (response.status === 200) {
+      return response.data.certificate; // Return the data if needed
+    } else {
+      return null; // Return null or handle the error as needed
+    }
+
+  } catch (error) {
+    console.error("Error uploading certificate:", error);
+    throw error;
+  }
+}
