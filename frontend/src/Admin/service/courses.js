@@ -156,10 +156,6 @@ export async function getCourseByEmpId(empId) {
     if (response.status === 200) {
       return response.data.course; // Assuming response.data contains the array of admin details
     } else {
-      console.error(
-        "Failed to fetch employee information:",
-        response.data.error
-      );
       return null;
     }
   } catch (error) {
