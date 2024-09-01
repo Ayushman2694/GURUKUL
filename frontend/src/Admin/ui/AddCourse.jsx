@@ -19,6 +19,7 @@ export default function AddCourse({ setCourseData }) {
   const [imageUpload, setImageUpload] = useState(null);
 
   const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [departmentError, setDepartmentError] = useState(null);
 
   const {
     register,
@@ -62,7 +63,10 @@ export default function AddCourse({ setCourseData }) {
 
   const onSubmit = (data) => {
     if (!imageUpload) return;
-    if (!selectedDepartment) return;
+    if (!selectedDepartment) {
+      setDepartmentError("Department is required");
+      return;
+    }
 
     // const formData = new FormData();
     // formData.append("courseTitle", data.title);
@@ -167,6 +171,7 @@ export default function AddCourse({ setCourseData }) {
                   setSelectedOption={setSelectedDepartment}
                   uploading={true}
                 />
+                {departmentError && <FormError error={departmentError} />}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">

@@ -7,7 +7,7 @@ import imageCompression from "browser-image-compression";
 import { MdAddAPhoto } from "react-icons/md";
 import { toast } from "react-hot-toast";
 import { useUploadCertificate } from "../components/settings/useUploadCertificate";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import SpinnerMini from "../../Common/Ui/SpinnerMini";
 
 export default function CertificateBackground() {

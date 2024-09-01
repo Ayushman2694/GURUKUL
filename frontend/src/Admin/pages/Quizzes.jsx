@@ -13,7 +13,9 @@ export default function Quizzes() {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState("");
   const { isLoading, allQuizs } = useAllQuizs();
+
   const { quizs } = useQuizByCourseId(selectedOption);
+
 
   // State to store search query
   const [searchQuery, setSearchQuery] = useState("");
