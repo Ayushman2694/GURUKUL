@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ShowQuizCard from "../components/quiz/ShowQuizCard";
 import { useNavigate } from "react-router-dom";
 import { useAllQuizs } from "../components/quiz/useAllQuiz";
 import Spinner from "../../Common/Ui/Spinner";
 
 import AddButton from "../ui/AddButton";
+import { useQuizByCourseId } from "../components/quiz/useQuizByCourseId";
 
 import CourseDropdown from "../ui/CourseDropDown";
 
@@ -12,7 +13,9 @@ export default function Quizzes() {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState("");
   const { isLoading, allQuizs } = useAllQuizs();
-  
+
+  const { quizs } = useQuizByCourseId(selectedOption);
+
 
   // State to store search query
   const [searchQuery, setSearchQuery] = useState("");
@@ -61,17 +64,29 @@ export default function Quizzes() {
         </div>
       </div>
       <div className="grid grid-cols-3 gap-4 mb-6">
-        {filteredQuizzes.map((quiz) => (
-          <ShowQuizCard
-            key={quiz._id}
-            id={quiz._id}
-            title={quiz.title}
-            moduleId={quiz.module}
-            viewQuizHandler={() => {
-              navigate(`/admin/quizzes/viewQuiz/${quiz._id}`);
-            }}
-          />
-        ))}
+        {!quizs
+          ? filteredQuizzes.map((quiz) => (
+              <ShowQuizCard
+                key={quiz._id}
+                id={quiz._id}
+                title={quiz.title}
+                moduleId={quiz.module}
+                viewQuizHandler={() => {
+                  navigate(`/admin/quizzes/viewQuiz/${quiz._id}`);
+                }}
+              />
+            ))
+          : quizs.map((quiz) => (
+              <ShowQuizCard
+                key={quiz._id}
+                id={quiz._id}
+                title={quiz.title}
+                moduleId={quiz.module}
+                viewQuizHandler={() => {
+                  navigate(`/admin/quizzes/viewQuiz/${quiz._id}`);
+                }}
+              />
+            ))}
       </div>
     </div>
   );

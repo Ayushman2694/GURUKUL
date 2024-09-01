@@ -64,22 +64,26 @@ export default function EmployeeDashboard() {
           title="Courses Completed"
           icon={<MdOutlineBookmarkAdded />}
           courses={coursesStatus100}
+          delay={0.3}
         />
         <DashboardCard
           title="Courses Enrolled"
           icon={<MdOutlineBookmarkBorder />}
           courses={courseByEmpId}
+          delay={0.2}
         />
         <DashboardCard
           title="Courses Not Started"
           icon={<MdOutlineBookmarkAdd />}
           courses={coursesStatus0OrNotFound}
+          delay={0.1}
         />
         <DashboardCard
           title="Certificates Earned"
           icon={<GrCertificate />}
           courses={coursesStatus100}
           Certificate={true}
+          delay={0}
         />
       </div>
       <h2 className="text-2xl font-bold mb-4">Ongoing Courses</h2>
@@ -102,9 +106,7 @@ export default function EmployeeDashboard() {
           <div className="w-full flex items-center justify-center">
             <div>
               <div className="w-full flex items-center justify-center">
-                <p className="text-8xl">
-                  <PiEmptyBold />
-                </p>
+                <img src="/Empty.gif" />
               </div>
               <p className="text-xl py-2 px-4 font-medium">
                 No ongoing courses at the moment.
@@ -134,9 +136,7 @@ export default function EmployeeDashboard() {
             <div className="w-full flex items-center justify-center">
               <div>
                 <div className="w-full flex items-center justify-center">
-                  <p className="text-8xl">
-                    <PiEmptyBold />
-                  </p>
+                  <img src="/Empty.gif" />
                 </div>
                 <p className="text-xl py-2 px-4 font-medium">
                   No Certificates Earned.

@@ -31,7 +31,7 @@ const Certificate = React.forwardRef((props, ref) => (
           </div>
           from the Department of
           <div className="text-2xl font-bold text-blue-500 inline-block my-2 px-2">
-            {props.department}
+            {props.depertment}
           </div>
           has successfully completed the course
           <div className="text-2xl font-bold text-blue-500 inline-block my-2 px-2">
@@ -51,8 +51,8 @@ const Certificate = React.forwardRef((props, ref) => (
 Certificate.displayName = "Certificate";
 
 export default function App() {
-  const { name, courseName, department } = useParams();
-  console.log(name, courseName, department);
+  const { name, courseName, depertment } = useParams();
+  console.log(name, courseName, depertment);
   const { certificate, isLoading } = useGetCertificate();
 
   console.log(certificate);
@@ -70,7 +70,7 @@ export default function App() {
           link={certificate.certificate}
           name={name}
           course={courseName}
-          department={department}
+          depertment={depertment}
         />
         <button
           onClick={handlePrint}
