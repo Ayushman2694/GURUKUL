@@ -54,3 +54,20 @@ export async function removeRequest(data) {
       throw error;
     });
 }
+
+export async function quizRequest(data) {
+  const apiUrl = `${url}/api/quiz/reattempt`;
+  try {
+    const response = await axios.post(apiUrl,data); // Use GET for fetching data
+
+    if (response.status === 200) {
+      return response.data; // Assuming response.data contains the array of admin details
+    } else {
+      console.error("Failed to fetch quizRequest information:", response.data.error);
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching quizRequest information:", error);
+    throw error;
+  }
+}

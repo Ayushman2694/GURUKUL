@@ -42,14 +42,17 @@ export default function ShowAnswers() {
       </div>
 
       {response?.answers.map((question, index) => {
-        const getOptionText = (optionKey) => {
-          return question[optionKey];
-        };
+        const getOptionText = (optionKey) => question[optionKey];
 
-        const backgroundColor = getBackgroundColor(
-          question.correctAnswer,
-          question.userAnswer
-        );
+        const correctAnswers = Array.isArray(question.correctAnswer)
+          ? question.correctAnswer
+          : [question.correctAnswer];
+
+        const userAnswers = Array.isArray(question.userAnswer)
+          ? question.userAnswer
+          : [question.userAnswer];
+
+        const backgroundColor = getBackgroundColor(correctAnswers, userAnswers);
 
         return (
           <div
@@ -75,17 +78,13 @@ export default function ShowAnswers() {
             <div className="flex py-1">
               <p>Correct Answer(s):</p>
               <p className="px-2">
-                {question.correctAnswer
-                  .map((ans) => getOptionText(ans))
-                  .join(", ")}
+                {correctAnswers.map((ans) => getOptionText(ans)).join(", ")}
               </p>
             </div>
             <div className="flex py-1">
               <p>User Answer(s):</p>
               <p className="px-2">
-                {question.userAnswer
-                  .map((ans) => getOptionText(ans))
-                  .join(", ")}
+                {userAnswers.map((ans) => getOptionText(ans)).join(", ")}
               </p>
             </div>
           </div>

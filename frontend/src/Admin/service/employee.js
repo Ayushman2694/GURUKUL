@@ -124,12 +124,18 @@ export async function assignCourse(data) {
     }
   }
 }
-export async function bulkEmployees(data) {
+export async function bulkEmployees(file) {
   const endpointUrl = `${url}/api/admin/multipleEmployeeUpload`;
 
   try {
-    const response = await axios.post(endpointUrl, data);
+    const formData = new FormData();
+    formData.append("csvFile", file);
 
+    const response = await axios.post(endpointUrl, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     if (response.status === 200) {
       return response.data; // Return the data if needed
     } else {
