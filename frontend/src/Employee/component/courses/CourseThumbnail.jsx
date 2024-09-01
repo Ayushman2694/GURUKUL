@@ -3,11 +3,10 @@ import ProgressBar from "../../../Common/Ui/ProgressBar";
 import { useNavigate } from "react-router-dom";
 import ShowMoreShowLess from "../../../Common/Ui/ShowMoreShowLess";
 import { useSendRequestsForCourse } from "../../../Admin/components/requests/useSendRequestsForCourse";
-import { employeInfo } from "../../services/employe_info";
 import { useEmployeeInfo } from "../employee_info/useEmployeeInfo";
-import { useState } from "react";
-import Spinner from "../../../Common/Ui/Spinner";
 import { useAllRequest } from "../../../Admin/components/requests/useAllRequests";
+import { useState, useEffect } from "react";
+import Spinner from "../../../Common/Ui/Spinner";
 
 /* eslint-disable react/prop-types */
 export default function CourseThumbnail({
@@ -21,17 +20,33 @@ export default function CourseThumbnail({
   const { isLoading, allRequest } = useAllRequest();
   const [token] = useState(localStorage.getItem("token"));
   const { isLoading: loadingEmployee, employe_info } = useEmployeeInfo(token);
+  const [isRendered, setIsRendered] = useState(false);
+
+  useEffect(() => {
+    setIsRendered(true);
+  }, []);
+
   if (isLoading || loadingEmployee) return <Spinner />;
+
   const allreadyRequested = allRequest.some(
     (item) => item.courseId === course._id && item.empId === employe_info.empId
   );
 
+  const flashUpStyle = {
+    opacity: isRendered ? 1 : 0.9,
+    transform: isRendered
+      ? "translateX(0) scale(1)"
+      : "translateX(-500px) scale(1)",
+    transition: " transform .5s ",
+  };
+
   return (
     <div
-      className="w-1/2 md:w-1/3 p-1 py-2 "
+      className="w-1/2 md:w-1/3 p-1 py-2"
       onClick={() => {
         notEnorll ? null : navigate(`/employee/course/${course._id}`);
       }}
+      style={flashUpStyle}
     >
       <div className="bg-slate-100 p-4 rounded-md shadow-xl">
         <div className="flex justify-center">
@@ -66,14 +81,13 @@ export default function CourseThumbnail({
           !(progress === 100) ? (
             <ProgressBar progress={progress} />
           ) : (
-            <p className=" p-2 font-bold text-md text-blue-700">Completed</p>
+            <p className="p-2 font-bold text-md text-blue-700">Completed</p>
           )
         ) : (
           <button className="w-full bg-blue-600 text-slate-50 rounded-md mx-2 font-bold text-sm p-1 my-2">
             Start Course
           </button>
         )}
-        {}
       </div>
     </div>
   );

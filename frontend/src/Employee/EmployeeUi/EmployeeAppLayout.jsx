@@ -6,6 +6,7 @@ import Navbar from "../../Common/Ui/Navbar";
 
 export default function EmployeeAppLayout() {
   const [sideBar, setSideBar] = useState(true);
+
   return (
     <>
       <div className="w-full h-screen overflow-hidden">

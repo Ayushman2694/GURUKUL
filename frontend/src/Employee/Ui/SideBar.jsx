@@ -1,35 +1,56 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import SideBarItem from "../../Common/Ui/SideBarItem";
-
-import { FaHome } from "react-icons/fa";
-import { FaBook } from "react-icons/fa";
-import { IoMdSettings } from "react-icons/io";
-import { IoIosLogOut } from "react-icons/io";
-import { CgProfile } from "react-icons/cg";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaHome, FaBook } from "react-icons/fa";
+import { IoMdSettings, IoIosLogOut } from "react-icons/io";
+import { CgProfile } from "react-icons/cg";
 
+import SideBarItem from "../../Common/Ui/SideBarItem";
 import { Logout } from "../../Common/service/auth";
 
 export default function SideBar() {
   const [itemSelected, setItemSelected] = useState(
     localStorage.getItem("sidebar-selected") || "dashboard"
   );
+  const [isRendered, setIsRendered] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem("sidebar-selected", itemSelected);
   }, [itemSelected]);
 
+  useEffect(() => {
+    setIsRendered(true);
+  }, []);
+
+  const getItemStyle = (index) => ({
+    opacity: isRendered ? 1 : 0,
+    transform: isRendered
+      ? "translateX(0) scale(1)"
+      : "translateX(-500px) scale(1)",
+    transition: "transform .5s",
+    transitionDelay: isRendered ? `${index}s` : "0s", // Different delay for each item
+  });
+
   return (
-    <div className="bg-blue-700 h-full w-full border-t-2 pt-1 flex justify-center">
+    <div
+      className="bg-blue-700 h-full w-full border-t-2 pt-1 flex justify-center"
+      style={{
+        opacity: isRendered ? 1 : 0,
+        transform: isRendered
+          ? "translateX(0) scale(1)"
+          : "translateX(-300px) scale(1)",
+        transition: "transform .5s",
+      }}
+    >
       <div className="w-full">
         <div
           onClick={() => {
             setItemSelected("dashboard");
             // setSideBar(false);
           }}
+          style={getItemStyle(0)}
         >
           <SideBarItem
             icon={<FaHome />}
@@ -43,6 +64,7 @@ export default function SideBar() {
             setItemSelected("profile");
             // setSideBar(false);
           }}
+          style={getItemStyle(0.2)}
         >
           <SideBarItem
             icon={<CgProfile />}
@@ -56,6 +78,7 @@ export default function SideBar() {
             setItemSelected("courses");
             // setSideBar(false);
           }}
+          style={getItemStyle(0.4)}
         >
           <SideBarItem
             icon={<FaBook />}
@@ -69,6 +92,7 @@ export default function SideBar() {
             setItemSelected("settings");
             // setSideBar(false);
           }}
+          style={getItemStyle(0.6)}
         >
           <SideBarItem
             icon={<IoMdSettings />}
@@ -83,6 +107,7 @@ export default function SideBar() {
             Logout();
             navigate("/login");
           }}
+          style={getItemStyle(0.8)}
         >
           <SideBarItem icon={<IoIosLogOut />} title="Logout" />
         </div>
