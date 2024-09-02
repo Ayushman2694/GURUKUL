@@ -27,7 +27,7 @@ export async function adminlogin(data) {
     .then((res) => {
       if (res.status === 200) {
         localStorage.setItem("token", res.data.token); // Store token in localStorage
-        return res.data.email; // Return the email to be used in the onSuccess callback
+        return res.data; // Return the email to be used in the onSuccess callback
       }
     })
     .catch((error) => {
