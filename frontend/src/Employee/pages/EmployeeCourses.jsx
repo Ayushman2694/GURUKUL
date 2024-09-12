@@ -10,6 +10,8 @@ import { useCourseByEmpId } from "../../Admin/components/courses/useCourseByEmpI
 import { PiEmptyBold } from "react-icons/pi";
 import { useCourseNotByEmpId } from "../../Admin/components/courses/useCourseNotDepartmentName";
 import Heading from "../Ui/Heading";
+import Empty from "../Ui/Empty";
+import { motion } from "framer-motion";
 
 export default function EmployeeCourses() {
   const navigate = useNavigate();
@@ -51,7 +53,7 @@ export default function EmployeeCourses() {
     if (userStatus) {
       if (userStatus.status === 0) {
         coursesStatus0OrNotFound.push(course);
-      } else if (userStatus.status > 0 && userStatus.status < 100) {
+      } else if (userStatus.status >= 0 && userStatus.status < 100) {
         coursesStatusMoreThan0LessThan100.push(course);
       } else if (userStatus.status === 100) {
         coursesStatus100.push(course);
@@ -72,12 +74,24 @@ export default function EmployeeCourses() {
   );
 
   return (
-    <div className="w-full p-4 h-full ">
+    <div className="w-full p-4 pt-0 h-full ">
       {!mostRecentCourse ? null : (
-        <div style={getItemStyle(0)}>
+        <divs style={getItemStyle(0)}>
           <Heading text="Current Courses" />
 
-          <div className="w-full md:flex py-2 bg-slate-100 shadow-xl">
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 50,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: false }}
+            className="w-full md:flex py-2 pt-4 bg-slate-100 shadow-xl"
+          >
             <div className="md:w-1/2 px-2">
               <img
                 className="w-full"
@@ -105,8 +119,8 @@ export default function EmployeeCourses() {
                 Continue Course
               </button>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </divs>
       )}
 
       <Heading text="Ongoing Courses" />
@@ -128,19 +142,7 @@ export default function EmployeeCourses() {
           </div>
         </>
       ) : (
-        <div className="w-full flex items-center justify-center py-2">
-          <div>
-            <div className="w-full flex items-center justify-center">
-              <img src="/Empty.gif" />
-              {/* <p className="text-8xl">
-                <PiEmptyBold />
-              </p> */}
-            </div>
-            <p className="text-xl py-2 px-4 font-medium">
-              No ongoing courses at the moment.
-            </p>
-          </div>
-        </div>
+        <Empty text="No ongoing courses at the moment." />
       )}
       <Heading text="Courses Not Started" />
 
@@ -151,19 +153,7 @@ export default function EmployeeCourses() {
           ))}
         </div>
       ) : (
-        <div className="w-full flex items-center justify-center py-2">
-          <div>
-            <div className="w-full flex items-center justify-center">
-              <img src="/Empty.gif" />
-              {/* <p className="text-8xl">
-                <PiEmptyBold />
-              </p> */}
-            </div>
-            <p className="text-xl py-2 px-4 font-medium">
-              No courses available to start.
-            </p>
-          </div>
-        </div>
+        <Empty text="No courses available to start." />
       )}
 
       <Heading text="Courses Completed" />
@@ -175,32 +165,14 @@ export default function EmployeeCourses() {
           ))}
         </div>
       ) : (
-        <div className="w-full flex items-center justify-center py-2">
-          <div>
-            <div className="w-full flex items-center justify-center">
-              <img src="/Empty.gif" />
-            </div>
-            <p className="text-xl py-2 px-4 font-medium">
-              No courses completed yet.
-            </p>
-          </div>
-        </div>
+        <Empty text="No courses completed yet." />
       )}
 
       <Heading text="More Courses" />
 
       <div className="flex flex-wrap pt-4 pb-20">
         {moreCourse.length === 0 ? (
-          <div className="w-full flex items-center justify-center">
-            <div>
-              <div className="w-full flex items-center justify-center">
-                <img src="/Empty.gif" />
-              </div>
-              <p className="text-xl py-2 px-4 font-medium">
-                No More Course To Enroll
-              </p>
-            </div>
-          </div>
+          <Empty text="No More Course To Enroll" />
         ) : (
           moreCourse?.map((course) => (
             <CourseThumbnail

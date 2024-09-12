@@ -49,14 +49,14 @@ export default function DashboardCard({
         </div>
       </div>
 
-      <ul className="max-h-[14vh] mx-4 mb-2 overflow-y-auto">
+      <ul className="max-h-[16vh] mx-4 mb-2 overflow-y-auto">
         {courses?.length === 0 ? (
           <div className="w-full flex items-center justify-center">
             <div className="text-center">
               <div className="flex items-center justify-center">
-                <img src="/Empty.gif" className="w-1/4" />
+                <img src="/empty2.gif" className="w-1/6" />
               </div>
-              <p className="text-xl py-2 px-4 font-medium">No {title}</p>
+              <p className="text-xl px-4 font-medium">No {title}</p>
             </div>
           </div>
         ) : (

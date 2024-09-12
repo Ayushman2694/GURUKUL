@@ -17,6 +17,7 @@ export default function CreateQuizCard({ index, setQuestions }) {
   } = useForm();
 
   function checkSubmit(data) {
+    console.log(data);
     setQuestions((prev) => [...prev, data]);
 
     setIsSubmitted(true);

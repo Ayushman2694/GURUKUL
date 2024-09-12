@@ -11,6 +11,7 @@ export function useLogin() {
       toast.success("User Login Successfully");
     },
     onError: (err) => {
+      console.log(err);
       toast.error("Provided employee ID or password are incorrect");
     },
   });

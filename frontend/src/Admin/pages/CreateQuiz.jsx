@@ -19,7 +19,7 @@ export default function CreateQuiz() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { uploadQuiz, isLoading } = useUploadQuiz();
   const [questions, setQuestions] = useState([]);
-  // console.log(questions);
+  console.log(questions);
   const {
     register,
     handleSubmit,
@@ -29,6 +29,7 @@ export default function CreateQuiz() {
   const navigate = useNavigate();
 
   function checkSubmit(data) {
+    console.log("submit", { title: data.name, questions: questions });
     uploadQuiz({ title: data.name, questions: questions });
     navigate("/admin/quizzes");
   }

@@ -56,7 +56,9 @@ export default function ShowAllAdmin() {
                   <td className="px-5 py-3 w-1/5 border-b border-gray-200 bg-white text-sm text-center">
                     <div className="flex justify-center">
                       <button
-                        onClick={() => setConfirmDelete(true)}
+                        onClick={() => {
+                          setConfirmDelete(admin.adminEmail);
+                        }}
                         disabled={
                           deletingAdmin || adminEmail === admin.adminEmail
                         }
@@ -74,10 +76,10 @@ export default function ShowAllAdmin() {
                       {confirmDelete && (
                         <ConfirmDelete
                           what="Admin"
-                          who={admin.adminName}
+                          who={confirmDelete}
                           handelClick={() => {
                             removeAdmin({
-                              adminEmail: admin.adminEmail,
+                              adminEmail: confirmDelete,
                             });
                           }}
                           close={setConfirmDelete}

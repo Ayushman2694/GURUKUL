@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 
-const TypingEffect = ({ text = "Weelcome to Mediversal Gurukul" }) => {
+const TypingEffect = ({ text = "Weelcome To Mediversal Gurukul" }) => {
   const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const TypingEffect = ({ text = "Weelcome to Mediversal Gurukul" }) => {
     return () => clearInterval(typingInterval);
   }, [text]); // Add text as a dependency
 
-  return <p className="hidden text-black md:block">{displayedText}</p>;
+  return <p>{displayedText}</p>;
 };
 
 export default TypingEffect;

@@ -24,8 +24,8 @@ export default function Navbar({ setSideBar }) {
       style={flashUpStyle}
     >
       <div className="px-4 flex items-center">
-        <FaGraduationCap />
-        <p className="px-2 md:text-3xl text-xl">Mediversal Gurukul</p>
+        <img src="/logo.png" className="w-9 rounded" />
+        <p className="px-4 md:text-3xl text-xl">Mediversal Gurukul</p>
       </div>
       <div
         className="px-4 text-4xl hidden md:flex"

@@ -17,6 +17,7 @@ export const showAllAdmin = async (req, res) => {
 export const deleteAdmin = async (req, res) => {
   try {
     const { adminEmail } = req.body;
+    console.log(adminEmail);
     await Admin.deleteOne({ adminEmail });
     return res.status(200).json({ message: "Deleted Successfully" });
   } catch (error) {

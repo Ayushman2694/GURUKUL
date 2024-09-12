@@ -16,7 +16,6 @@ export default function Quizzes() {
 
   const { quizs } = useQuizByCourseId(selectedOption);
 
-
   // State to store search query
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -30,7 +29,7 @@ export default function Quizzes() {
   return (
     <div className="min-h-screen w-full bg-white p-4">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold mb-6">All Quizzes</h1>
+        <h1 className="text-3xl font-bold">All Quizzes</h1>
         <AddButton
           title="Quiz"
           onClick={() => {
@@ -48,6 +47,37 @@ export default function Quizzes() {
           </button>
         </div> */}
       </div>
+
+      <div className="flex pb-2">
+        <button
+          className="ml-2  mt-4 py-2 w-full bg-green-500 text-white rounded font-bold"
+          onClick={() => {}}
+        >
+          <div className="flex items-center justify-center">
+            {/* <AiOutlineSelect /> */}
+            <span className="px-2">Not Used Quizes</span>
+          </div>
+        </button>
+        <button
+          className="ml-2  mt-4 py-2 w-full bg-blue-500 text-white rounded font-bold"
+          onClick={() => {}}
+        >
+          <div className="flex items-center justify-center">
+            {/* <AiOutlineSelect /> */}
+            <span className="px-2">Module Quizes</span>
+          </div>
+        </button>
+        <button
+          className="ml-2  mt-4 py-2 w-full bg-yellow-500 text-white rounded font-bold"
+          onClick={() => {}}
+        >
+          <div className="flex items-center justify-center">
+            {/* <AiOutlineSelect /> */}
+            <span className="px-2">Department Quizes</span>
+          </div>
+        </button>
+      </div>
+
       <div className="flex m-2 rounded-lg mr-2">
         <input
           type="search"

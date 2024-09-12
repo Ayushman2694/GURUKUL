@@ -10,6 +10,7 @@ import { IoChevronForwardCircleOutline } from "react-icons/io5";
 import { useCourseByEmpId } from "../../Admin/components/courses/useCourseByEmpId";
 import MyPieChart from "../../Admin/components/Chart/PieChart";
 import MyBarChart from "../../Admin/components/Chart/BarChart";
+import Empty from "../Ui/Empty";
 
 export default function EmployeeInfo() {
   const [token] = useState(localStorage.getItem("token"));
@@ -167,17 +168,8 @@ export default function EmployeeInfo() {
                 </div>
               </div>
 
-              {!employe_info.courses ? (
-                <div className="w-full flex items-center justify-center">
-                  <div>
-                    <div className="w-full flex items-center justify-center">
-                      <img src="/Empty.gif" />
-                    </div>
-                    <p className="text-xl py-2 px-4 font-medium ">
-                      No Course Assigned
-                    </p>
-                  </div>
-                </div>
+              {employe_info.courses.length === 0 ? (
+                <Empty text="No Course Assigned" />
               ) : (
                 employe_info.courses.map((course) => (
                   <div

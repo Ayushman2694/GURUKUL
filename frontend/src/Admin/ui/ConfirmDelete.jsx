@@ -17,7 +17,7 @@ export default function ConfirmDelete({ handelClick, close, what, who }) {
             <div className="flex h-full justify-center items-center ">
               <div className="w-full border-2 border-gray-900 rounded-lg p-8 bg-stone-100 font-bold">
                 <div className="text-lg text-gray-900">
-                  Are You Sure You Want To Delete This {who} as {what} ?
+                  Are You Sure You Want To Delete {who} as {what} ?
                 </div>
                 <div className="flex items-center justify-center p-3 pt-8">
                   <div className="w-1/2">
