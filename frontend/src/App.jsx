@@ -43,7 +43,6 @@ import AdminChangePassword from "./Admin/components/settings/AdminChangePassword
 import CertificateBackground from "./Admin/pages/CertificateBackground";
 import UploadCSV from "./Admin/pages/UploadCSV";
 
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

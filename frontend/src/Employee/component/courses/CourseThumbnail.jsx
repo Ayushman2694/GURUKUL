@@ -7,6 +7,7 @@ import { useEmployeeInfo } from "../employee_info/useEmployeeInfo";
 import { useAllRequest } from "../../../Admin/components/requests/useAllRequests";
 import { useState, useEffect } from "react";
 import Spinner from "../../../Common/Ui/Spinner";
+import { motion } from "framer-motion";
 
 /* eslint-disable react/prop-types */
 export default function CourseThumbnail({
@@ -32,21 +33,22 @@ export default function CourseThumbnail({
     (item) => item.courseId === course._id && item.empId === employe_info.empId
   );
 
-  const flashUpStyle = {
-    opacity: isRendered ? 1 : 0.9,
-    transform: isRendered
-      ? "translateX(0) scale(1)"
-      : "translateX(-500px) scale(1)",
-    transition: " transform .5s ",
-  };
-
   return (
-    <div
+    <motion.div
       className="w-1/2 md:w-1/3 p-1 py-2"
+      initial={{
+        opacity: 0,
+        y: 50,
+      }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+      }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: false }} // This ensures the animation happens only once when scrolled into view
       onClick={() => {
         notEnorll ? null : navigate(`/employee/course/${course._id}`);
       }}
-      style={flashUpStyle}
     >
       <div className="bg-slate-100 p-4 rounded-md shadow-xl">
         <div className="flex justify-center">
@@ -75,7 +77,7 @@ export default function CourseThumbnail({
               allreadyRequested ? "bg-gray-600" : "bg-blue-600"
             } text-slate-50 rounded-md mx-2 font-bold text-sm p-1 my-2`}
           >
-            {allreadyRequested ? "Requested" : "Enorll"}
+            {allreadyRequested ? "Requested" : "Enroll"}
           </button>
         ) : !(progress === 0) ? (
           !(progress === 100) ? (
@@ -89,6 +91,6 @@ export default function CourseThumbnail({
           </button>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

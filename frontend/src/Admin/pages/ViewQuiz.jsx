@@ -19,6 +19,11 @@ import SelectModule from "../components/quiz/SelectModule";
 import ShowTextAnswer from "../components/quiz/ShowTextAnswer";
 import ShowSingleCorrectOption from "../components/quiz/ShowSingleCorrectOption";
 import ShowMultipleCorrectOption from "../components/quiz/ShowMultipleCorrectOption";
+import FloatContainer from "../../Common/Ui/FloatContainer";
+import Dropdown from "../ui/DropDown";
+import { IoIosArrowDropright } from "react-icons/io";
+import { RxCrossCircled } from "react-icons/rx";
+import { useAddModuleInQuiz } from "../components/quiz/useAddModuleInQuiz";
 
 export default function ViewQuiz() {
   const [name, setName] = useState("");
@@ -27,11 +32,36 @@ export default function ViewQuiz() {
   const [answers, setAnswers] = useState([]);
   const { isloading, quiz } = useQuizId(quizId);
   const { isLoading: loadindCourses, allCourse } = useAllCourse();
-  const [selectModule, setSelectModule] = useState(false);
+  const [selectModule, setSelectModule] = useState(null);
   const [viewResponse, setViewResponse] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedDepartments, setSelectedDepartments] = useState([]);
+  const { addModuleInQuiz, isLoading } = useAddModuleInQuiz();
 
   const handleChange = (e) => {
     setName(e.target.value);
+  };
+
+  const handleSelectDepartment = (option) => {
+    setSelectedOption(option);
+
+    // Add selected option to the array only if it doesn't exist
+    if (!selectedDepartments.includes(option)) {
+      setSelectedDepartments((prevDepartments) => [...prevDepartments, option]);
+    }
+  };
+
+  // Function to handle when the "Done" button is clicked
+  const handleDone = () => {
+    if (selectedDepartments.length === 0) return null;
+    addModuleInQuiz({ quizId: quizId, department: selectedDepartments });
+    setSelectedDepartments([]);
+  };
+
+  const removeDepartment = (indexToRemove) => {
+    setSelectedDepartments((prevDepartments) =>
+      prevDepartments.filter((_, index) => index !== indexToRemove)
+    );
   };
 
   if (isloading || loadindCourses) return <Spinner />;
@@ -44,21 +74,26 @@ export default function ViewQuiz() {
     <>
       <BackButton />
       <div className="flex w-full">
-        <div
-          className={`p-8  ${
-            selectModule ? "w-9/12" : "w-full"
-          } bg-gray-100  h-fit`}
-        >
+        <div className={`p-8  w-full bg-gray-100  h-fit`}>
           <h1 className="text-4xl font-bold mb-4">{quiz?.title}</h1>
 
           <div className="flex pb-2">
             <button
               className="ml-2  mt-4 py-2 w-full bg-yellow-500 text-white rounded font-bold"
-              onClick={() => setSelectModule((value) => !value)}
+              onClick={() => setSelectModule((value) => "module")}
             >
               <div className="flex items-center justify-center">
                 <AiOutlineSelect />
                 <span className="px-2">Select Module</span>
+              </div>
+            </button>
+            <button
+              className="ml-2  mt-4 py-2 w-full bg-red-500 text-white rounded font-bold"
+              onClick={() => setSelectModule((value) => "department")}
+            >
+              <div className="flex items-center justify-center">
+                <AiOutlineSelect />
+                <span className="px-2">Select Department</span>
               </div>
             </button>
             <button
@@ -121,43 +156,106 @@ export default function ViewQuiz() {
           )}
         </div>
         {selectModule && (
-          <div className="w-3/12 p-2 pl-0 bg-gray-100 pt-20">
-            <div className="bg-slate-300 rounded">
-              <div className="flex gap-2 p-2">
-                <div className="w-full rounded ">
-                  <input
-                    type="text"
-                    placeholder="Enter Course Name"
-                    value={name} // Bind the value to the state
-                    onChange={handleChange} // Update the state on change
-                    className="shadow my-1 appearance-none border rounded w-full
+          // <div className="w-3/12 p-2 pl-0 bg-gray-100 pt-20">
+          <FloatContainer
+            onClose={() => {
+              setSelectModule(null);
+            }}
+          >
+            {selectModule === "module" ? (
+              <div className="bg-slate-300 rounded">
+                <div className="flex gap-2 p-2">
+                  <div className="w-full rounded ">
+                    <input
+                      type="text"
+                      placeholder="Enter Course Name"
+                      value={name} // Bind the value to the state
+                      onChange={handleChange} // Update the state on change
+                      className="shadow my-1 appearance-none border rounded w-full
                  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-slate-500"
-                  />
+                    />
+                  </div>
                 </div>
-              </div>
-              {filteredEmployees?.map((course) => (
-                <div
-                  key={course._id}
-                  className="flex justify-center items-center border border-b-0 border-white"
-                >
-                  <div className="flex w-full justify-center items-center">
-                    <div className="w-full">
-                      <div className="text-lg font-bold text-center">
-                        {course.courseTitle}
-                      </div>
-                      <div>
-                        <SelectModule
-                          courseId={course._id}
-                          quizId={quizId}
-                          setSelectModule={setSelectModule}
-                        />
+                {filteredEmployees?.map((course) => (
+                  <div
+                    key={course._id}
+                    className="flex justify-center items-center border border-b-0 border-white"
+                  >
+                    <div className="flex w-full justify-center items-center">
+                      <div className="w-full">
+                        <div className="text-lg font-bold text-center">
+                          {course.courseTitle}
+                        </div>
+                        <div>
+                          <SelectModule
+                            courseId={course._id}
+                            quizId={quizId}
+                            setSelectModule={setSelectModule}
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
+                ))}
+              </div>
+            ) : (
+              <div className="bg-slate-100 p-4 rounded">
+                <div className="pb-4 font-bold text-2xl text-center">
+                  Select Department
                 </div>
-              ))}
-            </div>
-          </div>
+                <Dropdown
+                  selectedOption={selectedOption}
+                  setSelectedOption={handleSelectDepartment} // use the handler function
+                />
+                {selectedOption && (
+                  <>
+                    <div className="py-4 font-semibold text-xl text-center">
+                      Selected Departments
+                    </div>
+                    <div className="">
+                      {selectedDepartments.map((department, index) => (
+                        <div
+                          key={index}
+                          className="py-1 flex font-medium text-lg items-center"
+                        >
+                          <span className="pr-2 font-bold">
+                            <IoIosArrowDropright />
+                          </span>
+
+                          {department}
+                          <button
+                            className="ml-auto text-red-500"
+                            onClick={() => removeDepartment(index)} // Remove department on click
+                          >
+                            <RxCrossCircled size={24} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
+                <div className="flex justify-between pt-4">
+                  <button
+                    onClick={handleDone} // trigger the done action
+                    className="font-semibold text-white py-1 px-3 bg-green-600 rounded mx-2"
+                  >
+                    Done
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSelectModule("");
+                      setSelectedOption("");
+                      setSelectedDepartments([]);
+                    }} // Reset selection
+                    className="font-semibold text-white py-1 px-3 bg-gray-600 rounded mx-2"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            )}
+          </FloatContainer>
+          // </div>
         )}
         <div className="mb-10 h-10"></div>
       </div>

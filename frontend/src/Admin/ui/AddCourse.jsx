@@ -18,6 +18,8 @@ export default function AddCourse({ setCourseData }) {
   const [cropData, setCropData] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
 
+  console.log(imageUpload);
+
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [departmentError, setDepartmentError] = useState(null);
 
