@@ -6,13 +6,12 @@ import CourseName from "./CourseName";
 
 export default function ModuleName({ moduleId }) {
   const { isLoading, module } = useGetModule(moduleId);
-  console.log(module);
 
   if (isLoading) return <SpinnerMini />;
   return (
     <p className="px-2 py-1  cursor-pointer">
       <div className="flex items-center">
-        Course : <CourseName course={module.course} />
+        Course : <CourseName course={module.course} admin={true} />
       </div>
       Module : {module.moduleName}
     </p>

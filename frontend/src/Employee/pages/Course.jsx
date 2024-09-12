@@ -10,12 +10,16 @@ import { useCourseByCourseId } from "../../Admin/components/courses/useCourseByC
 import { useVideoByCourseId } from "../../Admin/components/courses/useVideoByCourseId";
 import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
 import { useQuizByCourseId } from "../../Admin/components/quiz/useQuizByCourseId";
-
+import { FaPlayCircle } from "react-icons/fa";
 import { useEffect } from "react";
+import { updateEmployee } from "../../Admin/service/employee";
+import { updateCourseStatus } from "../../Admin/service/courses";
 
 export default function Course() {
   const { courseId } = useParams();
+  const [play, setPlay] = useState(false);
   const [videoLink, setVideoLink] = useState(null);
+  const [percent, setPercent] = useState();
   const [token] = useState(localStorage.getItem("token"));
   const { isLoading: loadingEmployee, employe_info } = useEmployeeInfo(token);
   const { isLoading: loadingModule, modules } = useModuleByCourseId(courseId);
@@ -47,11 +51,53 @@ export default function Course() {
   }
 
   useEffect(() => {
-    if (videoLink === null && sortedVideos.length > 0 && employe_info?.empId) {
-      const sequenceNo = getSequenceNo(sortedVideos, employe_info.empId);
+    if (
+      videoLink === null &&
+      sortedVideos.length > 0 &&
+      employe_info?.empId &&
+      play
+    ) {
+      const sequenceNo = getSequenceNo(sortedVideos, employe_info?.empId);
       setVideoLink(sequenceNo);
     }
-  }, [sortedVideos, employe_info, videoLink]);
+  }, [sortedVideos, employe_info, videoLink, play]);
+
+  useEffect(() => {
+    updateEmployee({ empId: employe_info?.empId, currentCourse: courseId });
+    if (percent) {
+      updateCourseStatus({
+        userId: employe_info?.empId,
+        courseId: courseId,
+        status: percent,
+      });
+    }
+  }, [
+    courseId,
+    employe_info?.empId,
+    percent,
+    updateCourseStatus,
+    updateEmployee,
+  ]);
+
+  const countEmpIdOccurrences = (data, empId) => {
+    return data?.reduce((count, item) => {
+      return count + item.passedBy.filter((id) => id === empId).length;
+    }, 0);
+  };
+
+  const watchedCount = ModuleVidos?.filter((item) =>
+    item.watchedBy.includes(employe_info?.empId)
+  ).length;
+
+  useEffect(() => {
+    const percentage = Math.round(
+      setPercent(
+        ((watchedCount + countEmpIdOccurrences(quizs, employe_info?.empId)) /
+          (ModuleVidos?.length + quizs?.length)) *
+          100
+      )
+    );
+  });
 
   // Early return after hooks are called
   if (
@@ -64,36 +110,38 @@ export default function Course() {
     return <Spinner />;
   }
 
-  const length = ModuleVidos.length;
-  const watchedCount = ModuleVidos.filter((item) =>
-    item.watchedBy.includes(employe_info.empId)
-  ).length;
+  // const length = ModuleVidos.length;
 
-  const countEmpIdOccurrences = (data, empId) => {
-    return data.reduce((count, item) => {
-      return count + item.passedBy.filter((id) => id === empId).length;
-    }, 0);
-  };
-
-  const count = countEmpIdOccurrences(quizs, employe_info.empId);
-
-  const percentage = Math.round(
-    ((watchedCount + count) / (length + quizs.length)) * 100
-  );
+  // const count = countEmpIdOccurrences(quizs, employe_info.empId);
 
   return (
     <div className="w-full md:flex p-4">
       <div className="w-full md:w-9/12 overflow-y-auto pb-3 md:pb-20">
-        {videoLink !== null ? (
+        {videoLink !== null && videoLink <= sortedVideos.length ? (
           <VideoPlayer
             videoLink={sortedVideos[videoLink - 1]?.videoLink}
             videoId={sortedVideos[videoLink - 1]?._id}
             courseId={courseId}
-            percentage={percentage}
+            percentage={percent}
             setVideoLink={setVideoLink}
           />
         ) : (
-          <img src={course?.thumbnail} className="w-full rounded" />
+          <div className="relative w-full">
+            {/* Course Thumbnail */}
+            <img
+              src={course?.thumbnail}
+              className="w-full rounded opacity-70"
+              alt="Course Thumbnail"
+            />
+
+            {/* Play Button */}
+            <button
+              onClick={() => setPlay(() => true)}
+              className="absolute  inset-0 flex items-center justify-center text-8xl text-gray-800"
+            >
+              <FaPlayCircle />
+            </button>
+          </div>
         )}
 
         {videoLink !== null && (

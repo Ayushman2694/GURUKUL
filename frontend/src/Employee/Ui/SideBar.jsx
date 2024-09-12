@@ -53,7 +53,7 @@ export default function SideBar() {
           style={getItemStyle(0)}
         >
           <SideBarItem
-            icon={<FaHome />}
+            icon={<img src="/GreenHouse.png" className="w-11" />}
             title="Dashboard"
             link="employee/dashboard"
             itemSelected={itemSelected === "dashboard"}
@@ -67,7 +67,7 @@ export default function SideBar() {
           style={getItemStyle(0.2)}
         >
           <SideBarItem
-            icon={<CgProfile />}
+            icon={<img src="/UserProfile.png" className="w-11" />}
             title="Profile"
             link="employee/profile"
             itemSelected={itemSelected === "profile"}
@@ -81,7 +81,7 @@ export default function SideBar() {
           style={getItemStyle(0.4)}
         >
           <SideBarItem
-            icon={<FaBook />}
+            icon={<img src="/Profile.png" className="w-10 mb-1" />}
             title="Courses"
             link="employee/courses"
             itemSelected={itemSelected === "courses"}
@@ -95,10 +95,25 @@ export default function SideBar() {
           style={getItemStyle(0.6)}
         >
           <SideBarItem
-            icon={<IoMdSettings />}
+            icon={<img src="/Settings.png" className="w-10 mb-1" />}
             title="Settings"
             link="employee/settings"
             itemSelected={itemSelected === "settings"}
+          />
+        </div>
+
+        <div
+          onClick={() => {
+            setItemSelected("quiz");
+            // setSideBar(false);
+          }}
+          style={getItemStyle(0.6)}
+        >
+          <SideBarItem
+            icon={<img src="/Quiz.png" className="w-14" />}
+            title="Quizzes"
+            link="employee/settings"
+            itemSelected={itemSelected === "quiz"}
           />
         </div>
 
@@ -109,7 +124,10 @@ export default function SideBar() {
           }}
           style={getItemStyle(0.8)}
         >
-          <SideBarItem icon={<IoIosLogOut />} title="Logout" />
+          <SideBarItem
+            icon={<img src="/Exit.png" className="w-12" />}
+            title="Logout"
+          />
         </div>
       </div>
     </div>
