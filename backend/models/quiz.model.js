@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Department from "./department.model";
 
 const quizSchema = mongoose.Schema(
   {
@@ -10,6 +11,11 @@ const quizSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Module",
     },
+    Department:[
+      {
+        type:String
+      }
+    ],
     questions: {
       type: [mongoose.Schema.Types.Mixed],
       required: true,

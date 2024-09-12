@@ -19,7 +19,7 @@ export const addCourse = async (req, res) => {
 
     // Generate the URL for the uploaded thumbnail
     const thumbnail_url = req.file.path;
-
+    
     const course = new Course({
       courseTitle: req.body.courseTitle,
       courseDescription: req.body.courseDescription,
@@ -290,8 +290,8 @@ export const getCourseByDepartment = async (req, res) => {
     }
     const course = await Course.find({
       $or: [
-        { courseDepartment: department },
-        { courseDepartment: "all_department" },
+        { courseDepartment: { $in: [department] }},
+        { courseDepartment: {$in:["all_department"]} },
         { _id: { $in: courseInEmp } },
       ],
     });

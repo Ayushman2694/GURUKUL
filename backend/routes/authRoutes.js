@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors"
 import { login, createEmploye } from "../controllers/auth.controllers.js";
 import {
   adminChangePassword,
@@ -13,7 +14,15 @@ import { getUserInfo } from "../controllers/getUserInfo.controller.js";
 import { verifyToken } from "../controllers/verifyToken.controller.js";
 const router = express.Router();
 
-router.post("/login", login);
+const corsOptions = {
+  origin: 'https://www.mediversal-gurukul.netlify.app',
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",//(https://your-client-app.com)
+  optionsSuccessStatus: 200,
+};
+router.use(cors(corsOptions));
+
+
+router.post("/login",cors(corsOptions),login);
 router.get("/verifyToken", verifyToken);
 router.post("/changePassword", changePassword);
 router.post("/adminChangePassword", adminChangePassword);
