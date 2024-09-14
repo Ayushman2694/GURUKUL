@@ -9,11 +9,10 @@ const coursesSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  courseDepartment: [
-    {
-    type: String,
-    required: true,}
-    ],
+  courseDepartment: {
+    type: [String], // Defines an array of strings
+    required: true, // Marks this field as required
+  },
   thumbnail: {
     type: String,
     required: true,

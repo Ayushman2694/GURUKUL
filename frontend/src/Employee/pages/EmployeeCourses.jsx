@@ -217,6 +217,7 @@ export default function EmployeeCourses() {
                 <CourseThumbnail
                   key={course._id}
                   course={course}
+                  notEnorll={true}
                   progress={
                     course.userStatus.find(
                       (user) => user.user === employe_info.empId
