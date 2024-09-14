@@ -90,7 +90,7 @@ export default function EmployeeCourses() {
             }}
             transition={{ duration: 0.6 }}
             viewport={{ once: false }}
-            className="w-full md:flex py-2 pt-4 bg-slate-100 shadow-xl"
+            className="w-full md:flex py-2 pt-2 mt-4 bg-secondary2 rounded shadow-xl"
           >
             <div className="w-full">
               <div>
@@ -106,7 +106,7 @@ export default function EmployeeCourses() {
                   />
                 </div>
                 <div className="md:w-1/2 p-4 flex flex-col">
-                  <p className="text-2xl font-bold pb-2">
+                  <p className="text-2xl font-bold pb-2 text-testColor1">
                     {mostRecentCourse?.courseTitle}
                   </p>
                   <div className="text-lg font-medium">
@@ -116,7 +116,7 @@ export default function EmployeeCourses() {
                     />
                   </div>
                   <button
-                    className="w-full bg-blue-600 text-slate-50 rounded-md font-bold text-sm p-1 mt-auto"
+                    className="w-full bg-primary text-slate-50 rounded-md font-bold text-sm p-1 mt-auto"
                     onClick={() => {
                       navigate(`/employee/course/${mostRecentCourse?._id}`);
                     }}
@@ -130,7 +130,7 @@ export default function EmployeeCourses() {
         </div>
       )}
 
-      <div className="w-full border my-4 rounded-sm bg-slate-100 drop-shadow-xl md:pt-2">
+      <div className="w-full my-4 rounded bg-secondary2 drop-shadow-xl md:pt-2">
         <CardHeading
           title="Ongoing Courses"
           icon={<MdOutlineOndemandVideo />}
@@ -156,7 +156,7 @@ export default function EmployeeCourses() {
         </div>
       </div>
 
-      <div className="w-full border my-4  rounded-sm bg-slate-100 drop-shadow-xl md:pt-2">
+      <div className="w-full  my-4  rounded bg-secondary2 drop-shadow-xl md:pt-2">
         <CardHeading
           title="Courses Not Started"
           icon={<MdOutlineOndemandVideo />}
@@ -182,7 +182,7 @@ export default function EmployeeCourses() {
         </div>
       </div>
 
-      <div className="w-full border my-4  rounded-sm bg-slate-100 drop-shadow-xl md:pt-2">
+      <div className="w-full  my-4  rounded bg-secondary2 drop-shadow-xl md:pt-2">
         <CardHeading
           title="Courses Completed"
           icon={<MdOutlineOndemandVideo />}
@@ -208,7 +208,7 @@ export default function EmployeeCourses() {
         </div>
       </div>
 
-      <div className="w-full border my-4 rounded-sm bg-slate-100 drop-shadow-xl md:pt-2">
+      <div className="w-full  my-4 rounded bg-secondary2 drop-shadow-xl md:pt-2">
         <CardHeading title="More Courses" icon={<MdOutlineOndemandVideo />} />
         <div className="flex flex-wrap">
           {moreCourse.length > 0 ? (

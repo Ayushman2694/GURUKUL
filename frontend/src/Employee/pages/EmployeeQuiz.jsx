@@ -22,7 +22,7 @@ export default function EmployeeQuiz() {
   );
 
   return (
-    <div className="min-h-screen w-full bg-white p-4">
+    <div className="min-h-screen w-full p-4">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Quizzes</h1>
       </div>
