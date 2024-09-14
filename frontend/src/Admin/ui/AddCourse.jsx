@@ -11,17 +11,22 @@ import { useForm } from "react-hook-form";
 import Dropdown from "./DropDown";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
+import FloatContainer from "../../Common/Ui/FloatContainer";
+import { IoIosArrowDropright } from "react-icons/io";
+import { RxCrossCircled } from "react-icons/rx";
 
 export default function AddCourse({ setCourseData }) {
   const [image, setImage] = useState(null);
   const [cropper, setCropper] = useState();
   const [cropData, setCropData] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
-
-  console.log(imageUpload);
+  const [selectDepartment, setSelectDepartment] = useState(false);
 
   const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [selectedDepartments, setSelectedDepartments] = useState([]);
   const [departmentError, setDepartmentError] = useState(null);
+
+  console.log(selectedDepartments);
 
   const {
     register,
@@ -79,9 +84,31 @@ export default function AddCourse({ setCourseData }) {
     setCourseData({
       courseTitle: data.title,
       courseDescription: data.description,
-      courseDepartment: selectedDepartment,
+      courseDepartment: selectedDepartments,
       thumbnail: imageUpload,
     });
+  };
+
+  const handleSelectDepartment = (option) => {
+    setSelectedDepartment(option);
+
+    // Add selected option to the array only if it doesn't exist
+    if (!selectedDepartments.includes(option)) {
+      setSelectedDepartments((prevDepartments) => [...prevDepartments, option]);
+    }
+  };
+
+  // Function to handle when the "Done" button is clicked
+  const handleDone = () => {
+    if (selectedDepartments.length === 0) return null;
+    setSelectDepartment(false);
+    // setSelectedDepartments([]);
+  };
+
+  const removeDepartment = (indexToRemove) => {
+    setSelectedDepartments((prevDepartments) =>
+      prevDepartments.filter((_, index) => index !== indexToRemove)
+    );
   };
 
   return (
@@ -168,11 +195,24 @@ export default function AddCourse({ setCourseData }) {
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                   Department
                 </label>
-                <Dropdown
-                  selectedOption={selectedDepartment}
-                  setSelectedOption={setSelectedDepartment}
-                  uploading={true}
-                />
+                {selectedDepartments.map((department, index) => (
+                  <div
+                    key={index}
+                    className="py-1 flex font-medium text-lg items-center"
+                  >
+                    <span className="pr-2 font-bold">
+                      <IoIosArrowDropright />
+                    </span>
+
+                    {department}
+                  </div>
+                ))}
+                <div
+                  onClick={() => setSelectDepartment(true)}
+                  className="bg-blue-600 w-full text-center hover:bg-blue-700 text-white font-bold mt-2 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                  Add Departments
+                </div>
                 {departmentError && <FormError error={departmentError} />}
               </div>
               <div className="mb-4">
@@ -202,6 +242,67 @@ export default function AddCourse({ setCourseData }) {
             </>
           )}
         </form>
+        {selectDepartment && (
+          <FloatContainer
+            onClose={() => {
+              setSelectDepartment(false);
+            }}
+          >
+            <div className="bg-slate-100 p-4 rounded">
+              <div className="pb-4 font-bold text-2xl text-center">
+                Select Department
+              </div>
+              <Dropdown
+                selectedOption={selectDepartment}
+                setSelectedOption={handleSelectDepartment} // use the handler function
+              />
+              {selectedDepartments.length > 0 && (
+                <>
+                  <div className="py-4 font-semibold text-xl text-center">
+                    Selected Departments
+                  </div>
+                  <div className="">
+                    {selectedDepartments.map((department, index) => (
+                      <div
+                        key={index}
+                        className="py-1 flex font-medium text-lg items-center"
+                      >
+                        <span className="pr-2 font-bold">
+                          <IoIosArrowDropright />
+                        </span>
+
+                        {department}
+                        <button
+                          className="ml-auto text-red-500"
+                          onClick={() => removeDepartment(index)} // Remove department on click
+                        >
+                          <RxCrossCircled size={24} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+              <div className="flex justify-center pt-4">
+                <button
+                  onClick={handleDone} // trigger the done action
+                  className="font-semibold w-full text-white py-1 px-3 bg-green-600 rounded mx-2"
+                >
+                  Done
+                </button>
+                <button
+                  onClick={() => {
+                    setSelectDepartment(false);
+                    setSelectedDepartments([]);
+                  }} // Reset selection
+                  className="font-semibold w-full text-white py-1 px-3 bg-gray-600 rounded mx-2"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </FloatContainer>
+        )}
       </div>
     </div>
   );

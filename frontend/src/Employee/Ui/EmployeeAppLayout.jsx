@@ -17,7 +17,7 @@ export default function EmployeeAppLayout() {
             <SideBar setSideBar={setSideBar} />
           </div>
         )}
-        <div className={`flex-1 overflow-y-auto flex}`}>
+        <div className={`flex-1 overflow-y-auto bg-secondary`}>
           <Outlet />
         </div>
       </div>

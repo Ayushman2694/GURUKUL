@@ -52,11 +52,13 @@ export default function EmployeeDashboard() {
   });
 
   return (
-    <div className="p-4 w-full bg-gray-50 min-h-screen">
+    <div className="p-4 w-full  min-h-screen">
       {/* <NetworkStatus /> */}
       <div className="flex flex-row justify-between">
-        <h1 className="text-2xl md:text-4xl w-1/2 font-bold mb-4">Dashboard</h1>
-        <p className="text-sm md:text-xl  mb-4 pt-2 font-medium">
+        <h1 className="text-2xl md:text-4xl w-1/2 text-testColor1 font-bold mb-4">
+          Dashboard
+        </h1>
+        <p className="text-sm md:text-xl text-testColor1 mb-4 pt-2 font-medium">
           {" "}
           {`Employee ID : ${employe_info.empId}`}
         </p>
@@ -89,7 +91,7 @@ export default function EmployeeDashboard() {
         />
       </div>
 
-      <div className="w-full border  rounded-sm bg-slate-100 drop-shadow-xl md:pt-2">
+      <div className="w-full rounded bg-secondary2 drop-shadow-xl md:pt-2">
         <CardHeading
           title="Ongoing Courses"
           icon={<MdOutlineOndemandVideo />}
@@ -115,7 +117,7 @@ export default function EmployeeDashboard() {
         </div>
       </div>
 
-      <div className="w-full border  rounded-sm bg-slate-100 drop-shadow-xl mt-6 md:py-4">
+      <div className="w-full  rounded bg-secondary2 drop-shadow-xl mt-6 md:py-4 md:pt-2">
         <CardHeading title="Certificates" icon={<PiCertificateBold />} />
         <div className="flex p-2 flex-wrap">
           {coursesStatus100.length === 0 ? (
