@@ -11,11 +11,12 @@ import { useCourseByEmpId } from "../../Admin/components/courses/useCourseByEmpI
 import MyPieChart from "../../Admin/components/Chart/PieChart";
 import MyBarChart from "../../Admin/components/Chart/BarChart";
 import Empty from "../Ui/Empty";
+import CardHeading from "../Ui/CardHeading";
 
 export default function EmployeeInfo() {
   const [token] = useState(localStorage.getItem("token"));
   const { isLoading, employe_info } = useEmployeeInfo(token);
-  console.log(employe_info);
+  console.log(employe_info.theme);
   const { courses } = useCourseByEmpId(employe_info?.empId);
   const [isRendered, setIsRendered] = useState(false);
 
@@ -91,23 +92,10 @@ export default function EmployeeInfo() {
             </h1>
           </div>
           <div className="md:flex w-full pt-4 " style={flashUpStyle}>
-            <div className="w-full md:w-1/2 border m-1 rounded-sm bg-slate-50 drop-shadow-xl py-2">
-              <div className="flex">
-                <div className=" bg-slate-50">
-                  <h3 className="text-xl font-bold flex py-1 px-4 rounded-r-lg rounded-tl-lg items-center  text-white bg-blue-600">
-                    Basic Information
-                    <span className="pl-2">
-                      <ImInfo />
-                    </span>
-                  </h3>
-                  <div className=" bg-blue-600">
-                    <h3 className="text-sm font-bold flex text-slate-100 bg-slate-50 rounded-tl-lg relative overflow-hidden">
-                      <span className="absolute inset-x-0 inset-r-0 h-2 "></span>
-                      .
-                    </h3>
-                  </div>
-                </div>
-              </div>
+            <div
+              className={`w-full md:w-1/2 border m-1 rounded-sm bg-slate-50 drop-shadow-xl py-2`}
+            >
+              <CardHeading title="Basic Information" icon={<ImInfo />} />
 
               {/* <h3 className="font-semibold p-2 text-lg">Basic Information</h3> */}
               <div className="flex p-2">
@@ -151,23 +139,7 @@ export default function EmployeeInfo() {
               className="w-full md:w-1/2 border-2 m-1 rounded-sm pt-1 bg-slate-50 drop-shadow-xl"
               style={flashUpStyle}
             >
-              <div className="flex">
-                <div className=" bg-slate-50">
-                  <h3 className="text-xl font-bold flex py-1 px-4 rounded-r-lg rounded-tl-lg items-center  text-white bg-blue-600">
-                    Assigned Courses
-                    <span className="pl-2">
-                      <FaBook />
-                    </span>
-                  </h3>
-                  <div className=" bg-blue-600">
-                    <h3 className="text-sm font-bold flex text-slate-100 bg-slate-50 rounded-tl-lg relative overflow-hidden">
-                      <span className="absolute inset-x-0 inset-r-0 h-2 "></span>
-                      .
-                    </h3>
-                  </div>
-                </div>
-              </div>
-
+              <CardHeading title="Assigned Courses" icon={<FaBook />} />
               {employe_info.courses.length === 0 ? (
                 <Empty text="No Course Assigned" />
               ) : (

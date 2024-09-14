@@ -14,6 +14,7 @@ export default function ShowQuizCard({
   moduleId,
   viewQuizHandler,
   department,
+  isEmployee = false,
 }) {
   const { removeQuiz, isLoading } = useRemoveQuiz();
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -28,9 +29,9 @@ export default function ShowQuizCard({
         <ShowMoreShowLess descriptionDetail={title} charNo="30" />
       </h2>
       <div className="text-gray-600">
-        {department && (
+        {department.length !== 0 && (
           <>
-            <p>Department:</p>
+            <p className="font-semibold text-gray-900">Departments</p>
             <ul>
               {department.map((d, index) => (
                 <li key={index}>{d}</li>
@@ -48,9 +49,10 @@ export default function ShowQuizCard({
           <span className="mt-1">
             <GrView />
           </span>
-          View
+          {isEmployee ? "Attempt" : "View"}
         </button>
-        {
+
+        {!isEmployee && (
           <button
             onClick={() => {
               setConfirmDelete(true);
@@ -63,7 +65,7 @@ export default function ShowQuizCard({
             </span>
             Remove
           </button>
-        }
+        )}
       </div>
       {confirmDelete && (
         <ConfirmDelete

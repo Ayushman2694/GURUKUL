@@ -35,7 +35,7 @@ export default function SideBar() {
 
   return (
     <div
-      className="bg-blue-700 h-full w-full border-t-2 pt-1 flex justify-center"
+      className="bg-primary h-full w-full border-t-2 pt-1 flex justify-center"
       style={{
         opacity: isRendered ? 1 : 0,
         transform: isRendered
@@ -107,12 +107,12 @@ export default function SideBar() {
             setItemSelected("quiz");
             // setSideBar(false);
           }}
-          style={getItemStyle(0.6)}
+          style={getItemStyle(0.8)}
         >
           <SideBarItem
             icon={<img src="/Quiz.png" className="w-14" />}
             title="Quizzes"
-            link="employee/settings"
+            link="employee/quiz"
             itemSelected={itemSelected === "quiz"}
           />
         </div>
@@ -122,7 +122,7 @@ export default function SideBar() {
             Logout();
             navigate("/login");
           }}
-          style={getItemStyle(0.8)}
+          style={getItemStyle(1)}
         >
           <SideBarItem
             icon={<img src="/Exit.png" className="w-12" />}

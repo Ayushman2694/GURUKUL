@@ -42,6 +42,7 @@ import AdminWatchCourse from "./Admin/components/courses/AdminWatchCourse";
 import AdminChangePassword from "./Admin/components/settings/AdminChangePassword";
 import CertificateBackground from "./Admin/pages/CertificateBackground";
 import UploadCSV from "./Admin/pages/UploadCSV";
+import EmployeeQuiz from "./Employee/pages/EmployeeQuiz";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -60,13 +61,7 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route
             path="/certificate/:name/:courseName/:depertment"
-            element={
-              <Certificate
-                name="Cyril Babu"
-                department="Web Devplor"
-                course="React"
-              />
-            }
+            element={<Certificate />}
           />
           <Route path="/" element={<Login />} />
           <Route path="*" element={<PageNotFound />} />
@@ -84,6 +79,7 @@ export default function App() {
             <Route path="employee/course/:courseId" element={<Course />} />
             <Route path="employee/courses" element={<EmployeeCourses />} />
             <Route path="employee/settings" element={<EmployeeSettings />} />
+            <Route path="employee/quiz" element={<EmployeeQuiz />} />
             <Route path="employee/quiz/:quizId" element={<Quiz />} />
           </Route>
           {/* ------------------------------- Admin  Routes ------------------------------- */}

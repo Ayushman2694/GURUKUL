@@ -2,7 +2,11 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#104", // Example primary color (you can change it to any color you want)
+      },
+    },
   },
   plugins: [],
 };

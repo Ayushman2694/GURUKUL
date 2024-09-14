@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { IoChevronForwardCircleOutline } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import { useEmployeeInfo } from "../employee_info/useEmployeeInfo";
+import CardHeading from "../../Ui/CardHeading";
 
 export default function DashboardCard({
   title,
@@ -36,18 +37,7 @@ export default function DashboardCard({
 
   return (
     <div className="py-2 bg-slate-100 border shadow" style={flashUpStyle}>
-      <div className="flex">
-        <div className="bg-slate-100">
-          <h3 className="text-xl font-bold flex pt-1 px-4 rounded-r-lg rounded-tl-lg items-center text-white bg-blue-600">
-            {title} <span className="px-2">{icon}</span>
-          </h3>
-          <div className="bg-blue-600">
-            <h3 className="text-sm font-bold flex text-slate-100 bg-slate-100 rounded-tl-lg relative overflow-hidden">
-              <span className="absolute inset-x-0 inset-r-0 h-2"></span>.
-            </h3>
-          </div>
-        </div>
-      </div>
+      <CardHeading title={title} icon={icon} />
 
       <ul className="max-h-[16vh] mx-4 mb-2 overflow-y-auto">
         {courses?.length === 0 ? (

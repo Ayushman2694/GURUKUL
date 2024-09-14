@@ -54,6 +54,7 @@ export default function ViewQuiz() {
   // Function to handle when the "Done" button is clicked
   const handleDone = () => {
     if (selectedDepartments.length === 0) return null;
+    setSelectModule("");
     addModuleInQuiz({ quizId: quizId, department: selectedDepartments });
     setSelectedDepartments([]);
   };
