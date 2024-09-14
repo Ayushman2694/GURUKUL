@@ -36,7 +36,7 @@ export default function DashboardCard({
   };
 
   return (
-    <div className="py-2 bg-slate-100 border shadow" style={flashUpStyle}>
+    <div className="py-2 bg-secondary2 rounded shadow" style={flashUpStyle}>
       <CardHeading title={title} icon={icon} />
 
       <ul className="max-h-[16vh] mx-4 mb-2 overflow-y-auto">
@@ -46,7 +46,9 @@ export default function DashboardCard({
               <div className="flex items-center justify-center">
                 <img src="/empty2.gif" className="w-1/6" />
               </div>
-              <p className="text-xl px-4 font-medium">No {title}</p>
+              <p className="text-xl px-4 font-medium text-testColor1">
+                No {title}
+              </p>
             </div>
           </div>
         ) : (
@@ -62,9 +64,9 @@ export default function DashboardCard({
                   }`
                 );
               }}
-              className="p-1 flex items-center hover:underline text-lg cursor-pointer font-bold"
+              className="p-1 flex items-center hover:underline text-testColor1 text-lg cursor-pointer font-bold"
             >
-              <span className="pr-2">
+              <span className="pr-2 ">
                 <IoChevronForwardCircleOutline />
               </span>
 

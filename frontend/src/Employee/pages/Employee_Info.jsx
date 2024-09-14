@@ -87,13 +87,13 @@ export default function EmployeeInfo() {
       <div className="flex w-full h-screen">
         <div className="w-full p-4">
           <div className="w-full">
-            <h1 className="text-2xl md:text-4xl font-bold px-1">
+            <h1 className="text-2xl md:text-4xl text-testColor1 font-bold px-1">
               Employee Information
             </h1>
           </div>
           <div className="md:flex w-full pt-4 " style={flashUpStyle}>
             <div
-              className={`w-full md:w-1/2 border m-1 rounded-sm bg-slate-50 drop-shadow-xl py-2`}
+              className={`w-full md:w-1/2  m-1 rounded bg-secondary2 text-testColor1 drop-shadow-xl py-2`}
             >
               <CardHeading title="Basic Information" icon={<ImInfo />} />
 
@@ -136,7 +136,7 @@ export default function EmployeeInfo() {
               </div>
             </div>
             <div
-              className="w-full md:w-1/2 border-2 m-1 rounded-sm pt-1 bg-slate-50 drop-shadow-xl"
+              className="w-full md:w-1/2  m-1 rounded pt-1 text-testColor1 bg-secondary2 drop-shadow-xl"
               style={flashUpStyle}
             >
               <CardHeading title="Assigned Courses" icon={<FaBook />} />
@@ -163,9 +163,9 @@ export default function EmployeeInfo() {
             </div>
           </div>
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold py-4">Track</h1>
+            <h1 className="text-2xl font-bold text-testColor1 py-4">Track</h1>
           </div>
-          <div className="bg-gray-100 h-auto mb-4 flex py-2 px-2 rounded-lg  w-full">
+          <div className="bg-secondary2 h-auto flex py-2 px-2 rounded-lg  w-full">
             <div className="w-1/2 mr-1">
               <MyPieChart data={data} />
             </div>

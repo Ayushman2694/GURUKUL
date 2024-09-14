@@ -4,7 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#104", // Example primary color (you can change it to any color you want)
+        primary: "#111827",
+        secondary2: "#374151",
+        secondary: "#4b5563",
+        secondary3: "#6b7280",
+        testColor1: "#d1d5db",
       },
     },
   },
