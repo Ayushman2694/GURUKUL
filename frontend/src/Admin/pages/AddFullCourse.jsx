@@ -33,6 +33,8 @@ export default function AddFullCourse() {
   //   setModuleNoList((list) => [...list.slice(0, -1)]);
   // }
 
+  console.log("courseData", courseData);
+
   function handelDone(courseData) {
     if (moduleData.length === 0) {
       toast.error("Upload Atlest One Module");

@@ -10,6 +10,8 @@ import { useState } from "react";
 import ConfirmDelete from "../ui/ConfirmDelete";
 import { CiEdit } from "react-icons/ci";
 import Dropdown from "../ui/DropDown";
+import { FaBook } from "react-icons/fa";
+import { useAssignCourse } from "../components/employee/useAssignCourse";
 
 export default function ShowAllEmployee({ title }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -18,6 +20,7 @@ export default function ShowAllEmployee({ title }) {
   const { isLoading: loadingAllEmployee, allEmployee } = useAllEmployee();
   const { removeEmployee, isLoading: deletingEmployee } = useDeleteEmployee();
   const [selectedDepartment, setSelectedDepartment] = useState("");
+  const { assignCourse } = useAssignCourse();
 
   // Compute filtered employees based on input value
   const filteredEmployees = allEmployee?.filter(
@@ -25,7 +28,8 @@ export default function ShowAllEmployee({ title }) {
       (employee?.employeeName?.toLowerCase().includes(name?.toLowerCase()) ||
         employee?.empId?.toLowerCase().includes(name?.toLowerCase())) &&
       (selectedDepartment === "" ||
-        employee?.department?.toLowerCase() === selectedDepartment?.toLowerCase())
+        employee?.department?.toLowerCase() ===
+          selectedDepartment?.toLowerCase())
   );
 
   const handleChange = (e) => {
@@ -95,37 +99,37 @@ export default function ShowAllEmployee({ title }) {
             <tbody>
               {filteredEmployees.map((employee) => (
                 <tr key={employee.empId}>
-                  <td className="px-5 py-3 w-1/7 border-b border-gray-200 bg-white text-sm">
+                  <td className="px-5 py-3 w-1/12 border-b border-gray-200 bg-white text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
                       {employee?.empId}
                     </p>
                   </td>
-                  <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm">
+                  <td className="px-5 py-3 w-2/12 border-b border-gray-200 bg-white text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
                       {employee?.employeeName}
                     </p>
                   </td>
-                  <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm">
+                  <td className="px-5 py-3 w-2/12 border-b border-gray-200 bg-white text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
                       {employee?.department}
                     </p>
                   </td>
-                  <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm">
+                  <td className="px-5 py-3 w-2/12 border-b border-gray-200 bg-white text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
                       {employee?.designation}
                     </p>
                   </td>
-                  <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm">
+                  <td className="px-5 py-3 w-1/12 border-b border-gray-200 bg-white text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
                       {employee?.password}
                     </p>
                   </td>
-                  <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm">
+                  <td className="px-5 py-3 w-1/12 border-b border-gray-200 bg-white text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
                       {employee?.joiningDate}
                     </p>
                   </td>
-                  <td className="flex px-5 py-3 w-1/7 border-b border-gray-200 bg-white text-sm text-center">
+                  <td className="flex px-5 py-3 w-3/8 border-b border-gray-200 bg-white text-sm text-center">
                     <button
                       onClick={() =>
                         navigate(`/admin/updateEmployee/${employee.empId}`)
@@ -136,6 +140,20 @@ export default function ShowAllEmployee({ title }) {
                         <CiEdit />
                       </span>
                       <span className="font-semibold text-md">Edit</span>
+                    </button>
+                    <button
+                      onClick={() =>
+                        assignCourse({
+                          empId: employee.empId,
+                          courseId: "",
+                        })
+                      }
+                      className="flex items-center gap-2 bg-yellow-600 text-white px-4 py-2 rounded-full mr-2 hover:bg-yellow-700 hover:scale-110"
+                    >
+                      <span className="text-xl">
+                        <FaBook />
+                      </span>
+                      <span className="font-semibold text-md">Assign</span>
                     </button>
                     <button
                       onClick={() => setConfirmDelete(true)}

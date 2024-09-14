@@ -108,7 +108,7 @@ export default function EmployeeSignup({ editing = false }) {
           <h2 className="text-2xl font-bold mb-6 text-center">
             {!editing ? "Add New Employee" : "Update Employee"}
           </h2>
-          
+
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label
@@ -278,8 +278,6 @@ export default function EmployeeSignup({ editing = false }) {
               </button>
             </div>
           </form>
-
-          <div><button className="mt-1 bg-blue-600 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">upload CSV</button></div>
         </div>
       </div>
     </>

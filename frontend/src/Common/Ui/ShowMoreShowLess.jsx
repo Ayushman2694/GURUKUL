@@ -7,12 +7,12 @@ export default function ShowMoreShowLess({ descriptionDetail = "", charNo }) {
   // }
 
   return (
-    <div className="">
+    <div className="text-testColor1">
       {descriptionDetail.length < charNo ? (
         descriptionDetail
       ) : (
         <div>
-          <div className="group">
+          <div className="group ">
             <div className="flex  text-testColor1 group-hover:hidden">
               {description}...
             </div>
