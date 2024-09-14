@@ -55,10 +55,14 @@ const Module = ({
   let attempted;
   let passed;
 
+  console.log("ye le quiz", quiz);
+
   quiz.some((item) => {
     attempted = item.attemptedBy.includes(empId);
     passed = item.passedBy.includes(empId);
   });
+
+  console.log("ye le", empId);
 
   return (
     <div className="w-full">
@@ -114,8 +118,10 @@ const Module = ({
                       });
                     }}
                     className={`font-bold ${
-                      result ? "bg-gray-500" : "bg-green-500"
-                    } text-slate-800 rounded border px-2 py-1`}
+                      result
+                        ? "bg-gray-500 text-slate-800"
+                        : "bg-green-500 text-slate-200"
+                    }  rounded border px-2 py-1`}
                   >
                     Retry
                   </button>
