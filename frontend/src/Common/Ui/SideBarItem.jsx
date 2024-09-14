@@ -14,7 +14,7 @@ export default function SideBarItem({
   return (
     <Link to={`${link}`}>
       <div
-        className={`flex justify-center items-center text-xl font-bold py-2 mx-2 my-1 rounded-md hover:scale-90 ${
+        className={`flex justify-center items-center text-2xl font-bold  mx-2 my-1 rounded-md hover:scale-90 ${
           itemSelected
             ? "bg-stone-800 text-blue-300"
             : "bg-blue-700 text-slate-200 md:text-blue-700 md:bg-slate-100"
@@ -23,7 +23,7 @@ export default function SideBarItem({
         {title ? (
           <>
             <span className="pt-1">{icon}</span>
-            <p className="px-2">{title}</p>
+            <p className="px-2 text-xl">{title}</p>
             {request !== 0 && (
               <span className=" text-white bg-red-600 rounded-full w-5 h-5 text-sm  font-semibold text-center ">
                 {request}

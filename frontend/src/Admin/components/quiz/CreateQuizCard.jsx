@@ -18,6 +18,7 @@ export default function CreateQuizCard({ index, setQuestions }) {
   } = useForm();
 
   function checkSubmit(data) {
+
     if (!data.questionType) {
       console.log("ye le inside if ", data);
       toast.error("Error in adding quiz");
@@ -26,6 +27,7 @@ export default function CreateQuizCard({ index, setQuestions }) {
       console.log("ye le outside if ", data);
       toast.success("Question added ");
       setQuestions((prev) => [...prev, data]);
+
 
       setIsSubmitted(true);
     }

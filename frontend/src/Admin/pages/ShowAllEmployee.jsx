@@ -22,10 +22,10 @@ export default function ShowAllEmployee({ title }) {
   // Compute filtered employees based on input value
   const filteredEmployees = allEmployee?.filter(
     (employee) =>
-      (employee.employeeName.toLowerCase().includes(name.toLowerCase()) ||
-        employee.empId.toLowerCase().includes(name.toLowerCase())) &&
+      (employee?.employeeName?.toLowerCase().includes(name?.toLowerCase()) ||
+        employee?.empId?.toLowerCase().includes(name?.toLowerCase())) &&
       (selectedDepartment === "" ||
-        employee.department.toLowerCase() === selectedDepartment.toLowerCase())
+        employee?.department?.toLowerCase() === selectedDepartment?.toLowerCase())
   );
 
   const handleChange = (e) => {
@@ -97,32 +97,32 @@ export default function ShowAllEmployee({ title }) {
                 <tr key={employee.empId}>
                   <td className="px-5 py-3 w-1/7 border-b border-gray-200 bg-white text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
-                      {employee.empId}
+                      {employee?.empId}
                     </p>
                   </td>
                   <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
-                      {employee.employeeName}
+                      {employee?.employeeName}
                     </p>
                   </td>
                   <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
-                      {employee.department}
+                      {employee?.department}
                     </p>
                   </td>
                   <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
-                      {employee.designation}
+                      {employee?.designation}
                     </p>
                   </td>
                   <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
-                      {employee.password}
+                      {employee?.password}
                     </p>
                   </td>
                   <td className="px-5 py-3 w-1/6 border-b border-gray-200 bg-white text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
-                      {employee.joiningDate}
+                      {employee?.joiningDate}
                     </p>
                   </td>
                   <td className="flex px-5 py-3 w-1/7 border-b border-gray-200 bg-white text-sm text-center">

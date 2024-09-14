@@ -7,16 +7,17 @@ import { useDeleteRequest } from "../components/requests/useDeleteRequest";
 import { PiEmptyBold } from "react-icons/pi";
 import { useAssignCourse } from "../components/employee/useAssignCourse";
 import { useNavigate } from "react-router-dom";
+import { useQuizRequest } from "../components/requests/useQuizRequest";
+import toast from "react-hot-toast";
 
 export default function Request() {
   const navigate = useNavigate();
   const { isLoading: loadingRequests, allRequest } = useAllRequest();
   const { removeRequest, isLoading: deletingRequest } = useDeleteRequest();
   const { assignCourse, isLoading } = useAssignCourse();
+  const { quizRequest, isLoading: accepting } = useQuizRequest();
 
   if (loadingRequests) return <Spinner />;
-
-  console.log(allRequest);
 
   return (
     <>
@@ -98,13 +99,28 @@ export default function Request() {
                     <td className="px-5 py-3 w-1/4 border-b border-gray-200 bg-white text-sm text-center">
                       <div className="flex justify-center">
                         <button
-                          disabled={isLoading}
+                          disabled={isLoading || accepting}
                           onClick={() => {
-                            assignCourse({
-                              empId: request.empId,
-                              courseId: request.courseId,
-                            });
-                            removeRequest(request._id);
+                            console.log(!request.quizId);
+                            if (!request.quizId) {
+                              console.log("course");
+                              assignCourse(
+                                {
+                                  empId: request.empId,
+                                  courseId: request.courseId,
+                                },
+                                { onSuccess: () => removeRequest(request._id) }
+                              );
+                            } else {
+                              console.log("quiz");
+                              quizRequest(
+                                {
+                                  empId: request.empId,
+                                  quizId: request.quizId,
+                                },
+                                { onSuccess: () => removeRequest(request._id) }
+                              );
+                            }
                           }}
                           className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 mr-2 rounded-full"
                         >
@@ -116,7 +132,11 @@ export default function Request() {
                         <button
                           disabled={deletingRequest}
                           onClick={() => {
-                            removeRequest(request._id);
+                            removeRequest(request._id, {
+                              onSuccess: () => {
+                                toast.success("Request declined Successfully");
+                              },
+                            });
                           }}
                           className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-full"
                         >

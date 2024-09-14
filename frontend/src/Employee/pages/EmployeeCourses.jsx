@@ -4,12 +4,14 @@ import ShowMoreShowLess from "../../Common/Ui/ShowMoreShowLess";
 import Spinner from "../../Common/Ui/Spinner";
 import CourseThumbnail from "../component/courses/CourseThumbnail";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
 import { useCourseByEmpId } from "../../Admin/components/courses/useCourseByEmpId";
 import { PiEmptyBold } from "react-icons/pi";
 import { useCourseNotByEmpId } from "../../Admin/components/courses/useCourseNotDepartmentName";
-
+import Heading from "../Ui/Heading";
+import Empty from "../Ui/Empty";
+import { motion } from "framer-motion";
 
 export default function EmployeeCourses() {
   const navigate = useNavigate();
@@ -20,12 +22,23 @@ export default function EmployeeCourses() {
   const { isLoading, courses } = useCourseByEmpId(employe_info?.empId);
   const { isLoading: loadingMoreCourse, courses: moreCourse } =
     useCourseNotByEmpId(employe_info?.empId);
+  const [isRendered, setIsRendered] = useState(false);
+  useEffect(() => {
+    setIsRendered(true);
+  }, []);
+
+  const getItemStyle = (index) => ({
+    opacity: isRendered ? 1 : 0,
+    transform: isRendered
+      ? "translateY(0) scale(1)"
+      : "translateY(-500px) scale(1)",
+    transition: "transform .5s",
+    transitionDelay: isRendered ? `${index}s` : "0s", // Different delay for each item
+  });
 
   if (isLoading || loadingEmployee || loadingMoreCourse) return <Spinner />;
 
-
   console.log(moreCourse);
-
 
   // Separate courses into different categories based on status
   const coursesStatus0OrNotFound = [];
@@ -40,7 +53,7 @@ export default function EmployeeCourses() {
     if (userStatus) {
       if (userStatus.status === 0) {
         coursesStatus0OrNotFound.push(course);
-      } else if (userStatus.status > 0 && userStatus.status < 100) {
+      } else if (userStatus.status >= 0 && userStatus.status < 100) {
         coursesStatusMoreThan0LessThan100.push(course);
       } else if (userStatus.status === 100) {
         coursesStatus100.push(course);
@@ -61,21 +74,30 @@ export default function EmployeeCourses() {
   );
 
   return (
-    <div className="w-full p-4 h-full ">
-      
+    <div className="w-full p-4 pt-0 h-full ">
       {!mostRecentCourse ? null : (
-        <>
-          <div className="w-full flex">
-            <h1 className="md:text-3xl font-bold bg-blue-600 text-white pr-8 pl-2 shadow shadow-black py-1 rounded-r-full">
-              Current Courses
-            </h1>
-          </div>
-          <div className="w-full md:flex py-2 bg-slate-100 shadow-xl">
+        <divs style={getItemStyle(0)}>
+          <Heading text="Current Courses" />
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 50,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: false }}
+            className="w-full md:flex py-2 pt-4 bg-slate-100 shadow-xl"
+          >
             <div className="md:w-1/2 px-2">
               <img
                 className="w-full"
                 src={mostRecentCourse?.thumbnail}
                 alt="thumbnail"
+                style={getItemStyle(0.1)}
               />
             </div>
             <div className="md:w-1/2 p-4 flex flex-col">
@@ -97,15 +119,11 @@ export default function EmployeeCourses() {
                 Continue Course
               </button>
             </div>
-          </div>
-        </>
+          </motion.div>
+        </divs>
       )}
 
-      <div className="w-full flex pt-4">
-        <h1 className="md:text-3xl font-bold  bg-blue-600 text-white pr-8 pl-2 shadow shadow-black py-1 rounded-r-full">
-          Ongoing Courses
-        </h1>
-      </div>
+      <Heading text="Ongoing Courses" />
 
       {coursesStatusMoreThan0LessThan100.length > 0 ? (
         <>
@@ -124,25 +142,10 @@ export default function EmployeeCourses() {
           </div>
         </>
       ) : (
-        <div className="w-full flex items-center justify-center py-2">
-          <div>
-            <div className="w-full flex items-center justify-center">
-              <p className="text-8xl">
-                <PiEmptyBold />
-              </p>
-            </div>
-            <p className="text-xl py-2 px-4 font-medium">
-              No ongoing courses at the moment.
-            </p>
-          </div>
-        </div>
+        <Empty text="No ongoing courses at the moment." />
       )}
+      <Heading text="Courses Not Started" />
 
-      <div className="w-full flex pt-4">
-        <h1 className="md:text-3xl font-bold  bg-blue-600 text-white pr-8 pl-2 shadow shadow-black py-1 rounded-r-full">
-          Courses Not Started
-        </h1>
-      </div>
       {coursesStatus0OrNotFound.length > 0 ? (
         <div className="flex flex-wrap pt-4 ">
           {coursesStatus0OrNotFound.map((course) => (
@@ -150,25 +153,11 @@ export default function EmployeeCourses() {
           ))}
         </div>
       ) : (
-        <div className="w-full flex items-center justify-center py-2">
-          <div>
-            <div className="w-full flex items-center justify-center">
-              <p className="text-8xl">
-                <PiEmptyBold />
-              </p>
-            </div>
-            <p className="text-xl py-2 px-4 font-medium">
-              No courses available to start.
-            </p>
-          </div>
-        </div>
+        <Empty text="No courses available to start." />
       )}
 
-      <div className="w-full flex pt-4">
-        <h1 className="md:text-3xl font-bold  bg-blue-600 text-white pr-8 pl-2 shadow shadow-black py-1 rounded-r-full">
-          Courses Completed
-        </h1>
-      </div>
+      <Heading text="Courses Completed" />
+
       {coursesStatus100.length > 0 ? (
         <div className="flex flex-wrap pt-4 ">
           {coursesStatus100.map((course) => (
@@ -176,38 +165,14 @@ export default function EmployeeCourses() {
           ))}
         </div>
       ) : (
-        <div className="w-full flex items-center justify-center py-2">
-          <div>
-            <div className="w-full flex items-center justify-center">
-              <p className="text-8xl">
-                <PiEmptyBold />
-              </p>
-            </div>
-            <p className="text-xl py-2 px-4 font-medium">
-              No courses completed yet.
-            </p>
-          </div>
-        </div>
+        <Empty text="No courses completed yet." />
       )}
-      <div className="w-full flex pt-4">
-        <h1 className="md:text-3xl font-bold  bg-blue-600 text-white pr-8 pl-2 shadow shadow-black py-1 rounded-r-full">
-          More Courses
-        </h1>
-      </div>
+
+      <Heading text="More Courses" />
+
       <div className="flex flex-wrap pt-4 pb-20">
         {moreCourse.length === 0 ? (
-          <div className="w-full flex items-center justify-center">
-            <div>
-              <div className="w-full flex items-center justify-center">
-                <p className="text-8xl">
-                  <PiEmptyBold />
-                </p>
-              </div>
-              <p className="text-xl py-2 px-4 font-medium">
-                No More Course To Enroll
-              </p>
-            </div>
-          </div>
+          <Empty text="No More Course To Enroll" />
         ) : (
           moreCourse?.map((course) => (
             <CourseThumbnail

@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import Module from "../models/module.model.js";
 import Quiz from "../models/quiz.model.js";
 import QuizResponse from "../models/quizResponse.model.js";
+import Department from "../models/department.model.js";
 
 export const createQuiz = async (req, res) => {
   try {
@@ -25,17 +26,15 @@ export const createQuiz = async (req, res) => {
 
 
 export const updateQuiz = async (req, res) => {
-  const { quizId, title, questions, module} = req.body;
+  const { quizId, title, questions, module,department} = req.body;
 
   try {
-   
-
-    // const moduleObjectId = new mongoose.Types.ObjectId(moduleId);
     const updateDetails = {
       $set: {
         title: title,
         questions: questions,
         module,
+        department
       },
     };
 
@@ -308,5 +307,24 @@ export const reAttempting = async (req, res) => {
   } catch (error) {
     console.error('Error in reAttempting function:', error);
     return res.status(500).json({ success: false, message: "Failed to remove empId from attemptedBy array" });
+  }
+};
+
+
+export const getQuizByDepartment = async (req, res) => {
+  const { department } = req.params;
+
+  try {
+    const quiz = await Quiz.find({ department: { $in: department } });
+
+    if (!quiz){
+      return res
+        .status(200)
+        .json({ message: "No quiz found for this module", quiz });
+    }
+    res.status(200).json({ message: "quiz fetched Successfully", quiz });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ error: "error in getQuizByModule controller" });
   }
 };

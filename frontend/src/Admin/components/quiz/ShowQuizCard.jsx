@@ -8,7 +8,13 @@ import ModuleName from "../../../Employee/Ui/ModuleName";
 import { useState } from "react";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 
-export default function ShowQuizCard({ id, title, moduleId, viewQuizHandler }) {
+export default function ShowQuizCard({
+  id,
+  title,
+  moduleId,
+  viewQuizHandler,
+  department,
+}) {
   const { removeQuiz, isLoading } = useRemoveQuiz();
   const [confirmDelete, setConfirmDelete] = useState(false);
 
@@ -22,6 +28,16 @@ export default function ShowQuizCard({ id, title, moduleId, viewQuizHandler }) {
         <ShowMoreShowLess descriptionDetail={title} charNo="30" />
       </h2>
       <div className="text-gray-600">
+        {department && (
+          <>
+            <p>Department:</p>
+            <ul>
+              {department.map((d, index) => (
+                <li key={index}>{d}</li>
+              ))}
+            </ul>{" "}
+          </>
+        )}
         {moduleId && <ModuleName moduleId={moduleId} />}
       </div>
       <div className="flex gap-2 mt-4 item justify-end items-center">

@@ -9,10 +9,11 @@ const coursesSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  courseDepartment: {
+  courseDepartment: [
+    {
     type: String,
-    required: true,
-  },
+    required: true,}
+    ],
   thumbnail: {
     type: String,
     required: true,

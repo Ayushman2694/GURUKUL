@@ -12,11 +12,11 @@ export default function EmployeeAppLayout() {
       <Navbar setSideBar={setSideBar} />
 
       <div className="flex flex-1 overflow-hidden">
-        {/* {sideBar && ( */}
-        <div className="hidden  md:flex  md:w-3/12 h-full overflow-y-auto">
-          <SideBar setSideBar={setSideBar} />
-        </div>
-        {/* )} */}
+        {sideBar && (
+          <div className="hidden  md:flex  md:w-3/12 h-full overflow-y-auto">
+            <SideBar setSideBar={setSideBar} />
+          </div>
+        )}
         <div className={`flex-1 overflow-y-auto flex}`}>
           <Outlet />
         </div>

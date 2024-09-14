@@ -2,15 +2,15 @@ import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { bulkEmployees as bulkEmployeesApi } from "../../service/employee";
 
-export function useBulkEmployess() {
+export function useBulkEmployees() {
   const mutation = useMutation({
-    mutationFn: (data) => bulkEmployeesApi(data),
+    mutationFn: (file) => bulkEmployeesApi(file),
 
     onSuccess: () => {
-      toast.success("Csv Uploaded Successfully");
+      toast.success("Employees Processed Successfully");
     },
     onError: (err) => {
-      toast.error(err.message); // Show the error message in a toast
+      toast.error(err.response.data.message); // Show the error message in a toast
     },
   });
 

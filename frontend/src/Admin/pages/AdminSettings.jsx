@@ -2,17 +2,35 @@ import Container from "../components/settings/Container";
 import { useNavigate } from "react-router-dom";
 import { MdAdd } from "react-icons/md";
 import { MdFileUpload } from "react-icons/md";
-import { useBulkEmployess } from "../components/settings/useBulkEmployee";
+import { useBulkEmployees } from "../components/settings/useBulkEmployee";
 import { useState } from "react";
+import SpinnerMini from "../../Common/Ui/SpinnerMini";
+import toast from "react-hot-toast";
 
 export default function AddUserAdmin() {
   const navigate = useNavigate();
-  const { bulkEmployees, isLoading } = useBulkEmployess();
+  const { bulkEmployees, isLoading } = useBulkEmployees();
   const [file, setFile] = useState(null);
-
+  
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    const selectedFile = e.target.files[0];
+
+    // Check if the uploaded file is a CSV
+    if (selectedFile && selectedFile.type !== "text/csv") {
+      toast.error("Please upload a valid CSV file.");
+      setFile(null);
+      e.target.value = null; // Reset the input
+      return;
+    }
+    setFile(selectedFile);
+
+    if (selectedFile) {
+      bulkEmployees(selectedFile);
+      setFile(null); 
+      e.target.value = null; 
+    }
   };
+
 
   return (
     <div className={`w-full p-4`}>
@@ -44,20 +62,26 @@ export default function AddUserAdmin() {
             <div className="flex items-center space-x-4 ">
               <label
                 htmlFor="file-upload"
-                className="flex items-center bg-blue-600 text-white px-4 py-2 h-10 text-sm font-bold rounded-full cursor-pointer hover:bg-blue-700 hover:scale-110"
+                className="flex items-center bg-blue-600 text-white px-10 py-2 h-10 text-sm font-bold rounded-full cursor-pointer hover:bg-blue-700 hover:scale-110"
               >
-                <MdFileUpload className="mr-2" />
-                <span>Upload CSV</span>
+                 {isLoading ? (
+                  <SpinnerMini />
+                ) : (
+                  <>
+                    <MdFileUpload className="mr-2" />
+                    <span>Upload CSV</span>
+                  </>
+                )}
               </label>
               <input
                 type="file"
                 id="file-upload"
                 className="hidden"
                 onChange={handleFileChange}
+                disabled={isLoading}
               />
-              {file && (
-                <div className="text-gray-700 text-sm">{/* {file.name} */}</div>
-              )}
+               
+              {file && <div className="text-gray-700 text-sm">{file.name}</div>}
             </div>
           </div>
         </div>
@@ -91,10 +115,7 @@ export default function AddUserAdmin() {
                 className="bg-blue-600 text-white px-7 mx-1 py-1 h-10 text-sm font-bold rounded-full hover:bg-blue-700 hover:scale-110"
               >
                 <div className=" flex justify-center items-center">
-
-
                   <span className="px-1">Change Password</span>
-
                 </div>
               </button>
             </div>

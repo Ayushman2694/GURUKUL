@@ -10,7 +10,7 @@ export function useAdminLogin() {
 
     onSuccess: (data) => {
       queryClient.setQueryData("adminEmail", data);
-      localStorage.setItem("adminEmail", data);
+      localStorage.setItem("adminEmail", data.email);
       toast.success("Admin Login Successfully");
     },
     onError: () => {

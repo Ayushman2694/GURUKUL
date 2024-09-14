@@ -12,6 +12,7 @@ import {
   quizAttempt,
   requestedQuiz,
   reAttempting,
+  getQuizByDepartment,
 } from "../controllers/quiz.controller.js";
 import { quizByCourseId } from "../controllers/quiz.controller.js";
 
@@ -28,7 +29,7 @@ router.get("/getResponseByResponseId/:id", getResponseByResponseId);
 router.get("/getAllResponse/:quizId", getAllResponse);
 router.post("/quizResponse", quizResponse);
 router.get("/quizByCourseId/:courseId", quizByCourseId);
-
+router.get("/getQuizByDepartment/:department", getQuizByDepartment);
 router.get("/requestQuiz", requestedQuiz);
 
 router.post("/quizAttempt", quizAttempt);

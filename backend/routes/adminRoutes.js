@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import {
   deleteAdmin,
   showAllAdmin,
@@ -11,7 +12,11 @@ import { getCertificate, uploadCertificate } from "../controllers/uploadCertific
 
 const router = express.Router();
 
-router.get("/allAdmin", showAllAdmin);
+
+
+
+
+router.get("/allAdmin",showAllAdmin);
 router.post("/deleteAdmin", deleteAdmin);
 router.get("/verifyToken",verifyToken);
 router.post("/updateEmployee", updateEmployee);
