@@ -19,7 +19,9 @@ export const addCourse = async (req, res) => {
 
     // Generate the URL for the uploaded thumbnail
     const thumbnail_url = req.file.path;
-    
+
+    console.log(req.body.courseDepartment);
+
     const course = new Course({
       courseTitle: req.body.courseTitle,
       courseDescription: req.body.courseDescription,
@@ -49,8 +51,6 @@ export const getallCourse = async (req, res) => {
 };
 //delete course
 
-
-
 export const deleteCourseAndReferences = async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();
@@ -61,50 +61,48 @@ export const deleteCourseAndReferences = async (req, res) => {
     const modules = await Module.find({ course: courseId }).session(session);
 
     for (const module of modules) {
- 
       const quizzes = await Quiz.find({ module: module._id }).session(session);
 
       for (const quiz of quizzes) {
-
         await Quiz.findByIdAndDelete(quiz._id).session(session);
       }
 
-
-      const videos = await Video.find({ _id: { $in: module.video } }).session(session);
+      const videos = await Video.find({ _id: { $in: module.video } }).session(
+        session
+      );
 
       for (const video of videos) {
-
         await Video.findByIdAndDelete(video._id).session(session);
       }
 
-
       await Module.findByIdAndDelete(module._id).session(session);
     }
-
 
     await Employee.updateMany(
       { courses: courseId },
       { $pull: { courses: courseId } }
     ).session(session);
 
-
     await Employee.updateMany(
       { currentCourse: courseId },
       { $set: { currentCourse: null } }
     ).session(session);
-
 
     await Course.findByIdAndDelete(courseId).session(session);
 
     await session.commitTransaction();
     session.endSession();
 
-    return res.status(200).json({ message: "Course and its references deleted successfully" });
+    return res
+      .status(200)
+      .json({ message: "Course and its references deleted successfully" });
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
     console.error(error.message);
-    return res.status(500).json({ error: "Error deleting course and its references" });
+    return res
+      .status(500)
+      .json({ error: "Error deleting course and its references" });
   }
 };
 
@@ -290,8 +288,8 @@ export const getCourseByDepartment = async (req, res) => {
     }
     const course = await Course.find({
       $or: [
-        { courseDepartment: { $in: [department] }},
-        { courseDepartment: {$in:["all_department"]} },
+        { courseDepartment: { $in: [department] } },
+        { courseDepartment: { $in: ["all_department"] } },
         { _id: { $in: courseInEmp } },
       ],
     });
@@ -330,20 +328,18 @@ export const getVideosByCourseId = async (req, res) => {
   }
 };
 
-export const getModulebyId = async(req,res)=>{
-
+export const getModulebyId = async (req, res) => {
   try {
-    const {id} = req.params;
-    const module =  await Module.findById(id)
-    if(!module){
-      return res.status(400).json({error:"module not found"})
-    } 
-    return res.status(200).json({error:"module fetched successfully",module})
-
+    const { id } = req.params;
+    const module = await Module.findById(id);
+    if (!module) {
+      return res.status(400).json({ error: "module not found" });
+    }
+    return res
+      .status(200)
+      .json({ error: "module fetched successfully", module });
   } catch (error) {
     console.log(error.message);
-    return res
-      .status(500)
-      .json({ error: "error in getModuleById Controller" });
+    return res.status(500).json({ error: "error in getModuleById Controller" });
   }
-}
+};
