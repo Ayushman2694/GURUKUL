@@ -145,13 +145,13 @@ export default function Course() {
         )}
 
         {videoLink !== null && (
-          <div className="w-full shadow rounded-lg border p-4 mt-8">
+          <div className="w-full shadow rounded-lg text-testColor1 bg-secondary2 p-4 mt-8">
             <h3 className="text-md pb-2 font-bold">Video Description</h3>
             {sortedVideos[videoLink]?.videoDescription}
           </div>
         )}
 
-        <div className="w-full shadow rounded-lg border p-4 mt-4">
+        <div className="w-full shadow rounded-lg  text-testColor1 bg-secondary2 p-4 mt-4">
           <h3 className="text-md pb-2 font-bold">Course Description</h3>
           {course.courseDescription}
         </div>

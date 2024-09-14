@@ -13,8 +13,12 @@ export default function ShowMoreShowLess({ descriptionDetail = "", charNo }) {
       ) : (
         <div>
           <div className="group">
-            <div className="flex group-hover:hidden">{description}...</div>
-            <div className="hidden group-hover:block">{descriptionDetail}</div>
+            <div className="flex  text-testColor1 group-hover:hidden">
+              {description}...
+            </div>
+            <div className="hidden  text-testColor1 group-hover:block">
+              {descriptionDetail}
+            </div>
           </div>
           {/* {readmore ? descriptionDetail : description}
           <span className="cursor-pointer font-bold " onClick={readMoreHandler}>
