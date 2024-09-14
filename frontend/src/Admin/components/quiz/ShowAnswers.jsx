@@ -13,11 +13,25 @@ export default function ShowAnswers() {
   console.log(response);
 
   const getBackgroundColor = (correct, user) => {
-    if (JSON.stringify(correct) === JSON.stringify(user)) {
-      return "bg-green-200";
-    } else {
-      return "bg-red-200";
+    if (Array.isArray(user) && !Array.isArray(correct)) {
+      if (user.length > 1) {
+        return "bg-red-200";
+      } else if (user[0] !== correct) {
+        return "bg-red-200";
+      } else {
+        return "bg-green-200";
+      }
     }
+
+    if (Array.isArray(correct) && Array.isArray(user)) {
+      if (JSON.stringify(correct.sort()) === JSON.stringify(user.sort())) {
+        return "bg-green-200";
+      } else {
+        return "bg-red-200";
+      }
+    }
+
+    return correct === user ? "bg-green-200" : "bg-red-200";
   };
 
   return (
@@ -42,6 +56,7 @@ export default function ShowAnswers() {
       </div>
 
       {response?.answers.map((question, index) => {
+        // console.log("ye le ", question);
         const getOptionText = (optionKey) => {
           return question[optionKey];
         };
@@ -75,17 +90,21 @@ export default function ShowAnswers() {
             <div className="flex py-1">
               <p>Correct Answer(s):</p>
               <p className="px-2">
-                {question.correctAnswer
-                  .map((ans) => getOptionText(ans))
-                  .join(", ")}
+                {Array.isArray(question.correctAnswer)
+                  ? question.correctAnswer
+                      .map((ans) => getOptionText(ans))
+                      .join(", ")
+                  : question.correctAnswer}
               </p>
             </div>
             <div className="flex py-1">
               <p>User Answer(s):</p>
               <p className="px-2">
-                {question.userAnswer
-                  .map((ans) => getOptionText(ans))
-                  .join(", ")}
+                {Array.isArray(question.userAnswer)
+                  ? question.userAnswer
+                      .map((ans) => getOptionText(ans))
+                      .join(", ")
+                  : question.userAnswer}
               </p>
             </div>
           </div>
