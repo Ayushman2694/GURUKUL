@@ -153,6 +153,7 @@ export default function Quiz() {
         </div>
       ) : (
         quiz?.questions.map((question, index) => {
+          console.log(question);
           if (question.questionType === "text") {
             return (
               <TextQuestion
