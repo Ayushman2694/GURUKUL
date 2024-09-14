@@ -11,6 +11,7 @@ export const verifyToken = (req, res) => {
       token,
       process.env.JWT_SECRET || "default_secret"
     );
+    req.user = decoded
     return res.status(200).json({ success: true, decoded });
   } catch (error) {
     return res.status(401).json({ success: false, message: "Invalid token" });

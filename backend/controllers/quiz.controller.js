@@ -270,3 +270,43 @@ export const deleteQuiz = async (req, res) => {
       .json({ message: "Server error", error: error.message });
   }
 };
+
+
+export const reAttempting = async (req, res) => {
+  try {
+    const { empId, quizId } = req.body;
+
+    // Debugging: Log received data
+    console.log('empId:', empId);
+    console.log('quizId:', quizId);
+
+    // Find the quiz by ID
+    const quiz = await Quiz.findById(quizId);
+    
+    // Debugging: Log quiz document
+    console.log('Quiz found:', quiz);
+
+    if (!quiz) {
+      return res.status(404).json({ success: false, message: "Quiz not found" });
+    }
+
+    // Check if empId exists in attemptedBy
+    if (!quiz.attemptedBy.includes(empId)) {
+      return res.status(404).json({ success: false, message: "empId not found in attemptedBy array" });
+    }
+
+    // Remove empId from the attemptedBy array
+    quiz.attemptedBy.pull(empId);
+
+    // Save the updated quiz document
+    await quiz.save();
+
+    // Debugging: Log saved quiz document
+    console.log('Updated Quiz:', quiz);
+
+    return res.status(200).json({ success: true, message: "empId removed from attemptedBy array", quiz });
+  } catch (error) {
+    console.error('Error in reAttempting function:', error);
+    return res.status(500).json({ success: false, message: "Failed to remove empId from attemptedBy array" });
+  }
+};

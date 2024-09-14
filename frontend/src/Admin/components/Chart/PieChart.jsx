@@ -58,7 +58,8 @@ const MyPieChart = ({ data }) => {
             <Tooltip />
             <Legend />
           </PieChart>
-        </ResponsiveContainer>
+          </ResponsiveContainer>
+
       </div>
       <button
         onClick={downloadPDF}

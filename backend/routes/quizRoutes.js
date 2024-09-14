@@ -11,6 +11,7 @@ import {
   updateQuiz,
   quizAttempt,
   requestedQuiz,
+  reAttempting,
 } from "../controllers/quiz.controller.js";
 import { quizByCourseId } from "../controllers/quiz.controller.js";
 
@@ -31,5 +32,6 @@ router.get("/quizByCourseId/:courseId", quizByCourseId);
 router.get("/requestQuiz", requestedQuiz);
 
 router.post("/quizAttempt", quizAttempt);
+router.post("/reattempt",reAttempting)
 
 export default router;
