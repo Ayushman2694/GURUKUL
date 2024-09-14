@@ -26,9 +26,10 @@ export default function EmployeeQuiz() {
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Quizzes</h1>
       </div>
+
       <div className="grid grid-cols-3 gap-4 my-6">
         {withDepartment.length > 0 &&
-          withDepartment.map((quiz) => (
+          withDepartment?.map((quiz) => (
             <ShowQuizCard
               key={quiz._id}
               id={quiz._id}

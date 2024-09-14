@@ -10,6 +10,7 @@ import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useQuizAttempt } from "../../Admin/components/quiz/useQuizAttempt";
+import BackButton from "../../Common/Ui/BackButton";
 
 export default function Quiz() {
   const navigate = useNavigate();
@@ -108,6 +109,7 @@ export default function Quiz() {
 
   return (
     <div className="md:p-8 p-4 w-full bg-gray-100 h-fit">
+      <BackButton />
       <h1 className="md:text-4xl text-2xl font-bold mb-4">{quiz?.title}</h1>
       {quizSubmited ? (
         <div
@@ -153,6 +155,7 @@ export default function Quiz() {
         </div>
       ) : (
         quiz?.questions.map((question, index) => {
+          console.log(question);
           if (question.questionType === "text") {
             return (
               <TextQuestion
