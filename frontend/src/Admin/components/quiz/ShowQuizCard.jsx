@@ -19,6 +19,8 @@ export default function ShowQuizCard({
   const { removeQuiz, isLoading } = useRemoveQuiz();
   const [confirmDelete, setConfirmDelete] = useState(false);
 
+  console.log("ye le", department);
+
   if (isLoading) return <SpinnerMini />;
   return (
     <div
