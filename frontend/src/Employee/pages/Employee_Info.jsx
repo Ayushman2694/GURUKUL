@@ -93,7 +93,7 @@ export default function EmployeeInfo() {
           </div>
           <div className="md:flex w-full pt-4 " style={flashUpStyle}>
             <div
-              className={`w-full md:w-1/2 border m-1 rounded-sm bg-slate-50 drop-shadow-xl py-2`}
+              className={`w-full md:w-1/2 border m-1 rounded-sm bg-slate-100 drop-shadow-xl py-2`}
             >
               <CardHeading title="Basic Information" icon={<ImInfo />} />
 
@@ -136,7 +136,7 @@ export default function EmployeeInfo() {
               </div>
             </div>
             <div
-              className="w-full md:w-1/2 border-2 m-1 rounded-sm pt-1 bg-slate-50 drop-shadow-xl"
+              className="w-full md:w-1/2 border-2 m-1 rounded-sm pt-1 bg-slate-100 drop-shadow-xl"
               style={flashUpStyle}
             >
               <CardHeading title="Assigned Courses" icon={<FaBook />} />
