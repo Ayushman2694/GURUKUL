@@ -254,6 +254,7 @@ export default function AddCourse({ setCourseData }) {
               </div>
               <Dropdown
                 selectedOption={selectDepartment}
+                uploading={true}
                 setSelectedOption={handleSelectDepartment} // use the handler function
               />
               {selectedDepartments.length > 0 && (

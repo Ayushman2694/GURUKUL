@@ -60,7 +60,7 @@ const VideoPlayer = ({
 
   return (
     <div
-      className="video-wrapper"
+      className="video-wrapper h-[72vh] bg-black flex justify-center items-center w-full rounded"
       onContextMenu={(e) => e.preventDefault()} // Disable right-click context menu
     >
       <ReactPlayer

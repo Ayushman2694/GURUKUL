@@ -19,6 +19,7 @@ export default function AdminCourses() {
 
   const { removeCourse, isLoading: deleteCourseLoading } = useDeleteCourse();
   if (isLoading) return <Spinner />;
+  console.log(allCourse);
 
   return (
     <div className="min-h-screen w-full bg-white p-4 ">
