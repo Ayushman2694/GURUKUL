@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { FaGraduationCap } from "react-icons/fa";
+// import { FaGraduationCap } from "react-icons/fa";
 import { IoReorderThree } from "react-icons/io5";
 
 export default function Navbar({ setSideBar }) {
@@ -20,7 +20,7 @@ export default function Navbar({ setSideBar }) {
 
   return (
     <div
-      className="flex bg-blue-700 text-lg md:text-3xl font-bold text-slate-50 p-3 w-full justify-between items-center"
+      className="flex bg-primary text-lg md:text-3xl font-bold text-slate-50 p-3 w-full justify-between items-center"
       style={flashUpStyle}
     >
       <div className="px-4 flex items-center">

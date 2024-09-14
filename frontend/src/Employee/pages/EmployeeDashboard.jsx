@@ -16,6 +16,7 @@ import { useCourseByEmpId } from "../../Admin/components/courses/useCourseByEmpI
 import { useNavigate } from "react-router-dom";
 import { MdOutlineOndemandVideo } from "react-icons/md";
 import Empty from "../Ui/Empty";
+import CardHeading from "../Ui/CardHeading";
 
 export default function EmployeeDashboard() {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ export default function EmployeeDashboard() {
   });
 
   return (
-    <div className="p-4 w-full bg-white min-h-screen">
+    <div className="p-4 w-full bg-gray-50 min-h-screen">
       {/* <NetworkStatus /> */}
       <div className="flex flex-row justify-between">
         <h1 className="text-2xl md:text-4xl w-1/2 font-bold mb-4">Dashboard</h1>
@@ -89,21 +90,10 @@ export default function EmployeeDashboard() {
       </div>
 
       <div className="w-full border  rounded-sm bg-slate-100 drop-shadow-xl md:pt-2">
-        <div className="flex">
-          <div className=" bg-slate-100">
-            <h3 className="text-xl font-bold flex py-1 px-4 rounded-r-lg rounded-tl-lg items-center  text-white bg-blue-600">
-              Ongoing Courses
-              <span className="pl-2">
-                <MdOutlineOndemandVideo />
-              </span>
-            </h3>
-            <div className=" bg-blue-600">
-              <h3 className="text-sm font-bold flex text-slate-100 bg-slate-100 rounded-tl-lg relative overflow-hidden">
-                <span className="absolute inset-x-0 inset-r-0 h-2 "></span>.
-              </h3>
-            </div>
-          </div>
-        </div>
+        <CardHeading
+          title="Ongoing Courses"
+          icon={<MdOutlineOndemandVideo />}
+        />
         <div className="flex flex-wrap">
           {coursesStatusMoreThan0LessThan100.length > 0 ? (
             <div className="flex flex-wrap w-full">
@@ -126,21 +116,7 @@ export default function EmployeeDashboard() {
       </div>
 
       <div className="w-full border  rounded-sm bg-slate-100 drop-shadow-xl mt-6 md:py-4">
-        <div className="flex">
-          <div className=" bg-slate-100">
-            <h3 className="text-xl font-bold flex py-1 px-4 rounded-r-lg rounded-tl-lg items-center  text-white bg-blue-600">
-              Certificates
-              <span className="pl-2">
-                <PiCertificateBold />
-              </span>
-            </h3>
-            <div className=" bg-blue-600">
-              <h3 className="text-sm font-bold flex text-slate-100 bg-slate-100 rounded-tl-lg relative overflow-hidden">
-                <span className="absolute inset-x-0 inset-r-0 h-2 "></span>.
-              </h3>
-            </div>
-          </div>
-        </div>
+        <CardHeading title="Certificates" icon={<PiCertificateBold />} />
         <div className="flex p-2 flex-wrap">
           {coursesStatus100.length === 0 ? (
             <Empty text="No Certificates Earned." />

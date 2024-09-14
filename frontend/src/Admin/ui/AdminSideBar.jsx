@@ -35,7 +35,7 @@ export default function AdminSideBar() {
           }}
         >
           <SideBarItem
-            icon={<FaHome />}
+            icon={<FaHome className="my-2" />}
             title="Admin"
             link="admin/dashboard"
             itemSelected={itemSelected === "dashboard"}
@@ -49,7 +49,7 @@ export default function AdminSideBar() {
           }}
         >
           <SideBarItem
-            icon={<BsGraphUp />}
+            icon={<BsGraphUp className="my-2" />}
             title="Tracking"
             link="admin/tracking"
             itemSelected={itemSelected === "Tracking"}
@@ -63,7 +63,7 @@ export default function AdminSideBar() {
           }}
         >
           <SideBarItem
-            icon={<FaBook />}
+            icon={<FaBook className="my-2" />}
             title="Courses"
             link="admin/courses"
             itemSelected={itemSelected === "Courses"}
@@ -77,7 +77,7 @@ export default function AdminSideBar() {
           }}
         >
           <SideBarItem
-            icon={<HiLightBulb />}
+            icon={<HiLightBulb className="my-2" />}
             title="Quizzes"
             link="admin/quizzes"
             itemSelected={itemSelected === "Quizzes"}
@@ -91,7 +91,7 @@ export default function AdminSideBar() {
           }}
         >
           <SideBarItem
-            icon={<FaUsers />}
+            icon={<FaUsers className="my-2" />}
             title="Users"
             link="admin/users"
             itemSelected={itemSelected === "Users"}
@@ -105,7 +105,7 @@ export default function AdminSideBar() {
           }}
         >
           <SideBarItem
-            icon={<IoMdSettings />}
+            icon={<IoMdSettings className="my-2" />}
             title="Settings"
             link="admin/settings"
             itemSelected={itemSelected === "Settings"}
@@ -118,7 +118,7 @@ export default function AdminSideBar() {
           }}
         >
           <SideBarItem
-            icon={<MdNotificationsActive />}
+            icon={<MdNotificationsActive className="my-2" />}
             title={`Requests`}
             request={allRequest?.length}
             link="admin/request"
@@ -132,7 +132,7 @@ export default function AdminSideBar() {
             navigate("/login");
           }}
         >
-          <SideBarItem icon={<IoIosLogOut />} title="Logout" />
+          <SideBarItem icon={<IoIosLogOut className="my-2" />} title="Logout" />
         </div>
       </div>
     </div>

@@ -3,28 +3,59 @@ import ShowQuizCard from "../components/quiz/ShowQuizCard";
 import { useNavigate } from "react-router-dom";
 import { useAllQuizs } from "../components/quiz/useAllQuiz";
 import Spinner from "../../Common/Ui/Spinner";
-
 import AddButton from "../ui/AddButton";
 import { useQuizByCourseId } from "../components/quiz/useQuizByCourseId";
-
 import CourseDropdown from "../ui/CourseDropDown";
+import Empty from "../../Employee/Ui/Empty";
 
 export default function Quizzes() {
   const navigate = useNavigate();
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState(""); // Course dropdown selected value
   const { isLoading, allQuizs } = useAllQuizs();
-
-  const { quizs } = useQuizByCourseId(selectedOption);
+  const [quizType, setQuizType] = useState("all"); // Default to showing all quizzes
+  const { quizs: quizzesByCourse, isLoading: isCourseLoading } =
+    useQuizByCourseId(selectedOption); // Fetch quizzes by course
 
   // State to store search query
   const [searchQuery, setSearchQuery] = useState("");
 
   if (isLoading) return <Spinner />;
 
-  // Filter quizzes based on the search query
-  const filteredQuizzes = allQuizs.filter((quiz) =>
+  const withDepartment = allQuizs.filter(
+    (quiz) => quiz.department && quiz.department.length > 0
+  );
+  const withModule = allQuizs.filter(
+    (quiz) =>
+      quiz.module &&
+      quiz.module.length > 0 &&
+      (!quiz.department || quiz.department.length === 0)
+  );
+  const withoutDepartmentOrModule = allQuizs.filter(
+    (quiz) =>
+      (!quiz.department || quiz.department.length === 0) &&
+      (!quiz.module || quiz.module.length === 0)
+  );
+
+  // Filter quizzes based on quizType and search query
+  let displayedQuizzes = allQuizs;
+
+  if (quizType === "for_department") {
+    displayedQuizzes = withDepartment;
+  } else if (quizType === "for_module") {
+    displayedQuizzes = withModule;
+  } else if (quizType === "not_used") {
+    displayedQuizzes = withoutDepartmentOrModule;
+  }
+
+  // Filter by search query
+  displayedQuizzes = displayedQuizzes.filter((quiz) =>
     quiz.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  // If selectedOption is not empty, show quizzes by the selected course
+  if (selectedOption) {
+    displayedQuizzes = quizzesByCourse;
+  }
 
   return (
     <div className="min-h-screen w-full bg-white p-4">
@@ -36,44 +67,51 @@ export default function Quizzes() {
             navigate("/admin/quizzes/createQuiz");
           }}
         />
-        {/* <div className="space-x-4 text-sm flex mt-0 pt-0 ">
-          <button
-            onClick={() => {
-              navigate("/admin/quizzes/createQuiz");
-            }}
-            className="bg-blue-600 text-white font-semibold rounded-full px-3 py-2 flex items-center"
-          >
-            Create New Quiz
-          </button>
-        </div> */}
       </div>
 
       <div className="flex pb-2">
         <button
-          className="ml-2  mt-4 py-2 w-full bg-green-500 text-white rounded font-bold"
-          onClick={() => {}}
+          className=" mt-4 py-2 w-full bg-purple-600 text-white rounded font-bold"
+          onClick={() => {
+            setQuizType("all");
+            setSelectedOption(""); // Reset the course selection when showing all quizzes
+          }}
         >
           <div className="flex items-center justify-center">
-            {/* <AiOutlineSelect /> */}
-            <span className="px-2">Not Used Quizes</span>
+            <span className="px-2">All Quizzes</span>
           </div>
         </button>
         <button
-          className="ml-2  mt-4 py-2 w-full bg-blue-500 text-white rounded font-bold"
-          onClick={() => {}}
+          className="ml-2 mt-4 py-2 w-full bg-green-600 text-white rounded font-bold"
+          onClick={() => {
+            setQuizType("not_used");
+            setSelectedOption(""); // Reset the course selection when showing not used quizzes
+          }}
         >
           <div className="flex items-center justify-center">
-            {/* <AiOutlineSelect /> */}
-            <span className="px-2">Module Quizes</span>
+            <span className="px-2">Not Used Quizzes</span>
           </div>
         </button>
         <button
-          className="ml-2  mt-4 py-2 w-full bg-yellow-500 text-white rounded font-bold"
-          onClick={() => {}}
+          className="ml-2 mt-4 py-2 w-full bg-blue-500 text-white rounded font-bold"
+          onClick={() => {
+            setQuizType("for_module");
+            setSelectedOption(""); // Reset the course selection when showing module quizzes
+          }}
         >
           <div className="flex items-center justify-center">
-            {/* <AiOutlineSelect /> */}
-            <span className="px-2">Department Quizes</span>
+            <span className="px-2">Module Quizzes</span>
+          </div>
+        </button>
+        <button
+          className="ml-2 mt-4 py-2 w-full bg-yellow-500 text-white rounded font-bold"
+          onClick={() => {
+            setQuizType("for_department");
+            setSelectedOption(""); // Reset the course selection when showing department quizzes
+          }}
+        >
+          <div className="flex items-center justify-center">
+            <span className="px-2">Department Quizzes</span>
           </div>
         </button>
       </div>
@@ -93,31 +131,33 @@ export default function Quizzes() {
           />
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-4 mb-6">
-        {!quizs
-          ? filteredQuizzes.map((quiz) => (
-              <ShowQuizCard
-                key={quiz._id}
-                id={quiz._id}
-                title={quiz.title}
-                moduleId={quiz.module}
-                viewQuizHandler={() => {
-                  navigate(`/admin/quizzes/viewQuiz/${quiz._id}`);
-                }}
-              />
-            ))
-          : quizs.map((quiz) => (
-              <ShowQuizCard
-                key={quiz._id}
-                id={quiz._id}
-                title={quiz.title}
-                moduleId={quiz.module}
-                viewQuizHandler={() => {
-                  navigate(`/admin/quizzes/viewQuiz/${quiz._id}`);
-                }}
-              />
-            ))}
-      </div>
+
+      {isCourseLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <div className="grid grid-cols-3 gap-4 mb-6">
+            {displayedQuizzes.length > 0 &&
+              displayedQuizzes.map((quiz) => (
+                <ShowQuizCard
+                  key={quiz._id}
+                  id={quiz._id}
+                  title={quiz.title}
+                  moduleId={quiz.module}
+                  department={quiz.department}
+                  viewQuizHandler={() => {
+                    navigate(`/admin/quizzes/viewQuiz/${quiz._id}`);
+                  }}
+                />
+              ))}
+          </div>
+          {!(displayedQuizzes.length > 0) && (
+            <div className="w-full">
+              <Empty text="No Quiz Found" />
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }

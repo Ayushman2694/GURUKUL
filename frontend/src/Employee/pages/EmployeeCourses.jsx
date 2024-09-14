@@ -12,6 +12,8 @@ import { useCourseNotByEmpId } from "../../Admin/components/courses/useCourseNot
 import Heading from "../Ui/Heading";
 import Empty from "../Ui/Empty";
 import { motion } from "framer-motion";
+import CardHeading from "../Ui/CardHeading";
+import { MdOutlineOndemandVideo } from "react-icons/md";
 
 export default function EmployeeCourses() {
   const navigate = useNavigate();
@@ -76,9 +78,7 @@ export default function EmployeeCourses() {
   return (
     <div className="w-full p-4 pt-0 h-full ">
       {!mostRecentCourse ? null : (
-        <divs style={getItemStyle(0)}>
-          <Heading text="Current Courses" />
-
+        <div style={getItemStyle(0)}>
           <motion.div
             initial={{
               opacity: 0,
@@ -92,96 +92,143 @@ export default function EmployeeCourses() {
             viewport={{ once: false }}
             className="w-full md:flex py-2 pt-4 bg-slate-100 shadow-xl"
           >
-            <div className="md:w-1/2 px-2">
-              <img
-                className="w-full"
-                src={mostRecentCourse?.thumbnail}
-                alt="thumbnail"
-                style={getItemStyle(0.1)}
-              />
-            </div>
-            <div className="md:w-1/2 p-4 flex flex-col">
-              <p className="text-2xl font-bold pb-2">
-                {mostRecentCourse?.courseTitle}
-              </p>
-              <div className="text-lg font-medium">
-                <ShowMoreShowLess
-                  descriptionDetail={mostRecentCourse?.courseDescription}
-                  charNo={200}
-                />
+            <div className="w-full">
+              <div>
+                <CardHeading title="Current Courses" />
               </div>
-              <button
-                className="w-full bg-blue-600 text-slate-50 rounded-md font-bold text-sm p-1 mt-auto"
-                onClick={() => {
-                  navigate(`/employee/course/${mostRecentCourse?._id}`);
-                }}
-              >
-                Continue Course
-              </button>
+              <div className="flex w-full">
+                <div className="md:w-1/2 px-2 ">
+                  <img
+                    className="w-full"
+                    src={mostRecentCourse?.thumbnail}
+                    alt="thumbnail"
+                    style={getItemStyle(0.1)}
+                  />
+                </div>
+                <div className="md:w-1/2 p-4 flex flex-col">
+                  <p className="text-2xl font-bold pb-2">
+                    {mostRecentCourse?.courseTitle}
+                  </p>
+                  <div className="text-lg font-medium">
+                    <ShowMoreShowLess
+                      descriptionDetail={mostRecentCourse?.courseDescription}
+                      charNo={200}
+                    />
+                  </div>
+                  <button
+                    className="w-full bg-blue-600 text-slate-50 rounded-md font-bold text-sm p-1 mt-auto"
+                    onClick={() => {
+                      navigate(`/employee/course/${mostRecentCourse?._id}`);
+                    }}
+                  >
+                    Continue Course
+                  </button>
+                </div>
+              </div>
             </div>
           </motion.div>
-        </divs>
-      )}
-
-      <Heading text="Ongoing Courses" />
-
-      {coursesStatusMoreThan0LessThan100.length > 0 ? (
-        <>
-          <div className="flex flex-wrap pt-4 ">
-            {coursesStatusMoreThan0LessThan100.map((course) => (
-              <CourseThumbnail
-                key={course._id}
-                course={course}
-                progress={
-                  course.userStatus.find(
-                    (user) => user.user === employe_info.empId
-                  )?.status || 0
-                }
-              />
-            ))}
-          </div>
-        </>
-      ) : (
-        <Empty text="No ongoing courses at the moment." />
-      )}
-      <Heading text="Courses Not Started" />
-
-      {coursesStatus0OrNotFound.length > 0 ? (
-        <div className="flex flex-wrap pt-4 ">
-          {coursesStatus0OrNotFound.map((course) => (
-            <CourseThumbnail key={course._id} course={course} progress={0} />
-          ))}
         </div>
-      ) : (
-        <Empty text="No courses available to start." />
       )}
 
-      <Heading text="Courses Completed" />
-
-      {coursesStatus100.length > 0 ? (
-        <div className="flex flex-wrap pt-4 ">
-          {coursesStatus100.map((course) => (
-            <CourseThumbnail key={course._id} course={course} progress={100} />
-          ))}
+      <div className="w-full border my-4 rounded-sm bg-slate-100 drop-shadow-xl md:pt-2">
+        <CardHeading
+          title="Ongoing Courses"
+          icon={<MdOutlineOndemandVideo />}
+        />
+        <div className="flex flex-wrap">
+          {coursesStatusMoreThan0LessThan100.length > 0 ? (
+            <div className="flex flex-wrap w-full">
+              {coursesStatusMoreThan0LessThan100.map((course) => (
+                <CourseThumbnail
+                  key={course._id}
+                  course={course}
+                  progress={
+                    course.userStatus.find(
+                      (user) => user.user === employe_info.empId
+                    )?.status || 0
+                  }
+                />
+              ))}
+            </div>
+          ) : (
+            <Empty text="No ongoing courses at the moment." />
+          )}
         </div>
-      ) : (
-        <Empty text="No courses completed yet." />
-      )}
+      </div>
 
-      <Heading text="More Courses" />
+      <div className="w-full border my-4  rounded-sm bg-slate-100 drop-shadow-xl md:pt-2">
+        <CardHeading
+          title="Courses Not Started"
+          icon={<MdOutlineOndemandVideo />}
+        />
+        <div className="flex flex-wrap">
+          {coursesStatus0OrNotFound.length > 0 ? (
+            <div className="flex flex-wrap w-full">
+              {coursesStatus0OrNotFound.map((course) => (
+                <CourseThumbnail
+                  key={course._id}
+                  course={course}
+                  progress={
+                    course.userStatus.find(
+                      (user) => user.user === employe_info.empId
+                    )?.status || 0
+                  }
+                />
+              ))}
+            </div>
+          ) : (
+            <Empty text="No ongoing courses at the moment." />
+          )}
+        </div>
+      </div>
 
-      <div className="flex flex-wrap pt-4 pb-20">
-        {moreCourse.length === 0 ? (
-          <Empty text="No More Course To Enroll" />
-        ) : (
-          moreCourse?.map((course) => (
-            <CourseThumbnail
-              key={course._id}
-              course={course}
-              notEnorll={true}
-            />
-          ))
-        )}
+      <div className="w-full border my-4  rounded-sm bg-slate-100 drop-shadow-xl md:pt-2">
+        <CardHeading
+          title="Courses Completed"
+          icon={<MdOutlineOndemandVideo />}
+        />
+        <div className="flex flex-wrap">
+          {coursesStatus100.length > 0 ? (
+            <div className="flex flex-wrap w-full">
+              {coursesStatus100.map((course) => (
+                <CourseThumbnail
+                  key={course._id}
+                  course={course}
+                  progress={
+                    course.userStatus.find(
+                      (user) => user.user === employe_info.empId
+                    )?.status || 0
+                  }
+                />
+              ))}
+            </div>
+          ) : (
+            <Empty text="No ongoing courses at the moment." />
+          )}
+        </div>
+      </div>
+
+      <div className="w-full border my-4 rounded-sm bg-slate-100 drop-shadow-xl md:pt-2">
+        <CardHeading title="More Courses" icon={<MdOutlineOndemandVideo />} />
+        <div className="flex flex-wrap">
+          {moreCourse.length > 0 ? (
+            <div className="flex flex-wrap w-full">
+              {moreCourse.map((course) => (
+                <CourseThumbnail
+                  key={course._id}
+                  course={course}
+                  progress={
+                    course.userStatus.find(
+                      (user) => user.user === employe_info.empId
+                    )?.status || 0
+                  }
+                />
+              ))}
+            </div>
+          ) : (
+            <Empty text="No ongoing courses at the moment." />
+          )}
+        </div>
       </div>
     </div>
   );
