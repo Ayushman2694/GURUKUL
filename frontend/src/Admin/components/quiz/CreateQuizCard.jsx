@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { FaSave } from "react-icons/fa";
 import MultipleCorrectOption from "./MultipleCorrectOption";
 import SingleCorrectOption from "./SingleCorrectOption";
+import toast from "react-hot-toast";
 
 export default function CreateQuizCard({ index, setQuestions }) {
   const [selectedType, setSelectedType] = useState("");
@@ -17,14 +18,27 @@ export default function CreateQuizCard({ index, setQuestions }) {
   } = useForm();
 
   function checkSubmit(data) {
-    console.log(data);
-    setQuestions((prev) => [...prev, data]);
 
-    setIsSubmitted(true);
+    if (!data.questionType) {
+      console.log("ye le inside if ", data);
+      toast.error("Error in adding quiz");
+      setIsSubmitted(false);
+    } else {
+      console.log("ye le outside if ", data);
+      toast.success("Question added ");
+      setQuestions((prev) => [...prev, data]);
+
+
+      setIsSubmitted(true);
+    }
   }
 
   function optionHandler(event) {
+    // const value = e.target.value === "" ? null : e.target.value;
+    // console.log(value); // Logs null initially, or the selected value
     const { value } = event.target;
+    value === "" ? null : event.target;
+    console.log(value); // Logs null initially, or the selected value
 
     setSelectedType(value);
   }
@@ -66,9 +80,16 @@ export default function CreateQuizCard({ index, setQuestions }) {
                 <button
                   type="submit"
                   className={`flex w-18 gap-1 text-white rounded-full px-3 py-1 
-                            ${isSubmitted ? "bg-gray-400" : "bg-green-600"}`}
-                  disabled={isSubmitted}
-                  style={{ cursor: isSubmitted ? "not-allowed" : "pointer" }}
+                            ${
+                              !selectedType || isSubmitted
+                                ? "bg-gray-400"
+                                : "bg-green-600"
+                            }`}
+                  disabled={!selectedType || isSubmitted}
+                  style={{
+                    cursor:
+                      !selectedType || isSubmitted ? "not-allowed" : "pointer",
+                  }}
                 >
                   <span className="mt-1">
                     <FaSave />
