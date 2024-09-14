@@ -102,7 +102,7 @@ export default function AddCourse({ setCourseData }) {
   const handleDone = () => {
     if (selectedDepartments.length === 0) return null;
     setSelectDepartment(false);
-    setSelectedDepartments([]);
+    // setSelectedDepartments([]);
   };
 
   const removeDepartment = (indexToRemove) => {
@@ -195,11 +195,18 @@ export default function AddCourse({ setCourseData }) {
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                   Department
                 </label>
-                {/* <Dropdown
-                  selectedOption={selectedDepartment}
-                  setSelectedOption={setSelectedDepartment}
-                  uploading={true}
-                /> */}
+                {selectedDepartments.map((department, index) => (
+                  <div
+                    key={index}
+                    className="py-1 flex font-medium text-lg items-center"
+                  >
+                    <span className="pr-2 font-bold">
+                      <IoIosArrowDropright />
+                    </span>
+
+                    {department}
+                  </div>
+                ))}
                 <div
                   onClick={() => setSelectDepartment(true)}
                   className="bg-blue-600 w-full text-center hover:bg-blue-700 text-white font-bold mt-2 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
