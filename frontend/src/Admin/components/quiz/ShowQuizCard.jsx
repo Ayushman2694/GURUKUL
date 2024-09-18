@@ -7,9 +7,12 @@ import SpinnerMini from "../../../Common/Ui/SpinnerMini";
 import ModuleName from "../../../Employee/Ui/ModuleName";
 import { useState } from "react";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import { useEmployeeInfo } from "../../../Employee/component/employee_info/useEmployeeInfo";
 
 export default function ShowQuizCard({
   id,
+  attempted,
+  passed,
   title,
   moduleId,
   viewQuizHandler,
@@ -18,8 +21,15 @@ export default function ShowQuizCard({
 }) {
   const { removeQuiz, isLoading } = useRemoveQuiz();
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [token] = useState(localStorage.getItem("token"));
+  const { employe_info } = useEmployeeInfo(token);
 
-  console.log("ye le", department);
+  console.log(employe_info);
+
+  console.log("ye le", title);
+
+  console.log("ye le", attempted);
+  console.log("ye le", passed);
 
   if (isLoading) return <SpinnerMini />;
   return (
@@ -43,32 +53,58 @@ export default function ShowQuizCard({
         )}
         {moduleId && <ModuleName moduleId={moduleId} />}
       </div>
-      <div className="flex gap-2 mt-4 item justify-end items-center">
-        <button
-          onClick={viewQuizHandler}
-          className="bg-green-600 flex w-18 gap-1 text-white font-semibold rounded-full px-3 py-1"
-        >
-          <span className="mt-1">
-            <GrView />
-          </span>
-          {isEmployee ? "Attempt" : "View"}
-        </button>
-
-        {!isEmployee && (
+      {!isEmployee ? (
+        <div className="flex gap-2 mt-4 item justify-end items-center">
           <button
-            onClick={() => {
-              setConfirmDelete(true);
-            }}
-            disabled={isLoading}
-            className="flex items-center gap-2 bg-red-600 text-white font-semibold px-4 py-1 rounded-full hover:bg-red-700"
+            onClick={viewQuizHandler}
+            className="bg-green-600 flex w-18 gap-1 text-white font-semibold rounded-full px-3 py-1"
           >
-            <span className="text-xl">
-              <RiDeleteBin6Line />
+            <span className="mt-1">
+              <GrView />
             </span>
-            Remove
+            View
           </button>
-        )}
-      </div>
+
+          {!isEmployee && (
+            <button
+              onClick={() => {
+                setConfirmDelete(true);
+              }}
+              disabled={isLoading}
+              className="flex items-center gap-2 bg-red-600 text-white font-semibold px-4 py-1 rounded-full hover:bg-red-700"
+            >
+              <span className="text-xl">
+                <RiDeleteBin6Line />
+              </span>
+              Remove
+            </button>
+          )}
+        </div>
+      ) : attempted.includes(employe_info.empId) ? (
+        // This is the fixed part of the ternary operator
+        passed.includes(employe_info.empId) ? (
+          <div className="bg-green-600 flex w-18 gap-1 text-white font-semibold rounded-full px-3 py-1">
+            passed
+          </div>
+        ) : (
+          <div className="flex items-center gap-2 bg-red-600 text-white font-semibold px-4 py-1 rounded-full">
+            failed
+          </div>
+        )
+      ) : (
+        <div className="flex gap-2 mt-4 item justify-end items-center">
+          <button
+            onClick={viewQuizHandler}
+            className="bg-green-600 flex w-18 gap-1 text-black font-semibold rounded-full px-3 py-1"
+          >
+            <span className="mt-1">
+              <GrView />
+            </span>
+            Attempt
+          </button>
+        </div>
+      )}
+
       {confirmDelete && (
         <ConfirmDelete
           what="Quiz"

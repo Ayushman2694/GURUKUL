@@ -21,6 +21,8 @@ export default function EmployeeQuiz() {
       quiz.department.includes(employe_info.department)
   );
 
+  console.log(withDepartment);
+
   return (
     <div className="min-h-screen w-full p-4">
       <div className="flex justify-between items-center">
@@ -29,19 +31,26 @@ export default function EmployeeQuiz() {
 
       <div className="grid grid-cols-3 gap-4 my-6">
         {withDepartment.length > 0 &&
-          withDepartment?.map((quiz) => (
-            <ShowQuizCard
-              key={quiz._id}
-              id={quiz._id}
-              title={quiz.title}
-              moduleId={quiz.module}
-              isEmployee={true}
-              department=""
-              viewQuizHandler={() => {
-                navigate(`/employee/quiz/${quiz._id}`);
-              }}
-            />
-          ))}
+          withDepartment?.map((quiz) => {
+            // console.log(quiz.attemptedBy);
+            // console.log(quiz.passedBy);
+            return (
+              <ShowQuizCard
+                key={quiz._id}
+                quiz={quiz}
+                attempted={quiz.attemptedBy}
+                passed={quiz.passedBy}
+                id={quiz._id}
+                title={quiz.title}
+                moduleId={quiz.module}
+                isEmployee={true}
+                department=""
+                viewQuizHandler={() => {
+                  navigate(`/employee/quiz/${quiz._id}`);
+                }}
+              />
+            );
+          })}
       </div>
     </div>
   );
