@@ -16,7 +16,7 @@ import CardHeading from "../Ui/CardHeading";
 export default function EmployeeInfo() {
   const [token] = useState(localStorage.getItem("token"));
   const { isLoading, employe_info } = useEmployeeInfo(token);
-  console.log(employe_info.theme);
+  // console.log(employe_info.theme);
   const { courses } = useCourseByEmpId(employe_info?.empId);
   const [isRendered, setIsRendered] = useState(false);
 

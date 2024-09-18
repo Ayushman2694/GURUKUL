@@ -18,7 +18,6 @@ export default function CreateQuizCard({ index, setQuestions }) {
   } = useForm();
 
   function checkSubmit(data) {
-
     if (!data.questionType) {
       console.log("ye le inside if ", data);
       toast.error("Error in adding quiz");
@@ -27,7 +26,6 @@ export default function CreateQuizCard({ index, setQuestions }) {
       console.log("ye le outside if ", data);
       toast.success("Question added ");
       setQuestions((prev) => [...prev, data]);
-
 
       setIsSubmitted(true);
     }
@@ -79,22 +77,19 @@ export default function CreateQuizCard({ index, setQuestions }) {
               <div>
                 <button
                   type="submit"
-                  className={`flex w-18 gap-1 text-white rounded-full px-3 py-1 
-                            ${
-                              !selectedType || isSubmitted
-                                ? "bg-gray-400"
-                                : "bg-green-600"
-                            }`}
+                  className={`flex items-center justify-center gap-1 text-white rounded-full px-3 py-1 
+            ${!selectedType || isSubmitted ? "bg-gray-400" : "bg-green-600"}`}
                   disabled={!selectedType || isSubmitted}
                   style={{
                     cursor:
                       !selectedType || isSubmitted ? "not-allowed" : "pointer",
                   }}
                 >
-                  <span className="mt-1">
-                    <FaSave />
+                  <span className="flex items-center">
+                    <FaSave className="text-lg" />{" "}
+                    {/* Optional: Adjust icon size if needed */}
                   </span>
-                  Save
+                  <span>Save</span>
                 </button>
               </div>
             </div>

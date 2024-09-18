@@ -24,18 +24,19 @@ export default function ShowQuizCard({
   const [token] = useState(localStorage.getItem("token"));
   const { employe_info } = useEmployeeInfo(token);
 
-  console.log(employe_info);
+  // console.log(employe_info);
 
-  console.log("ye le", title);
+  // console.log("ye le", title);
 
-  console.log("ye le", attempted);
-  console.log("ye le", passed);
+  // console.log("ye le", attempted);
+  // console.log("ye le", passed);
 
   if (isLoading) return <SpinnerMini />;
   return (
     <div
-      className="bg-gray-100 shadow-md rounded-lg p-4"
-      // onClick={viewQuizHandler}
+      className={`shadow-md rounded-lg p-4 ${
+        isEmployee ? "bg-secondary2" : "bg-gray-100"
+      }`}
     >
       <h2 className=" text-xl font-bold">
         <ShowMoreShowLess descriptionDetail={title} charNo="30" />
@@ -53,57 +54,31 @@ export default function ShowQuizCard({
         )}
         {moduleId && <ModuleName moduleId={moduleId} />}
       </div>
-      {!isEmployee ? (
-        <div className="flex gap-2 mt-4 item justify-end items-center">
-          <button
-            onClick={viewQuizHandler}
-            className="bg-green-600 flex w-18 gap-1 text-white font-semibold rounded-full px-3 py-1"
-          >
-            <span className="mt-1">
-              <GrView />
-            </span>
-            View
-          </button>
 
-          {!isEmployee && (
-            <button
-              onClick={() => {
-                setConfirmDelete(true);
-              }}
-              disabled={isLoading}
-              className="flex items-center gap-2 bg-red-600 text-white font-semibold px-4 py-1 rounded-full hover:bg-red-700"
-            >
-              <span className="text-xl">
-                <RiDeleteBin6Line />
-              </span>
-              Remove
-            </button>
-          )}
-        </div>
-      ) : attempted.includes(employe_info.empId) ? (
-        // This is the fixed part of the ternary operator
-        passed.includes(employe_info.empId) ? (
-          <div className="bg-green-600 flex w-18 gap-1 text-white font-semibold rounded-full px-3 py-1">
-            passed
-          </div>
-        ) : (
-          <div className="flex items-center gap-2 bg-red-600 text-white font-semibold px-4 py-1 rounded-full">
-            failed
-          </div>
-        )
-      ) : (
-        <div className="flex gap-2 mt-4 item justify-end items-center">
-          <button
-            onClick={viewQuizHandler}
-            className="bg-green-600 flex w-18 gap-1 text-black font-semibold rounded-full px-3 py-1"
-          >
-            <span className="mt-1">
-              <GrView />
-            </span>
-            Attempt
-          </button>
-        </div>
-      )}
+      <div className="flex gap-2 mt-4 item justify-end items-center">
+        <button
+          onClick={viewQuizHandler}
+          className="bg-green-600 flex w-18 gap-1 text-white font-semibold rounded-full px-3 py-1"
+        >
+          <span className="mt-1">
+            <GrView />
+          </span>
+          View
+        </button>
+
+        <button
+          onClick={() => {
+            setConfirmDelete(true);
+          }}
+          disabled={isLoading}
+          className="flex items-center gap-2 bg-red-600 text-white font-semibold px-4 py-1 rounded-full hover:bg-red-700"
+        >
+          <span className="text-xl">
+            <RiDeleteBin6Line />
+          </span>
+          Remove
+        </button>
+      </div>
 
       {confirmDelete && (
         <ConfirmDelete

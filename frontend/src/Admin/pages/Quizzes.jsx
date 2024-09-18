@@ -58,7 +58,7 @@ export default function Quizzes() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-white p-4">
+    <div className="min-h-screen w-full bg-white p-4 mb-12">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">All Quizzes</h1>
         <AddButton

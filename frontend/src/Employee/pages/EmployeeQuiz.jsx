@@ -4,6 +4,7 @@ import { useAllQuizs } from "../../Admin/components/quiz/useAllQuiz";
 import Spinner from "../../Common/Ui/Spinner";
 import { useState } from "react";
 import { useEmployeeInfo } from "../component/employee_info/useEmployeeInfo";
+import QuizCard from "../component/quiz/QuizCard";
 
 export default function EmployeeQuiz() {
   const navigate = useNavigate();
@@ -21,12 +22,12 @@ export default function EmployeeQuiz() {
       quiz.department.includes(employe_info.department)
   );
 
-  console.log(withDepartment);
+  // console.log("ye le", withDepartment);
 
   return (
     <div className="min-h-screen w-full p-4">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Quizzes</h1>
+        <h1 className="text-3xl font-bold text-testColor1">Quizzes</h1>
       </div>
 
       <div className="grid grid-cols-3 gap-4 my-6">
@@ -35,19 +36,13 @@ export default function EmployeeQuiz() {
             // console.log(quiz.attemptedBy);
             // console.log(quiz.passedBy);
             return (
-              <ShowQuizCard
+              <QuizCard
                 key={quiz._id}
+                id={quiz._id}
                 quiz={quiz}
+                title={quiz.title}
                 attempted={quiz.attemptedBy}
                 passed={quiz.passedBy}
-                id={quiz._id}
-                title={quiz.title}
-                moduleId={quiz.module}
-                isEmployee={true}
-                department=""
-                viewQuizHandler={() => {
-                  navigate(`/employee/quiz/${quiz._id}`);
-                }}
               />
             );
           })}
