@@ -1,4 +1,4 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 
 const employeeSchema = new mongoose.Schema(
   {
@@ -37,6 +37,13 @@ const employeeSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Course",
     },
+    quizess: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Quiz",
+        default:[]
+      },
+    ],
   },
   { timestamps: true }
 );
