@@ -1,3 +1,4 @@
+import Quiz from "../models/quiz.model.js";
 import Employee from "../models/user.model.js";
 
 export const showAllEmployee = async (req, res) => {
@@ -65,3 +66,28 @@ export const updateEmployee = async (req, res) => {
       .json({ error: "error in updateEmployee Controller" });
   }
 };
+
+export const assignQuiz = async(req,res)=>{
+  try {
+    const {empId,quizId} = req.body;
+    const emp = await Employee.findOne({empId})
+    if(!emp ){
+      return res.status(400).json({error:"employee dont exist"})
+    }
+    const quiz = await Quiz.findById(quizId)
+    if(!quiz){
+      return res.status(400).json({error:"Quiz doesn't exist"})
+    }
+
+    emp.quizess.push(quizId)
+    await emp.save();
+
+    return res.status(200).json({ message: "Quiz assigned successfully", emp });
+  } catch (error) {
+    console.log(error.message);
+    return res
+      .status(500)
+      .json({ error: "error in assignQuiz Controller" });
+  }
+  }
+
