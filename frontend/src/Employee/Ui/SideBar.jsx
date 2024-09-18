@@ -35,7 +35,7 @@ export default function SideBar() {
 
   return (
     <div
-      className="bg-primary h-full w-full border-t-2 pt-1 flex justify-center"
+      className="bg-primary h-full w-full border-t-2 border-testColor1 pt-1 flex justify-center"
       style={{
         opacity: isRendered ? 1 : 0,
         transform: isRendered

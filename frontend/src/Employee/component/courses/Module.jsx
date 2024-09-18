@@ -55,14 +55,21 @@ const Module = ({
   let attempted;
   let passed;
 
+  console.log("ye le quiz", quiz);
+
   quiz.some((item) => {
     attempted = item.attemptedBy.includes(empId);
     passed = item.passedBy.includes(empId);
   });
 
+  console.log("ye le", empId);
+
   return (
-    <div className="w-full">
-      <button onClick={() => toggleDropdown()} className="w-full  border-b-2">
+    <div className="w-full bg-secondary2">
+      <button
+        onClick={() => toggleDropdown()}
+        className="w-full  border-b-2 border-testColor1"
+      >
         <div className=" flex justify-center items-center py-3">
           <span className="text-lg font-bold">{moduleName} </span>
           <span className="text-3xl font-extrabold">
@@ -85,7 +92,7 @@ const Module = ({
           ))}
           {quiz.length !== 0 && (
             <div
-              className={`w-full p-2 flex items-center border-b-2 cursor-pointer ${
+              className={`w-full p-2 flex items-center bg-secondary3 text-black border-b-2 cursor-pointer ${
                 attempted && (passed ? "bg-green-300" : "bg-red-300")
               }`}
               onClick={() => {
@@ -114,8 +121,10 @@ const Module = ({
                       });
                     }}
                     className={`font-bold ${
-                      result ? "bg-gray-500" : "bg-green-500"
-                    } text-slate-800 rounded border px-2 py-1`}
+                      result
+                        ? "bg-gray-500 text-slate-800"
+                        : "bg-green-500 text-slate-200"
+                    }  rounded border px-2 py-1`}
                   >
                     Retry
                   </button>

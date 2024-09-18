@@ -11,6 +11,7 @@ export const showAllEmployee = async (req, res) => {
       designation: emp.designation,
       joiningDate: emp.joiningDate,
       password: emp.password,
+      courses: emp.courses,
     }));
     return res.status(200).json(employeeDetails);
   } catch (error) {
