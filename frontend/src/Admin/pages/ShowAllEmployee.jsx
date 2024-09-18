@@ -16,6 +16,7 @@ import { useAssignCourse } from "../components/employee/useAssignCourse";
 import { useAllCourse } from "../components/courses/useAllCourse";
 import FloatContainer from "../../Common/Ui/FloatContainer";
 import { useAllQuizs } from "../components/quiz/useAllQuiz";
+import { useAssignQuiz } from "../components/employee/useAssignQuiz";
 
 export default function ShowAllEmployee({ title }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -25,6 +26,7 @@ export default function ShowAllEmployee({ title }) {
   const { removeEmployee, isLoading: deletingEmployee } = useDeleteEmployee();
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const { assignCourse } = useAssignCourse();
+  const { assignQuiz } = useAssignQuiz();
   const { isLoading, allCourse } = useAllCourse();
   const { allQuizs } = useAllQuizs();
   const [selectCourse, setSelectCourse] = useState();
@@ -48,7 +50,7 @@ export default function ShowAllEmployee({ title }) {
   if (loadingAllEmployee || isLoading) return <Spinner />;
 
   // console.log(allEmployee);
-  // console.log(allQuizs[0].title);
+  console.log(allQuizs);
 
   return (
     <>
@@ -153,6 +155,7 @@ export default function ShowAllEmployee({ title }) {
                       </span>
                       <span className="font-semibold text-md">Edit</span>
                     </button>
+
                     <button
                       onClick={() => {
                         setSelectCourse(true);
@@ -212,8 +215,8 @@ export default function ShowAllEmployee({ title }) {
               }}
             >
               <div className="bg-slate-100 w-4/12 p-4 rounded">
-                <div className="pb-4 font-bold text-2xl text-center">
-                  Select Course
+                <div className="pb-4 font-bold text-xl text-center">
+                  Select Course for {selectedEmployee}
                 </div>
 
                 <>
@@ -257,8 +260,8 @@ export default function ShowAllEmployee({ title }) {
               }}
             >
               <div className="bg-slate-100 w-4/12 p-4 rounded">
-                <div className="pb-4 font-bold text-2xl text-center">
-                  Select Quiz
+                <div className="pb-4 font-bold text-xl text-center">
+                  Select Quiz For {selectedEmployee}
                 </div>
 
                 <>
@@ -269,9 +272,9 @@ export default function ShowAllEmployee({ title }) {
                         className="py-1 hover:bg-blue-200 cursor-pointer rounded border px-2 flex font-medium text-lg items-center"
                         onClick={() => {
                           setSelectCourse(false);
-                          assignCourse({
+                          assignQuiz({
                             empId: selectedEmployee,
-                            courseId: course._id,
+                            quizId: quiz._id,
                           });
                         }}
                       >
