@@ -164,36 +164,36 @@ export default function ViewQuiz() {
             }}
           >
             {selectModule === "module" ? (
-              <div className="bg-slate-300 rounded">
-                <div className="flex gap-2 p-2">
-                  <div className="w-full rounded ">
+              <div className="bg-slate-300 rounded p-4 w-1/3 shadow-xl">
+                <div className="flex gap-2 mb-4">
+                  <div className="w-full">
                     <input
                       type="text"
                       placeholder="Enter Course Name"
-                      value={name} // Bind the value to the state
-                      onChange={handleChange} // Update the state on change
-                      className="shadow my-1 appearance-none border rounded w-full
-                 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-slate-500"
+                      value={name}
+                      onChange={handleChange}
+                      className="shadow-md my-1 appearance-none border rounded w-full py-2 px-3 bg-gray-200
+                               text-gray-700 leading-tight focus:outline-none focus:shadow-outline 
+                               border-slate-500"
                     />
                   </div>
                 </div>
+
                 {filteredEmployees?.map((course) => (
                   <div
                     key={course._id}
-                    className="flex justify-center items-center border border-b-0 border-white"
+                    className="border border-slate-500 bg-gray-200 rounded mb-3 shadow-lg"
                   >
-                    <div className="flex w-full justify-center items-center">
-                      <div className="w-full">
-                        <div className="text-lg font-bold text-center">
-                          {course.courseTitle}
-                        </div>
-                        <div>
-                          <SelectModule
-                            courseId={course._id}
-                            quizId={quizId}
-                            setSelectModule={setSelectModule}
-                          />
-                        </div>
+                    <div className="p-4">
+                      <div className="text-lg font-bold text-center text-gray-800">
+                        {course.courseTitle}
+                      </div>
+                      <div className="mt-2">
+                        <SelectModule
+                          courseId={course._id}
+                          quizId={quizId}
+                          setSelectModule={setSelectModule}
+                        />
                       </div>
                     </div>
                   </div>

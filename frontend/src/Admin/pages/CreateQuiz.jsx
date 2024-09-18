@@ -88,18 +88,21 @@ export default function CreateQuiz() {
               >
                 Quiz Title
               </label>
-              <button
-                type="submit"
-                className={`flex w-18 gap-1 text-white font-bold rounded-full px-3 py-1 mb-1 mr-1 
-                            ${isSubmitted ? "bg-gray-400" : "bg-green-600"}`}
-                disabled={isSubmitted}
-                style={{ cursor: isSubmitted ? "not-allowed" : "pointer" }}
-              >
-                <span className="mt-1">
-                  <IoCreateOutline />
-                </span>
-                Create Quiz
-              </button>
+              <div className="">
+                <button
+                  type="submit"
+                  className={`flex items-center justify-center gap-1 text-white font-bold rounded-full px-3 h-8 text-center mr-1 
+                    ${isSubmitted ? "bg-gray-400" : "bg-green-600"}`}
+                  disabled={isSubmitted}
+                  style={{ cursor: isSubmitted ? "not-allowed" : "pointer" }}
+                >
+                  <span>
+                    <IoCreateOutline className="text-lg" />{" "}
+                    {/* Optional: Adjust icon size if needed */}
+                  </span>
+                  <span>Create Quiz</span>
+                </button>
+              </div>
             </div>
             <input
               type="text"
