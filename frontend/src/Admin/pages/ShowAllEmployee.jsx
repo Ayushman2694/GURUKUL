@@ -9,11 +9,13 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ConfirmDelete from "../ui/ConfirmDelete";
 import { CiEdit } from "react-icons/ci";
+import { HiLightBulb } from "react-icons/hi";
 import Dropdown from "../ui/DropDown";
 import { FaBook } from "react-icons/fa";
 import { useAssignCourse } from "../components/employee/useAssignCourse";
 import { useAllCourse } from "../components/courses/useAllCourse";
 import FloatContainer from "../../Common/Ui/FloatContainer";
+import { useAllQuizs } from "../components/quiz/useAllQuiz";
 
 export default function ShowAllEmployee({ title }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -24,7 +26,9 @@ export default function ShowAllEmployee({ title }) {
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const { assignCourse } = useAssignCourse();
   const { isLoading, allCourse } = useAllCourse();
+  const { allQuizs } = useAllQuizs();
   const [selectCourse, setSelectCourse] = useState();
+  const [selectQuiz, setSelectQuiz] = useState();
   const [selectedEmployee, setSelectedEmployee] = useState();
 
   // Compute filtered employees based on input value
@@ -43,7 +47,8 @@ export default function ShowAllEmployee({ title }) {
 
   if (loadingAllEmployee || isLoading) return <Spinner />;
 
-  console.log(allEmployee);
+  // console.log(allEmployee);
+  // console.log(allQuizs[0].title);
 
   return (
     <>
@@ -160,6 +165,21 @@ export default function ShowAllEmployee({ title }) {
                       </span>
                       <span className="font-semibold text-md">Assign</span>
                     </button>
+
+                    {/* //Quiz */}
+                    <button
+                      onClick={() => {
+                        setSelectQuiz(true);
+                        setSelectedEmployee(employee.empId);
+                      }}
+                      className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-full mr-2 hover:bg-green-700 hover:scale-110"
+                    >
+                      <span className="text-xl">
+                        <HiLightBulb />
+                      </span>
+                      <span className="font-semibold text-md">Assign</span>
+                    </button>
+
                     <button
                       onClick={() => setConfirmDelete(true)}
                       disabled={deletingEmployee}
@@ -220,6 +240,51 @@ export default function ShowAllEmployee({ title }) {
                   <button
                     onClick={() => {
                       setSelectCourse(false);
+                    }} // Reset selection
+                    className="font-semibold w-full text-white py-1 px-3 bg-gray-600 rounded mx-2"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </FloatContainer>
+          )}
+
+          {selectQuiz && (
+            <FloatContainer
+              onClose={() => {
+                setSelectQuiz(false);
+              }}
+            >
+              <div className="bg-slate-100 w-4/12 p-4 rounded">
+                <div className="pb-4 font-bold text-2xl text-center">
+                  Select Quiz
+                </div>
+
+                <>
+                  <div className="">
+                    {allQuizs.map((quiz, index) => (
+                      <div
+                        key={index}
+                        className="py-1 hover:bg-blue-200 cursor-pointer rounded border px-2 flex font-medium text-lg items-center"
+                        onClick={() => {
+                          setSelectCourse(false);
+                          assignCourse({
+                            empId: selectedEmployee,
+                            courseId: course._id,
+                          });
+                        }}
+                      >
+                        {quiz.title}
+                      </div>
+                    ))}
+                  </div>
+                </>
+
+                <div className="flex justify-center pt-4">
+                  <button
+                    onClick={() => {
+                      setSelectQuiz(false);
                     }} // Reset selection
                     className="font-semibold w-full text-white py-1 px-3 bg-gray-600 rounded mx-2"
                   >
