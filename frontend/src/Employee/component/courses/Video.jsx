@@ -22,7 +22,7 @@ export default function Video({
     <div
       className={`w-full p-2 flex items-center ${
         videoLink === video.sequenceNo ? "bg-blue-300" : ""
-      } border-b-2 cursor-pointer`}
+      } border-b-2 border-testColor1 text-black bg-secondary3 cursor-pointer`}
       onClick={() => {
         // setVideoDiscription(video.videoDescription);
         setVideoLink(video.sequenceNo);

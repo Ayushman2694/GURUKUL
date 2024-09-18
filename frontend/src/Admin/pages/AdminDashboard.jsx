@@ -180,7 +180,12 @@ export default function AdminDashboard() {
             <MyBarChart data={data} />
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4  mb-20">
+        <AdminDashboardPercent
+          percent={allEmployee.length}
+          showProgressBar={false}
+          description="Total No Of Employees"
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6  mb-20">
           <AdminDashboardPercent
             percent={((usersWithStatus100 / employeeCount) * 100).toFixed(2)}
             description="completed the course"

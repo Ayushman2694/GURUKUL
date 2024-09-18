@@ -16,8 +16,8 @@ export default function SideBarItem({
       <div
         className={`flex justify-center items-center text-2xl font-bold  mx-2 my-1 rounded-md hover:scale-90 ${
           itemSelected
-            ? "bg-stone-800 text-blue-50"
-            : "bg-blue-700 text-slate-200 md:text-primary md:bg-testColor1"
+            ? "bg-secondary2 text-testColor1"
+            : "bg-primary text-testColor1 md:text-primary md:bg-testColor1"
         } `}
       >
         {title ? (
