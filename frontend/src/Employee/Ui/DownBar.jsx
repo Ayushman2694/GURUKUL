@@ -17,7 +17,7 @@ export default function DownBar() {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-blue-700  w-full flex border-t-2 pt-1 justify-center">
+    <div className="bg-primary  w-full flex pt-1 justify-center">
       <div className="w-full justify-between flex">
         <div
           onClick={() => {
@@ -26,7 +26,7 @@ export default function DownBar() {
           }}
         >
           <SideBarItem
-            icon={<FaHome />}
+            icon={<FaHome className="my-2" />}
             link="employee/dashboard"
             itemSelected={itemSelected === "dashboard"}
           />
@@ -38,7 +38,7 @@ export default function DownBar() {
           }}
         >
           <SideBarItem
-            icon={<CgProfile />}
+            icon={<CgProfile className="my-2" />}
             link="employee/profile"
             itemSelected={itemSelected === "profile"}
           />
@@ -50,7 +50,7 @@ export default function DownBar() {
           }}
         >
           <SideBarItem
-            icon={<FaBook />}
+            icon={<FaBook className="my-2" />}
             link="employee/courses"
             itemSelected={itemSelected === "courses"}
           />
@@ -62,7 +62,7 @@ export default function DownBar() {
           }}
         >
           <SideBarItem
-            icon={<IoMdSettings />}
+            icon={<IoMdSettings className="my-2" />}
             link="employee/settings"
             itemSelected={itemSelected === "settings"}
           />
@@ -74,7 +74,7 @@ export default function DownBar() {
             navigate("/login");
           }}
         >
-          <SideBarItem icon={<IoIosLogOut />} />
+          <SideBarItem icon={<IoIosLogOut className="my-2" />} />
         </div>
       </div>
     </div>

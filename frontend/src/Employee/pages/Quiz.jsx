@@ -108,9 +108,11 @@ export default function Quiz() {
   }
 
   return (
-    <div className="md:p-8 p-4 w-full bg-gray-100 h-fit">
+    <div className="md:p-8 p-4 w-full bg-secondary h-fit">
       <BackButton />
-      <h1 className="md:text-4xl text-2xl font-bold mb-4">{quiz?.title}</h1>
+      <h1 className="md:text-4xl text-2xl font-bold text-testColor1 mb-4">
+        {quiz?.title}
+      </h1>
       {quizSubmited ? (
         <div
           className={`flex justify-center w-full p-8 ${
@@ -197,7 +199,7 @@ export default function Quiz() {
             }}
             className="ml-2  mt-4 py-2 w-full bg-blue-500 font-bold text-white rounded"
           >
-            Continue Course
+            Continue
           </button>
         </div>
       ) : (

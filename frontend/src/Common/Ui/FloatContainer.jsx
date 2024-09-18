@@ -8,7 +8,7 @@ export default function FloatContainer({ children, onClose }) {
       >
         Close
       </button>
-      <div className="fixed inset-0 bg-gray-600 bg-opacity-60 flex justify-center items-center z-30">
+      <div className="fixed inset-0 bg-gray-600 bg-opacity-60 flex justify-center w-full items-center z-30">
         {children}
       </div>
     </>

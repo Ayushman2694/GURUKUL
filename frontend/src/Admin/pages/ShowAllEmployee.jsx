@@ -12,6 +12,8 @@ import { CiEdit } from "react-icons/ci";
 import Dropdown from "../ui/DropDown";
 import { FaBook } from "react-icons/fa";
 import { useAssignCourse } from "../components/employee/useAssignCourse";
+import { useAllCourse } from "../components/courses/useAllCourse";
+import FloatContainer from "../../Common/Ui/FloatContainer";
 
 export default function ShowAllEmployee({ title }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -21,6 +23,9 @@ export default function ShowAllEmployee({ title }) {
   const { removeEmployee, isLoading: deletingEmployee } = useDeleteEmployee();
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const { assignCourse } = useAssignCourse();
+  const { isLoading, allCourse } = useAllCourse();
+  const [selectCourse, setSelectCourse] = useState();
+  const [selectedEmployee, setSelectedEmployee] = useState();
 
   // Compute filtered employees based on input value
   const filteredEmployees = allEmployee?.filter(
@@ -36,7 +41,9 @@ export default function ShowAllEmployee({ title }) {
     setName(e.target.value);
   };
 
-  if (loadingAllEmployee) return <Spinner />;
+  if (loadingAllEmployee || isLoading) return <Spinner />;
+
+  console.log(allEmployee);
 
   return (
     <>
@@ -86,7 +93,7 @@ export default function ShowAllEmployee({ title }) {
                   Designation
                 </th>
                 <th className="px-5 py-3 w-1/6 border-b-2 border-gray-200 bg-gray-100 text-left text-xs text-gray-600 uppercase tracking-wider">
-                  Password
+                  Assigned
                 </th>
                 <th className="px-5 py-3 w-1/6 border-b-2 border-gray-200 bg-gray-100 text-left text-xs text-gray-600 uppercase tracking-wider">
                   Joining Date
@@ -121,7 +128,7 @@ export default function ShowAllEmployee({ title }) {
                   </td>
                   <td className="px-5 py-3 w-1/12 border-b border-gray-200 bg-white text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
-                      {employee?.password}
+                      {employee?.courses?.length}
                     </p>
                   </td>
                   <td className="px-5 py-3 w-1/12 border-b border-gray-200 bg-white text-sm">
@@ -142,12 +149,10 @@ export default function ShowAllEmployee({ title }) {
                       <span className="font-semibold text-md">Edit</span>
                     </button>
                     <button
-                      onClick={() =>
-                        assignCourse({
-                          empId: employee.empId,
-                          courseId: "",
-                        })
-                      }
+                      onClick={() => {
+                        setSelectCourse(true);
+                        setSelectedEmployee(employee.empId);
+                      }}
                       className="flex items-center gap-2 bg-yellow-600 text-white px-4 py-2 rounded-full mr-2 hover:bg-yellow-700 hover:scale-110"
                     >
                       <span className="text-xl">
@@ -180,6 +185,50 @@ export default function ShowAllEmployee({ title }) {
               ))}
             </tbody>
           </table>
+          {selectCourse && (
+            <FloatContainer
+              onClose={() => {
+                setSelectCourse(false);
+              }}
+            >
+              <div className="bg-slate-100 w-4/12 p-4 rounded">
+                <div className="pb-4 font-bold text-2xl text-center">
+                  Select Course
+                </div>
+
+                <>
+                  <div className="">
+                    {allCourse.map((course, index) => (
+                      <div
+                        key={index}
+                        className="py-1 hover:bg-blue-200 cursor-pointer rounded border px-2 flex font-medium text-lg items-center"
+                        onClick={() => {
+                          setSelectCourse(false);
+                          assignCourse({
+                            empId: selectedEmployee,
+                            courseId: course._id,
+                          });
+                        }}
+                      >
+                        {course.courseTitle}
+                      </div>
+                    ))}
+                  </div>
+                </>
+
+                <div className="flex justify-center pt-4">
+                  <button
+                    onClick={() => {
+                      setSelectCourse(false);
+                    }} // Reset selection
+                    className="font-semibold w-full text-white py-1 px-3 bg-gray-600 rounded mx-2"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </FloatContainer>
+          )}
         </div>
       </div>
     </>
