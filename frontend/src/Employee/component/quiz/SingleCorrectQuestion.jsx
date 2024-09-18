@@ -65,13 +65,13 @@ export default function SingleCorrectQuestion({ question, index, setAnswers }) {
       </style>
 
       <div
-        className="w-full mb-2 p-4 bg-white border border-gray-300 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
+        className="w-full mb-2 p-4 bg-secondary2 text-testColor1 text-opacity-80 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
         style={{
           animation: "slideIn 0.5s ease-out",
         }}
       >
         <label
-          className="block text-lg font-semibold text-gray-800 mb-4"
+          className="block text-lg font-semibold text-testColor1 mb-4"
           style={{
             animation: "textSlideIn 0.7s ease-out",
           }}

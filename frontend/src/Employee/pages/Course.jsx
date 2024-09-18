@@ -158,7 +158,7 @@ export default function Course() {
       </div>
 
       <div className="w-full md:w-3/12 h-full pl-2 pb-16">
-        <div className="bg-slate-100 h-full shadow-lg shadow-stone-400 overflow-y-auto">
+        <div className="bg-slate-100 h-full shadow-lg  border-t-2 text-white border-testColor1 text-opacity-80 overflow-y-auto">
           {sortedmodules.map((module) => (
             <Module
               key={module._id}
