@@ -37,6 +37,7 @@ export const multipleEmployeeUpload = async (req, res) => {
     }
 
     // Delete the file after processing
+    fs.unlinkSync(filePath);
 
     return res
       .status(200)
