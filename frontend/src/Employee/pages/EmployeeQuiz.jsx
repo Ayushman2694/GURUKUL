@@ -22,7 +22,8 @@ export default function EmployeeQuiz() {
       quiz.department.includes(employe_info.department)
   );
 
-  // console.log("ye le", withDepartment);
+  console.log("ye le", withDepartment);
+  console.log("ye le", allQuizs);
 
   return (
     <div className="min-h-screen w-full p-4">
