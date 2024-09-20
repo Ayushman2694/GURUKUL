@@ -2,6 +2,7 @@
 import { RxCross2 } from "react-icons/rx";
 
 export default function ConfirmDelete({ handelClick, close, what, who }) {
+  console.log("ye le", who);
   return (
     <div className="absolute w-full h-full top-0 left-0 right-0">
       <div className="w-full h-[100vh] bg-slate-950 opacity-75 blur-sm" />

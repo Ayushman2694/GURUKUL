@@ -32,6 +32,7 @@ export default function ShowAllEmployee({ title }) {
   const [selectCourse, setSelectCourse] = useState();
   const [selectQuiz, setSelectQuiz] = useState();
   const [selectedEmployee, setSelectedEmployee] = useState();
+  const [employeeToDelete, setEmployeeToDelete] = useState(null);
 
   // Compute filtered employees based on input value
   const filteredEmployees = allEmployee?.filter(
@@ -184,7 +185,10 @@ export default function ShowAllEmployee({ title }) {
                     </button>
 
                     <button
-                      onClick={() => setConfirmDelete(true)}
+                      onClick={() => {
+                        setEmployeeToDelete(employee); // Set the correct employee for deletion
+                        setConfirmDelete(true);
+                      }}
                       disabled={deletingEmployee}
                       className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 hover:scale-110"
                     >
@@ -193,14 +197,16 @@ export default function ShowAllEmployee({ title }) {
                       </span>
                       <span className="font-semibold text-md">Remove</span>
                     </button>
-                    {confirmDelete && (
+
+                    {confirmDelete && employeeToDelete && (
                       <ConfirmDelete
                         what="Employee"
-                        who={employee.employeeName}
+                        who={employeeToDelete.employeeName} // Show the selected employee's name
                         handelClick={() => {
-                          removeEmployee({ empId: employee.empId });
+                          removeEmployee({ empId: employeeToDelete.empId }); // Delete the correct employee
+                          setConfirmDelete(false); // Close the confirmation modal after deleting
                         }}
-                        close={setConfirmDelete}
+                        close={() => setConfirmDelete(false)} // Close modal without deleting
                       />
                     )}
                   </td>
