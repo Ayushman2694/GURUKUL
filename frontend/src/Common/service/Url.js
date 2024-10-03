@@ -1,3 +1,3 @@
-const url = "http://localhost:6300";
-// const url = "https://gurukul-backend.onrender.com";
+// const url = "http://localhost:6300";
+const url =import.meta.env.BACKEND_URL ;
 export { url };
