@@ -16,17 +16,26 @@ import {
   assignCourse,
   excludingDepartment,
 } from "../controllers/enrollCourse.controller.js";
-import { uploadImage } from "../middleware/uploadFileMiddleware.js";
+import multer from "multer";
+
 
 const courseRouter = express.Router();
+const storage = multer.diskStorage({
+  destination: "uploads", 
+  filename: (req, file, cb) => {
+      cb(null, `${Date.now()}-${file.originalname}`);
+  }
+});
 
-courseRouter.post("/addCourse", uploadImage.single("thumbnail"), addCourse);
+const upload = multer({ storage: storage });
+
+courseRouter.post("/addCourse", upload.single("thumbnail"), addCourse);
 courseRouter.get("/allCourse", getallCourse);
 courseRouter.delete("/deleteCourse/:courseId",deleteCourseAndReferences);
 courseRouter.post("/addModule", addModule);
 courseRouter.post(
   "/updateCourse",
-  uploadImage.single("thumbnail"),
+  upload.single("thumbnail"),
   updateCourse
 );
 courseRouter.get("/allModules/:courseId", modulesByCourseId);

@@ -4,10 +4,19 @@ import {
   allVideo,
   getVideosByCourseId,
 } from "../controllers/course.controller.js";
-import { uploadVideo } from "../middleware/uploadFileMiddleware.js";
+import multer from "multer";
 
 const videoRouter = express.Router();
-videoRouter.post("/addVideo", uploadVideo.single("videoLink"), addVideo);
+const storage = multer.diskStorage({
+  destination:"videos",
+  filename:(req,file,cb)=>{
+      cb(null, `${Date.now()}-${file.originalname}`)
+  }
+  
+})
+const upload = multer({storage:storage})
+
+videoRouter.post("/addVideo", upload.single("videoLink"), addVideo);
 videoRouter.get("/allVideo", allVideo);
 videoRouter.get("/getVideosBycourseId/:_id", getVideosByCourseId);
 

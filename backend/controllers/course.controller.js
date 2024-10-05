@@ -18,7 +18,10 @@ export const addCourse = async (req, res) => {
     }
 
     // Generate the URL for the uploaded thumbnail
-    const thumbnail_url = req.file.path;
+    const thumbnail_url = `${req.protocol}://${req.get("host")}/thumbnail/${
+      req.file.filename
+    }`;
+
 
     console.log(req.body.courseDepartment);
 
@@ -32,7 +35,7 @@ export const addCourse = async (req, res) => {
     await course.save();
     res.json({ success: true, message: "Course added", course });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
@@ -116,7 +119,9 @@ export const addVideo = async (req, res) => {
         .json({ success: false, message: "No file uploaded" });
     }
 
-    const video_url = req.file.path;
+    const video_url = `${req.protocol}://${req.get("host")}/video/${
+      req.file.filename
+    }`;
 
     const video = new Video({
       videoTitle: req.body.videoTitle,
